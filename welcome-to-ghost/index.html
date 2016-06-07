@@ -13,7 +13,7 @@
 
     <link rel="stylesheet" type="text/css" href="../assets/css/screen.css">
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
-
+    <link rel="stylesheet" type="text/css" href="../assets/css/prism.css">
     <link rel="canonical" href="http://shavo007.github.io/welcome-to-ghost/">
     <meta name="referrer" content="origin">
     
@@ -97,11 +97,19 @@
         <header class="post-header">
             <h1 class="post-title">Welcome to Ghost</h1>
             <section class="post-meta">
-                <time class="post-date" datetime="2016-06-04">04 June 2016</time>  on <a href="../tag/getting-started/">Getting Started</a>
+                <time class="post-date" datetime="2016-06-04">04 June 2016</time>
+                 on <a href="../tag/getting-started/">Getting Started</a>
+                ,
+
+                <!--<li class="post-meta-item">-->
+                    <a href="index.html#disqus_thread"></a>
+                <!--</li>-->
+                <!--<a href="#disqus_thread"/>-->
             </section>
         </header>
 
         <section class="post-content">
+
             <p>You're live! Nice. We've put together a little post to introduce you to the Ghost editor and get you started. You can manage your content by signing in to the admin area at <code>&lt;your blog URL&gt;/ghost/</code>. When you arrive, you can select this post from a list on the left and see a preview of it on the right. Click the little pencil icon at the top of the preview to edit this post and read the next section!</p>
 
 <h2 id="gettingstarted">Getting Started</h2>
@@ -170,6 +178,31 @@
 <p>That should be enough to get you started. Have fun - and let us know what you think :)</p>
         </section>
 
+        <!-- disqus code snippet -->
+        <div id="disqus_thread"></div>
+        <script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+this.page.url = 'http://shavo007.github.io/welcome-to-ghost/'; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'ghost-1'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//shavo007.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        <script id="dsq-count-scr" src="http://shavo007.disqus.com/count.js" async></script>
+
         <footer class="post-footer">
 
 
@@ -207,6 +240,8 @@
     </article>
 </main>
 
+
+
 <aside class="read-next">
     <a class="read-next-story no-cover" href="../building-a-microservice-using-docker/">
         <section class="post">
@@ -229,6 +264,7 @@
     
     <script type="text/javascript" src="../assets/js/jquery.fitvids.js"></script>
     <script type="text/javascript" src="../assets/js/index.js"></script>
+    <script type="text/javascript" src="../assets/js/prism.js"></script>
 
 
 

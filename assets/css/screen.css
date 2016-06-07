@@ -105,8 +105,9 @@ td, th{ padding: 0; }
 /* Import the font file with the icons in it */
 @font-face {
     font-family: "casper-icons";
-    src:url("../fonts/casper-icons.eot%3Fv=1");
-    src:url("../fonts/casper-icons.eot%3Fv=1") format("embedded-opentype"),
+    src:url("../fonts/casper-icons.eot");
+    src:url("../fonts/casper-icons.eot") format("embedded-opentype"),
+    src:url("../fonts/casper-icons.eot") format("embedded-opentype"),
         url("../fonts/casper-icons.woff") format("woff"),
         url("../fonts/casper-icons.ttf") format("truetype"),
         url("../fonts/casper-icons.svg") format("svg");
