@@ -107,7 +107,6 @@ td, th{ padding: 0; }
     font-family: "casper-icons";
     src:url("../fonts/casper-icons.eot");
     src:url("../fonts/casper-icons.eot") format("embedded-opentype"),
-    src:url("../fonts/casper-icons.eot") format("embedded-opentype"),
         url("../fonts/casper-icons.woff") format("woff"),
         url("../fonts/casper-icons.ttf") format("truetype"),
         url("../fonts/casper-icons.svg") format("svg");
