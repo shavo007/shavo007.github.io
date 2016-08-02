@@ -86,7 +86,7 @@ services:
 
 <h3 id="pactbrokerrelationships">Pact broker relationships</h3>
 
-<p><img src="../../../../content/images/2016/07/Screen-Shot-2016-07-30-at-8-18-09-PM.png" alt="Pact broker"></p>
+<p><img src="http://shavo007.github.io/content/images/2016/07/Screen-Shot-2016-07-30-at-8-18-09-PM.png" alt="Pact broker"></p>
 
 <p>You can then verify the contracts against the running microservice by running  </p>
 
