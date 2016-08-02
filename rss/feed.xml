@@ -93,11 +93,11 @@ services:
 <pre><code class="language-bash">./gradlew pactVerify
 </code></pre>
 
-<p><img src="../../../../content/images/2016/07/Screen-Shot-2016-07-30-at-8-03-16-PM.png" alt="Microservice console"></p>
+<p><img src="http://shavo007.github.io/content/images/2016/07/Screen-Shot-2016-07-30-at-8-03-16-PM.png" alt="Microservice console"></p>
 
 <h3 id="consoleverification">Console verification</h3>
 
-<p><img src="../../../../content/images/2016/07/Screen-Shot-2016-07-30-at-8-20-00-PM.png" alt=""></p>
+<p><img src="http://shavo007.github.io/content/images/2016/07/Screen-Shot-2016-07-30-at-8-20-00-PM.png" alt=""></p>
 
 <p>Reports are outputted in json and markdown form. Which is very useful in your CI build pipeline.  </p>
 
@@ -113,7 +113,7 @@ services:
 <li><p><a href="http://docs.pact.io/">http://docs.pact.io/</a></p></li>
 <li><p>Recently discussed at microservice meetup : <a href="http://www.meetup.com/Melbourne-Microservices/events/231874304/">http://www.meetup.com/Melbourne-Microservices/events/231874304/</a></p></li>
 <li><p><a href="http://martinfowler.com/articles/microservice-testing/#testing-contract-introduction">http://martinfowler.com/articles/microservice-testing/#testing-contract-introduction</a></p></li>
-</ul>]]></content:encoded></item><item><title><![CDATA[Elasticsearch curator 4.0 and docker]]></title><description><![CDATA[elasticsearch curator 4.0 and docker]]></description><link>http://cambodia.jpg/2016/06/30/elasticsearch-curator-4-0-and-docker-2/</link><guid isPermaLink="false">ee2b6929-ab27-4c85-91d9-17548cbe95d0</guid><category><![CDATA[docker]]></category><category><![CDATA[elasticsearch]]></category><category><![CDATA[curator]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Thu, 30 Jun 2016 10:45:54 GMT</pubDate><content:encoded><![CDATA[<p><img src="../../../../content/images/2016/07/icon-elasticsearch-3.svg" alt="The Elasticsearch Logo"></p>
+</ul>]]></content:encoded></item><item><title><![CDATA[Elasticsearch curator 4.0 and docker]]></title><description><![CDATA[elasticsearch curator 4.0 and docker]]></description><link>http://cambodia.jpg/2016/06/30/elasticsearch-curator-4-0-and-docker-2/</link><guid isPermaLink="false">ee2b6929-ab27-4c85-91d9-17548cbe95d0</guid><category><![CDATA[docker]]></category><category><![CDATA[elasticsearch]]></category><category><![CDATA[curator]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Thu, 30 Jun 2016 10:45:54 GMT</pubDate><content:encoded><![CDATA[<p><img src="http://shavo007.github.io/content/images/2016/07/icon-elasticsearch-3.svg" alt="The Elasticsearch Logo"></p>
 
 <p>Recently, I have worked on elasticsearch. There is a very useful tool called curator. </p>
 
