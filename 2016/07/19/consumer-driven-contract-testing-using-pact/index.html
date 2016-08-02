@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
     <link rel="canonical" href="http://shavo007.github.io/2016/07/19/consumer-driven-contract-testing-using-pact/">
     <meta name="referrer" content="origin">
-    
+
     <meta property="og:site_name" content="Tech Blog">
     <meta property="og:type" content="article">
     <meta property="og:title" content="Consumer driven contract testing using PACT">
@@ -29,7 +29,7 @@
     <meta property="article:tag" content="pact">
     <meta property="article:tag" content="contract">
     <meta property="article:tag" content="testing">
-    
+
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Consumer driven contract testing using PACT">
     <meta name="twitter:description" content="pact framework to implement consumer driven contract testing against internal restful APIs">
@@ -38,7 +38,7 @@
     <meta name="twitter:data1" content="Shane Lee">
     <meta name="twitter:label2" content="Filed under">
     <meta name="twitter:data2" content="docker, docker-compose, pact, contract, testing">
-    
+
     <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -65,7 +65,7 @@
     </script>
 
     <meta name="generator" content="Ghost 0.8">
-    <link rel="alternate" type="application/rss+xml" title="Tech Blog" href="http://shavo007.github.io/rss/">
+    <link rel="alternate" type="application/rss+xml" title="Tech Blog" href="http://shavo007.github.io/">
     <meta name="google-site-verification" content="dzkjZUDovRImqR_2oGUlteWT1zcgw-r6cqBYef9qiWw">
 </head>
 <body class="post-template tag-docker tag-docker-compose tag-pact tag-contract tag-testing nav-closed">
@@ -78,19 +78,19 @@
     <ul>
             <li class="nav-home" role="presentation"><a href="http://shavo007.github.io/">Home</a></li>
     </ul>
-        <a class="subscribe-button icon-feed" href="http://shavo007.github.io/rss/">Subscribe</a>
+        <a class="subscribe-button icon-feed" href="http://shavo007.github.io/rss/feed.xml">Subscribe</a>
 </div>
 <span class="nav-cover"></span>
 
 
     <div class="site-wrapper">
 
-        
+
 
 
 <header class="main-header post-head no-cover">
     <nav class="main-nav  clearfix">
-        
+
             <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
     </nav>
 </header>
@@ -152,8 +152,8 @@ The Pact Broker provides a repository for consumer driven contracts created usin
 
 <p>See the file below:</p>
 
-<pre><code class="language-Docker">version: '2'  
-services:  
+<pre><code class="language-Docker">version: '2'
+services:
   postgres:
     image: shanelee007/docker-pact-postgres
     environment:
@@ -180,7 +180,7 @@ services:
 <pre><code class="language-bash">docker-compose --file docker-compose-pact.yml  up --build
 </code></pre>
 
-<p>One simple command and you have a pact broker up and running locally at <a href="http://shavo007.github.io/ui/relationships">http://shavo007.github.io/ui/relationships</a> 😎</p>
+<p>One simple command and you have a pact broker up and running locally at <a href="http://localhost/ui/relationships">http://localhost/ui/relationships</a> 😎</p>
 
 <h2 id="acloserlookatpact">A closer look at PACT</h2>
 
@@ -198,7 +198,7 @@ services:
 </ul>
 
 <p>You should then see the contracts published at <br>
-<a href="http://shavo007.github.io/ui/relationships">http://shavo007.github.io/ui/relationships</a></p>
+<a href="http://localhost/ui/relationships">http://localhost/ui/relationships</a></p>
 
 <h3 id="pactbrokerrelationships">Pact broker relationships</h3>
 
@@ -270,7 +270,7 @@ s.setAttribute('data-timestamp', +new Date());
                     <p>Read <a href="../../../../author/shane/">more posts</a> by this author.</p>
                 <div class="author-meta">
                     <span class="author-location icon-location">Melbourne</span>
-                    
+
                 </div>
             </section>
 
@@ -315,7 +315,7 @@ s.setAttribute('data-timestamp', +new Date());
     </div>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-    
+
     <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js"></script>
     <script type="text/javascript" src="../../../../assets/js/index.js"></script>
     <script type="text/javascript" src="../../../../assets/js/prism.js"></script>
