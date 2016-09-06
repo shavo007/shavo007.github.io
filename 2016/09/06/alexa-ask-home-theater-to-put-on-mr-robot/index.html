@@ -1,0 +1,350 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Alexa skill for plex media server</title>
+    <meta name="description" content="Integrate alexa skill with plex media server using serverless technology aws lambda (FAAS)">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
+    <link rel="canonical" href="http://shavo007.github.io/2016/09/06/alexa-ask-home-theater-to-put-on-mr-robot/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="Tech Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Alexa skill for plex media server">
+    <meta property="og:description" content="Integrate alexa skill with plex media server using serverless technology aws lambda (FAAS)">
+    <meta property="og:url" content="http://shavo007.github.io/2016/09/06/alexa-ask-home-theater-to-put-on-mr-robot/">
+    <meta property="article:published_time" content="2016-09-06T10:45:03.694Z">
+    <meta property="article:modified_time" content="2016-09-06T12:27:05.279Z">
+    <meta property="article:tag" content="alexa">
+    <meta property="article:tag" content="plex">
+    <meta property="article:tag" content="lambda">
+    <meta property="article:tag" content="aws">
+    <meta property="article:tag" content="node">
+    <meta property="article:tag" content="dynamodb">
+    <meta property="article:tag" content="amazon">
+    <meta property="article:tag" content="amazon echo">
+    <meta property="article:tag" content="serverless">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Alexa skill for plex media server">
+    <meta name="twitter:description" content="Integrate alexa skill with plex media server using serverless technology aws lambda (FAAS)">
+    <meta name="twitter:url" content="http://shavo007.github.io/2016/09/06/alexa-ask-home-theater-to-put-on-mr-robot/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shane Lee">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="alexa, plex, lambda, aws, node, dynamodb, amazon, amazon echo, serverless">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Tech Blog",
+        "logo": "http://shavo007.github.io/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shane Lee",
+        "image": "http://shavo007.github.io/content/images/2016/06/shaneProfile-1.jpg",
+        "url": "http://shavo007.github.io/author/shane/",
+        "sameAs": []
+    },
+    "headline": "Alexa skill for plex media server",
+    "url": "http://shavo007.github.io/2016/09/06/alexa-ask-home-theater-to-put-on-mr-robot/",
+    "datePublished": "2016-09-06T10:45:03.694Z",
+    "dateModified": "2016-09-06T12:27:05.279Z",
+    "keywords": "alexa, plex, lambda, aws, node, dynamodb, amazon, amazon echo, serverless",
+    "description": "Integrate alexa skill with plex media server using serverless technology aws lambda (FAAS)"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.8">
+    <link rel="alternate" type="application/rss+xml" title="Tech Blog" href="http://shavo007.github.io/rss/">
+    <meta name="google-site-verification" content="dzkjZUDovRImqR_2oGUlteWT1zcgw-r6cqBYef9qiWw">
+</head>
+<body class="post-template tag-alexa tag-plex tag-lambda tag-aws tag-node tag-dynamodb tag-amazon tag-amazon-echo tag-serverless nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="http://shavo007.github.io/">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="http://shavo007.github.io/rss/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post tag-alexa tag-plex tag-lambda tag-aws tag-node tag-dynamodb tag-amazon tag-amazon-echo tag-serverless featured">
+
+        <header class="post-header">
+            <h1 class="post-title">Alexa, ask home theater to put on Mr. Robot</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2016-09-06">06 September 2016</time>
+                 on <a href="../../../../tag/alexa/">alexa</a>, <a href="../../../../tag/plex/">plex</a>, <a href="../../../../tag/lambda/">lambda</a>, <a href="../../../../tag/aws/">aws</a>, <a href="../../../../tag/node/">node</a>, <a href="../../../../tag/dynamodb/">dynamodb</a>, <a href="../../../../tag/amazon/">amazon</a>, <a href="../../../../tag/amazon-echo/">amazon echo</a>, <a href="../../../../tag/serverless/">serverless</a>
+                ,
+
+                <!--<li class="post-meta-item">-->
+                    <a href="index.html#disqus_thread"></a>
+                <!--</li>-->
+                <!--<a href="#disqus_thread"/>-->
+            </section>
+        </header>
+
+        <section class="post-content">
+
+            <h1 id="plexforalexa">Plex for Alexa</h1>
+
+<p><img src="../../../../content/images/2016/09/maxresdefault.jpg" alt=""></p>
+
+<p>Recently, I have started playing around with Alexa skill services. I currently use plex for my media content and found a project on github that has built an alexa skill already. (<strong>thanks to @overloadut</strong>)</p>
+
+<p><a href="https://overloadut.github.io/alexa-plex/">https://overloadut.github.io/alexa-plex/</a></p>
+
+<p>As a pet project, I decided to get this up and running.</p>
+
+<p>Below I will go into detail on the steps involved. </p>
+
+<h1 id="process">Process</h1>
+
+<p><img src="../../../../content/images/2016/09/PlexToAlexa.png	" alt="Alexa flow"></p>
+
+<h3 id="prerequisites">Prerequisites</h3>
+
+<ul>
+<li>Plex media server running</li>
+<li>AWS account</li>
+<li>Plex Home theater (PHT) client </li>
+<li>Have basic knowledge of aws services, nodeJS and setting IAM roles.</li>
+<li><a href="https://support.plex.tv/hc/en-us/articles/200484543-Enabling-Remote-Access-for-a-Server">Enable remote access for Plex</a></li>
+</ul>
+
+<h3 id="locally">Locally</h3>
+
+<p>Install node, npm and git</p>
+
+<p>Clone the github repo <a href="https://github.com/OverloadUT/alexa-plex">https://github.com/OverloadUT/alexa-plex</a></p>
+
+<p>Run  </p>
+
+<pre><code class="language-bash">npm install  
+</code></pre>
+
+<p>to install dependencies
+Create a .env file in project root with similar properties as below:</p>
+
+<pre><code class="language-bash">APP_PRODUCT=Alexa Plex  
+APP_VERSION=2.0  
+APP_DEVICE=Amazon Echo  
+APP_DEVICE_NAME=Alexa  
+APP_IDENTIFIER=  
+ALEXA_APP_ID=  
+AWS_ACCESS_KEY_ID=&lt;your own key&gt;  
+AWS_SECRET_ACCESS_KEY=&lt;your own secret key&gt;  
+</code></pre>
+
+<p>There is a deploy script at the root of the project. Before you run this and update your lambda function, you need to first create it.</p>
+
+<h3 id="awslambda">AWS Lambda</h3>
+
+<p><img src="../../../../content/images/2016/09/AWS_Simple_Icons_Compute_AWSLambda-svg--1-.png	" alt=""></p>
+
+<p>Create IAM role that has access to lambda and to dynamodb. </p>
+
+<p>If you have aws cli setup try the sample script below. <br>
+<strong><em>NB: Make sure and change the role val.</em></strong></p>
+
+<pre><code class="language-bash">aws lambda create-function --function-name alexa-plex --region us-east-1 --runtime  nodejs4.3 --role arn:aws:iam::xxxxxx:role/lambda_basic_execution --handler  index.handler  
+</code></pre>
+
+<p>Verify you can view the lambda function in the aws console. </p>
+
+<p>Change to trigger to be "Alexa skills kit".</p>
+
+<h3 id="dynamodb">DynamoDB</h3>
+
+<p><img src="../../../../content/images/2016/09/AWS_Simple_Icons_Database_AmazonDynamoDB-svg.png	" alt=""></p>
+
+<p>Create a table named <em>AlexaPlexUsers</em> with a primary string key of <em>userid</em>.</p>
+
+<h3 id="createalexaskill">Create alexa skill</h3>
+
+<p><img src="../../../../content/images/2016/09/icon_ask_120x120-_CB295607968_--1-.png	" alt=""></p>
+
+<p>Navigate to <a href="https://developer.amazon.com/">Amazon Developer Portal</a> to begin the Alexa Skill process. </p>
+
+<p>Sign In &gt;&gt; Alexa &gt;&gt; Alexa Skills Kit &gt;&gt; Add new skill</p>
+
+<h4 id="skillinformation">Skill Information</h4>
+
+<p>Fill in the Alexa Skill store details. Define the invocation name as home theater.  </p>
+
+<h4 id="interactionmodel">Interaction Model</h4>
+
+<p>This will setup what commands "Plex" can process. The sample utterances enable Alexa to process a variety of phrases for the same interaction.</p>
+
+<p>Copy in the intent schema, sample utterances and custom slot. The files are located under directory ask_configuration. </p>
+
+<h4 id="configuration">Configuration</h4>
+
+<p>You'll want to fill in your Lambda <strong>ARN</strong> here. <br>
+Set Account Linking to No.</p>
+
+<h4 id="test">Test</h4>
+
+<p>Now the fun part... 😛</p>
+
+<p>Use the service simulator to test it out.</p>
+
+<p>You'll need to link Alexa to your Plex account. Open your web browser to <a href="http://plex.tv/link">http://plex.tv/link</a> and ask Alexa:</p>
+
+<blockquote>
+  <p>"Alexa, tell home theater to continue setup"</p>
+</blockquote>
+
+<p>Alexa will guide you through the steps to link your account. Simply keep saying that same command and it should move to the next step.</p>
+
+<p>Once all is good, try playing a tv show</p>
+
+<blockquote>
+  <p>"Alexa, tell home theater to play Mr. Robot"</p>
+</blockquote>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<ul>
+<li><p>If you receive no response from lambda function, make sure you increase the timeout greater than ten seconds.</p></li>
+<li><p>Any errors in the function, review the cloudwatch logs.</p></li>
+<li><p>I had an issue where the default player was Plex Web for Chrome and not my Rasplex.
+So I needed to change this entry in the dynamodb table. <br>
+You will see there is a player object. You need to change the machine identifier to the client that is running plex home theater. How you find that out, is by logging into plex.tv, launching the webapp and inspecting the network requests. <br>
+You can do this in Chrome by launching developer tools. You will see a XHR request similar to  <a href="https://plex.tv/devices.xml">https://plex.tv/devices.xml</a>. If you review the response you will find the client identifier value for the device you need. For me it was rasplex.</p></li>
+</ul>
+
+<h2 id="versions">Versions</h2>
+
+<ul>
+<li>PMS Version 1.0.3.2461  </li>
+<li>Rasplex Version 1.6.2.123-e23a7eef</li>
+</ul>
+
+<p><strong>TODO</strong>
+Add in video showing how it plays</p>
+        </section>
+
+        <!-- disqus code snippet -->
+        <div id="disqus_thread"></div>
+        <script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+this.page.url = 'http://shavo007.github.io/2016/09/06/alexa-ask-home-theater-to-put-on-mr-robot/'; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'ghost-8'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//shavo007.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        <script id="dsq-count-scr" src="http://shavo007.disqus.com/count.js" async></script>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../../../../author/shane/" style="background-image: url(../../../../content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../../../../author/shane/">Shane Lee</a></h4>
+
+                    <p>Read <a href="../../../../author/shane/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    <span class="author-location icon-location">Melbourne</span>
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Alexa%2C%20ask%20home%20theater%20to%20put%20on%20Mr.%20Robot&amp;url=http://shavo007.github.io/2016/09/06/alexa-ask-home-theater-to-put-on-mr-robot/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://shavo007.github.io/2016/09/06/alexa-ask-home-theater-to-put-on-mr-robot/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://shavo007.github.io/2016/09/06/alexa-ask-home-theater-to-put-on-mr-robot/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+
+    </article>
+</main>
+
+
+
+<aside class="read-next">
+    <a class="read-next-story prev no-cover" href="../../../07/19/consumer-driven-contract-testing-using-pact/">
+        <section class="post">
+            <h2>Consumer driven contract testing using PACT</h2>
+            <p>All about PACT.... PACT enables consumer driven contract testing, providing a mock service and DSL for the consumer project,…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="http://shavo007.github.io">Tech Blog</a> © 2016</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/prism.js"></script>
+
+
+
+</body>

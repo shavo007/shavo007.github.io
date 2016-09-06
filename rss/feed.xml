@@ -1,6 +1,142 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://shavo007.github.io/</link><generator>Ghost 0.8</generator><lastBuildDate>Tue, 02 Aug 2016 11:40:37 GMT</lastBuildDate><atom:link href="http://shavo007.github.io/rss/feed.xml" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Consumer driven contract testing using PACT]]></title><description><![CDATA[pact framework to implement consumer driven contract testing against internal restful APIs]]></description><link>http://shavo007.github.io/2016/07/19/consumer-driven-contract-testing-using-pact/</link><guid isPermaLink="false">1b17dbf5-5c11-4bfd-b1b7-18199f9e7fbd</guid><category><![CDATA[docker]]></category><category><![CDATA[docker-compose]]></category><category><![CDATA[pact]]></category><category><![CDATA[contract]]></category><category><![CDATA[testing]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 19 Jul 2016 11:26:24 GMT</pubDate><content:encoded><![CDATA[<h1 id="allaboutpact">All about PACT....</h1>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://shavo007.github.io/</link><generator>Ghost 0.8</generator><lastBuildDate>Tue, 06 Sep 2016 12:49:06 GMT</lastBuildDate><atom:link href="http://shavo007.github.io/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Alexa, ask home theater to put on Mr. Robot]]></title><description><![CDATA[Integrate alexa skill with plex media server using serverless technology aws lambda (FAAS)]]></description><link>http://shavo007.github.io/2016/09/06/alexa-ask-home-theater-to-put-on-mr-robot/</link><guid isPermaLink="false">49266c7f-733b-46eb-b62f-0b73847f2b46</guid><category><![CDATA[alexa]]></category><category><![CDATA[plex]]></category><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[node]]></category><category><![CDATA[dynamodb]]></category><category><![CDATA[amazon]]></category><category><![CDATA[amazon echo]]></category><category><![CDATA[serverless]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 06 Sep 2016 10:45:03 GMT</pubDate><content:encoded><![CDATA[<h1 id="plexforalexa">Plex for Alexa</h1>
 
-<p><img src="http://dius.com.au/wp-content/uploads/sites/2/2014/05/pact_two_parts.png" alt="The PACT Logo"></p>
+<p><img src="http://shavo007.github.io/content/images/2016/09/maxresdefault.jpg" alt=""></p>
+
+<p>Recently, I have started playing around with Alexa skill services. I currently use plex for my media content and found a project on github that has built an alexa skill already. (<strong>thanks to @overloadut</strong>)</p>
+
+<p><a href="https://overloadut.github.io/alexa-plex/">https://overloadut.github.io/alexa-plex/</a></p>
+
+<p>As a pet project, I decided to get this up and running.</p>
+
+<p>Below I will go into detail on the steps involved. </p>
+
+<h1 id="process">Process</h1>
+
+<p><img src="http://shavo007.github.io/content/images/2016/09/PlexToAlexa.png" alt="Alexa flow"></p>
+
+<h3 id="prerequisites">Prerequisites</h3>
+
+<ul>
+<li>Plex media server running</li>
+<li>AWS account</li>
+<li>Plex Home theater (PHT) client </li>
+<li>Have basic knowledge of aws services, nodeJS and setting IAM roles.</li>
+<li><a href="https://support.plex.tv/hc/en-us/articles/200484543-Enabling-Remote-Access-for-a-Server">Enable remote access for Plex</a></li>
+</ul>
+
+<h3 id="locally">Locally</h3>
+
+<p>Install node, npm and git</p>
+
+<p>Clone the github repo <a href="https://github.com/OverloadUT/alexa-plex">https://github.com/OverloadUT/alexa-plex</a></p>
+
+<p>Run  </p>
+
+<pre><code class="language-bash">npm install  
+</code></pre>
+
+<p>to install dependencies
+Create a .env file in project root with similar properties as below:</p>
+
+<pre><code class="language-bash">APP_PRODUCT=Alexa Plex  
+APP_VERSION=2.0  
+APP_DEVICE=Amazon Echo  
+APP_DEVICE_NAME=Alexa  
+APP_IDENTIFIER=  
+ALEXA_APP_ID=  
+AWS_ACCESS_KEY_ID=&lt;your own key&gt;  
+AWS_SECRET_ACCESS_KEY=&lt;your own secret key&gt;  
+</code></pre>
+
+<p>There is a deploy script at the root of the project. Before you run this and update your lambda function, you need to first create it.</p>
+
+<h3 id="awslambda">AWS Lambda</h3>
+
+<p><img src="http://shavo007.github.io/content/images/2016/09/AWS_Simple_Icons_Compute_AWSLambda-svg--1-.png" alt=""></p>
+
+<p>Create IAM role that has access to lambda and to dynamodb. </p>
+
+<p>If you have aws cli setup try the sample script below. <br>
+<strong><em>NB: Make sure and change the role val.</em></strong></p>
+
+<pre><code class="language-bash">aws lambda create-function --function-name alexa-plex --region us-east-1 --runtime  nodejs4.3 --role arn:aws:iam::xxxxxx:role/lambda_basic_execution --handler  index.handler  
+</code></pre>
+
+<p>Verify you can view the lambda function in the aws console. </p>
+
+<p>Change to trigger to be "Alexa skills kit".</p>
+
+<h3 id="dynamodb">DynamoDB</h3>
+
+<p><img src="http://shavo007.github.io/content/images/2016/09/AWS_Simple_Icons_Database_AmazonDynamoDB-svg.png" alt=""></p>
+
+<p>Create a table named <em>AlexaPlexUsers</em> with a primary string key of <em>userid</em>.</p>
+
+<h3 id="createalexaskill">Create alexa skill</h3>
+
+<p><img src="http://shavo007.github.io/content/images/2016/09/icon_ask_120x120-_CB295607968_--1-.png" alt=""></p>
+
+<p>Navigate to <a href="https://developer.amazon.com/">Amazon Developer Portal</a> to begin the Alexa Skill process. </p>
+
+<p>Sign In >> Alexa >> Alexa Skills Kit >> Add new skill</p>
+
+<h4 id="skillinformation">Skill Information</h4>
+
+<p>Fill in the Alexa Skill store details. Define the invocation name as home theater.  </p>
+
+<h4 id="interactionmodel">Interaction Model</h4>
+
+<p>This will setup what commands "Plex" can process. The sample utterances enable Alexa to process a variety of phrases for the same interaction.</p>
+
+<p>Copy in the intent schema, sample utterances and custom slot. The files are located under directory ask_configuration. </p>
+
+<h4 id="configuration">Configuration</h4>
+
+<p>You'll want to fill in your Lambda <strong>ARN</strong> here. <br>
+Set Account Linking to No.</p>
+
+<h4 id="test">Test</h4>
+
+<p>Now the fun part... 😛</p>
+
+<p>Use the service simulator to test it out.</p>
+
+<p>You'll need to link Alexa to your Plex account. Open your web browser to <a href="http://plex.tv/link">http://plex.tv/link</a> and ask Alexa:</p>
+
+<blockquote>
+  <p>"Alexa, tell home theater to continue setup"</p>
+</blockquote>
+
+<p>Alexa will guide you through the steps to link your account. Simply keep saying that same command and it should move to the next step.</p>
+
+<p>Once all is good, try playing a tv show</p>
+
+<blockquote>
+  <p>"Alexa, tell home theater to play Mr. Robot"</p>
+</blockquote>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<ul>
+<li><p>If you receive no response from lambda function, make sure you increase the timeout greater than ten seconds.</p></li>
+<li><p>Any errors in the function, review the cloudwatch logs.</p></li>
+<li><p>I had an issue where the default player was Plex Web for Chrome and not my Rasplex.
+So I needed to change this entry in the dynamodb table. <br>
+You will see there is a player object. You need to change the machine identifier to the client that is running plex home theater. How you find that out, is by logging into plex.tv, launching the webapp and inspecting the network requests. <br>
+You can do this in Chrome by launching developer tools. You will see a XHR request similar to  <a href="https://plex.tv/devices.xml">https://plex.tv/devices.xml</a>. If you review the response you will find the client identifier value for the device you need. For me it was rasplex.</p></li>
+</ul>
+
+<h2 id="versions">Versions</h2>
+
+<ul>
+<li>PMS Version 1.0.3.2461  </li>
+<li>Rasplex Version 1.6.2.123-e23a7eef</li>
+</ul>
+
+<p><strong>TODO</strong>
+Add in video showing how it plays</p>]]></content:encoded></item><item><title><![CDATA[Consumer driven contract testing using PACT]]></title><description><![CDATA[pact framework to implement consumer driven contract testing against internal restful APIs]]></description><link>http://shavo007.github.io/2016/07/19/consumer-driven-contract-testing-using-pact/</link><guid isPermaLink="false">1b17dbf5-5c11-4bfd-b1b7-18199f9e7fbd</guid><category><![CDATA[docker]]></category><category><![CDATA[docker-compose]]></category><category><![CDATA[pact]]></category><category><![CDATA[contract]]></category><category><![CDATA[testing]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 19 Jul 2016 11:26:24 GMT</pubDate><content:encoded><![CDATA[<h1 id="allaboutpact">All about PACT....</h1>
+
+<p><img src="https://tech.affinitas.de/wp-content/uploads/2015/04/pact_two_parts.png" alt="The PACT Logo"></p>
 
 <p>PACT enables consumer driven contract testing, providing a mock service and DSL for the consumer project, and interaction playback and verification for the service provider project.</p>
 
@@ -36,8 +172,8 @@ The Pact Broker provides a repository for consumer driven contracts created usin
 
 <p>See the file below:</p>
 
-<pre><code class="language-Docker">version: '2'
-services:
+<pre><code class="language-Docker">version: '2'  
+services:  
   postgres:
     image: shanelee007/docker-pact-postgres
     environment:
@@ -133,7 +269,7 @@ services:
 
 <h3 id="tryitout">Try it out</h3>
 
-<pre><code class="language-bash">docker run shanelee007/docker-es-curator-cron
+<pre><code class="language-bash">docker run shanelee007/docker-es-curator-cron  
 </code></pre>
 
 <p>You can mount your own configuration files if you want:  </p>
@@ -146,21 +282,21 @@ services:
 <pre><code class="language-Docker">FROM alpine:latest
 
 
-RUN apk --update add python py-pip &amp;&amp; \
+RUN apk --update add python py-pip &amp;&amp; \  
     pip install elasticsearch-curator &amp;&amp; \
      rm -rf /var/cache/apk/*
 
 ADD entrypoint.sh /entrypoint.sh
 
-WORKDIR /usr/share/curator
+WORKDIR /usr/share/curator  
 COPY config ./config
 
 RUN chmod +x /entrypoint.sh
 
 #run every minute
-ENV CRON */1  *  *  * *
-ENV ES_HOST 127.0.0.1
-ENV CONFIG_FILE /usr/share/curator/config/curator.yml
+ENV CRON */1  *  *  * *  
+ENV ES_HOST 127.0.0.1  
+ENV CONFIG_FILE /usr/share/curator/config/curator.yml  
 ENV COMMAND /usr/share/curator/config/delete_log_files_curator.yml
 
 ENTRYPOINT ["/entrypoint.sh"]

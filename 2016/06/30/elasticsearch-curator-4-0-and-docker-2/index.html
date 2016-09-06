@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
     <link rel="canonical" href="http://shavo007.github.io/2016/06/30/elasticsearch-curator-4-0-and-docker-2/">
     <meta name="referrer" content="origin">
-
+    
     <meta property="og:site_name" content="Tech Blog">
     <meta property="og:type" content="article">
     <meta property="og:title" content="curator 4 and  docker">
@@ -27,7 +27,7 @@
     <meta property="article:tag" content="docker">
     <meta property="article:tag" content="elasticsearch">
     <meta property="article:tag" content="curator">
-
+    
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="curator 4 and  docker">
     <meta name="twitter:description" content="elasticsearch curator 4.0 and docker">
@@ -36,7 +36,7 @@
     <meta name="twitter:data1" content="Shane Lee">
     <meta name="twitter:label2" content="Filed under">
     <meta name="twitter:data2" content="docker, elasticsearch, curator">
-
+    
     <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -63,7 +63,7 @@
     </script>
 
     <meta name="generator" content="Ghost 0.8">
-    <link rel="alternate" type="application/rss+xml" title="Tech Blog" href="http://shavo007.github.io/">
+    <link rel="alternate" type="application/rss+xml" title="Tech Blog" href="http://shavo007.github.io/rss/">
     <meta name="google-site-verification" content="dzkjZUDovRImqR_2oGUlteWT1zcgw-r6cqBYef9qiWw">
 </head>
 <body class="post-template tag-docker tag-elasticsearch tag-curator nav-closed">
@@ -83,12 +83,12 @@
 
     <div class="site-wrapper">
 
-
+        
 
 
 <header class="main-header post-head no-cover">
     <nav class="main-nav  clearfix">
-
+        
             <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
     </nav>
 </header>
@@ -112,7 +112,7 @@
 
         <section class="post-content">
 
-            <p><img src="../../../../content/images/2016/07/icon-elasticsearch-3.svg" alt="The Elasticsearch Logo"></p>
+            <p><img src="../../../../content/images/2016/07/icon-elasticsearch-3.svg	" alt="The Elasticsearch Logo"></p>
 
 <p>Recently, I have worked on elasticsearch. There is a very useful tool called curator. </p>
 
@@ -132,7 +132,7 @@
 
 <h3 id="tryitout">Try it out</h3>
 
-<pre><code class="language-bash">docker run shanelee007/docker-es-curator-cron
+<pre><code class="language-bash">docker run shanelee007/docker-es-curator-cron  
 </code></pre>
 
 <p>You can mount your own configuration files if you want:  </p>
@@ -145,21 +145,21 @@
 <pre><code class="language-Docker">FROM alpine:latest
 
 
-RUN apk --update add python py-pip &amp;&amp; \
+RUN apk --update add python py-pip &amp;&amp; \  
     pip install elasticsearch-curator &amp;&amp; \
      rm -rf /var/cache/apk/*
 
 ADD entrypoint.sh /entrypoint.sh
 
-WORKDIR /usr/share/curator
+WORKDIR /usr/share/curator  
 COPY config ./config
 
 RUN chmod +x /entrypoint.sh
 
 #run every minute
-ENV CRON */1  *  *  * *
-ENV ES_HOST 127.0.0.1
-ENV CONFIG_FILE /usr/share/curator/config/curator.yml
+ENV CRON */1  *  *  * *  
+ENV ES_HOST 127.0.0.1  
+ENV CONFIG_FILE /usr/share/curator/config/curator.yml  
 ENV COMMAND /usr/share/curator/config/delete_log_files_curator.yml
 
 ENTRYPOINT ["/entrypoint.sh"]
@@ -206,7 +206,7 @@ s.setAttribute('data-timestamp', +new Date());
                     <p>Read <a href="../../../../author/shane/">more posts</a> by this author.</p>
                 <div class="author-meta">
                     <span class="author-location icon-location">Melbourne</span>
-
+                    
                 </div>
             </section>
 
@@ -257,7 +257,7 @@ s.setAttribute('data-timestamp', +new Date());
     </div>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-
+    
     <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js"></script>
     <script type="text/javascript" src="../../../../assets/js/index.js"></script>
     <script type="text/javascript" src="../../../../assets/js/prism.js"></script>

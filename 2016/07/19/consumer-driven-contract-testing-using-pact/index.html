@@ -16,20 +16,20 @@
     <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
     <link rel="canonical" href="http://shavo007.github.io/2016/07/19/consumer-driven-contract-testing-using-pact/">
     <meta name="referrer" content="origin">
-
+    
     <meta property="og:site_name" content="Tech Blog">
     <meta property="og:type" content="article">
     <meta property="og:title" content="Consumer driven contract testing using PACT">
     <meta property="og:description" content="pact framework to implement consumer driven contract testing against internal restful APIs">
     <meta property="og:url" content="http://shavo007.github.io/2016/07/19/consumer-driven-contract-testing-using-pact/">
     <meta property="article:published_time" content="2016-07-19T11:26:24.023Z">
-    <meta property="article:modified_time" content="2016-07-30T10:35:05.044Z">
+    <meta property="article:modified_time" content="2016-09-06T12:48:54.911Z">
     <meta property="article:tag" content="docker">
     <meta property="article:tag" content="docker-compose">
     <meta property="article:tag" content="pact">
     <meta property="article:tag" content="contract">
     <meta property="article:tag" content="testing">
-
+    
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Consumer driven contract testing using PACT">
     <meta name="twitter:description" content="pact framework to implement consumer driven contract testing against internal restful APIs">
@@ -38,7 +38,7 @@
     <meta name="twitter:data1" content="Shane Lee">
     <meta name="twitter:label2" content="Filed under">
     <meta name="twitter:data2" content="docker, docker-compose, pact, contract, testing">
-
+    
     <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -58,14 +58,14 @@
     "headline": "Consumer driven contract testing using PACT",
     "url": "http://shavo007.github.io/2016/07/19/consumer-driven-contract-testing-using-pact/",
     "datePublished": "2016-07-19T11:26:24.023Z",
-    "dateModified": "2016-07-30T10:35:05.044Z",
+    "dateModified": "2016-09-06T12:48:54.911Z",
     "keywords": "docker, docker-compose, pact, contract, testing",
     "description": "pact framework to implement consumer driven contract testing against internal restful APIs"
 }
     </script>
 
     <meta name="generator" content="Ghost 0.8">
-    <link rel="alternate" type="application/rss+xml" title="Tech Blog" href="http://shavo007.github.io/">
+    <link rel="alternate" type="application/rss+xml" title="Tech Blog" href="http://shavo007.github.io/rss/">
     <meta name="google-site-verification" content="dzkjZUDovRImqR_2oGUlteWT1zcgw-r6cqBYef9qiWw">
 </head>
 <body class="post-template tag-docker tag-docker-compose tag-pact tag-contract tag-testing nav-closed">
@@ -85,12 +85,12 @@
 
     <div class="site-wrapper">
 
-
+        
 
 
 <header class="main-header post-head no-cover">
     <nav class="main-nav  clearfix">
-
+        
             <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
     </nav>
 </header>
@@ -116,7 +116,7 @@
 
             <h1 id="allaboutpact">All about PACT....</h1>
 
-<p><img src="http://dius.com.au/wp-content/uploads/sites/2/2014/05/pact_two_parts.png" alt="The PACT Logo"></p>
+<p><img src="https://tech.affinitas.de/wp-content/uploads/2015/04/pact_two_parts.png" alt="The PACT Logo"></p>
 
 <p>PACT enables consumer driven contract testing, providing a mock service and DSL for the consumer project, and interaction playback and verification for the service provider project.</p>
 
@@ -152,8 +152,8 @@ The Pact Broker provides a repository for consumer driven contracts created usin
 
 <p>See the file below:</p>
 
-<pre><code class="language-Docker">version: '2'
-services:
+<pre><code class="language-Docker">version: '2'  
+services:  
   postgres:
     image: shanelee007/docker-pact-postgres
     environment:
@@ -202,18 +202,18 @@ services:
 
 <h3 id="pactbrokerrelationships">Pact broker relationships</h3>
 
-<p><img src="../../../../content/images/2016/07/Screen-Shot-2016-07-30-at-8-18-09-PM.png" alt="Pact broker"></p>
+<p><img src="../../../../content/images/2016/07/Screen-Shot-2016-07-30-at-8-18-09-PM.png	" alt="Pact broker"></p>
 
 <p>You can then verify the contracts against the running microservice by running  </p>
 
 <pre><code class="language-bash">./gradlew pactVerify
 </code></pre>
 
-<p><img src="../../../../content/images/2016/07/Screen-Shot-2016-07-30-at-8-03-16-PM.png" alt="Microservice console"></p>
+<p><img src="../../../../content/images/2016/07/Screen-Shot-2016-07-30-at-8-03-16-PM.png	" alt="Microservice console"></p>
 
 <h3 id="consoleverification">Console verification</h3>
 
-<p><img src="../../../../content/images/2016/07/Screen-Shot-2016-07-30-at-8-20-00-PM.png" alt=""></p>
+<p><img src="../../../../content/images/2016/07/Screen-Shot-2016-07-30-at-8-20-00-PM.png	" alt=""></p>
 
 <p>Reports are outputted in json and markdown form. Which is very useful in your CI build pipeline.  </p>
 
@@ -270,7 +270,7 @@ s.setAttribute('data-timestamp', +new Date());
                     <p>Read <a href="../../../../author/shane/">more posts</a> by this author.</p>
                 <div class="author-meta">
                     <span class="author-location icon-location">Melbourne</span>
-
+                    
                 </div>
             </section>
 
@@ -297,6 +297,12 @@ s.setAttribute('data-timestamp', +new Date());
 
 
 <aside class="read-next">
+    <a class="read-next-story no-cover" href="../../../09/06/alexa-ask-home-theater-to-put-on-mr-robot/">
+        <section class="post">
+            <h2>Alexa, ask home theater to put on Mr. Robot</h2>
+            <p>Plex for Alexa Recently, I have started playing around with Alexa skill services. I currently use plex for my…</p>
+        </section>
+    </a>
     <a class="read-next-story prev no-cover" href="../../../06/30/elasticsearch-curator-4-0-and-docker-2/">
         <section class="post">
             <h2>Elasticsearch curator 4.0 and docker</h2>
@@ -315,7 +321,7 @@ s.setAttribute('data-timestamp', +new Date());
     </div>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-
+    
     <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js"></script>
     <script type="text/javascript" src="../../../../assets/js/index.js"></script>
     <script type="text/javascript" src="../../../../assets/js/prism.js"></script>
