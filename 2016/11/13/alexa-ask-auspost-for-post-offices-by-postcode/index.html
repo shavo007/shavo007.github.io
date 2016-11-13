@@ -1,0 +1,279 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Alexa, ask auspost for post offices by postcode</title>
+    <meta name="description" content="alexa custom skill to find post offices by post code in australia">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
+    <link rel="canonical" href="http://shavo007.github.io/2016/11/13/alexa-ask-auspost-for-post-offices-by-postcode/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="Tech Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Alexa, ask auspost for post offices by postcode">
+    <meta property="og:description" content="alexa custom skill to find post offices by post code in australia">
+    <meta property="og:url" content="http://shavo007.github.io/2016/11/13/alexa-ask-auspost-for-post-offices-by-postcode/">
+    <meta property="article:published_time" content="2016-11-13T10:06:51.690Z">
+    <meta property="article:modified_time" content="2016-11-13T10:48:57.779Z">
+    <meta property="article:tag" content="alexa">
+    <meta property="article:tag" content="serverless">
+    <meta property="article:tag" content="lambda">
+    <meta property="article:tag" content="node">
+    <meta property="article:tag" content="amazon echo">
+    <meta property="article:tag" content="amazon">
+    <meta property="article:tag" content="dot">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Alexa, ask auspost for post offices by postcode">
+    <meta name="twitter:description" content="alexa custom skill to find post offices by post code in australia">
+    <meta name="twitter:url" content="http://shavo007.github.io/2016/11/13/alexa-ask-auspost-for-post-offices-by-postcode/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shane Lee">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="alexa, serverless, lambda, node, amazon echo, amazon, dot">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Tech Blog",
+        "logo": "http://shavo007.github.io/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shane Lee",
+        "image": "http://shavo007.github.io/content/images/2016/06/shaneProfile-1.jpg",
+        "url": "http://shavo007.github.io/author/shane/",
+        "sameAs": [
+            "https://au.linkedin.com/in/shane-lee-69114326"
+        ],
+        "description": "\n"
+    },
+    "headline": "Alexa, ask auspost for post offices by postcode",
+    "url": "http://shavo007.github.io/2016/11/13/alexa-ask-auspost-for-post-offices-by-postcode/",
+    "datePublished": "2016-11-13T10:06:51.690Z",
+    "dateModified": "2016-11-13T10:48:57.779Z",
+    "keywords": "alexa, serverless, lambda, node, amazon echo, amazon, dot",
+    "description": "alexa custom skill to find post offices by post code in australia"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.8">
+    <link rel="alternate" type="application/rss+xml" title="Tech Blog" href="http://shavo007.github.io/rss/">
+    <meta name="google-site-verification" content="dzkjZUDovRImqR_2oGUlteWT1zcgw-r6cqBYef9qiWw">
+</head>
+<body class="post-template tag-alexa tag-serverless tag-lambda tag-node tag-amazon-echo tag-amazon tag-dot nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="http://shavo007.github.io/">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="http://shavo007.github.io/rss/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post tag-alexa tag-serverless tag-lambda tag-node tag-amazon-echo tag-amazon tag-dot featured">
+
+        <header class="post-header">
+            <h1 class="post-title">Alexa, ask auspost for post offices by postcode</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2016-11-13">13 November 2016</time>
+                 on <a href="../../../../tag/alexa/">alexa</a>, <a href="../../../../tag/serverless/">serverless</a>, <a href="../../../../tag/lambda/">lambda</a>, <a href="../../../../tag/node/">node</a>, <a href="../../../../tag/amazon-echo/">amazon echo</a>, <a href="../../../../tag/amazon/">amazon</a>, <a href="../../../../tag/dot/">dot</a>
+                ,
+
+                <!--<li class="post-meta-item">-->
+                    <a href="index.html#disqus_thread"></a>
+                <!--</li>-->
+                <!--<a href="#disqus_thread"/>-->
+            </section>
+        </header>
+
+        <section class="post-content">
+
+            <h2 id="tldr">TL;DR</h2>
+
+<p>I will describe below my custom alexa skill.</p>
+
+<h2 id="amazonalexa">Amazon Alexa</h2>
+
+<p><img src="../../../../content/images/2016/11/26452717290_b51f1a1f04_z.jpg" alt="alexa"></p>
+
+<p>Recently, I have started developing alexa skills.</p>
+
+<p>Alexa, the voice service that powers Echo, provides capabilities, or skills, that enable customers to interact with devices in a more intuitive way using voice. Examples of these skills include the ability to play music, answer general questions, set an alarm or timer and more. </p>
+
+<p>Amazon says:  </p>
+
+<blockquote>
+  <p>Natural user interfaces, like those based on speech, represent the next major disruption in computing.</p>
+</blockquote>
+
+<p>You can now find all alexa skills on amazon.com. See the <a href="https://www.amazon.com/b?ie=UTF8&amp;node=13727921011">experience</a> </p>
+
+<p>To see some examples of skills to use check out this <a href="http://www.wired.co.uk/article/the-best-features-of-amazon-echo">article</a></p>
+
+<p>There is now over 3000 skills in the marketplace and growing <a href="https://techcrunch.com/2016/09/13/amazons-alexa-app-store-hits-3000-skills-up-from-1000-in-june/">fast</a></p>
+
+<h2 id="process">Process</h2>
+
+<p><img src="../../../../content/images/2016/11/noun_666106_cc-1.png	" alt=""></p>
+
+<p>I decided to build a skill that allows consumers of an alexa enabled device to find post offices by post code in australia. </p>
+
+<h2 id="alexaflow">Alexa flow</h2>
+
+<p><img src="../../../../content/images/2016/11/Untitled-Diagram--2-.svg	" alt="Alexa flow"></p>
+
+<h2 id="testauspostskill">Test auspost skill</h2>
+
+<p>Now the fun part... 😛</p>
+
+<p>Use the service simulator to test it out <a href="https://echosim.io/">here</a> or use an amazon echo or dot.</p>
+
+<blockquote>
+  <p>"Alexa, open auspost"</p>
+</blockquote>
+
+<p>Alexa will guide you in interacting with the skill.</p>
+
+<p>Sample utterances are:</p>
+
+<p>Try to find post offices by post code  </p>
+
+<blockquote>
+  <p>"Alexa, ask auspost to find post offices by postcode"</p>
+</blockquote>
+
+<p>Follow the dialog flow to get post offices in your vicinity and the opening hours for today.</p>
+
+<h4 id="disclaimer">Disclaimer</h4>
+
+<p>This skill is not currently on the marketplace. </p>
+
+<p><strong>TODO</strong>
+Add in video showing how it plays</p>
+
+<p>Stay tuned for more skills!!</p>
+        </section>
+
+        <!-- disqus code snippet -->
+        <div id="disqus_thread"></div>
+        <script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+this.page.url = 'http://shavo007.github.io/2016/11/13/alexa-ask-auspost-for-post-offices-by-postcode/'; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'ghost-9'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//shavo007.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        <script id="dsq-count-scr" src="http://shavo007.disqus.com/count.js" async></script>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../../../../author/shane/" style="background-image: url(../../../../content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../../../../author/shane/">Shane Lee</a></h4>
+
+                    <p>
+</p>
+                <div class="author-meta">
+                    <span class="author-location icon-location">Melbourne</span>
+                    <span class="author-link icon-link"><a href="https://au.linkedin.com/in/shane-lee-69114326">https://au.linkedin.com/in/shane-lee-69114326</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Alexa%2C%20ask%20auspost%20for%20post%20offices%20by%20postcode&amp;url=http://shavo007.github.io/2016/11/13/alexa-ask-auspost-for-post-offices-by-postcode/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://shavo007.github.io/2016/11/13/alexa-ask-auspost-for-post-offices-by-postcode/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://shavo007.github.io/2016/11/13/alexa-ask-auspost-for-post-offices-by-postcode/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+
+    </article>
+</main>
+
+
+
+<aside class="read-next">
+    <a class="read-next-story prev no-cover" href="../../../09/06/alexa-ask-home-theater-to-put-on-mr-robot/">
+        <section class="post">
+            <h2>Alexa, ask home theater to put on Mr. Robot</h2>
+            <p>Plex for Alexa Recently, I have started playing around with Alexa skill services. I currently use plex for my…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="http://shavo007.github.io">Tech Blog</a> © 2016</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/prism.js"></script>
+
+
+
+</body>
