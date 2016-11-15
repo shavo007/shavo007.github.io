@@ -1,9 +1,10 @@
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>Alexa, ask auspost for post offices by postcode</title>
-    <meta name="description" content="alexa custom skill to find post offices by post code in australia">
+    <meta name="description" content="">
 
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,32 +14,32 @@
     <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css">
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
     <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
-    <link rel="canonical" href="http://shavo007.github.io/2016/11/13/alexa-ask-auspost-for-post-offices-by-postcode/">
+    <link rel="canonical" href="http://shavo007.github.io/2016/11/15/alexa-ask-auspost-for-post-offices-by-postcode/">
     <meta name="referrer" content="origin">
     
     <meta property="og:site_name" content="Tech Blog">
     <meta property="og:type" content="article">
     <meta property="og:title" content="Alexa, ask auspost for post offices by postcode">
-    <meta property="og:description" content="alexa custom skill to find post offices by post code in australia">
-    <meta property="og:url" content="http://shavo007.github.io/2016/11/13/alexa-ask-auspost-for-post-offices-by-postcode/">
-    <meta property="article:published_time" content="2016-11-13T10:06:51.690Z">
-    <meta property="article:modified_time" content="2016-11-13T10:48:57.779Z">
+    <meta property="og:description" content="TL;DR I will describe below my custom alexa skill. Amazon ALexa Recently, I have started developing alexa skills. Alexa, the voice service that powers Echo, provides capabilities, or skills, that enable customers to interact with devices in a more intuitive way using voice. Examples of these skills include the">
+    <meta property="og:url" content="http://shavo007.github.io/2016/11/15/alexa-ask-auspost-for-post-offices-by-postcode/">
+    <meta property="article:published_time" content="2016-11-15T11:53:25.281Z">
+    <meta property="article:modified_time" content="2016-11-15T12:18:08.474Z">
     <meta property="article:tag" content="alexa">
-    <meta property="article:tag" content="serverless">
     <meta property="article:tag" content="lambda">
+    <meta property="article:tag" content="aws">
     <meta property="article:tag" content="node">
-    <meta property="article:tag" content="amazon echo">
     <meta property="article:tag" content="amazon">
-    <meta property="article:tag" content="dot">
+    <meta property="article:tag" content="amazon echo">
+    <meta property="article:tag" content="serverless">
     
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Alexa, ask auspost for post offices by postcode">
-    <meta name="twitter:description" content="alexa custom skill to find post offices by post code in australia">
-    <meta name="twitter:url" content="http://shavo007.github.io/2016/11/13/alexa-ask-auspost-for-post-offices-by-postcode/">
+    <meta name="twitter:description" content="TL;DR I will describe below my custom alexa skill. Amazon ALexa Recently, I have started developing alexa skills. Alexa, the voice service that powers Echo, provides capabilities, or skills, that enable customers to interact with devices in a more intuitive way using voice. Examples of these skills include the">
+    <meta name="twitter:url" content="http://shavo007.github.io/2016/11/15/alexa-ask-auspost-for-post-offices-by-postcode/">
     <meta name="twitter:label1" content="Written by">
     <meta name="twitter:data1" content="Shane Lee">
     <meta name="twitter:label2" content="Filed under">
-    <meta name="twitter:data2" content="alexa, serverless, lambda, node, amazon echo, amazon, dot">
+    <meta name="twitter:data2" content="alexa, lambda, aws, node, amazon, amazon echo, serverless">
     
     <script type="application/ld+json">
 {
@@ -56,15 +57,14 @@
         "url": "http://shavo007.github.io/author/shane/",
         "sameAs": [
             "https://au.linkedin.com/in/shane-lee-69114326"
-        ],
-        "description": "\n"
+        ]
     },
     "headline": "Alexa, ask auspost for post offices by postcode",
-    "url": "http://shavo007.github.io/2016/11/13/alexa-ask-auspost-for-post-offices-by-postcode/",
-    "datePublished": "2016-11-13T10:06:51.690Z",
-    "dateModified": "2016-11-13T10:48:57.779Z",
-    "keywords": "alexa, serverless, lambda, node, amazon echo, amazon, dot",
-    "description": "alexa custom skill to find post offices by post code in australia"
+    "url": "http://shavo007.github.io/2016/11/15/alexa-ask-auspost-for-post-offices-by-postcode/",
+    "datePublished": "2016-11-15T11:53:25.281Z",
+    "dateModified": "2016-11-15T12:18:08.474Z",
+    "keywords": "alexa, lambda, aws, node, amazon, amazon echo, serverless",
+    "description": "TL;DR I will describe below my custom alexa skill. Amazon ALexa Recently, I have started developing alexa skills. Alexa, the voice service that powers Echo, provides capabilities, or skills, that enable customers to interact with devices in a more intuitive way using voice. Examples of these skills include the"
 }
     </script>
 
@@ -72,7 +72,7 @@
     <link rel="alternate" type="application/rss+xml" title="Tech Blog" href="http://shavo007.github.io/rss/">
     <meta name="google-site-verification" content="dzkjZUDovRImqR_2oGUlteWT1zcgw-r6cqBYef9qiWw">
 </head>
-<body class="post-template tag-alexa tag-serverless tag-lambda tag-node tag-amazon-echo tag-amazon tag-dot nav-closed">
+<body class="post-template tag-alexa tag-lambda tag-aws tag-node tag-amazon tag-amazon-echo tag-serverless nav-closed">
 
     <div class="nav">
     <h3 class="nav-title">Menu</h3>
@@ -100,13 +100,13 @@
 </header>
 
 <main class="content" role="main">
-    <article class="post tag-alexa tag-serverless tag-lambda tag-node tag-amazon-echo tag-amazon tag-dot featured">
+    <article class="post tag-alexa tag-lambda tag-aws tag-node tag-amazon tag-amazon-echo tag-serverless">
 
         <header class="post-header">
             <h1 class="post-title">Alexa, ask auspost for post offices by postcode</h1>
             <section class="post-meta">
-                <time class="post-date" datetime="2016-11-13">13 November 2016</time>
-                 on <a href="../../../../tag/alexa/">alexa</a>, <a href="../../../../tag/serverless/">serverless</a>, <a href="../../../../tag/lambda/">lambda</a>, <a href="../../../../tag/node/">node</a>, <a href="../../../../tag/amazon-echo/">amazon echo</a>, <a href="../../../../tag/amazon/">amazon</a>, <a href="../../../../tag/dot/">dot</a>
+                <time class="post-date" datetime="2016-11-15">15 November 2016</time>
+                 on <a href="../../../../tag/alexa/">alexa</a>, <a href="../../../../tag/lambda/">lambda</a>, <a href="../../../../tag/aws/">aws</a>, <a href="../../../../tag/node/">node</a>, <a href="../../../../tag/amazon/">amazon</a>, <a href="../../../../tag/amazon-echo/">amazon echo</a>, <a href="../../../../tag/serverless/">serverless</a>
                 ,
 
                 <!--<li class="post-meta-item">-->
@@ -118,68 +118,77 @@
 
         <section class="post-content">
 
-            <h2 id="tldr">TL;DR</h2>
+            <h1 id="tldr">TL;DR</h1>
 
 <p>I will describe below my custom alexa skill.</p>
 
-<h2 id="amazonalexa">Amazon Alexa</h2>
+<h2 id="amazonalexa">Amazon ALexa</h2>
 
-<p><img src="../../../../content/images/2016/11/26452717290_b51f1a1f04_z.jpg" alt="alexa"></p>
+<p><img src="../../../../content/images/2016/11/26452717290_b51f1a1f04_z-1.jpg" alt="Amazon Alexa"></p>
 
 <p>Recently, I have started developing alexa skills.</p>
 
-<p>Alexa, the voice service that powers Echo, provides capabilities, or skills, that enable customers to interact with devices in a more intuitive way using voice. Examples of these skills include the ability to play music, answer general questions, set an alarm or timer and more. </p>
+<p>Alexa, the voice service that powers Echo, provides capabilities, or skills, that enable customers to interact with devices in a more intuitive way using voice. Examples of these skills include the ability to play music, answer general questions, set an alarm or timer and more.</p>
 
-<p>Amazon says:  </p>
+<p>Amazon says:</p>
 
 <blockquote>
   <p>Natural user interfaces, like those based on speech, represent the next major disruption in computing.</p>
 </blockquote>
 
-<p>You can now find all alexa skills on amazon.com. See the <a href="https://www.amazon.com/b?ie=UTF8&amp;node=13727921011">experience</a> </p>
+<p>You can now find all alexa skills on amazon.com. See the <a href="https://www.amazon.com/b?ie=UTF8&amp;node=13727921011">experience</a></p>
 
 <p>To see some examples of skills to use check out this <a href="http://www.wired.co.uk/article/the-best-features-of-amazon-echo">article</a></p>
 
 <p>There is now over 3000 skills in the marketplace and growing <a href="https://techcrunch.com/2016/09/13/amazons-alexa-app-store-hits-3000-skills-up-from-1000-in-june/">fast</a></p>
 
-<h2 id="process">Process</h2>
+<h2 id="skill">Skill</h2>
 
-<p><img src="../../../../content/images/2016/11/noun_666106_cc-1.png%09" alt=""></p>
+<p><img src="../../../../content/images/2016/11/noun_666106_cc-2.png	" alt="Auspost post office locations"></p>
 
-<p>I decided to build a skill that allows consumers of an alexa enabled device to find post offices by post code in australia. </p>
+<p>I decided to build a skill that allows consumers of an alexa enabled device to find post offices by post code in Australia.</p>
 
 <h2 id="alexaflow">Alexa flow</h2>
 
-<p><img src="../../../../content/images/2016/11/Untitled-Diagram--2-.svg%09" alt="Alexa flow"></p>
+<p><img src="../../../../content/images/2016/11/alexaFlow.svg	" alt=""></p>
 
-<h2 id="testauspostskill">Test auspost skill</h2>
+<h2 id="interactwithauspostskill">Interact with auspost skill</h2>
 
 <p>Now the fun part... 😛</p>
 
 <p>Use the service simulator to test it out <a href="https://echosim.io/">here</a> or use an amazon echo or dot.</p>
 
 <blockquote>
-  <p>"Alexa, open auspost"</p>
+  <p>Alexa, open auspost</p>
 </blockquote>
 
 <p>Alexa will guide you in interacting with the skill.</p>
 
 <p>Sample utterances are:</p>
 
-<p>Try to find post offices by post code  </p>
+<p>Try to find post offices by post code</p>
 
 <blockquote>
-  <p>"Alexa, ask auspost to find post offices by postcode"</p>
+  <p>Alexa, ask auspost to find post offices by postcode</p>
 </blockquote>
 
 <p>Follow the dialog flow to get post offices in your vicinity and the opening hours for today.</p>
 
-<h4 id="disclaimer">Disclaimer</h4>
+<p>Here is a sneak preview!!</p>
 
-<p>This skill is not currently on the marketplace. </p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Lf1UUJm0R4M" frameborder="0" allowfullscreen></iframe>
 
-<p><strong>TODO</strong>
-Add in video showing how it plays</p>
+<h3 id="homecards">Home Cards</h3>
+
+<p>Interactions between a user and an Alexa device can include home cards displayed in the Amazon Alexa App, the companion app available for Fire OS, Android, iOS, and desktop web browsers. These are graphical cards that describe or enhance the voice interaction. A custom skill can include these cards in its responses.</p>
+
+<p>I have created a card for the post offices in the response for future reference. You can see an example below:</p>
+
+<p><img src="../../../../content/images/2016/11/Screenshot_20161115-230725-1.png	" alt=""></p>
+
+<h3 id="disclaimer">Disclaimer</h3>
+
+<p>This skill is not currently on the marketplace.</p>
 
 <p>Stay tuned for more skills!!</p>
         </section>
@@ -193,7 +202,7 @@ Add in video showing how it plays</p>
 */
 
 var disqus_config = function () {
-this.page.url = 'http://shavo007.github.io/2016/11/13/alexa-ask-auspost-for-post-offices-by-postcode/'; // Replace PAGE_URL with your page's canonical URL variable
+this.page.url = 'http://shavo007.github.io/2016/11/15/alexa-ask-auspost-for-post-offices-by-postcode/'; // Replace PAGE_URL with your page's canonical URL variable
 this.page.identifier = 'ghost-9'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
@@ -219,8 +228,7 @@ s.setAttribute('data-timestamp', +new Date());
             <section class="author">
                 <h4><a href="../../../../author/shane/">Shane Lee</a></h4>
 
-                    <p>
-</p>
+                    <p>Read <a href="../../../../author/shane/">more posts</a> by this author.</p>
                 <div class="author-meta">
                     <span class="author-location icon-location">Melbourne</span>
                     <span class="author-link icon-link"><a href="https://au.linkedin.com/in/shane-lee-69114326">https://au.linkedin.com/in/shane-lee-69114326</a></span>
@@ -230,13 +238,13 @@ s.setAttribute('data-timestamp', +new Date());
 
             <section class="share">
                 <h4>Share this post</h4>
-                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Alexa%2C%20ask%20auspost%20for%20post%20offices%20by%20postcode&amp;url=http://shavo007.github.io/2016/11/13/alexa-ask-auspost-for-post-offices-by-postcode/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Alexa%2C%20ask%20auspost%20for%20post%20offices%20by%20postcode&amp;url=http://shavo007.github.io/2016/11/15/alexa-ask-auspost-for-post-offices-by-postcode/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                     <span class="hidden">Twitter</span>
                 </a>
-                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://shavo007.github.io/2016/11/13/alexa-ask-auspost-for-post-offices-by-postcode/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://shavo007.github.io/2016/11/15/alexa-ask-auspost-for-post-offices-by-postcode/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                     <span class="hidden">Facebook</span>
                 </a>
-                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://shavo007.github.io/2016/11/13/alexa-ask-auspost-for-post-offices-by-postcode/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://shavo007.github.io/2016/11/15/alexa-ask-auspost-for-post-offices-by-postcode/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
                     <span class="hidden">Google+</span>
                 </a>
             </section>

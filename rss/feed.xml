@@ -1,65 +1,84 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://shavo007.github.io/</link><generator>Ghost 0.8</generator><lastBuildDate>Sun, 13 Nov 2016 10:51:36 GMT</lastBuildDate><atom:link href="http://shavo007.github.io/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Alexa, ask auspost for post offices by postcode]]></title><description><![CDATA[alexa custom skill to find post offices by post code in australia]]></description><link>http://shavo007.github.io/2016/11/13/alexa-ask-auspost-for-post-offices-by-postcode/</link><guid isPermaLink="false">e163d7bb-3a3c-4779-bf02-485d209ad101</guid><category><![CDATA[alexa]]></category><category><![CDATA[serverless]]></category><category><![CDATA[lambda]]></category><category><![CDATA[node]]></category><category><![CDATA[amazon echo]]></category><category><![CDATA[amazon]]></category><category><![CDATA[dot]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 13 Nov 2016 10:06:51 GMT</pubDate><content:encoded><![CDATA[<h2 id="tldr">TL;DR</h2>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://shavo007.github.io/</link><generator>Ghost 0.8</generator><lastBuildDate>Tue, 15 Nov 2016 12:18:38 GMT</lastBuildDate><atom:link href="http://shavo007.github.io/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Alexa, ask auspost for post offices by postcode]]></title><description><![CDATA[<h1 id="tldr">TL;DR</h1>
 
 <p>I will describe below my custom alexa skill.</p>
 
-<h2 id="amazonalexa">Amazon Alexa</h2>
+<h2 id="amazonalexa">Amazon ALexa</h2>
 
-<p><img src="http://shavo007.github.io/content/images/2016/11/26452717290_b51f1a1f04_z.jpg" alt="alexa"></p>
+<p><img src="http://shavo007.github.io/content/images/2016/11/26452717290_b51f1a1f04_z-1.jpg" alt="Amazon Alexa"></p>
 
 <p>Recently, I have started developing alexa skills.</p>
 
-<p>Alexa, the voice service that powers Echo, provides capabilities, or skills, that enable customers to interact with devices in a more intuitive way using voice. Examples of these skills include the ability to play music, answer general questions, set an alarm or timer and more. </p>
+<p>Alexa, the voice service that powers Echo, provides capabilities, or skills, that enable customers to interact with devices in a more intuitive way using voice. Examples of these skills include the</p>]]></description><link>http://shavo007.github.io/2016/11/15/alexa-ask-auspost-for-post-offices-by-postcode/</link><guid isPermaLink="false">fcfc1f6e-dfe2-4002-83a4-2de0af5720e5</guid><category><![CDATA[alexa]]></category><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[node]]></category><category><![CDATA[amazon]]></category><category><![CDATA[amazon echo]]></category><category><![CDATA[serverless]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 15 Nov 2016 11:53:25 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
 
-<p>Amazon says:  </p>
+<p>I will describe below my custom alexa skill.</p>
+
+<h2 id="amazonalexa">Amazon ALexa</h2>
+
+<p><img src="http://shavo007.github.io/content/images/2016/11/26452717290_b51f1a1f04_z-1.jpg" alt="Amazon Alexa"></p>
+
+<p>Recently, I have started developing alexa skills.</p>
+
+<p>Alexa, the voice service that powers Echo, provides capabilities, or skills, that enable customers to interact with devices in a more intuitive way using voice. Examples of these skills include the ability to play music, answer general questions, set an alarm or timer and more.</p>
+
+<p>Amazon says:</p>
 
 <blockquote>
   <p>Natural user interfaces, like those based on speech, represent the next major disruption in computing.</p>
 </blockquote>
 
-<p>You can now find all alexa skills on amazon.com. See the <a href="https://www.amazon.com/b?ie=UTF8&amp;node=13727921011">experience</a> </p>
+<p>You can now find all alexa skills on amazon.com. See the <a href="https://www.amazon.com/b?ie=UTF8&amp;node=13727921011">experience</a></p>
 
 <p>To see some examples of skills to use check out this <a href="http://www.wired.co.uk/article/the-best-features-of-amazon-echo">article</a></p>
 
 <p>There is now over 3000 skills in the marketplace and growing <a href="https://techcrunch.com/2016/09/13/amazons-alexa-app-store-hits-3000-skills-up-from-1000-in-june/">fast</a></p>
 
-<h2 id="process">Process</h2>
+<h2 id="skill">Skill</h2>
 
-<p><img src="http://shavo007.github.io/content/images/2016/11/noun_666106_cc-1.png" alt=""></p>
+<p><img src="http://shavo007.github.io/content/images/2016/11/noun_666106_cc-2.png" alt="Auspost post office locations"></p>
 
-<p>I decided to build a skill that allows consumers of an alexa enabled device to find post offices by post code in australia. </p>
+<p>I decided to build a skill that allows consumers of an alexa enabled device to find post offices by post code in Australia.</p>
 
 <h2 id="alexaflow">Alexa flow</h2>
 
-<p><img src="http://shavo007.github.io/content/images/2016/11/Untitled-Diagram--2-.svg" alt="Alexa flow"></p>
+<p><img src="http://shavo007.github.io/content/images/2016/11/alexaFlow.svg" alt=""></p>
 
-<h2 id="testauspostskill">Test auspost skill</h2>
+<h2 id="interactwithauspostskill">Interact with auspost skill</h2>
 
 <p>Now the fun part... 😛</p>
 
 <p>Use the service simulator to test it out <a href="https://echosim.io/">here</a> or use an amazon echo or dot.</p>
 
 <blockquote>
-  <p>"Alexa, open auspost"</p>
+  <p>Alexa, open auspost</p>
 </blockquote>
 
 <p>Alexa will guide you in interacting with the skill.</p>
 
 <p>Sample utterances are:</p>
 
-<p>Try to find post offices by post code  </p>
+<p>Try to find post offices by post code</p>
 
 <blockquote>
-  <p>"Alexa, ask auspost to find post offices by postcode"</p>
+  <p>Alexa, ask auspost to find post offices by postcode</p>
 </blockquote>
 
 <p>Follow the dialog flow to get post offices in your vicinity and the opening hours for today.</p>
 
-<h4 id="disclaimer">Disclaimer</h4>
+<p>Here is a sneak preview!!</p>
 
-<p>This skill is not currently on the marketplace. </p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Lf1UUJm0R4M" frameborder="0" allowfullscreen></iframe>
 
-<p><strong>TODO</strong>
-Add in video showing how it plays</p>
+<h3 id="homecards">Home Cards</h3>
+
+<p>Interactions between a user and an Alexa device can include home cards displayed in the Amazon Alexa App, the companion app available for Fire OS, Android, iOS, and desktop web browsers. These are graphical cards that describe or enhance the voice interaction. A custom skill can include these cards in its responses.</p>
+
+<p>I have created a card for the post offices in the response for future reference. You can see an example below:</p>
+
+<p><img src="http://shavo007.github.io/content/images/2016/11/Screenshot_20161115-230725-1.png" alt=""></p>
+
+<h3 id="disclaimer">Disclaimer</h3>
+
+<p>This skill is not currently on the marketplace.</p>
 
 <p>Stay tuned for more skills!!</p>]]></content:encoded></item><item><title><![CDATA[Alexa, ask home theater to put on Mr. Robot]]></title><description><![CDATA[Integrate alexa skill with plex media server using serverless technology aws lambda (FAAS)]]></description><link>http://shavo007.github.io/2016/09/06/alexa-ask-home-theater-to-put-on-mr-robot/</link><guid isPermaLink="false">49266c7f-733b-46eb-b62f-0b73847f2b46</guid><category><![CDATA[alexa]]></category><category><![CDATA[plex]]></category><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[node]]></category><category><![CDATA[dynamodb]]></category><category><![CDATA[amazon]]></category><category><![CDATA[amazon echo]]></category><category><![CDATA[serverless]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 06 Sep 2016 10:45:03 GMT</pubDate><content:encoded><![CDATA[<h1 id="plexforalexa">Plex for Alexa</h1>
 
