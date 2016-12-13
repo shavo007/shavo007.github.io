@@ -1,4 +1,98 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://shavo007.github.io/</link><generator>Ghost 0.8</generator><lastBuildDate>Tue, 15 Nov 2016 12:18:38 GMT</lastBuildDate><atom:link href="http://shavo007.github.io/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Alexa, ask auspost for post offices by postcode]]></title><description><![CDATA[<h1 id="tldr">TL;DR</h1>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://shavo007.github.io/</link><generator>Ghost 0.8</generator><lastBuildDate>Tue, 13 Dec 2016 10:20:34 GMT</lastBuildDate><atom:link href="http://shavo007.github.io/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Alexa, ask australia calendar for next public holiday in state Victoria]]></title><description><![CDATA[Alexa skill to find next public holiday by state in Australia. ]]></description><link>http://shavo007.github.io/2016/12/13/alexa-ask-australia-calendar-for-next-public-holiday-in-state-victoria/</link><guid isPermaLink="false">5e87a980-7a41-41be-a620-f0218a7ae396</guid><category><![CDATA[alexa]]></category><category><![CDATA[node]]></category><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[australia]]></category><category><![CDATA[calendar]]></category><category><![CDATA[dot]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 13 Dec 2016 08:52:13 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
+
+<p>Voice interfaces are taking off, but how advanced are they becoming? Are we at a point where they can become an automated agent, allowing us to put down our keypads and have a dialog just as if they were a friend or trusted colleague? I’ve set out to test this using Alexa, and building a custom skill (that  recently got certified on amazon marketplace).</p>
+
+<p><img src="http://shavo007.github.io/content/images/2016/12/AustraliaCalendar.png" alt="Amazon Alexa"></p>
+
+<p>You can find the skill on the amazon marketplace <a href="https://www.amazon.com/shane-Australia-Public-Holiday-Calendar/dp/B01N0MY1B6/ref=cm_rdp_product">here</a></p>
+
+<h2 id="alexamachinelearning">Alexa Machine Learning</h2>
+
+<p>Amazon has enabled software developers to write custom skills that are published to the Alexa platform. These custom skills act as an application that can be invoked from the voice interface similar to basic features that come with the Alexa. </p>
+
+<p>Here is an example of a phrase that invokes the Australia calendar application.  </p>
+
+<blockquote>
+  <p>Alexa, ask Australia Calendar whats the next holiday in state Victoria?</p>
+</blockquote>
+
+<p>The Alexa Skills Kit establishes the framework for how the powerful machine learning algorithms that Amazon has developed can be leveraged. <br>
+A key concept within the platform is around the learning algorithms, and teaching Alexa what “might” be the expected outcome of a particular phrase. A simple example to understand this pattern is the following.</p>
+
+<blockquote>
+  <p>State {AUSPOST_STATE-SLOT}</p>
+</blockquote>
+
+<p>In Alexa terminology, the overall phrase is called an “Utterance”, and what’s in the brackets is referred to as a “Slot”. So when someone states “State Victoria” or “State Queensland”, both of these have the same intent, it’s just that the state is a variable that is defined in the slot. When modeling the application, the developer will establish possible choices that might be in the slot (i.e. Victoria, Tasmania, Queensland etc.) <br>
+This structure is outlined by the developer as part of writing a custom skill, and once approved by the Alexa team, the model (including custom slots) is ingested into the platform which then influences the algorithms. This type of teaching is common in machine learning, and is useful for establishing patterns.</p>
+
+<p>Once Alexa deciphers the spoken word, it translates into one of these patterns, then invokes the API provided by the developer, passing over which pattern was uttered, along with any variables from slots.</p>
+
+<p>More on custom slots can be seen <a href="https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/migrating-to-the-improved-built-in-and-custom-slot-types">here</a></p>
+
+<p>When authoring an Alexa Skill (the custom “app”) the challenge is how to establish all the different ways in which a question or statement could be made, then building custom slots for variables within the utterance. That’s where the engineering comes in by the developer (me!) to take advantage of the underlying machine learning in the Alexa platform. If the pattern matching isn’t effective, that’s a problem with the machine learning and the platform itself.</p>
+
+<h2 id="voiceuserinterfacedesignthoughtfulcodewritingmatters">Voice User Interface Design (Thoughtful code writing matters)</h2>
+
+<p>Once the processing is done on Alexa, an API call is made to a micro-service developed by me using aws lambda (serverless compute service). The quality of the user interaction is very dependent upon how “flexible” the skill is written, and that effort has been put into understanding the difference between a visual/keyboard interface and a voice driven one.</p>
+
+<h2 id="alexaflow">Alexa flow</h2>
+
+<p>Trying to create a good skill requires picking some potential flows that a narrative may go through between a user and Alexa. The current version of the skill splits into one direction.</p>
+
+<h3 id="architectingthesolution">Architecting the solution</h3>
+
+<p>There is the pattern leveraging calendar files where the data is relatively static, and it’s more important to organize it in such a manner that allows navigation through voice commands. There's an ongoing process that can refresh it over time. Going deeper, let's explore the following utterance.</p>
+
+<blockquote>
+  <p>“Alexa, ask Australia Calendar to find next public holiday by state Victoria”</p>
+</blockquote>
+
+<p>The dialog with this question will be determining what calendar file to get. In this example, the data is static (there aren't new holidays being created every day), and the interaction will be around navigating a list of calendar events.</p>
+
+<p>In this use case, we can invoke the API ahead of an individual user request, and organize and cache the data in s3 bucket. This improves performance, and simplifies the runtime model. Here’s a view of how this looks using the websites calendar files and how the data is staged.</p>
+
+<p><img src="http://shavo007.github.io/content/images/2016/12/AustraliaCalendarFlow--1-.svg" alt=""></p>
+
+<p>An S3 bucket is used to store the data, and is persisted in a ical file object. Given the durability of S3, this ensures that the data is always accessible at runtime for the skill and we don't have to hammer the website again and again for what the types of calendar events are in each state.</p>
+
+<h2 id="buildingtheskill">Building the Skill</h2>
+
+<p>The code is organized into a series of functions that are invoked based on the intent. Here are sample mappings from utterances to intent for this skill.</p>
+
+<pre><code class="language-javascript">GetNextHolidayIntent what is the next holiday for {State}  
+GetNextHolidayIntent what is the next holiday for state {State}  
+GetNextHolidayIntent what is the next public holiday for {State}  
+GetNextHolidayIntent what is the next public holiday for state {State}  
+GetNextHolidayIntent find next public holiday in state {State}  
+GetNextHolidayIntent find next public holiday by state {State}  
+GetNextHolidayIntent find next public holiday by state
+</code></pre>
+
+<p>Each of the intents have their own functions, and then gather the data for the response by leveraging cached data in the local memory of the skill, or by calling out to a S3 bucket. Here's a mapping of where the data is retrieved from:</p>
+
+<table>  
+  <tr>
+    <th>Intent</th>
+    <th>Function</th>
+    <th>Data</th>
+  </tr>
+  <tr>
+    <td>GetNextHolidayIntent</td>
+    <td>GetNextHolidayIntent()</td>
+    <td>S3 Bucket</td>
+  </tr>
+</table>
+
+<h2 id="homecards">Home Cards</h2>
+
+<p>Interactions between a user and an Alexa device can include home cards displayed in the Amazon Alexa App, the companion app available for Fire OS, Android, iOS, and desktop web browsers. These are graphical cards that describe or enhance the voice interaction. A custom skill can include these cards in its responses.</p>
+
+<p>I have created a card for the returned holiday response for future reference. You can see an example below:</p>
+
+<p><img src="http://shavo007.github.io/content/images/2016/12/Screen-Shot-2016-12-13-at-6-09-21-pm.png" alt=""></p>
+
+<p>Stay tuned for more skills!!</p>]]></content:encoded></item><item><title><![CDATA[Alexa, ask auspost for post offices by postcode]]></title><description><![CDATA[<h1 id="tldr">TL;DR</h1>
 
 <p>I will describe below my custom alexa skill.</p>
 
