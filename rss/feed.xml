@@ -1,4 +1,141 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://shavo007.github.io/</link><generator>Ghost 0.8</generator><lastBuildDate>Tue, 13 Dec 2016 10:20:34 GMT</lastBuildDate><atom:link href="http://shavo007.github.io/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Alexa, ask australia calendar for next public holiday in state Victoria]]></title><description><![CDATA[Alexa skill to find next public holiday by state in Australia. ]]></description><link>http://shavo007.github.io/2016/12/13/alexa-ask-australia-calendar-for-next-public-holiday-in-state-victoria/</link><guid isPermaLink="false">5e87a980-7a41-41be-a620-f0218a7ae396</guid><category><![CDATA[alexa]]></category><category><![CDATA[node]]></category><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[australia]]></category><category><![CDATA[calendar]]></category><category><![CDATA[dot]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 13 Dec 2016 08:52:13 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://shavo007.github.io/</link><generator>Ghost 0.8</generator><lastBuildDate>Sat, 17 Dec 2016 11:02:11 GMT</lastBuildDate><atom:link href="http://shavo007.github.io/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Serverless and scheduled lambda function]]></title><description><![CDATA[<h1 id="tldr">TL;DR</h1>
+
+<p>Continuing on from my previous post, I decided to try out serverless to build my scheduled lambda function.</p>
+
+<blockquote>
+  <p>Serverless is an open-source, application framework to easily build serverless architectures on AWS Lambda.</p>
+</blockquote>
+
+<p>The Serverless Framework is the world’s leading development framework for building serverless architectures.</p>
+
+<h2 id="australiapubliccalendarcustomalexaskill">Australia public</h2>]]></description><link>http://shavo007.github.io/2016/12/17/serverless-and-scheduled-lambda-function/</link><guid isPermaLink="false">337574ed-d9ac-4efb-a0ac-a8a248ef6545</guid><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[serverless]]></category><category><![CDATA[alexa]]></category><category><![CDATA[node]]></category><category><![CDATA[australia]]></category><category><![CDATA[calendar]]></category><category><![CDATA[dot]]></category><category><![CDATA[amazon echo]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 17 Dec 2016 10:19:04 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
+
+<p>Continuing on from my previous post, I decided to try out serverless to build my scheduled lambda function.</p>
+
+<blockquote>
+  <p>Serverless is an open-source, application framework to easily build serverless architectures on AWS Lambda.</p>
+</blockquote>
+
+<p>The Serverless Framework is the world’s leading development framework for building serverless architectures.</p>
+
+<h2 id="australiapubliccalendarcustomalexaskill">Australia public calendar custom alexa skill</h2>
+
+<p><img src="http://shavo007.github.io/content/images/2016/12/AustraliaCalendar.png" alt="Amazon Alexa"></p>
+
+<p>You can find the skill on the amazon marketplace <a href="https://www.amazon.com/shane-Australia-Public-Holiday-Calendar/dp/B01N0MY1B6/ref=cm_rdp_product">here</a></p>
+
+<h2 id="quickrecap">Quick recap</h2>
+
+<p>There is the pattern leveraging calendar files where the data is relatively static, and it’s more important to organize it in such a manner that allows navigation through voice commands. There's an ongoing process that can refresh it over time. Going deeper, let's explore the following utterance.</p>
+
+<blockquote>
+  <p>“Alexa, ask Australia Calendar to find next public holiday by state Victoria”</p>
+</blockquote>
+
+<p>The dialog with this question will be determining what calendar file to get. In this example, the data is static (there aren't new holidays being created every day), and the interaction will be around navigating a list of calendar events.</p>
+
+<p>In this use case, we can invoke the API ahead of an individual user request, and organize and cache the data in s3 bucket. This improves performance, and simplifies the runtime model. Here’s a view of how this looks using the websites calendar files and how the data is staged.</p>
+
+<p><img src="http://shavo007.github.io/content/images/2016/12/AustraliaCalendarFlow--1-.svg" alt=""></p>
+
+<p>An S3 bucket is used to store the data, and is persisted in a ical file object. Given the durability of S3, this ensures that the data is always accessible at runtime for the skill and we don't have to hammer the website again and again for what the types of calendar events are in each state.</p>
+
+<h2 id="scheduledlambdafunction">Scheduled lambda function</h2>
+
+<p>Below I will define the steps needed to build my scheduled function using serverless.</p>
+
+<h3 id="installation">Installation</h3>
+
+<p>Install serverless using npm <br>
+<code>
+npm install serverless -g <br>
+</code></p>
+
+<p>The current version is 1.4.0</p>
+
+<p>Now create a new node.js service via the command below: <br>
+<code>
+serverless create --template aws-nodejs <br>
+</code></p>
+
+<p>Here you have defined the runtime to be nodejs. Now for my function I want it to run every 7 days and to put the ical files onto s3 bucket.</p>
+
+<p>You will see in the serverless.yml I have defined the schedule and resource access.</p>
+
+<pre><code class="language-yaml"># Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: aus-calendar-cron # NOTE: update this with your service name
+
+provider:  
+  name: aws
+  runtime: nodejs4.3
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:*
+      Resource: "*"
+
+
+# you can define service wide environment variables here
+environment:  
+   BUCKET: slee-calendar
+
+functions:  
+  cron:
+    handler: handler.hello
+
+#    The following are a few example events you can configure
+#    NOTE: Please make sure to change your handler code to work with those events
+#    Check the event documentation for details
+    events:
+     - schedule: rate(7 days)
+
+
+#    Define function environment variables here
+    environment:
+       BUCKET: slee-calendar
+</code></pre>
+
+<p>Once I defined the handler logic, all I had to do then is call:</p>
+
+<p><code>
+serverless deploy --verbose <br>
+</code></p>
+
+<h3 id="howitworks">How it works</h3>
+
+<ul>
+<li>An AWS CloudFormation template is created from your serverless.yml.</li>
+<li>If a Stack has not yet been created, then it is created with no resources except for an S3 Bucket, which will store zip files of your Function code.</li>
+<li>The code of your Functions is then packaged into zip files.</li>
+<li>Zip files of your Functions' code are uploaded to your Code S3 Bucket.</li>
+<li>Any IAM Roles, Functions, Events and Resources are added to the AWS CloudFormation template.</li>
+<li>The CloudFormation Stack is updated with the new CloudFormation template.</li>
+<li>Each deployment publishes a new version for each function in your service.</li>
+</ul>
+
+<p>To test your function out you can then run <br>
+<code>
+serverless invoke --function cron --log <br>
+</code></p>
+
+<p>It allows to send event data to the function, read logs and display other important information of the function invocation.</p>
+
+<p>And voilà. Thats your scheduled lambda function up and running! 😋</p>
+
+<p>Stay tuned for more!!</p>]]></content:encoded></item><item><title><![CDATA[Alexa, ask australia calendar for next public holiday in state Victoria]]></title><description><![CDATA[Alexa skill to find next public holiday by state in Australia. ]]></description><link>http://shavo007.github.io/2016/12/13/alexa-ask-australia-calendar-for-next-public-holiday-in-state-victoria/</link><guid isPermaLink="false">5e87a980-7a41-41be-a620-f0218a7ae396</guid><category><![CDATA[alexa]]></category><category><![CDATA[node]]></category><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[australia]]></category><category><![CDATA[calendar]]></category><category><![CDATA[dot]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 13 Dec 2016 08:52:13 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
 
 <p>Voice interfaces are taking off, but how advanced are they becoming? Are we at a point where they can become an automated agent, allowing us to put down our keypads and have a dialog just as if they were a friend or trusted colleague? I’ve set out to test this using Alexa, and building a custom skill (that  recently got certified on amazon marketplace).</p>
 
