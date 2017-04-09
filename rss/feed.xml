@@ -1,4 +1,110 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://shavo007.github.io/</link><generator>Ghost 0.8</generator><lastBuildDate>Sat, 17 Dec 2016 11:02:11 GMT</lastBuildDate><atom:link href="http://shavo007.github.io/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Serverless and scheduled lambda function]]></title><description><![CDATA[<h1 id="tldr">TL;DR</h1>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://shavo007.github.io/</link><generator>Ghost 0.8</generator><lastBuildDate>Sun, 09 Apr 2017 04:54:12 GMT</lastBuildDate><atom:link href="http://shavo007.github.io/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[How To Import and Export Databases in MySQL or MariaDB with Docker]]></title><description><![CDATA[<h1 id="introduction">Introduction</h1>
+
+<p>You can use data dumps for backup and restoration purposes, or you can use them to migrate data to a new server or development environment.</p>
+
+<p>Working with database dumps in MySQL and MariaDB is straightforward. This tutorial will cover how to export the database as well as import it</p>]]></description><link>http://shavo007.github.io/2017/04/09/how-to-import-and-export-databases-in-mysql-or-mariadb-with-docker/</link><guid isPermaLink="false">293badb0-924e-402f-8236-eee1c16210de</guid><category><![CDATA[mariadb]]></category><category><![CDATA[docker]]></category><category><![CDATA[mysql]]></category><category><![CDATA[sql]]></category><category><![CDATA[dump]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 09 Apr 2017 04:09:25 GMT</pubDate><content:encoded><![CDATA[<h1 id="introduction">Introduction</h1>
+
+<p>You can use data dumps for backup and restoration purposes, or you can use them to migrate data to a new server or development environment.</p>
+
+<p>Working with database dumps in MySQL and MariaDB is straightforward. This tutorial will cover how to export the database as well as import it from a dump file in MySQL and MariaDB.</p>
+
+<p><img src="http://shavo007.github.io/content/images/2017/04/mariadb.png" alt="MariaDB Icon"></p>
+
+<h1 id="prerequisites">Prerequisites</h1>
+
+<p>To import and/or export a MySQL or MariaDB database, you will need:</p>
+
+<ul>
+<li>Access to the Linux server running MySQL or MariaDB</li>
+<li>The database name and user credentials for it</li>
+</ul>
+
+<h1 id="exportingthedatabase">Exporting the Database</h1>
+
+<p>The mysqldump console utility is used to export databases to SQL text files. These files can easily be transferred and moved around. You will need the database name itself as well as the username and password to an account with privileges allowing at least full read only access to the database.</p>
+
+<p>Export your database using the following command.</p>
+
+<pre><code class="language-bash">mysqldump -u username -p database_name &gt; dump.sql  
+</code></pre>
+
+<ul>
+<li><p><strong>username</strong> is the username you can log in to the database with</p></li>
+<li><p><strong>database_name</strong> is the name of the database that will be exported</p></li>
+<li><p><strong>dump.sql</strong> is the file in the current directory that the output will be saved to</p></li>
+</ul>
+
+<p>The command will produce no visual output, but you can inspect the contents of sql file to check if it's a legitimate SQL dump file by using:</p>
+
+<pre><code class="language-bash">head -n 5 dump.sql  
+</code></pre>
+
+<p>The top of the file should look similar to this, mentioning that it's a mariadb dump for a database named database_name.</p>
+
+<p><strong>SQL dump fragment</strong></p>
+
+<pre><code class="language-bash">-- MySQL dump 10.16  Distrib 10.1.20-MariaDB, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: localhost
+-- ------------------------------------------------------
+-- Server version    10.1.20-MariaDB-1~jessie
+</code></pre>
+
+<p>If any errors happen during the export process, mysqldump will print them clearly to the screen instead.</p>
+
+<h1 id="importingthedatabaseintodockercontainer">Importing the Database into docker container</h1>
+
+<p>To import an existing dump file into MySQL or MariaDB, you will have to create the new database. This is where the contents of the dump file will be imported.</p>
+
+<p>I have an existing mariadb docker container running already locally.</p>
+
+<pre><code class="language-bash">docker run --name mariadb -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password1 -e MYSQL_DATABASE=db -d mariadb:latest  
+</code></pre>
+
+<p>Now verify it is running</p>
+
+<pre><code class="language-bash">docker ps  
+</code></pre>
+
+<p>You will see output similar to below:</p>
+
+<pre><code class="language-bash">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                            NAMES  
+7cfaabda3346        mariadb:latest      "docker-entrypoint..."   5 days ago          Up 5 days           0.0.0.0:3306-&gt;3306/tcp                           mariadb  
+</code></pre>
+
+<p>First, start a bash session inside container.</p>
+
+<pre><code class="language-bash">docker exec -it mariadb bash  
+</code></pre>
+
+<p>Second, log in to the database as root or another user with sufficient privileges to create new databases.</p>
+
+<pre><code class="language-bash">mysql -u root -ppassword1  
+</code></pre>
+
+<p>This will bring you into the mariadb shell prompt. Next, create a new database called new_database.</p>
+
+<pre><code class="language-sql">CREATE DATABASE new_database;  
+</code></pre>
+
+<p>Now exit the MySQL shell by pressing CTRL+D. Exit the docker container also.On the normal command line, you can import the dump file with the following command:</p>
+
+<pre><code class="language-bash">docker exec -i mariadb mysql -uroot -ppassword1 --database=new_database &lt; dump.sql  
+</code></pre>
+
+<ul>
+<li>username is the username you can log in to the database with</li>
+<li>new_database is the name of the freshly created database</li>
+<li>dump.sql is the data dump file to be imported, located in the current directory</li>
+</ul>
+
+<p>The successfully run command will produce no output. If any errors occur during the process, mysql will print them to the terminal instead. You can check that the database was imported by logging in to the MySQL shell again and inspecting the data.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>You now know how to create database dumps from MySQL databases as well as how to import them again. mysqldump has multiple additional settings that may be used to alter how the dumps are created, which you can learn more about from the <a href="https://dev.mysql.com/doc/refman/5.7/en/mysqldump.html">official mysqldump documentation page</a>.</p>
+
+<p>To find out more about docker commands check out the docker doc <a href="https://docs.docker.com/engine/reference/commandline/exec/">here</a></p>]]></content:encoded></item><item><title><![CDATA[Serverless and scheduled lambda function]]></title><description><![CDATA[<h1 id="tldr">TL;DR</h1>
 
 <p>Continuing on from my previous post, I decided to try out serverless to build my scheduled lambda function.</p>
 
