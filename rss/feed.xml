@@ -1,4 +1,91 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://shavo007.github.io/</link><generator>Ghost 0.8</generator><lastBuildDate>Sun, 09 Apr 2017 04:54:12 GMT</lastBuildDate><atom:link href="http://shavo007.github.io/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[How To Import and Export Databases in MySQL or MariaDB with Docker]]></title><description><![CDATA[<h1 id="introduction">Introduction</h1>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://shavo007.github.io/</link><generator>Ghost 0.8</generator><lastBuildDate>Mon, 12 Jun 2017 07:05:13 GMT</lastBuildDate><atom:link href="http://shavo007.github.io/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Test drive docker health check]]></title><description><![CDATA[<h1 id="tldr">TL;DR</h1>
+
+<p>Healthcheck in docker was introduced in docker compose version 2.1 and up.</p>
+
+<p>In version <a href="https://blog.docker.com/2016/06/docker-1-12-built-in-orchestration/">1.12</a>, Docker added the ability to perform health checks directly in the Docker engine — without needing external monitoring tools or sidecar containers.</p>
+
+<blockquote>
+  <p>Configure a check that’s run to determine whether or</p></blockquote>]]></description><link>http://shavo007.github.io/2017/06/12/test-drive-docker-health-check/</link><guid isPermaLink="false">92dff96b-d487-442b-98bb-b77722028f90</guid><category><![CDATA[pact]]></category><category><![CDATA[docker]]></category><category><![CDATA[docker-compose]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Mon, 12 Jun 2017 05:06:53 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
+
+<p>Healthcheck in docker was introduced in docker compose version 2.1 and up.</p>
+
+<p>In version <a href="https://blog.docker.com/2016/06/docker-1-12-built-in-orchestration/">1.12</a>, Docker added the ability to perform health checks directly in the Docker engine — without needing external monitoring tools or sidecar containers.</p>
+
+<blockquote>
+  <p>Configure a check that’s run to determine whether or not containers for this service are “healthy”</p>
+</blockquote>
+
+<p>This is a great addition because a container reporting status as Up 1 hour may return errors. The container may be up but there is no way for the application inside the container to provide a status.</p>
+
+<h2 id="dockercomposeexample">Docker compose example</h2>
+
+<p>I will guide you through an example of using healthcheck in my pact broker demo.</p>
+
+<p>Github repo can be found at <a href="https://github.com/shavo007/pact-demo">https://github.com/shavo007/pact-demo</a></p>
+
+<p>Pact broker has two containers:</p>
+
+<ul>
+<li>Postgres</li>
+<li>Pact broker</li>
+</ul>
+
+<h3 id="healthcheckoptions">Health check options</h3>
+
+<p>The health check related options are:</p>
+
+<ul>
+<li><p><strong>test</strong>: must be either a string or a list. If it’s a list, the first item must be either NONE, CMD or CMD-SHELL. Health check commands should return 0 if healthy and 1 if unhealthy. </p></li>
+<li><p><strong>interval</strong>: this controls the initial delay before the first health check runs and then how often the health check command is executed thereafter. The default is 30 seconds.</p></li>
+<li><strong>retries</strong>: the health check will retry up to this many times before marking the container as unhealthy. The default is 3 retries.</li>
+<li><strong>timeout</strong>: if the health check command takes longer than this to complete, it will be considered a failure. The default timeout is 30 seconds.</li>
+</ul>
+
+<p>Below is the docker compose file</p>
+
+<script src="https://gist.github.com/shavo007/754a23247826a346ca79593bef44c172.js"></script>
+
+<blockquote>
+  <p>The exit code has to be binary, which means 0 or 1 - any other value is not supported. The code || exit 1 makes sure we only get a binary exit code and nothing more exotic.</p>
+</blockquote>
+
+<h3 id="waitingforpostgresqltobehealthy">Waiting for PostgreSQL to be "healthy"</h3>
+
+<p>A particularly common use case is a service that depends on a database, such as PostgreSQL. We can configure docker-compose to wait for the PostgreSQL container to startup and be ready to accept requests before continuing.</p>
+
+<p>The following healthcheck has been configured to periodically check if PostgreSQL reponds to the \l list query.</p>
+
+<p>Now that we have defined the instructions, lets kick it off:</p>
+
+<pre><code class="language-bash">docker-compose up --build  
+</code></pre>
+
+<p>docker-compose waits for the PostgreSQL service to be "healthy" before starting pact broker.</p>
+
+<h3 id="arewehealthythen">Are we healthy then?</h3>
+
+<p>Once you start the container, you will be able to see the health status in the <code>docker ps</code> output.</p>
+
+<p><img src="http://shavo007.github.io/content/images/2017/06/Screen-Shot-2017-06-12-at-3-03-03-pm.png" alt=""></p>
+
+<p>You can see the health check status of the postgres container is healthy. Pact broker container depends on this container and waits until it is healthy.</p>
+
+<h3 id="howdoweinspectit">How do we inspect it?</h3>
+
+<p>Using  </p>
+
+<pre><code class="language-bash"> docker inspect
+</code></pre>
+
+<p>we can view the output from the command.</p>
+
+<pre><code class="language-bash">docker inspect --format "{{json .State.Health.Status }}" pactdemo_postgres_1  
+</code></pre>
+
+<pre><code class="language-bash">"healthy"
+</code></pre>
+
+<p>You can use <a href="https://stedolan.github.io/jq/">jq</a> if you find the docker inspect command verbose.</p>]]></content:encoded></item><item><title><![CDATA[How To Import and Export Databases in MySQL or MariaDB with Docker]]></title><description><![CDATA[<h1 id="introduction">Introduction</h1>
 
 <p>You can use data dumps for backup and restoration purposes, or you can use them to migrate data to a new server or development environment.</p>
 
