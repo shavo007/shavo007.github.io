@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://shavo007.github.io/</link><generator>Ghost 0.8</generator><lastBuildDate>Mon, 12 Jun 2017 07:05:13 GMT</lastBuildDate><atom:link href="http://shavo007.github.io/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Test drive docker health check]]></title><description><![CDATA[<h1 id="tldr">TL;DR</h1>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Tue, 11 Jul 2017 11:56:18 GMT</lastBuildDate><atom:link href="http://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Test drive docker health check]]></title><description><![CDATA[<h1 id="tldr">TL;DR</h1>
 
 <p>Healthcheck in docker was introduced in docker compose version 2.1 and up.</p>
 
 <p>In version <a href="https://blog.docker.com/2016/06/docker-1-12-built-in-orchestration/">1.12</a>, Docker added the ability to perform health checks directly in the Docker engine — without needing external monitoring tools or sidecar containers.</p>
 
 <blockquote>
-  <p>Configure a check that’s run to determine whether or</p></blockquote>]]></description><link>http://shavo007.github.io/2017/06/12/test-drive-docker-health-check/</link><guid isPermaLink="false">92dff96b-d487-442b-98bb-b77722028f90</guid><category><![CDATA[pact]]></category><category><![CDATA[docker]]></category><category><![CDATA[docker-compose]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Mon, 12 Jun 2017 05:06:53 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
+  <p>Configure a check that’s run to determine whether or</p></blockquote>]]></description><link>http://blog.shanelee.name/2017/06/12/test-drive-docker-health-check/</link><guid isPermaLink="false">92dff96b-d487-442b-98bb-b77722028f90</guid><category><![CDATA[pact]]></category><category><![CDATA[docker]]></category><category><![CDATA[docker-compose]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Mon, 12 Jun 2017 05:06:53 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
 
 <p>Healthcheck in docker was introduced in docker compose version 2.1 and up.</p>
 
@@ -66,7 +66,7 @@
 
 <p>Once you start the container, you will be able to see the health status in the <code>docker ps</code> output.</p>
 
-<p><img src="http://shavo007.github.io/content/images/2017/06/Screen-Shot-2017-06-12-at-3-03-03-pm.png" alt=""></p>
+<p><img src="http://blog.shanelee.name/content/images/2017/06/Screen-Shot-2017-06-12-at-3-03-03-pm.png" alt=""></p>
 
 <p>You can see the health check status of the postgres container is healthy. Pact broker container depends on this container and waits until it is healthy.</p>
 
@@ -89,13 +89,13 @@
 
 <p>You can use data dumps for backup and restoration purposes, or you can use them to migrate data to a new server or development environment.</p>
 
-<p>Working with database dumps in MySQL and MariaDB is straightforward. This tutorial will cover how to export the database as well as import it</p>]]></description><link>http://shavo007.github.io/2017/04/09/how-to-import-and-export-databases-in-mysql-or-mariadb-with-docker/</link><guid isPermaLink="false">293badb0-924e-402f-8236-eee1c16210de</guid><category><![CDATA[mariadb]]></category><category><![CDATA[docker]]></category><category><![CDATA[mysql]]></category><category><![CDATA[sql]]></category><category><![CDATA[dump]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 09 Apr 2017 04:09:25 GMT</pubDate><content:encoded><![CDATA[<h1 id="introduction">Introduction</h1>
+<p>Working with database dumps in MySQL and MariaDB is straightforward. This tutorial will cover how to export the database as well as import it</p>]]></description><link>http://blog.shanelee.name/2017/04/09/how-to-import-and-export-databases-in-mysql-or-mariadb-with-docker/</link><guid isPermaLink="false">293badb0-924e-402f-8236-eee1c16210de</guid><category><![CDATA[mariadb]]></category><category><![CDATA[docker]]></category><category><![CDATA[mysql]]></category><category><![CDATA[sql]]></category><category><![CDATA[dump]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 09 Apr 2017 04:09:25 GMT</pubDate><content:encoded><![CDATA[<h1 id="introduction">Introduction</h1>
 
 <p>You can use data dumps for backup and restoration purposes, or you can use them to migrate data to a new server or development environment.</p>
 
 <p>Working with database dumps in MySQL and MariaDB is straightforward. This tutorial will cover how to export the database as well as import it from a dump file in MySQL and MariaDB.</p>
 
-<p><img src="http://shavo007.github.io/content/images/2017/04/mariadb.png" alt="MariaDB Icon"></p>
+<p><img src="http://blog.shanelee.name/content/images/2017/04/mariadb.png" alt="MariaDB Icon"></p>
 
 <h1 id="prerequisites">Prerequisites</h1>
 
@@ -201,7 +201,7 @@
 
 <p>The Serverless Framework is the world’s leading development framework for building serverless architectures.</p>
 
-<h2 id="australiapubliccalendarcustomalexaskill">Australia public</h2>]]></description><link>http://shavo007.github.io/2016/12/17/serverless-and-scheduled-lambda-function/</link><guid isPermaLink="false">337574ed-d9ac-4efb-a0ac-a8a248ef6545</guid><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[serverless]]></category><category><![CDATA[alexa]]></category><category><![CDATA[node]]></category><category><![CDATA[australia]]></category><category><![CDATA[calendar]]></category><category><![CDATA[dot]]></category><category><![CDATA[amazon echo]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 17 Dec 2016 10:19:04 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
+<h2 id="australiapubliccalendarcustomalexaskill">Australia public</h2>]]></description><link>http://blog.shanelee.name/2016/12/17/serverless-and-scheduled-lambda-function/</link><guid isPermaLink="false">337574ed-d9ac-4efb-a0ac-a8a248ef6545</guid><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[serverless]]></category><category><![CDATA[alexa]]></category><category><![CDATA[node]]></category><category><![CDATA[australia]]></category><category><![CDATA[calendar]]></category><category><![CDATA[dot]]></category><category><![CDATA[amazon echo]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 17 Dec 2016 10:19:04 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
 
 <p>Continuing on from my previous post, I decided to try out serverless to build my scheduled lambda function.</p>
 
@@ -213,7 +213,7 @@
 
 <h2 id="australiapubliccalendarcustomalexaskill">Australia public calendar custom alexa skill</h2>
 
-<p><img src="http://shavo007.github.io/content/images/2016/12/AustraliaCalendar.png" alt="Amazon Alexa"></p>
+<p><img src="http://blog.shanelee.name/content/images/2016/12/AustraliaCalendar.png" alt="Amazon Alexa"></p>
 
 <p>You can find the skill on the amazon marketplace <a href="https://www.amazon.com/shane-Australia-Public-Holiday-Calendar/dp/B01N0MY1B6/ref=cm_rdp_product">here</a></p>
 
@@ -229,7 +229,7 @@
 
 <p>In this use case, we can invoke the API ahead of an individual user request, and organize and cache the data in s3 bucket. This improves performance, and simplifies the runtime model. Here’s a view of how this looks using the websites calendar files and how the data is staged.</p>
 
-<p><img src="http://shavo007.github.io/content/images/2016/12/AustraliaCalendarFlow--1-.svg" alt=""></p>
+<p><img src="http://blog.shanelee.name/content/images/2016/12/AustraliaCalendarFlow--1-.svg" alt=""></p>
 
 <p>An S3 bucket is used to store the data, and is persisted in a ical file object. Given the durability of S3, this ensures that the data is always accessible at runtime for the skill and we don't have to hammer the website again and again for what the types of calendar events are in each state.</p>
 
@@ -328,11 +328,11 @@ serverless invoke --function cron --log <br>
 
 <p>And voilà. Thats your scheduled lambda function up and running! 😋</p>
 
-<p>Stay tuned for more!!</p>]]></content:encoded></item><item><title><![CDATA[Alexa, ask australia calendar for next public holiday in state Victoria]]></title><description><![CDATA[Alexa skill to find next public holiday by state in Australia. ]]></description><link>http://shavo007.github.io/2016/12/13/alexa-ask-australia-calendar-for-next-public-holiday-in-state-victoria/</link><guid isPermaLink="false">5e87a980-7a41-41be-a620-f0218a7ae396</guid><category><![CDATA[alexa]]></category><category><![CDATA[node]]></category><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[australia]]></category><category><![CDATA[calendar]]></category><category><![CDATA[dot]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 13 Dec 2016 08:52:13 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
+<p>Stay tuned for more!!</p>]]></content:encoded></item><item><title><![CDATA[Alexa, ask australia calendar for next public holiday in state Victoria]]></title><description><![CDATA[Alexa skill to find next public holiday by state in Australia. ]]></description><link>http://blog.shanelee.name/2016/12/13/alexa-ask-australia-calendar-for-next-public-holiday-in-state-victoria/</link><guid isPermaLink="false">5e87a980-7a41-41be-a620-f0218a7ae396</guid><category><![CDATA[alexa]]></category><category><![CDATA[node]]></category><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[australia]]></category><category><![CDATA[calendar]]></category><category><![CDATA[dot]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 13 Dec 2016 08:52:13 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
 
 <p>Voice interfaces are taking off, but how advanced are they becoming? Are we at a point where they can become an automated agent, allowing us to put down our keypads and have a dialog just as if they were a friend or trusted colleague? I’ve set out to test this using Alexa, and building a custom skill (that  recently got certified on amazon marketplace).</p>
 
-<p><img src="http://shavo007.github.io/content/images/2016/12/AustraliaCalendar.png" alt="Amazon Alexa"></p>
+<p><img src="http://blog.shanelee.name/content/images/2016/12/AustraliaCalendar.png" alt="Amazon Alexa"></p>
 
 <p>You can find the skill on the amazon marketplace <a href="https://www.amazon.com/shane-Australia-Public-Holiday-Calendar/dp/B01N0MY1B6/ref=cm_rdp_product">here</a></p>
 
@@ -382,7 +382,7 @@ This structure is outlined by the developer as part of writing a custom skill, a
 
 <p>In this use case, we can invoke the API ahead of an individual user request, and organize and cache the data in s3 bucket. This improves performance, and simplifies the runtime model. Here’s a view of how this looks using the websites calendar files and how the data is staged.</p>
 
-<p><img src="http://shavo007.github.io/content/images/2016/12/AustraliaCalendarFlow--1-.svg" alt=""></p>
+<p><img src="http://blog.shanelee.name/content/images/2016/12/AustraliaCalendarFlow--1-.svg" alt=""></p>
 
 <p>An S3 bucket is used to store the data, and is persisted in a ical file object. Given the durability of S3, this ensures that the data is always accessible at runtime for the skill and we don't have to hammer the website again and again for what the types of calendar events are in each state.</p>
 
@@ -420,7 +420,7 @@ GetNextHolidayIntent find next public holiday by state
 
 <p>I have created a card for the returned holiday response for future reference. You can see an example below:</p>
 
-<p><img src="http://shavo007.github.io/content/images/2016/12/Screen-Shot-2016-12-13-at-6-09-21-pm.png" alt=""></p>
+<p><img src="http://blog.shanelee.name/content/images/2016/12/Screen-Shot-2016-12-13-at-6-09-21-pm.png" alt=""></p>
 
 <p>Stay tuned for more skills!!</p>]]></content:encoded></item><item><title><![CDATA[Alexa, ask auspost for post offices by postcode]]></title><description><![CDATA[<h1 id="tldr">TL;DR</h1>
 
@@ -428,17 +428,17 @@ GetNextHolidayIntent find next public holiday by state
 
 <h2 id="amazonalexa">Amazon ALexa</h2>
 
-<p><img src="http://shavo007.github.io/content/images/2016/11/26452717290_b51f1a1f04_z-1.jpg" alt="Amazon Alexa"></p>
+<p><img src="http://blog.shanelee.name/content/images/2016/11/26452717290_b51f1a1f04_z-1.jpg" alt="Amazon Alexa"></p>
 
 <p>Recently, I have started developing alexa skills.</p>
 
-<p>Alexa, the voice service that powers Echo, provides capabilities, or skills, that enable customers to interact with devices in a more intuitive way using voice. Examples of these skills include the</p>]]></description><link>http://shavo007.github.io/2016/11/15/alexa-ask-auspost-for-post-offices-by-postcode/</link><guid isPermaLink="false">fcfc1f6e-dfe2-4002-83a4-2de0af5720e5</guid><category><![CDATA[alexa]]></category><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[node]]></category><category><![CDATA[amazon]]></category><category><![CDATA[amazon echo]]></category><category><![CDATA[serverless]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 15 Nov 2016 11:53:25 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
+<p>Alexa, the voice service that powers Echo, provides capabilities, or skills, that enable customers to interact with devices in a more intuitive way using voice. Examples of these skills include the</p>]]></description><link>http://blog.shanelee.name/2016/11/15/alexa-ask-auspost-for-post-offices-by-postcode/</link><guid isPermaLink="false">fcfc1f6e-dfe2-4002-83a4-2de0af5720e5</guid><category><![CDATA[alexa]]></category><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[node]]></category><category><![CDATA[amazon]]></category><category><![CDATA[amazon echo]]></category><category><![CDATA[serverless]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 15 Nov 2016 11:53:25 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
 
 <p>I will describe below my custom alexa skill.</p>
 
 <h2 id="amazonalexa">Amazon ALexa</h2>
 
-<p><img src="http://shavo007.github.io/content/images/2016/11/26452717290_b51f1a1f04_z-1.jpg" alt="Amazon Alexa"></p>
+<p><img src="http://blog.shanelee.name/content/images/2016/11/26452717290_b51f1a1f04_z-1.jpg" alt="Amazon Alexa"></p>
 
 <p>Recently, I have started developing alexa skills.</p>
 
@@ -458,13 +458,13 @@ GetNextHolidayIntent find next public holiday by state
 
 <h2 id="skill">Skill</h2>
 
-<p><img src="http://shavo007.github.io/content/images/2016/11/noun_666106_cc-2.png" alt="Auspost post office locations"></p>
+<p><img src="http://blog.shanelee.name/content/images/2016/11/noun_666106_cc-2.png" alt="Auspost post office locations"></p>
 
 <p>I decided to build a skill that allows consumers of an alexa enabled device to find post offices by post code in Australia.</p>
 
 <h2 id="alexaflow">Alexa flow</h2>
 
-<p><img src="http://shavo007.github.io/content/images/2016/11/alexaFlow.svg" alt=""></p>
+<p><img src="http://blog.shanelee.name/content/images/2016/11/alexaFlow.svg" alt=""></p>
 
 <h2 id="interactwithauspostskill">Interact with auspost skill</h2>
 
@@ -498,15 +498,15 @@ GetNextHolidayIntent find next public holiday by state
 
 <p>I have created a card for the post offices in the response for future reference. You can see an example below:</p>
 
-<p><img src="http://shavo007.github.io/content/images/2016/11/Screenshot_20161115-230725-1.png" alt=""></p>
+<p><img src="http://blog.shanelee.name/content/images/2016/11/Screenshot_20161115-230725-1.png" alt=""></p>
 
 <h3 id="disclaimer">Disclaimer</h3>
 
 <p>This skill is not currently on the marketplace.</p>
 
-<p>Stay tuned for more skills!!</p>]]></content:encoded></item><item><title><![CDATA[Alexa, ask home theater to put on Mr. Robot]]></title><description><![CDATA[Integrate alexa skill with plex media server using serverless technology aws lambda (FAAS)]]></description><link>http://shavo007.github.io/2016/09/06/alexa-ask-home-theater-to-put-on-mr-robot/</link><guid isPermaLink="false">49266c7f-733b-46eb-b62f-0b73847f2b46</guid><category><![CDATA[alexa]]></category><category><![CDATA[plex]]></category><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[node]]></category><category><![CDATA[dynamodb]]></category><category><![CDATA[amazon]]></category><category><![CDATA[amazon echo]]></category><category><![CDATA[serverless]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 06 Sep 2016 10:45:03 GMT</pubDate><content:encoded><![CDATA[<h1 id="plexforalexa">Plex for Alexa</h1>
+<p>Stay tuned for more skills!!</p>]]></content:encoded></item><item><title><![CDATA[Alexa, ask home theater to put on Mr. Robot]]></title><description><![CDATA[Integrate alexa skill with plex media server using serverless technology aws lambda (FAAS)]]></description><link>http://blog.shanelee.name/2016/09/06/alexa-ask-home-theater-to-put-on-mr-robot/</link><guid isPermaLink="false">49266c7f-733b-46eb-b62f-0b73847f2b46</guid><category><![CDATA[alexa]]></category><category><![CDATA[plex]]></category><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[node]]></category><category><![CDATA[dynamodb]]></category><category><![CDATA[amazon]]></category><category><![CDATA[amazon echo]]></category><category><![CDATA[serverless]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 06 Sep 2016 10:45:03 GMT</pubDate><content:encoded><![CDATA[<h1 id="plexforalexa">Plex for Alexa</h1>
 
-<p><img src="http://shavo007.github.io/content/images/2016/09/maxresdefault.jpg" alt=""></p>
+<p><img src="http://blog.shanelee.name/content/images/2016/09/maxresdefault.jpg" alt=""></p>
 
 <p>Recently, I have started playing around with Alexa skill services. I currently use plex for my media content and found a project on github that has built an alexa skill already. (<strong>thanks to @overloadut</strong>)</p>
 
@@ -518,7 +518,7 @@ GetNextHolidayIntent find next public holiday by state
 
 <h1 id="process">Process</h1>
 
-<p><img src="http://shavo007.github.io/content/images/2016/09/PlexToAlexa.png" alt="Alexa flow"></p>
+<p><img src="http://blog.shanelee.name/content/images/2016/09/PlexToAlexa.png" alt="Alexa flow"></p>
 
 <h3 id="prerequisites">Prerequisites</h3>
 
@@ -558,7 +558,7 @@ AWS_SECRET_ACCESS_KEY=&lt;your own secret key&gt;
 
 <h3 id="awslambda">AWS Lambda</h3>
 
-<p><img src="http://shavo007.github.io/content/images/2016/09/AWS_Simple_Icons_Compute_AWSLambda-svg--1-.png" alt=""></p>
+<p><img src="http://blog.shanelee.name/content/images/2016/09/AWS_Simple_Icons_Compute_AWSLambda-svg--1-.png" alt=""></p>
 
 <p>Create IAM role that has access to lambda and to dynamodb. </p>
 
@@ -574,13 +574,13 @@ AWS_SECRET_ACCESS_KEY=&lt;your own secret key&gt;
 
 <h3 id="dynamodb">DynamoDB</h3>
 
-<p><img src="http://shavo007.github.io/content/images/2016/09/AWS_Simple_Icons_Database_AmazonDynamoDB-svg.png" alt=""></p>
+<p><img src="http://blog.shanelee.name/content/images/2016/09/AWS_Simple_Icons_Database_AmazonDynamoDB-svg.png" alt=""></p>
 
 <p>Create a table named <em>AlexaPlexUsers</em> with a primary string key of <em>userid</em>.</p>
 
 <h3 id="createalexaskill">Create alexa skill</h3>
 
-<p><img src="http://shavo007.github.io/content/images/2016/09/icon_ask_120x120-_CB295607968_--1-.png" alt=""></p>
+<p><img src="http://blog.shanelee.name/content/images/2016/09/icon_ask_120x120-_CB295607968_--1-.png" alt=""></p>
 
 <p>Navigate to <a href="https://developer.amazon.com/">Amazon Developer Portal</a> to begin the Alexa Skill process. </p>
 
@@ -640,7 +640,7 @@ You can do this in Chrome by launching developer tools. You will see a XHR reque
 </ul>
 
 <p><strong>TODO</strong>
-Add in video showing how it plays</p>]]></content:encoded></item><item><title><![CDATA[Consumer driven contract testing using PACT]]></title><description><![CDATA[pact framework to implement consumer driven contract testing against internal restful APIs]]></description><link>http://shavo007.github.io/2016/07/19/consumer-driven-contract-testing-using-pact/</link><guid isPermaLink="false">1b17dbf5-5c11-4bfd-b1b7-18199f9e7fbd</guid><category><![CDATA[docker]]></category><category><![CDATA[docker-compose]]></category><category><![CDATA[pact]]></category><category><![CDATA[contract]]></category><category><![CDATA[testing]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 19 Jul 2016 11:26:24 GMT</pubDate><content:encoded><![CDATA[<h1 id="allaboutpact">All about PACT....</h1>
+Add in video showing how it plays</p>]]></content:encoded></item><item><title><![CDATA[Consumer driven contract testing using PACT]]></title><description><![CDATA[pact framework to implement consumer driven contract testing against internal restful APIs]]></description><link>http://blog.shanelee.name/2016/07/19/consumer-driven-contract-testing-using-pact/</link><guid isPermaLink="false">1b17dbf5-5c11-4bfd-b1b7-18199f9e7fbd</guid><category><![CDATA[docker]]></category><category><![CDATA[docker-compose]]></category><category><![CDATA[pact]]></category><category><![CDATA[contract]]></category><category><![CDATA[testing]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 19 Jul 2016 11:26:24 GMT</pubDate><content:encoded><![CDATA[<h1 id="allaboutpact">All about PACT....</h1>
 
 <p><img src="https://tech.affinitas.de/wp-content/uploads/2015/04/pact_two_parts.png" alt="The PACT Logo"></p>
 
@@ -728,18 +728,18 @@ services:
 
 <h3 id="pactbrokerrelationships">Pact broker relationships</h3>
 
-<p><img src="http://shavo007.github.io/content/images/2016/07/Screen-Shot-2016-07-30-at-8-18-09-PM.png" alt="Pact broker"></p>
+<p><img src="http://blog.shanelee.name/content/images/2016/07/Screen-Shot-2016-07-30-at-8-18-09-PM.png" alt="Pact broker"></p>
 
 <p>You can then verify the contracts against the running microservice by running  </p>
 
 <pre><code class="language-bash">./gradlew pactVerify
 </code></pre>
 
-<p><img src="http://shavo007.github.io/content/images/2016/07/Screen-Shot-2016-07-30-at-8-03-16-PM.png" alt="Microservice console"></p>
+<p><img src="http://blog.shanelee.name/content/images/2016/07/Screen-Shot-2016-07-30-at-8-03-16-PM.png" alt="Microservice console"></p>
 
 <h3 id="consoleverification">Console verification</h3>
 
-<p><img src="http://shavo007.github.io/content/images/2016/07/Screen-Shot-2016-07-30-at-8-20-00-PM.png" alt=""></p>
+<p><img src="http://blog.shanelee.name/content/images/2016/07/Screen-Shot-2016-07-30-at-8-20-00-PM.png" alt=""></p>
 
 <p>Reports are outputted in json and markdown form. Which is very useful in your CI build pipeline.  </p>
 
@@ -755,7 +755,7 @@ services:
 <li><p><a href="http://docs.pact.io/">http://docs.pact.io/</a></p></li>
 <li><p>Recently discussed at microservice meetup : <a href="http://www.meetup.com/Melbourne-Microservices/events/231874304/">http://www.meetup.com/Melbourne-Microservices/events/231874304/</a></p></li>
 <li><p><a href="http://martinfowler.com/articles/microservice-testing/#testing-contract-introduction">http://martinfowler.com/articles/microservice-testing/#testing-contract-introduction</a></p></li>
-</ul>]]></content:encoded></item><item><title><![CDATA[Elasticsearch curator 4.0 and docker]]></title><description><![CDATA[elasticsearch curator 4.0 and docker]]></description><link>http://shavo007.github.io/2016/06/30/elasticsearch-curator-4-0-and-docker-2/</link><guid isPermaLink="false">ee2b6929-ab27-4c85-91d9-17548cbe95d0</guid><category><![CDATA[docker]]></category><category><![CDATA[elasticsearch]]></category><category><![CDATA[curator]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Thu, 30 Jun 2016 10:45:54 GMT</pubDate><content:encoded><![CDATA[<p><img src="http://shavo007.github.io/content/images/2016/07/icon-elasticsearch-3.svg" alt="The Elasticsearch Logo"></p>
+</ul>]]></content:encoded></item><item><title><![CDATA[Elasticsearch curator 4.0 and docker]]></title><description><![CDATA[elasticsearch curator 4.0 and docker]]></description><link>http://blog.shanelee.name/2016/06/30/elasticsearch-curator-4-0-and-docker-2/</link><guid isPermaLink="false">ee2b6929-ab27-4c85-91d9-17548cbe95d0</guid><category><![CDATA[docker]]></category><category><![CDATA[elasticsearch]]></category><category><![CDATA[curator]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Thu, 30 Jun 2016 10:45:54 GMT</pubDate><content:encoded><![CDATA[<p><img src="http://blog.shanelee.name/content/images/2016/07/icon-elasticsearch-3.svg" alt="The Elasticsearch Logo"></p>
 
 <p>Recently, I have worked on elasticsearch. There is a very useful tool called curator. </p>
 
@@ -808,7 +808,7 @@ ENV COMMAND /usr/share/curator/config/delete_log_files_curator.yml
 ENTRYPOINT ["/entrypoint.sh"]
 </code></pre>
 
-<p>Try it out and any questions or feedback, please feel free to comment. </p>]]></content:encoded></item><item><title><![CDATA[ElasticSearch Part1]]></title><link>http://shavo007.github.io/2016/06/07/elasticsearch-part1/</link><guid isPermaLink="false">8b880ffb-97d6-4d39-9f7f-6984681c2afe</guid><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 07 Jun 2016 12:37:03 GMT</pubDate><content:encoded/></item><item><title><![CDATA[Playing around with Docker for Mac Beta]]></title><link>http://shavo007.github.io/2016/06/07/playing-around-with-docker-for-mac-beta/</link><guid isPermaLink="false">b1525dc3-280b-4d6d-a109-76f78244c295</guid><category><![CDATA[docker]]></category><category><![CDATA[mac]]></category><category><![CDATA[beta]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 07 Jun 2016 12:33:12 GMT</pubDate><content:encoded/></item><item><title><![CDATA[Building a microservice using docker]]></title><description><![CDATA[tutorial on building a spring boot app using docker]]></description><link>http://shavo007.github.io/2016/06/05/building-a-microservice-using-docker/</link><guid isPermaLink="false">efc343c5-2778-4902-bbea-d336184f2d14</guid><category><![CDATA[docker]]></category><category><![CDATA[spring]]></category><category><![CDATA[spring-boot]]></category><category><![CDATA[docker-compose]]></category><category><![CDATA[elasticsearch]]></category><category><![CDATA[kibana]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 05 Jun 2016 11:14:28 GMT</pubDate><content:encoded/></item><item><title><![CDATA[Welcome to Ghost]]></title><description><![CDATA[<p>You're live! Nice. We've put together a little post to introduce you to the Ghost editor and get you started. You can manage your content by signing in to the admin area at <code>&lt;your blog URL&gt;/ghost/</code>. When you arrive, you can select this post from a list</p>]]></description><link>http://shavo007.github.io/2016/06/04/welcome-to-ghost/</link><guid isPermaLink="false">bd6cd519-fce9-4139-b2bb-bd1bd346c59a</guid><category><![CDATA[Getting Started]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 04 Jun 2016 06:24:13 GMT</pubDate><content:encoded><![CDATA[<p>You're live! Nice. We've put together a little post to introduce you to the Ghost editor and get you started. You can manage your content by signing in to the admin area at <code>&lt;your blog URL&gt;/ghost/</code>. When you arrive, you can select this post from a list on the left and see a preview of it on the right. Click the little pencil icon at the top of the preview to edit this post and read the next section!</p>
+<p>Try it out and any questions or feedback, please feel free to comment. </p>]]></content:encoded></item><item><title><![CDATA[ElasticSearch Part1]]></title><link>http://blog.shanelee.name/2016/06/07/elasticsearch-part1/</link><guid isPermaLink="false">8b880ffb-97d6-4d39-9f7f-6984681c2afe</guid><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 07 Jun 2016 12:37:03 GMT</pubDate><content:encoded/></item><item><title><![CDATA[Playing around with Docker for Mac Beta]]></title><link>http://blog.shanelee.name/2016/06/07/playing-around-with-docker-for-mac-beta/</link><guid isPermaLink="false">b1525dc3-280b-4d6d-a109-76f78244c295</guid><category><![CDATA[docker]]></category><category><![CDATA[mac]]></category><category><![CDATA[beta]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 07 Jun 2016 12:33:12 GMT</pubDate><content:encoded/></item><item><title><![CDATA[Building a microservice using docker]]></title><description><![CDATA[tutorial on building a spring boot app using docker]]></description><link>http://blog.shanelee.name/2016/06/05/building-a-microservice-using-docker/</link><guid isPermaLink="false">efc343c5-2778-4902-bbea-d336184f2d14</guid><category><![CDATA[docker]]></category><category><![CDATA[spring]]></category><category><![CDATA[spring-boot]]></category><category><![CDATA[docker-compose]]></category><category><![CDATA[elasticsearch]]></category><category><![CDATA[kibana]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 05 Jun 2016 11:14:28 GMT</pubDate><content:encoded/></item><item><title><![CDATA[Welcome to Ghost]]></title><description><![CDATA[<p>You're live! Nice. We've put together a little post to introduce you to the Ghost editor and get you started. You can manage your content by signing in to the admin area at <code>&lt;your blog URL&gt;/ghost/</code>. When you arrive, you can select this post from a list</p>]]></description><link>http://blog.shanelee.name/2016/06/04/welcome-to-ghost/</link><guid isPermaLink="false">bd6cd519-fce9-4139-b2bb-bd1bd346c59a</guid><category><![CDATA[Getting Started]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 04 Jun 2016 06:24:13 GMT</pubDate><content:encoded><![CDATA[<p>You're live! Nice. We've put together a little post to introduce you to the Ghost editor and get you started. You can manage your content by signing in to the admin area at <code>&lt;your blog URL&gt;/ghost/</code>. When you arrive, you can select this post from a list on the left and see a preview of it on the right. Click the little pencil icon at the top of the preview to edit this post and read the next section!</p>
 
 <h2 id="gettingstarted">Getting Started</h2>
 

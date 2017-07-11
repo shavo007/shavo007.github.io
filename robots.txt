@@ -1,3 +1,3 @@
 User-agent: *
-Sitemap: http://shavo007.github.io/sitemap.xml
+Sitemap: http://blog.shanelee.name/sitemap.xml
 Disallow: /ghost/
