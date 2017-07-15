@@ -1,4 +1,340 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Tue, 11 Jul 2017 11:56:18 GMT</lastBuildDate><atom:link href="http://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Test drive docker health check]]></title><description><![CDATA[<h1 id="tldr">TL;DR</h1>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Sat, 15 Jul 2017 07:31:26 GMT</lastBuildDate><atom:link href="http://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[JVM Microservice with spring boot, docker and kubernetes]]></title><description><![CDATA[How to build and deploy a spring boot application using docker and kubernetes.]]></description><link>http://blog.shanelee.name/2017/07/15/jvm-microservice-with-spring-boot-docker-and-kubernetes/</link><guid isPermaLink="false">357eedf7-58d4-48b6-ab00-a8013d81dce5</guid><category><![CDATA[docker]]></category><category><![CDATA[spring-boot]]></category><category><![CDATA[kubernetes]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 15 Jul 2017 04:10:22 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
+
+<p>That title is a bit of a mouthful...</p>
+
+<p>Over the last two weeks I have been playing with kubernetes. I have extensive experience building microservices and below I will demonstrate how to build a microservice, contain it using docker and deploy on kubernetes.</p>
+
+<p><img src="http://blog.shanelee.name/content/images/2017/07/kubernetes.png" alt="Kubernetes"></p>
+
+<h2 id="creatingamicroserviceprojectusingspringboot">Creating a microservice project using spring boot</h2>
+
+<p>Spring boot allows a developer to build a production-grade stand-alone application, like a typical CRUD application exposing a RESTful API, with minimal configuration, reducing the learning curve required for using the Spring Framework drastically. </p>
+
+<blockquote>
+  <p>Spring Boot favors convention over configuration and is designed to get you up and running as quickly as possible.</p>
+</blockquote>
+
+<h3 id="createspringbootapplication">Create spring boot application</h3>
+
+<p>To create your spring boot app we will use  <a href="https://start.spring.io/">Spring Initializr</a> web page and generate a Gradle Project with the pre-selected Spring Boot Version. <br>
+We define <strong>name.shanelee</strong> as Group (if applicable) and define the artifact name. From here you can choose whatever dependencies you need for your microservice. We use <strong>Web</strong> for supporting tomcat and restful API. <br>
+ <strong>Actuator</strong> dependency which implements some production-grade features useful for monitoring and managing our application like health-checks and HTTP requests traces.</p>
+
+<p><img src="http://blog.shanelee.name/content/images/2017/07/Screen-Shot-2017-07-15-at-2-25-28-pm.png" alt="Spring boot"></p>
+
+<p>Spring Initializr has already created everything for us. We just need to have a Java JDK 1.8 or later installed on our machine and the JAVA_HOME environment variable set accordingly.</p>
+
+<pre><code class="language-bash">### Extracting and launching the application
+shanelee at shanes-MacBook-Air in ~/java-projects  
+$ unzip   ~/Downloads/demo.zip -d microservice
+$ cd microservice/demo/
+$ ./gradlew bootRun
+</code></pre>
+
+<p><strong>The application is up and running and we did not write one line of code!</strong></p>
+
+<p>Spring Boot is opinionated and auto-configures the application with sane default values and beans. It also scans the classpath for known dependencies and initializes them. In our case, we immediately enjoy all the production-grade services offered by <a href="http://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html">Spring Actuator</a>.</p>
+
+<pre><code class="language-bash">~$ curl http://localhost:8080/health
+{"status":"UP","diskSpace":{"status":"UP","total":981190307840,"free":744776503296,"threshold":10485760}}
+</code></pre>
+
+<p><strong>NB: Actuator endpoints is important when we deploy the container in kubernetes. It needs to know when the microservice is ready to handle network traffic.</strong></p>
+
+<p>For more information see <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/">https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/</a></p>
+
+<h2 id="packagingaspringbootapplicationasadockercontainer">Packaging a Spring Boot application as a Docker container</h2>
+
+<p>Let's start by creating the Dockerfile in the root directory of our project.</p>
+
+<pre><code class="language-Docker">FROM openjdk:8u131-jdk-alpine  
+VOLUME /tmp  
+WORKDIR /app  
+COPY ./build/libs/demo-0.0.1-SNAPSHOT.jar .  
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app/demo-0.0.1-SNAPSHOT.jar"]  
+</code></pre>
+
+<p>The FROM keyword defines the base Docker image of our container. We chose <a href="http://openjdk.java.net/">OpenJDK</a> installed on <a href="https://alpinelinux.org/">Alpine Linux</a> which is a lightweight Linux distribution. To understand why I use alpine as base image check out these <a href="https://diveintodocker.com/blog/the-3-biggest-wins-when-using-alpine-as-a-base-docker-image">benefits</a></p>
+
+<p>The <strong>VOLUME</strong> instruction creates a mount point with the specified name and marks it as holding externally mounted volumes from the native host or other containers. <strong>ENTRYPOINT</strong> defines the command to execute when the container is started. Since Spring Boot produces an executable JAR with embedded Tomcat, the command to execute is simply <code>java -jar microservice.jar</code>. The additional flag <code>java.security.edg=file:/dev/./urandom</code> is used to speed up the application start-up and avoid possible freezes. By default, Java uses <code>/dev/random</code> to seed its SecureRandom class which is known to block if its entropy pool is empty.</p>
+
+<h2 id="logging">Logging</h2>
+
+<blockquote>
+  <p>Treat logs as event streams</p>
+</blockquote>
+
+<p>This is what is recommended by <strong>12factor</strong> principles. </p>
+
+<p>Microservice should not attempt to write to or manage logfiles. Instead, each running process writes its event stream, unbuffered, to stdout. During local development, the developer will view this stream in the foreground of their terminal to observe the app’s behavior.</p>
+
+<p>In staging or production deploys, each process’ stream will be captured by the execution environment and routed to one or more final destinations for viewing and long-term archival. <br>
+As I will be using <strong>kubernetes</strong>, I will define a daemonset logging shipper called <strong>fluentd</strong>. </p>
+
+<h3 id="daemonsetandfluentd">Daemonset and Fluentd</h3>
+
+<p><img src="http://blog.shanelee.name/content/images/2017/07/kubernetes-elastic-fluentd.png" alt="FluentD"></p>
+
+<p>A <strong>DaemonSet</strong> ensures that a certain pod is scheduled to each kubelet exactly once. The <strong>fluentd</strong> pod mounts the <code>/var/lib/containers/</code> host volume to access the logs of all pods scheduled to that <strong>kubelet</strong></p>
+
+<p>Daemonset for fluentd can be found <a href="https://github.com/fluent/fluentd-kubernetes-daemonset">here</a></p>
+
+<p><strong>Kubernetes</strong> logs the content of the <code>stdout</code> and <code>stderr</code> streams of a pod to a file. It creates one file for each container in a pod. The default location for these files is <code>/var/log/containers</code> . The filename contains the pod name, the namespace of the pod, the container name, and the container id. The file contains one JSON object per line of the two streams stdout and stderr. </p>
+
+<p>Fluentd is a flexible log data collector. It supports various inputs like log files or syslog and supports many outputs like <strong>elasticsearch</strong> or Hadoop. Fluentd converts each log line to an event. Those events can be processed and enriched in the fluentd pipeline.</p>
+
+<h4 id="considerationsforproductiondeployments">Considerations for Production Deployments</h4>
+
+<p>In a production environment you have to implement a log rotation of the stored log data. Since the above fluentd configuration generally will generate one index per day this is easy. <a href="https://www.elastic.co/guide/en/elasticsearch/client/curator/current/index.html">Elasticsearch Curator</a> is a tool made for exactly this job. <br>
+Curator can run as a container similar to one I defined <a href="https://hub.docker.com/r/shanelee007/docker-es-curator-cron/">here</a> also or a scheduled <a href="https://www.elastic.co/blog/serverless-elasticsearch-curator-on-aws-lambda">lambda</a> function. <br>
+Logs to <code>stdout</code> have to be in <strong>JSON</strong> format. </p>
+
+<h2 id="kubernetes">Kubernetes</h2>
+
+<blockquote>
+  <p>Kubernetes is an open-source system for automating deployment, scaling, and management of containerized applications.</p>
+</blockquote>
+
+<p>I will discuss how to run kubernetes locally using minikube and how to define resource objects for the microservice above. In a later post I will talk about creating cluster on aws using kops.</p>
+
+<h2 id="howtorunkuberneteslocally">How to run kubernetes locally</h2>
+
+<p>To run kubernetes locally you need <a href="https://kubernetes.io/docs/getting-started-guides/minikube/">minikube</a>. Minikube runs a single-node Kubernetes cluster inside a VM on your laptop for users looking to try out Kubernetes or develop with it day-to-day.</p>
+
+<p>To install locally follow the steps <a href="https://kubernetes.io/docs/tasks/tools/install-minikube/">here</a></p>
+
+<p><mark>Increase the storage size when starting</mark></p>
+
+<pre><code class="language-bash">minikube start --disk-size="10g" --memory="4096"  
+#Switch to minikube context
+kubectl config use-context minikube  
+</code></pre>
+
+<p>After cluster created, open the dashboard. Dashboard is an <a href="https://github.com/kubernetes/kubernetes/tree/master/cluster/addons">addon</a> for kubernetes. </p>
+
+<p><code>minikube dashboard</code></p>
+
+<h2 id="createdeploymentandservicefordemomicroservice">Create deployment and service for demo microservice</h2>
+
+<p>To test locally build and tag your docker image <br>
+You can point your docker client to the VM's docker daemon by running</p>
+
+<p><code>eval $(minikube docker-env)</code></p>
+
+<pre><code class="language-Docker">docker build -t demo .  
+</code></pre>
+
+<p>You should see output like below  </p>
+
+<pre><code class="language-bash">Sending build context to Docker daemon  15.76MB  
+Step 1/5 : FROM openjdk:8u131-jdk-alpine  
+8u131-jdk-alpine: Pulling from library/openjdk  
+88286f41530e: Pull complete  
+009f6e766a1b: Pull complete  
+86ed68184682: Pull complete  
+Digest: sha256:2b1f15e04904dd44a2667a07e34c628ac4b239f92f413b587538f801a0a57c88  
+Status: Downloaded newer image for openjdk:8u131-jdk-alpine  
+ ---&gt; 478bf389b75b
+Step 2/5 : VOLUME /tmp  
+ ---&gt; Running in ff8bd4023ec3
+ ---&gt; 61232f70a630
+Removing intermediate container ff8bd4023ec3  
+Step 3/5 : WORKDIR /app  
+ ---&gt; 79ea27f4f4ea
+Removing intermediate container 01fac4d0f9a3  
+Step 4/5 : COPY ./build/libs/demo-0.0.1-SNAPSHOT.jar .  
+ ---&gt; f9aa60a3ac4a
+Removing intermediate container d90236650b23  
+Step 5/5 : ENTRYPOINT java -Djava.security.egd=file:/dev/./urandom -jar /app/demo-0.0.1-SNAPSHOT.jar  
+ ---&gt; Running in 7c8a6c01cef0
+ ---&gt; abdcba6bf841
+Removing intermediate container 7c8a6c01cef0  
+Successfully built abdcba6bf841  
+Successfully tagged demo:latest
+</code></pre>
+
+<h2 id="addons">Addons</h2>
+
+<p>Minikube has a set of built in addons that can be used enabled, disabled, and opened inside of the local k8s environment. </p>
+
+<p>To enable addon for minkube run <code>minikube addons enable &lt;addon&gt;</code></p>
+
+<p>To verify get the list of addons  </p>
+
+<pre><code class="language-bash">$ minikube addons list
+- dashboard: enabled
+- default-storageclass: enabled
+- kube-dns: enabled
+- heapster: disabled
+- ingress: enabled
+- registry: enabled
+- registry-creds: disabled
+- addon-manager: enabled
+</code></pre>
+
+<p>Below is a sample deployment config. Here I defined the service and deployment resource objects. </p>
+
+<pre><code class="language-yaml">apiVersion: v1  
+kind: Service  
+metadata:  
+  name: demo-microservice
+  labels:
+    app: demo
+spec:  
+  ports:
+    - port: 8081
+  selector:
+    app: demo
+    tier: microservice
+  type: LoadBalancer
+---
+
+---
+apiVersion: extensions/v1beta1  
+kind: Deployment  
+metadata:  
+  name: demo-microservice
+  creationTimestamp: null
+  labels:
+     app: demo
+spec:  
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: demo
+        tier: microservice
+        env: dev
+    spec:
+      containers:
+        - name: demo
+          image: demo
+          imagePullPolicy: Never
+          ports:
+          - containerPort: 8081
+          env:
+            - name: SERVER_PORT
+              value: "8081"
+</code></pre>
+
+<p>This is the definition of a Kubernetes <a href="http://kubernetes.io/docs/user-guide/deployments/">Deployment</a> named <strong>demo-microservice</strong>. The replicas element defines the target number of Pods. Kubernetes performs automated binpacking and self-healing of the system to comply with the deployment specifications while achieving optimal utilization of compute resources. A Pod can be composed of multiple containers. In this scenario, I included one container: one for demo microservice image.</p>
+
+<p>If using private docker registry  you need to set an entry under the <strong>imagePullSecrets</strong> which is used to authenticate to the docker Registry.</p>
+
+<p><mark>For a detailed explanation of Kubernetes resources and concepts refer to the <a href="http://kubernetes.io/">official documentation</a>.</mark></p>
+
+<h2 id="democreation">Demo creation</h2>
+
+<p>Now create the service and deployment</p>
+
+<pre><code>$ kubectl apply -f deployment.yml --record
+service "demo-microservice" configured  
+deployment "demo-microservice" created  
+</code></pre>
+
+<p>Kubernetes will create one pod with one container inside.</p>
+
+<p>To verify the pod is running  </p>
+
+<pre><code class="language-bash">kubectl get pods  
+#To tail the logs of the microservice container run
+kubectl logs -f &lt;pod&gt;  
+</code></pre>
+
+<p>Now that the container is running in the pod, we can verify the health of the microservice. <br>
+The pod is exposed through a service. <br>
+To get information about the service run <br>
+<code>$ kubectl describe svc demo-microservice</code></p>
+
+<p>To access locally get the public url  </p>
+
+<pre><code class="language-bash">$ minikube service demo-microservice --url
+http://192.168.99.100:31511  
+</code></pre>
+
+<h3 id="verifyhealth">Verify health</h3>
+
+<p>Then hit the health endpoint to verify the status of the microservice  </p>
+
+<pre><code class="language-bash">$ curl http://192.168.99.100:31511/health
+{"status":"UP","diskSpace":{"status":"UP","total":19163156480,"free":9866866688,"threshold":10485760}}
+</code></pre>
+
+<h4 id="configurelivenessandreadinessprobes">Configure Liveness and Readiness Probes</h4>
+
+<p>Now that we are happy with the deployment, we are going to add an additional feature. </p>
+
+<p>The <a href="https://kubernetes.io/docs/admin/kubelet/">kubelet</a> uses liveness probes to know when to restart a Container. For example, liveness probes could catch a deadlock, where an application is running, but unable to make progress. Restarting a Container in such a state can help to make the application more available despite bugs.</p>
+
+<p>The kubelet uses readiness probes to know when a Container is ready to start accepting traffic. A Pod is considered ready when all of its Containers are ready. One use of this signal is to control which Pods are used as backends for Services. When a Pod is not ready, it is removed from Service load balancers.</p>
+
+<p>The right combination of liveness and readiness probes used with Kubernetes deployments can:</p>
+
+<ul>
+<li><p>Enable zero downtime deploys</p></li>
+<li><p>Prevent deployment of broken images</p></li>
+<li><p>Ensure that failed containers are automatically restarted</p></li>
+</ul>
+
+<pre><code class="language-yaml"> livenessProbe:
+              httpGet:
+                path: /health
+                port: 8081
+                httpHeaders:
+                  - name: X-Custom-Header
+                    value: Awesome
+              initialDelaySeconds: 30
+              periodSeconds: 3
+</code></pre>
+
+<p>The <strong>livenessProbe</strong> field specifies that the kubelet should perform a liveness probe every 3 seconds for demo. The initialDelaySeconds field tells the kubelet that it should wait 30 seconds before performing the first probe. </p>
+
+<p>To perform a probe, the kubelet sends an HTTP GET request to the server that is running in the Container and listening on port 8081. If the handler for the server’s /health path returns a success code, the kubelet considers the Container to be alive and healthy. If the handler returns a failure code, the kubelet kills the Container and restarts it.</p>
+
+<p>To try the HTTP liveness check, update the deployment</p>
+
+<pre><code class="language-bash">$ kubectl apply -f kubernetes/deployment.yml --record
+</code></pre>
+
+<p>If you describe the pod, you will see the liveness http request <br>
+ <code>Liveness: http-get http://:8081/health delay=30s timeout=1s period=3s #success=1 #failure=3</code></p>
+
+<p>The readiness probe has similar configuration:  </p>
+
+<pre><code class="language-yaml ">readinessProbe:  
+   httpGet:
+     path: /health
+     port: 8081
+   initialDelaySeconds: 30
+   periodSeconds: 10
+</code></pre>
+
+<p>Readiness and liveness probes can be used in parallel for the same container. Using both can ensure that traffic does not reach a container that is not ready for it, and that containers are restarted when they fail.</p>
+
+<p>To verify these changes, spring boot actuator has a production ready endpoint called trace.</p>
+
+<blockquote>
+  <p>Displays trace information (by default the last 100 HTTP requests).</p>
+</blockquote>
+
+<p>If you access this endpoint, you will see the health requests like below <br>
+<a href="http://192.168.99.100:31511/trace">http://192.168.99.100:31511/trace</a></p>
+
+<pre><code class="language-bash">{timestamp: 1499927068835,info: {method: "GET",path: "/health",headers: {request: {host: "172.17.0.3:8081",user-agent: "Go-http-client/1.1",x-custom-header: "Awesome",accept-encoding: "gzip",connection: "close"},response: {X-Application-Context: "application:local:8081",Content-Type: "application/vnd.spring-boot.actuator.v1+json;charset=UTF-8",Transfer-Encoding: "chunked",Date: "Thu, 13 Jul 2017 06:24:28 GMT",Connection: "close",status: "200"}},timeTaken: "4"}},
+</code></pre>
+
+<p>The actuator <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html">endpoints</a> provide a wealth of information for your microservice. Make sure you become accustomed to them. </p>
+
+<p>There you have it!</p>
+
+<p>A working example of using spring boot, docker and kubernetes.</p>
+
+<p>Stay tuned for more kubernetes goodness... ;-)</p>
+
+<p>If you want to view the sample code check out github repo <a href="https://github.com/shavo007/spring-boot-k8s">here</a></p>]]></content:encoded></item><item><title><![CDATA[Test drive docker health check]]></title><description><![CDATA[<h1 id="tldr">TL;DR</h1>
 
 <p>Healthcheck in docker was introduced in docker compose version 2.1 and up.</p>
 
