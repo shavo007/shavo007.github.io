@@ -1,4 +1,155 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Sat, 22 Jul 2017 06:42:19 GMT</lastBuildDate><atom:link href="http://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[JVM Microservice with spring boot, docker and kubernetes]]></title><description><![CDATA[How to build and deploy a spring boot application using docker and kubernetes.]]></description><link>http://blog.shanelee.name/2017/07/15/jvm-microservice-with-spring-boot-docker-and-kubernetes/</link><guid isPermaLink="false">357eedf7-58d4-48b6-ab00-a8013d81dce5</guid><category><![CDATA[docker]]></category><category><![CDATA[spring-boot]]></category><category><![CDATA[kubernetes]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 15 Jul 2017 04:10:22 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Mon, 31 Jul 2017 09:29:17 GMT</lastBuildDate><atom:link href="http://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[How to save costs with serverless and AWS Lambda]]></title><description><![CDATA[<h1 id="tldr">TL;DR</h1>
+
+<p>Recently AWS <a href="https://aws.amazon.com/about-aws/whats-new/2017/06/amazon-rds-supports-stopping-and-starting-of-database-instances/">announced</a> new feature to stop/start your RDS instances. This is something I have been looking forward to for a long while..</p>
+
+<h2 id="awsrdsstopstart">AWS RDS stop/start</h2>
+
+<p><img src="http://blog.shanelee.name/content/images/2017/07/rds.png" alt="">
+Companies I have worked for in the past have scaled down their RDS instances for lower end envs to save</p>]]></description><link>http://blog.shanelee.name/2017/07/28/how-to-save-costs-with-serverless-and-aws-lambda/</link><guid isPermaLink="false">cd5587b1-d0bc-45cb-bda4-5436ed764cd8</guid><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Fri, 28 Jul 2017 03:11:27 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
+
+<p>Recently AWS <a href="https://aws.amazon.com/about-aws/whats-new/2017/06/amazon-rds-supports-stopping-and-starting-of-database-instances/">announced</a> new feature to stop/start your RDS instances. This is something I have been looking forward to for a long while..</p>
+
+<h2 id="awsrdsstopstart">AWS RDS stop/start</h2>
+
+<p><img src="http://blog.shanelee.name/content/images/2017/07/rds.png" alt="">
+Companies I have worked for in the past have scaled down their RDS instances for lower end envs to save costs. Now you can schedule to stop/start, sweet!</p>
+
+<blockquote>
+  <p>The stop/start feature is available for database instances running in a Single-AZ deployment</p>
+</blockquote>
+
+<p>This may not suit your needs but if you have multiple RDS instances running in lower end envs in a single A-Z; this potentially could save you $100s if not $1000s per annum..</p>
+
+<h2 id="rdspricingexample">RDS Pricing example</h2>
+
+<p>Lets take a medium sized RDS instance <mark>db.m4.xlarge    (4CPU and 16GB RAM)</mark> in <strong>Sydney</strong> region for <strong>MySQL</strong> engine costs <strong>$0.492</strong> per hour</p>
+
+<p>Now if we use the <a href="https://calculator.s3.amazonaws.com/index.html">calculator</a>, <br>
+usage running 24/7, costs on average <strong>$360.15</strong> per month</p>
+
+<p>Now if we only had that running business hours <strong>(9 hrs a day MON-FRI)</strong> , talking on average <strong>$92.99</strong>.</p>
+
+<p>Thats a cost saving of <strong>$267.16</strong>. That is just for <strong>one</strong> <strong>instance</strong> <strong>per</strong> <strong>month</strong>/ OR <strong>$3,205.92 per annum</strong>!!!!! </p>
+
+<p>What if you were working in a large enterprise with 10s or 100s of RDS instances... 😉</p>
+
+<p><img src="http://blog.shanelee.name/content/images/2017/07/neat.gif" alt=""></p>
+
+<p>So now that we know how much you can save, how to automate the process of stopping/starting instances and run it at low cost.</p>
+
+<p>Well, the answer is serverless!</p>
+
+<h2 id="serverlessandawslambda">Serverless and AWS Lambda</h2>
+
+<p><img src="http://blog.shanelee.name/content/images/2017/07/lambda1.png" alt=""></p>
+
+<p>Over the past few years serverless (or FaaS - Function as a Service) computing has became more and more popular.</p>
+
+<blockquote>
+  <p>Run code without thinking about servers.
+  Pay for only the compute time you consume.</p>
+</blockquote>
+
+<p><mark>In the past years, most of the cloud providers started to offer their own version of serverless: Microsoft launched Azure Functions while Google launched Cloud Functions. IBM released an open-source version of serverless, called OpenWhisk.</mark></p>
+
+<h3 id="callinganewlambdafunctionforthefirsttime">Calling a new Lambda function for the first time</h3>
+
+<p>When you deploy your Lambda function (or update an existing one), a new container will be created for it.</p>
+
+<p>Your code will be moved into the container, and the initialization code will run before the first request arrives to the exposed handler function.</p>
+
+<h4 id="consequentcallstoanexistinglambdafunction">Consequent calls to an existing Lambda function</h4>
+
+<p>For the next calls, Lambda may decide to create new containers to serve your requests. In this case, the same process will happen as described above, with initialization.</p>
+
+<p>However, if you have not changed your Lambda function and only a little time passed since the last call, Lambda may reuse the container. This way it saves the initialization time required to spin up the new container and your code inside it.</p>
+
+<h4 id="benefits">Benefits</h4>
+
+<p>AWS lambda has a number of benefits including:</p>
+
+<ul>
+<li>Reduced operational cost</li>
+<li>Reduced scaling cost</li>
+<li>Easier operational management</li>
+<li>Cheap! 1,000,000 free requests per month.
+Up to 3.2 million seconds of compute time per month</li>
+</ul>
+
+<p>To save all the headaches of building, zipping and deploying your function I will use serverless framework. </p>
+
+<h2 id="serverlessframework">Serverless framework</h2>
+
+<p><img src="http://blog.shanelee.name/content/images/2017/07/serverless.png" alt=""></p>
+
+<blockquote>
+  <p>Build auto-scaling, pay-per-execution, event-driven apps on AWS Lambda and more..</p>
+</blockquote>
+
+<p>The Serverless framework is an open-source, MIT-licensed solution which helps with creating and managing AWS Lambda functions easier.</p>
+
+<p>Now there is other options such as <a href="https://github.com/awslabs/serverless-application-model">AWS SAM</a> but serverless is quite mature and releases often.</p>
+
+<p>In my previous <a href="https://blog.shanelee.name/2016/12/17/serverless-and-scheduled-lambda-function/">post</a> I talked about serverless and how to install and configure it locally.</p>
+
+<h3 id="codingtime">Coding time..</h3>
+
+<p>Here I am going to show you how to use serverless to schedule two functions for stopping and starting RDS instances.</p>
+
+<p>The src code for both functions exist on github:</p>
+
+<ul>
+<li><a href="https://github.com/shavo007/lambda-start-rds">https://github.com/shavo007/lambda-start-rds</a></li>
+<li><a href="https://github.com/shavo007/lambda-stop-rds">https://github.com/shavo007/lambda-stop-rds</a></li>
+</ul>
+
+<p>Both lambda functions are developed using nodeJS. I decided to use <strong>yarn</strong> rather than npm. </p>
+
+<blockquote>
+  <p><a href="https://yarnpkg.com/">Yarn</a> is a Node.js package manager which is much faster than NPM, has offline support, and fetches dependencies more <a href="https://yarnpkg.com/en/docs/yarn-lock">predictably</a>.</p>
+</blockquote>
+
+<p>I use some <a href="http://es6-features.org/">ES6</a> syntax, which is a great improvement over the "old" ES5 syntax. There are too many ES6 features to list them here but typical ES6 code uses classes with <code>class, const and let, template strings, and arrow functions ((text) =&gt; { console.log(text) })</code>.</p>
+
+<p>As of now, the current runtime supported by AWS Lambda is <strong>node 6.10</strong></p>
+
+<h4 id="babel">Babel</h4>
+
+<p><a href="https://babeljs.io/">Babel</a> is a compiler that transforms ES6 code into ES5 code. It is very modular and can be used in tons of different environments.</p>
+
+<h4 id="eslint">ESLint</h4>
+
+<p><a href="http://eslint.org/">ESLint</a> is the linter of choice for ES6 code. A linter gives you recommendations about code formatting, which enforces style consistency in your code, and code you share with your team. It's also a great way to learn about JavaScript by making mistakes that ESLint will catch.</p>
+
+<p>Instead of configuring the rules we want for our code ourselves, I use the config created by <a href="https://www.npmjs.com/package/eslint-config-airbnb">Airbnb</a>.</p>
+
+<h4 id="atom">Atom</h4>
+
+<p>You can use any IDE of your choice. I use <a href="https://atom.io/">Atom</a> and it has many plugins such as support for <a href="https://atom.io/packages/linter-eslint">eslint</a></p>
+
+<h2 id="functions">Functions</h2>
+
+<p>Both functions are triggered by a cron job. You can view this config in the respective <code>serverless.yaml</code> file</p>
+
+<p>I create my RDS instances with custom tags. <code>autoStopInstance</code> and <code>autoStartInstance</code>.</p>
+
+<p>The start function runs at <strong>9PM SUN-THU (UTC time)</strong>  and starts any instances with <code>autoStartInstance=true</code></p>
+
+<p>The stop function runs at  <strong>8AM MON-FRI (UTC time)</strong> and stops any instances with <code>autoStopInstance=true</code></p>
+
+<p><mark><strong>NB:</strong> I am running both lambda fns in Sydney</mark></p>
+
+<h2 id="readmore">Read more</h2>
+
+<p>Check out the following extra resources:</p>
+
+<ul>
+<li><p><a href="https://martinfowler.com/articles/serverless.html">Serverless Architectures by Martin Fowler</a></p></li>
+<li><p><a href="https://serverless.com/blog/">The Serverless blog</a></p></li>
+<li><a href="https://github.com/dwyl/learn-aws-lambda">Learn AWS Lambda</a></li>
+</ul>
+
+<p>If you have any questions, let me know in the comments below!</p>]]></content:encoded></item><item><title><![CDATA[JVM Microservice with spring boot, docker and kubernetes]]></title><description><![CDATA[How to build and deploy a spring boot application using docker and kubernetes.]]></description><link>http://blog.shanelee.name/2017/07/15/jvm-microservice-with-spring-boot-docker-and-kubernetes/</link><guid isPermaLink="false">357eedf7-58d4-48b6-ab00-a8013d81dce5</guid><category><![CDATA[docker]]></category><category><![CDATA[spring-boot]]></category><category><![CDATA[kubernetes]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 15 Jul 2017 04:10:22 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
 
 <p>That title is a bit of a mouthful...</p>
 

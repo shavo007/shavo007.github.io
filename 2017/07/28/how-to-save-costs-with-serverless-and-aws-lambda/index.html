@@ -1,0 +1,348 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>How to save costs with serverless and AWS Lambda</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
+    <link rel="canonical" href="https://blog.shanelee.name/2017/07/28/how-to-save-costs-with-serverless-and-aws-lambda/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="Tech Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How to save costs with serverless and AWS Lambda">
+    <meta property="og:description" content="TL;DR Recently AWS announced new feature to stop/start your RDS instances. This is something I have been looking forward to for a long while.. AWS RDS stop/start Companies I have worked for in the past have scaled down their RDS instances for lower end envs to save">
+    <meta property="og:url" content="http://blog.shanelee.name/2017/07/28/how-to-save-costs-with-serverless-and-aws-lambda/">
+    <meta property="article:published_time" content="2017-07-28T03:11:27.317Z">
+    <meta property="article:modified_time" content="2017-07-31T09:25:27.722Z">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="How to save costs with serverless and AWS Lambda">
+    <meta name="twitter:description" content="TL;DR Recently AWS announced new feature to stop/start your RDS instances. This is something I have been looking forward to for a long while.. AWS RDS stop/start Companies I have worked for in the past have scaled down their RDS instances for lower end envs to save">
+    <meta name="twitter:url" content="http://blog.shanelee.name/2017/07/28/how-to-save-costs-with-serverless-and-aws-lambda/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shane Lee">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Tech Blog",
+        "logo": "http://blog.shanelee.name/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shane Lee",
+        "image": "http://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg",
+        "url": "http://blog.shanelee.name/author/shane/",
+        "sameAs": [
+            "https://about.me/shane-lee"
+        ]
+    },
+    "headline": "How to save costs with serverless and AWS Lambda",
+    "url": "http://blog.shanelee.name/2017/07/28/how-to-save-costs-with-serverless-and-aws-lambda/",
+    "datePublished": "2017-07-28T03:11:27.317Z",
+    "dateModified": "2017-07-31T09:25:27.722Z",
+    "description": "TL;DR Recently AWS announced new feature to stop/start your RDS instances. This is something I have been looking forward to for a long while.. AWS RDS stop/start Companies I have worked for in the past have scaled down their RDS instances for lower end envs to save"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.8">
+    <link rel="alternate" type="application/rss+xml" title="Tech Blog" href="https://blog.shanelee.name/rss/">
+    <meta name="google-site-verification" content="dzkjZUDovRImqR_2oGUlteWT1zcgw-r6cqBYef9qiWw">
+<meta name="google-site-verification" content="lojSObDdEFLBM0ok1Yiqy7rqgbc8yAUTyqF5iYszvWA">
+</head>
+<body class="post-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="https://blog.shanelee.name/">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="https://blog.shanelee.name/rss/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">How to save costs with serverless and AWS Lambda</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2017-07-28">28 July 2017</time>
+                
+                ,
+
+                <!--<li class="post-meta-item">-->
+                    <a href="index.html#disqus_thread"></a>
+                <!--</li>-->
+                <!--<a href="#disqus_thread"/>-->
+            </section>
+        </header>
+
+        <section class="post-content">
+
+            <h1 id="tldr">TL;DR</h1>
+
+<p>Recently AWS <a href="https://aws.amazon.com/about-aws/whats-new/2017/06/amazon-rds-supports-stopping-and-starting-of-database-instances/">announced</a> new feature to stop/start your RDS instances. This is something I have been looking forward to for a long while..</p>
+
+<h2 id="awsrdsstopstart">AWS RDS stop/start</h2>
+
+<p><img src="../../../../content/images/2017/07/rds.png	" alt="">
+Companies I have worked for in the past have scaled down their RDS instances for lower end envs to save costs. Now you can schedule to stop/start, sweet!</p>
+
+<blockquote>
+  <p>The stop/start feature is available for database instances running in a Single-AZ deployment</p>
+</blockquote>
+
+<p>This may not suit your needs but if you have multiple RDS instances running in lower end envs in a single A-Z; this potentially could save you $100s if not $1000s per annum..</p>
+
+<h2 id="rdspricingexample">RDS Pricing example</h2>
+
+<p>Lets take a medium sized RDS instance <mark>db.m4.xlarge    (4CPU and 16GB RAM)</mark> in <strong>Sydney</strong> region for <strong>MySQL</strong> engine costs <strong>$0.492</strong> per hour</p>
+
+<p>Now if we use the <a href="https://calculator.s3.amazonaws.com/index.html">calculator</a>, <br>
+usage running 24/7, costs on average <strong>$360.15</strong> per month</p>
+
+<p>Now if we only had that running business hours <strong>(9 hrs a day MON-FRI)</strong> , talking on average <strong>$92.99</strong>.</p>
+
+<p>Thats a cost saving of <strong>$267.16</strong>. That is just for <strong>one</strong> <strong>instance</strong> <strong>per</strong> <strong>month</strong>/ OR <strong>$3,205.92 per annum</strong>!!!!! </p>
+
+<p>What if you were working in a large enterprise with 10s or 100s of RDS instances... 😉</p>
+
+<p><img src="../../../../content/images/2017/07/neat.gif" alt=""></p>
+
+<p>So now that we know how much you can save, how to automate the process of stopping/starting instances and run it at low cost.</p>
+
+<p>Well, the answer is serverless!</p>
+
+<h2 id="serverlessandawslambda">Serverless and AWS Lambda</h2>
+
+<p><img src="../../../../content/images/2017/07/lambda1.png	" alt=""></p>
+
+<p>Over the past few years serverless (or FaaS - Function as a Service) computing has became more and more popular.</p>
+
+<blockquote>
+  <p>Run code without thinking about servers.
+  Pay for only the compute time you consume.</p>
+</blockquote>
+
+<p><mark>In the past years, most of the cloud providers started to offer their own version of serverless: Microsoft launched Azure Functions while Google launched Cloud Functions. IBM released an open-source version of serverless, called OpenWhisk.</mark></p>
+
+<h3 id="callinganewlambdafunctionforthefirsttime">Calling a new Lambda function for the first time</h3>
+
+<p>When you deploy your Lambda function (or update an existing one), a new container will be created for it.</p>
+
+<p>Your code will be moved into the container, and the initialization code will run before the first request arrives to the exposed handler function.</p>
+
+<h4 id="consequentcallstoanexistinglambdafunction">Consequent calls to an existing Lambda function</h4>
+
+<p>For the next calls, Lambda may decide to create new containers to serve your requests. In this case, the same process will happen as described above, with initialization.</p>
+
+<p>However, if you have not changed your Lambda function and only a little time passed since the last call, Lambda may reuse the container. This way it saves the initialization time required to spin up the new container and your code inside it.</p>
+
+<h4 id="benefits">Benefits</h4>
+
+<p>AWS lambda has a number of benefits including:</p>
+
+<ul>
+<li>Reduced operational cost</li>
+<li>Reduced scaling cost</li>
+<li>Easier operational management</li>
+<li>Cheap! 1,000,000 free requests per month.
+Up to 3.2 million seconds of compute time per month</li>
+</ul>
+
+<p>To save all the headaches of building, zipping and deploying your function I will use serverless framework. </p>
+
+<h2 id="serverlessframework">Serverless framework</h2>
+
+<p><img src="../../../../content/images/2017/07/serverless.png	" alt=""></p>
+
+<blockquote>
+  <p>Build auto-scaling, pay-per-execution, event-driven apps on AWS Lambda and more..</p>
+</blockquote>
+
+<p>The Serverless framework is an open-source, MIT-licensed solution which helps with creating and managing AWS Lambda functions easier.</p>
+
+<p>Now there is other options such as <a href="https://github.com/awslabs/serverless-application-model">AWS SAM</a> but serverless is quite mature and releases often.</p>
+
+<p>In my previous <a href="https://blog.shanelee.name/2016/12/17/serverless-and-scheduled-lambda-function/">post</a> I talked about serverless and how to install and configure it locally.</p>
+
+<h3 id="codingtime">Coding time..</h3>
+
+<p>Here I am going to show you how to use serverless to schedule two functions for stopping and starting RDS instances.</p>
+
+<p>The src code for both functions exist on github:</p>
+
+<ul>
+<li><a href="https://github.com/shavo007/lambda-start-rds">https://github.com/shavo007/lambda-start-rds</a></li>
+<li><a href="https://github.com/shavo007/lambda-stop-rds">https://github.com/shavo007/lambda-stop-rds</a></li>
+</ul>
+
+<p>Both lambda functions are developed using nodeJS. I decided to use <strong>yarn</strong> rather than npm. </p>
+
+<blockquote>
+  <p><a href="https://yarnpkg.com/">Yarn</a> is a Node.js package manager which is much faster than NPM, has offline support, and fetches dependencies more <a href="https://yarnpkg.com/en/docs/yarn-lock">predictably</a>.</p>
+</blockquote>
+
+<p>I use some <a href="http://es6-features.org/">ES6</a> syntax, which is a great improvement over the "old" ES5 syntax. There are too many ES6 features to list them here but typical ES6 code uses classes with <code>class, const and let, template strings, and arrow functions ((text) =&gt; { console.log(text) })</code>.</p>
+
+<p>As of now, the current runtime supported by AWS Lambda is <strong>node 6.10</strong></p>
+
+<h4 id="babel">Babel</h4>
+
+<p><a href="https://babeljs.io/">Babel</a> is a compiler that transforms ES6 code into ES5 code. It is very modular and can be used in tons of different environments.</p>
+
+<h4 id="eslint">ESLint</h4>
+
+<p><a href="http://eslint.org/">ESLint</a> is the linter of choice for ES6 code. A linter gives you recommendations about code formatting, which enforces style consistency in your code, and code you share with your team. It's also a great way to learn about JavaScript by making mistakes that ESLint will catch.</p>
+
+<p>Instead of configuring the rules we want for our code ourselves, I use the config created by <a href="https://www.npmjs.com/package/eslint-config-airbnb">Airbnb</a>.</p>
+
+<h4 id="atom">Atom</h4>
+
+<p>You can use any IDE of your choice. I use <a href="https://atom.io/">Atom</a> and it has many plugins such as support for <a href="https://atom.io/packages/linter-eslint">eslint</a></p>
+
+<h2 id="functions">Functions</h2>
+
+<p>Both functions are triggered by a cron job. You can view this config in the respective <code>serverless.yaml</code> file</p>
+
+<p>I create my RDS instances with custom tags. <code>autoStopInstance</code> and <code>autoStartInstance</code>.</p>
+
+<p>The start function runs at <strong>9PM SUN-THU (UTC time)</strong>  and starts any instances with <code>autoStartInstance=true</code></p>
+
+<p>The stop function runs at  <strong>8AM MON-FRI (UTC time)</strong> and stops any instances with <code>autoStopInstance=true</code></p>
+
+<p><mark><strong>NB:</strong> I am running both lambda fns in Sydney</mark></p>
+
+<h2 id="readmore">Read more</h2>
+
+<p>Check out the following extra resources:</p>
+
+<ul>
+<li><p><a href="https://martinfowler.com/articles/serverless.html">Serverless Architectures by Martin Fowler</a></p></li>
+<li><p><a href="https://serverless.com/blog/">The Serverless blog</a></p></li>
+<li><a href="https://github.com/dwyl/learn-aws-lambda">Learn AWS Lambda</a></li>
+</ul>
+
+<p>If you have any questions, let me know in the comments below!</p>
+        </section>
+
+        <!-- disqus code snippet -->
+        <div id="disqus_thread"></div>
+        <script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+this.page.url = 'http://blog.shanelee.name/2017/07/28/how-to-save-costs-with-serverless-and-aws-lambda/'; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'ghost-15'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//shavo007.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        <script id="dsq-count-scr" src="http://shavo007.disqus.com/count.js" async></script>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../../../../author/shane/" style="background-image: url(../../../../content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../../../../author/shane/">Shane Lee</a></h4>
+
+                    <p>Read <a href="../../../../author/shane/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    <span class="author-location icon-location">Melbourne</span>
+                    <span class="author-link icon-link"><a href="https://about.me/shane-lee">https://about.me/shane-lee</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=How%20to%20save%20costs%20with%20serverless%20and%20AWS%20Lambda&amp;url=https://blog.shanelee.name/2017/07/28/how-to-save-costs-with-serverless-and-aws-lambda/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.shanelee.name/2017/07/28/how-to-save-costs-with-serverless-and-aws-lambda/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://blog.shanelee.name/2017/07/28/how-to-save-costs-with-serverless-and-aws-lambda/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+
+    </article>
+</main>
+
+
+
+<aside class="read-next">
+    <a class="read-next-story prev no-cover" href="../../15/jvm-microservice-with-spring-boot-docker-and-kubernetes/">
+        <section class="post">
+            <h2>JVM Microservice with spring boot, docker and kubernetes</h2>
+            <p>TL;DR That title is a bit of a mouthful... Over the last two weeks I have been playing…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog</a> © 2017</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/prism.js"></script>
+
+
+
+</body>
