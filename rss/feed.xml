@@ -1,4 +1,218 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Tue, 17 Oct 2017 11:32:17 GMT</lastBuildDate><atom:link href="http://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Kubernetes ingress and sticky sessions]]></title><description><![CDATA[<h1 id="tldr">TL;DR</h1>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Tue, 26 Dec 2017 05:15:42 GMT</lastBuildDate><atom:link href="http://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Logging on kubernetes with fluentd and elasticsearch 6]]></title><description><![CDATA[<p><img src="http://blog.shanelee.name/content/images/2017/12/robert-larsson-64547.jpg" alt=""></p>
+
+<h1 id="tldr">TLDR</h1>
+
+<p>The solution I have used in the past for logging in kubernetes clusters is EFK (Elastic-Fluentd-Kibana). Alot of you have probably heard of ELK stack but I find that logstash is more heavyweight and does not provide the same output plugins as fluentd.</p>
+
+<p><img alt="Elasticsearch" src="http://blog.shanelee.name/content/images/2017/12/icon-elasticsearch-bb-1.svg" style="width: 300px; height:300px"></p>
+
+<h2 id="elasticsearch">Elasticsearch</h2>
+
+<p>Elasticsearch 6 has just been</p>]]></description><link>http://blog.shanelee.name/2017/12/17/logging-on-kubernetes-with-fluentd-and-elasticsearch-6/</link><guid isPermaLink="false">cac30a75-368d-462f-aee8-9c510bfd9de1</guid><category><![CDATA[elasticsearch]]></category><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[ingress]]></category><category><![CDATA[nginx]]></category><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[curator]]></category><category><![CDATA[fluentd]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 16 Dec 2017 13:06:59 GMT</pubDate><content:encoded><![CDATA[<p><img src="http://blog.shanelee.name/content/images/2017/12/robert-larsson-64547.jpg" alt=""></p>
+
+<h1 id="tldr">TLDR</h1>
+
+<p>The solution I have used in the past for logging in kubernetes clusters is EFK (Elastic-Fluentd-Kibana). Alot of you have probably heard of ELK stack but I find that logstash is more heavyweight and does not provide the same output plugins as fluentd.</p>
+
+<p><img alt="Elasticsearch" src="http://blog.shanelee.name/content/images/2017/12/icon-elasticsearch-bb-1.svg" style="width: 300px; height:300px"></p>
+
+<h2 id="elasticsearch">Elasticsearch</h2>
+
+<p>Elasticsearch 6 has just been <a href="https://www.elastic.co/blog/elasticsearch-6-0-0-released">announced</a> with some major performance improvements.</p>
+
+<p>You have a few options to deploy elasticsearch - elastic cloud or spin up your own ES cluster in kubernetes. But I have decided to go with the AWS managed service. It now has <a href="https://aws.amazon.com/blogs/aws/amazon-elasticsearch-service-now-supports-vpc/">VPC support</a> and the new release 6.0. </p>
+
+<p>The reason being that administrating Elasticsearch can be a lot of work, as many people experienced with the system will tell you it can be tricky to keep running smoothly and that it’s a task better outsourced to an external service.</p>
+
+<p>I recently read dubsmash story <a href="https://stackshare.io/dubsmash/dubsmash-scaling-to-200-million-users-with-3-engineers">https://stackshare.io/dubsmash/dubsmash-scaling-to-200-million-users-with-3-engineers</a> and how they focus on the product deliverables and not infrastructure. If you have a small team or not in the business of managing services such as ES, i find its best to outsource..</p>
+
+<p>Following the 12 factor principles for logging <a href="https://12factor.net/logs">https://12factor.net/logs</a> all applications that are containerised (using docker) should log to STDOUT.</p>
+
+<blockquote>
+  <p>A twelve-factor app never concerns itself with routing or storage of its output stream. It should not attempt to write to or manage logfiles. Instead, each running process writes its event stream, unbuffered, to stdout.</p>
+</blockquote>
+
+<p>Whether your using winston for nodeJS or console appender for spring boot, this is the recommended way. </p>
+
+<p>Every pod in a <strong>K8S</strong> cluster has its standard output and standard error captured and stored in the /var/log/containers/ node directory. </p>
+
+<p>Now you need a logging agent ( or logging shipper) to ingest these logs and output to a target. </p>
+
+<h2 id="fluentd">FluentD</h2>
+
+<p><img src="http://blog.shanelee.name/content/images/2017/12/container_logging-1024x536.png" alt=""></p>
+
+<p>Fluentd is an open-source framework for data collection that unifies the collection and consumption of data in a pluggable manner. There are several producer and consumer loggers for various kinds of applications. It has a huge suite of <a href="https://www.fluentd.org/plugins">plugins</a> to choose from. </p>
+
+<p>Fluentd will be deployed as a <strong>daemonset</strong> on the kubernetes cluster.</p>
+
+<p>Kubernetes logs the content of the stdout and stderr streams of a pod to a file. It creates one file for each container in a pod. The default location for these files is /var/log/containers . The filename contains the pod name, the namespace of the pod, the container name, and the container id. The file contains one JSON object per line of the two streams stdout and stderr. </p>
+
+<p>A DaemonSet ensures that a certain pod is scheduled to each kubelet exactly once. The fluentd pod mounts the <strong>/var/lib/containers/</strong> host volume to access the logs of all pods scheduled to that kubelet.</p>
+
+<h2 id="whatsmissinggeo">Whats missing - Geo</h2>
+
+<p><img src="http://blog.shanelee.name/content/images/2017/12/joao-silas-72562.jpg" alt=""></p>
+
+<p>I found with the examples online for fluentd daesmonset there was none that supported <strong>geoip</strong>. Coreos offering and fluentd official kubernetes daemonset do not provide this feature. </p>
+
+<p>Geoip is a very useful tool when inspecting access logs through kibana. I use nginx  ingress controller in kubernetes and I wanted to see where incoming requests arose geographically. </p>
+
+<p>Knowing from where in the world people are accessing your website is important not only for troubleshooting and operational intelligence but also for other use cases such as business intelligence</p>
+
+<h3 id="ingressandnginx">Ingress and Nginx</h3>
+
+<p>I use nginx as a reverse proxy behind AWS ELB to manage my routing. By default, nginx does not output to json. And instead of figuring out the fluentd nginx parser I decided to configure nginx to enable json logging. </p>
+
+<p>Sample conf can be seen below:</p>
+
+<pre><code class="language-yaml">kind: ConfigMap  
+apiVersion: v1  
+metadata:  
+  name: nginx-configuration
+  namespace: ingress-nginx
+  labels:
+    app: ingress-nginx
+data:  
+  use-proxy-protocol: "false"
+  log-format-escape-json: "true"
+  log-format-upstream: '{"proxy_protocol_addr": "$proxy_protocol_addr","remote_addr": "$remote_addr", "proxy_add_x_forwarded_for": "$proxy_add_x_forwarded_for",
+   "request_id": "$request_id","remote_user": "$remote_user", "time_local": "$time_local", "request" : "$request", "status": "$status", "vhost": "$host","body_bytes_sent": "$body_bytes_sent",
+   "http_referer":  "$http_referer", "http_user_agent": "$http_user_agent", "request_length" : "$request_length", "request_time" : "$request_time",
+    "proxy_upstream_name": "$proxy_upstream_name", "upstream_addr": "$upstream_addr",  "upstream_response_length": "$upstream_response_length",
+    "upstream_response_time": "$upstream_response_time", "upstream_status": "$upstream_status"}'
+</code></pre>
+
+<h3 id="fluentddockerimage">Fluentd docker image</h3>
+
+<p>I then extended the fluentd debian elasticsearch docker image to install the geo-ip plugin and also update the max mind database.</p>
+
+<p>Docker Image can be found <a href="https://hub.docker.com/r/shanelee007/fluentd-kubernetes/">here</a> on docker hub. Tag is <strong>v0.12-debian-elasticsearch-geo</strong></p>
+
+<pre><code class="language-bash">docker pull shanelee007/fluentd-kubernetes:v0.12-debian-elasticsearch-geo  
+</code></pre>
+
+<p>Now I needed to amend the fluentd config to filter my nginx access logs and translate ip address to geo co-ordinates. </p>
+
+<p>Sample config in the yaml file for daemonset with updated database is</p>
+
+<pre><code class="language-yaml">  geoip-filter.conf: |
+    &lt;filter kube.ingress-nginx.nginx-ingress-controller&gt;
+        type geoip
+
+        # Specify one or more geoip lookup field which has ip address (default: host)
+        # in the case of accessing nested value, delimit keys by dot like 'host.ip'.
+        geoip_lookup_key  remote_addr
+
+        # Specify optional geoip database (using bundled GeoLiteCity databse by default)
+        geoip_database    "/home/fluent/GeoLiteCity.dat"
+
+        # Set adding field with placeholder (more than one settings are required.)
+        &lt;record&gt;
+          city            ${city["remote_addr"]}
+          lat             ${latitude["remote_addr"]}
+          lon             ${longitude["remote_addr"]}
+          country_code3   ${country_code3["remote_addr"]}
+          country         ${country_code["remote_addr"]}
+          country_name    ${country_name["remote_addr"]}
+          dma             ${dma_code["remote_addr"]}
+          area            ${area_code["remote_addr"]}
+          region          ${region["remote_addr"]}
+          geoip           '{"location":[${longitude["remote_addr"]},${latitude["remote_addr"]}]}'
+        &lt;/record&gt;
+
+        # To avoid get stacktrace error with `[null, null]` array for elasticsearch.
+        skip_adding_null_record  true
+
+        # Set log_level for fluentd-v0.10.43 or earlier (default: warn)
+        log_level         info
+
+        # Set buffering time (default: 0s)
+        flush_interval    1s
+    &lt;/filter&gt;
+</code></pre>
+
+<p>I also updated the elasticsearch template to version 6 as there was issues with version 5.</p>
+
+<p>Now to the fun part... testing it out!</p>
+
+<h2 id="tryityourself">Try it yourself</h2>
+
+<p>This tutorial can be executed in less than 15 minutes, as log as you already have:</p>
+
+<ul>
+<li><p>Kubernetes cluster up</p></li>
+<li><p>Nginx ingress installed</p></li>
+</ul>
+
+<h3 id="installing">Installing</h3>
+
+<p>Github project for creating all resources in kubernetes can be found at <a href="https://github.com/shavo007/k8s-ingress-letsencrypt/tree/master">https://github.com/shavo007/k8s-ingress-letsencrypt/tree/master</a></p>
+
+<p>To create the namespace and manifests for logging, the only change you need is to update the elasticsearch endpoint in the configmap.</p>
+
+<p>File is located at <a href="https://github.com/shavo007/k8s-ingress-letsencrypt/blob/master/resources/logging/fluentd-configmap.yaml#L291">https://github.com/shavo007/k8s-ingress-letsencrypt/blob/master/resources/logging/fluentd-configmap.yaml#L291</a></p>
+
+<p>Then you can create the resources. </p>
+
+<h4 id="kubectlaliases">Kubectl aliases</h4>
+
+<p>For the commands below I am using bash aliases. Aliases save me alot of time when I am querying a cluster. You can find the github project <a href="https://github.com/ahmetb/kubectl-aliases">here</a></p>
+
+<pre><code class="language-bash">ka resources/logging --record  
+</code></pre>
+
+<p>Verify the pods are created</p>
+
+<pre><code class="language-bash">kgpon logging  
+</code></pre>
+
+<p>If you have the dashboard installed you can inspect the logs there or you can tail the logs from the command line using <a href="https://github.com/johanhaleby/kubetail">kubetail</a></p>
+
+<pre><code class="language-bash">kubetail fluentd -n logging  
+</code></pre>
+
+<h2 id="kibana">Kibana</h2>
+
+<p><img alt="Kibana" src="http://blog.shanelee.name/content/images/2017/12/icon-kibana-bb.svg" style="width: 300px; height:300px"></p>
+
+<p>Now access kibana - GUI for elasticsearch</p>
+
+<p>You should now see your logs ingested in elasticsearch. </p>
+
+<p><img src="http://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-26-at-3-10-18-pm.png" alt=""></p>
+
+<h3 id="tilemapvisualization">Tile map visualization</h3>
+
+<p>There is a limitation with managed service and tile map view. I customized the settings to use WMS compliant map server. See below:</p>
+
+<p><img src="http://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-26-at-3-14-43-pm.png" alt=""></p>
+
+<p>Once you pick the pattern, and assuming your geopoints are correctly mapped, Kibana will automatically populate the visualisation settings such as which field to aggregate on, and display the map almost instantly.</p>
+
+<p>I have defined a visualisation for heatmap. This helps in visualizing geospatial data. You can go to management and import the json file from here  <a href="https://github.com/shavo007/k8s-ingress-letsencrypt/blob/master/resources/assets/export.json">https://github.com/shavo007/k8s-ingress-letsencrypt/blob/master/resources/assets/export.json</a></p>
+
+<p>This includes multiple visualizations and a dashboard.</p>
+
+<p><img src="http://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-17-at-11-47-26-am.png" alt=""></p>
+
+<h4 id="inaccurategeolocation">Inaccurate Geolocation</h4>
+
+<p>You may find the IP is matched to an inaccurate location. Be aware that the free Maxmind database that is used is “comparable to, but less accurate than, MaxMind’s GeoIP2 databases”, and, “IP geolocation is inherently imprecise. Locations are often near the center of the population.” See the MaxMind site for further details.</p>
+
+<h4 id="widgets">Widgets</h4>
+
+<p>You can build up more widgets, such as url count or count by country.</p>
+
+<p><img src="http://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-26-at-3-43-45-pm.png" alt=""></p>
+
+<h2 id="cleanupoflogindices">Cleanup of log indices</h2>
+
+<p>For cleanup of old log indices there is a tool called <a href="https://github.com/elastic/curator">curator</a>. I found a serverless option <a href="https://github.com/cloudreach/aws-lambda-es-cleanup">https://github.com/cloudreach/aws-lambda-es-cleanup</a> and created the lambda function via <strong>terraform</strong>.</p>
+
+<p>You can easily schedule the lambda function to cleanup log indices greater than x no. of days.</p>
+
+<p>And thats it! Stay tuned for more posts on <strong>kubernetes</strong>. </p>]]></content:encoded></item><item><title><![CDATA[Kubernetes ingress and sticky sessions]]></title><description><![CDATA[<h1 id="tldr">TL;DR</h1>
 
 <p>Recently I had to look at horizontally scaling a traditional web-app on kubernetes. Here i will explain how I achieved it and what ingress controller is and why to use it.</p>
 
@@ -1530,69 +1744,4 @@ ENV COMMAND /usr/share/curator/config/delete_log_files_curator.yml
 ENTRYPOINT ["/entrypoint.sh"]
 </code></pre>
 
-<p>Try it out and any questions or feedback, please feel free to comment. </p>]]></content:encoded></item><item><title><![CDATA[ElasticSearch Part1]]></title><link>http://blog.shanelee.name/2016/06/07/elasticsearch-part1/</link><guid isPermaLink="false">8b880ffb-97d6-4d39-9f7f-6984681c2afe</guid><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 07 Jun 2016 12:37:03 GMT</pubDate><content:encoded/></item><item><title><![CDATA[Playing around with Docker for Mac Beta]]></title><link>http://blog.shanelee.name/2016/06/07/playing-around-with-docker-for-mac-beta/</link><guid isPermaLink="false">b1525dc3-280b-4d6d-a109-76f78244c295</guid><category><![CDATA[docker]]></category><category><![CDATA[mac]]></category><category><![CDATA[beta]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 07 Jun 2016 12:33:12 GMT</pubDate><content:encoded/></item><item><title><![CDATA[Building a microservice using docker]]></title><description><![CDATA[tutorial on building a spring boot app using docker]]></description><link>http://blog.shanelee.name/2016/06/05/building-a-microservice-using-docker/</link><guid isPermaLink="false">efc343c5-2778-4902-bbea-d336184f2d14</guid><category><![CDATA[docker]]></category><category><![CDATA[spring]]></category><category><![CDATA[spring-boot]]></category><category><![CDATA[docker-compose]]></category><category><![CDATA[elasticsearch]]></category><category><![CDATA[kibana]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 05 Jun 2016 11:14:28 GMT</pubDate><content:encoded/></item><item><title><![CDATA[Welcome to Ghost]]></title><description><![CDATA[<p>You're live! Nice. We've put together a little post to introduce you to the Ghost editor and get you started. You can manage your content by signing in to the admin area at <code>&lt;your blog URL&gt;/ghost/</code>. When you arrive, you can select this post from a list</p>]]></description><link>http://blog.shanelee.name/2016/06/04/welcome-to-ghost/</link><guid isPermaLink="false">bd6cd519-fce9-4139-b2bb-bd1bd346c59a</guid><category><![CDATA[Getting Started]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 04 Jun 2016 06:24:13 GMT</pubDate><content:encoded><![CDATA[<p>You're live! Nice. We've put together a little post to introduce you to the Ghost editor and get you started. You can manage your content by signing in to the admin area at <code>&lt;your blog URL&gt;/ghost/</code>. When you arrive, you can select this post from a list on the left and see a preview of it on the right. Click the little pencil icon at the top of the preview to edit this post and read the next section!</p>
-
-<h2 id="gettingstarted">Getting Started</h2>
-
-<p>Ghost uses something called Markdown for writing. Essentially, it's a shorthand way to manage your post formatting as you write!</p>
-
-<p>Writing in Markdown is really easy. In the left hand panel of Ghost, you simply write as you normally would. Where appropriate, you can use <em>shortcuts</em> to <strong>style</strong> your content. For example, a list:</p>
-
-<ul>
-<li>Item number one</li>
-<li>Item number two
-<ul><li>A nested item</li></ul></li>
-<li>A final item</li>
-</ul>
-
-<p>or with numbers!</p>
-
-<ol>
-<li>Remember to buy some milk  </li>
-<li>Drink the milk  </li>
-<li>Tweet that I remembered to buy the milk, and drank it</li>
-</ol>
-
-<h3 id="links">Links</h3>
-
-<p>Want to link to a source? No problem. If you paste in a URL, like <a href="http://ghost.org">http://ghost.org</a> - it'll automatically be linked up. But if you want to customise your anchor text, you can do that too! Here's a link to <a href="http://ghost.org">the Ghost website</a>. Neat.</p>
-
-<h3 id="whataboutimages">What about Images?</h3>
-
-<p>Images work too! Already know the URL of the image you want to include in your article? Simply paste it in like this to make it show up:</p>
-
-<p><img src="https://ghost.org/images/ghost.png" alt="The Ghost Logo"></p>
-
-<p>Not sure which image you want to use yet? That's ok too. Leave yourself a descriptive placeholder and keep writing. Come back later and drag and drop the image in to upload:</p>
-
-<h3 id="quoting">Quoting</h3>
-
-<p>Sometimes a link isn't enough, you want to quote someone on what they've said. Perhaps you've started using a new blogging platform and feel the sudden urge to share their slogan? A quote might be just the way to do it!</p>
-
-<blockquote>
-  <p>Ghost - Just a blogging platform</p>
-</blockquote>
-
-<h3 id="workingwithcode">Working with Code</h3>
-
-<p>Got a streak of geek? We've got you covered there, too. You can write inline <code>&lt;code&gt;</code> blocks really easily with back ticks. Want to show off something more comprehensive? 4 spaces of indentation gets you there.</p>
-
-<pre><code>.awesome-thing {
-    display: block;
-    width: 100%;
-}
-</code></pre>
-
-<h3 id="readyforabreak">Ready for a Break?</h3>
-
-<p>Throw 3 or more dashes down on any new line and you've got yourself a fancy new divider. Aw yeah.</p>
-
-<hr>
-
-<h3 id="advancedusage">Advanced Usage</h3>
-
-<p>There's one fantastic secret about Markdown. If you want, you can write plain old HTML and it'll still work! Very flexible.</p>
-
-<p><input type="text" placeholder="I'm an input field!"></p>
-
-<p>That should be enough to get you started. Have fun - and let us know what you think :)</p>]]></content:encoded></item></channel></rss>
+<p>Try it out and any questions or feedback, please feel free to comment. </p>]]></content:encoded></item><item><title><![CDATA[ElasticSearch Part1]]></title><link>http://blog.shanelee.name/2016/06/07/elasticsearch-part1/</link><guid isPermaLink="false">8b880ffb-97d6-4d39-9f7f-6984681c2afe</guid><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 07 Jun 2016 12:37:03 GMT</pubDate><content:encoded/></item><item><title><![CDATA[Playing around with Docker for Mac Beta]]></title><link>http://blog.shanelee.name/2016/06/07/playing-around-with-docker-for-mac-beta/</link><guid isPermaLink="false">b1525dc3-280b-4d6d-a109-76f78244c295</guid><category><![CDATA[docker]]></category><category><![CDATA[mac]]></category><category><![CDATA[beta]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 07 Jun 2016 12:33:12 GMT</pubDate><content:encoded/></item><item><title><![CDATA[Building a microservice using docker]]></title><description><![CDATA[tutorial on building a spring boot app using docker]]></description><link>http://blog.shanelee.name/2016/06/05/building-a-microservice-using-docker/</link><guid isPermaLink="false">efc343c5-2778-4902-bbea-d336184f2d14</guid><category><![CDATA[docker]]></category><category><![CDATA[spring]]></category><category><![CDATA[spring-boot]]></category><category><![CDATA[docker-compose]]></category><category><![CDATA[elasticsearch]]></category><category><![CDATA[kibana]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 05 Jun 2016 11:14:28 GMT</pubDate><content:encoded/></item></channel></rss>
