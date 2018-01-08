@@ -1,20 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Tue, 26 Dec 2017 05:15:42 GMT</lastBuildDate><atom:link href="http://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Logging on kubernetes with fluentd and elasticsearch 6]]></title><description><![CDATA[<p><img src="http://blog.shanelee.name/content/images/2017/12/robert-larsson-64547.jpg" alt=""></p>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Mon, 08 Jan 2018 11:30:26 GMT</lastBuildDate><atom:link href="http://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Logging on kubernetes with fluentd and elasticsearch 6]]></title><description><![CDATA[How to configure EFK (Elastic-Fluentd-Kibana) stack on kubernetes for logging]]></description><link>http://blog.shanelee.name/2017/12/17/logging-on-kubernetes-with-fluentd-and-elasticsearch-6/</link><guid isPermaLink="false">cac30a75-368d-462f-aee8-9c510bfd9de1</guid><category><![CDATA[elasticsearch]]></category><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[ingress]]></category><category><![CDATA[nginx]]></category><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[curator]]></category><category><![CDATA[fluentd]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 16 Dec 2017 13:06:59 GMT</pubDate><media:content url="http://blog.shanelee.name/content/images/2018/01/robert-larsson-64547.jpg" medium="image"/><content:encoded><![CDATA[<img src="http://blog.shanelee.name/content/images/2018/01/robert-larsson-64547.jpg" alt="Logging on kubernetes with fluentd and elasticsearch 6"><p><img src="http://blog.shanelee.name/content/images/2017/12/robert-larsson-64547.jpg" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
 
 <h1 id="tldr">TLDR</h1>
 
 <p>The solution I have used in the past for logging in kubernetes clusters is EFK (Elastic-Fluentd-Kibana). Alot of you have probably heard of ELK stack but I find that logstash is more heavyweight and does not provide the same output plugins as fluentd.</p>
 
-<p><img alt="Elasticsearch" src="http://blog.shanelee.name/content/images/2017/12/icon-elasticsearch-bb-1.svg" style="width: 300px; height:300px"></p>
-
-<h2 id="elasticsearch">Elasticsearch</h2>
-
-<p>Elasticsearch 6 has just been</p>]]></description><link>http://blog.shanelee.name/2017/12/17/logging-on-kubernetes-with-fluentd-and-elasticsearch-6/</link><guid isPermaLink="false">cac30a75-368d-462f-aee8-9c510bfd9de1</guid><category><![CDATA[elasticsearch]]></category><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[ingress]]></category><category><![CDATA[nginx]]></category><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[curator]]></category><category><![CDATA[fluentd]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 16 Dec 2017 13:06:59 GMT</pubDate><content:encoded><![CDATA[<p><img src="http://blog.shanelee.name/content/images/2017/12/robert-larsson-64547.jpg" alt=""></p>
-
-<h1 id="tldr">TLDR</h1>
-
-<p>The solution I have used in the past for logging in kubernetes clusters is EFK (Elastic-Fluentd-Kibana). Alot of you have probably heard of ELK stack but I find that logstash is more heavyweight and does not provide the same output plugins as fluentd.</p>
-
-<p><img alt="Elasticsearch" src="http://blog.shanelee.name/content/images/2017/12/icon-elasticsearch-bb-1.svg" style="width: 300px; height:300px"></p>
+<p><img alt="Logging on kubernetes with fluentd and elasticsearch 6" src="http://blog.shanelee.name/content/images/2017/12/icon-elasticsearch-bb-1.svg" style="width: 300px; height:300px"></p>
 
 <h2 id="elasticsearch">Elasticsearch</h2>
 
@@ -40,7 +30,7 @@
 
 <h2 id="fluentd">FluentD</h2>
 
-<p><img src="http://blog.shanelee.name/content/images/2017/12/container_logging-1024x536.png" alt=""></p>
+<p><img src="http://blog.shanelee.name/content/images/2017/12/container_logging-1024x536.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
 
 <p>Fluentd is an open-source framework for data collection that unifies the collection and consumption of data in a pluggable manner. There are several producer and consumer loggers for various kinds of applications. It has a huge suite of <a href="https://www.fluentd.org/plugins">plugins</a> to choose from. </p>
 
@@ -52,7 +42,7 @@
 
 <h2 id="whatsmissinggeo">Whats missing - Geo</h2>
 
-<p><img src="http://blog.shanelee.name/content/images/2017/12/joao-silas-72562.jpg" alt=""></p>
+<p><img src="http://blog.shanelee.name/content/images/2017/12/joao-silas-72562.jpg" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
 
 <p>I found with the examples online for fluentd daesmonset there was none that supported <strong>geoip</strong>. Coreos offering and fluentd official kubernetes daemonset do not provide this feature. </p>
 
@@ -174,19 +164,19 @@ data:
 
 <h2 id="kibana">Kibana</h2>
 
-<p><img alt="Kibana" src="http://blog.shanelee.name/content/images/2017/12/icon-kibana-bb.svg" style="width: 300px; height:300px"></p>
+<p><img alt="Logging on kubernetes with fluentd and elasticsearch 6" src="http://blog.shanelee.name/content/images/2017/12/icon-kibana-bb.svg" style="width: 300px; height:300px"></p>
 
 <p>Now access kibana - GUI for elasticsearch</p>
 
 <p>You should now see your logs ingested in elasticsearch. </p>
 
-<p><img src="http://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-26-at-3-10-18-pm.png" alt=""></p>
+<p><img src="http://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-26-at-3-10-18-pm.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
 
 <h3 id="tilemapvisualization">Tile map visualization</h3>
 
 <p>There is a limitation with managed service and tile map view. I customized the settings to use WMS compliant map server. See below:</p>
 
-<p><img src="http://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-26-at-3-14-43-pm.png" alt=""></p>
+<p><img src="http://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-26-at-3-14-43-pm.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
 
 <p>Once you pick the pattern, and assuming your geopoints are correctly mapped, Kibana will automatically populate the visualisation settings such as which field to aggregate on, and display the map almost instantly.</p>
 
@@ -194,7 +184,7 @@ data:
 
 <p>This includes multiple visualizations and a dashboard.</p>
 
-<p><img src="http://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-17-at-11-47-26-am.png" alt=""></p>
+<p><img src="http://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-17-at-11-47-26-am.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
 
 <h4 id="inaccurategeolocation">Inaccurate Geolocation</h4>
 
@@ -204,7 +194,7 @@ data:
 
 <p>You can build up more widgets, such as url count or count by country.</p>
 
-<p><img src="http://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-26-at-3-43-45-pm.png" alt=""></p>
+<p><img src="http://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-26-at-3-43-45-pm.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
 
 <h2 id="cleanupoflogindices">Cleanup of log indices</h2>
 

@@ -3,10 +3,10 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 185 185" style="enable-background:new 0 0 185 185;" width="900" height="500" xml:space="preserve">
 <style type="text/css">
-	.st0{clip-path:url(#SVGID_2_);fill:#EFBF1B;}
-	.st1{clip-path:url(#SVGID_2_);fill:#40BEB0;}
-	.st2{clip-path:url(#SVGID_2_);fill:#0AA5DE;}
-	.st3{clip-path:url(#SVGID_2_);fill:#231F20;}
+	.st0{clip-path:url(icon-elasticsearch-3.svg);fill:#EFBF1B;}
+	.st1{clip-path:url(icon-elasticsearch-3.svg);fill:#40BEB0;}
+	.st2{clip-path:url(icon-elasticsearch-3.svg);fill:#0AA5DE;}
+	.st3{clip-path:url(icon-elasticsearch-3.svg);fill:#231F20;}
 	.st4{fill:#D7A229;}
 	.st5{fill:#009B8F;}
 </style>
