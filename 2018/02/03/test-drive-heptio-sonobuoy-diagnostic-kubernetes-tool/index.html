@@ -1,0 +1,325 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Test drive heptio sonobuoy diagnostic kubernetes tool</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
+    <link rel="canonical" href="https://blog.shanelee.name/2018/02/03/test-drive-heptio-sonobuoy-diagnostic-kubernetes-tool/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="Tech Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Test drive heptio sonobuoy diagnostic kubernetes tool">
+    <meta property="og:description" content="Heptio Sonobuoy is a diagnostic tool that makes it easier to understand the state of a Kubernetes cluster by running a set of Kubernetes conformance tests in an accessible and non-destructive manner.  Heptio have come out with some useful kubernetes tools; sonobuoy being one.  In this post, I will spin">
+    <meta property="og:url" content="http://blog.shanelee.name/2018/02/03/test-drive-heptio-sonobuoy-diagnostic-kubernetes-tool/">
+    <meta property="og:image" content="http://blog.shanelee.name/content/images/2018/02/joseph-barrientos-93565.jpg">
+    <meta property="article:published_time" content="2018-02-03T09:33:23.290Z">
+    <meta property="article:modified_time" content="2018-02-03T11:29:26.241Z">
+    <meta property="article:tag" content="kubernetes">
+    <meta property="article:tag" content="docker">
+    <meta property="article:tag" content="aws">
+    <meta property="article:tag" content="heptio">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Test drive heptio sonobuoy diagnostic kubernetes tool">
+    <meta name="twitter:description" content="Heptio Sonobuoy is a diagnostic tool that makes it easier to understand the state of a Kubernetes cluster by running a set of Kubernetes conformance tests in an accessible and non-destructive manner.  Heptio have come out with some useful kubernetes tools; sonobuoy being one.  In this post, I will spin">
+    <meta name="twitter:url" content="http://blog.shanelee.name/2018/02/03/test-drive-heptio-sonobuoy-diagnostic-kubernetes-tool/">
+    <meta name="twitter:image:src" content="http://blog.shanelee.name/content/images/2018/02/joseph-barrientos-93565.jpg">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shane Lee">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="kubernetes, docker, aws, heptio">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Tech Blog",
+        "logo": "http://blog.shanelee.name/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shane Lee",
+        "image": "http://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg",
+        "url": "http://blog.shanelee.name/author/shane/",
+        "sameAs": [
+            "https://about.me/shane-lee"
+        ]
+    },
+    "headline": "Test drive heptio sonobuoy diagnostic kubernetes tool",
+    "url": "http://blog.shanelee.name/2018/02/03/test-drive-heptio-sonobuoy-diagnostic-kubernetes-tool/",
+    "datePublished": "2018-02-03T09:33:23.290Z",
+    "dateModified": "2018-02-03T11:29:26.241Z",
+    "image": "http://blog.shanelee.name/content/images/2018/02/joseph-barrientos-93565.jpg",
+    "keywords": "kubernetes, docker, aws, heptio",
+    "description": "Heptio Sonobuoy is a diagnostic tool that makes it easier to understand the state of a Kubernetes cluster by running a set of Kubernetes conformance tests in an accessible and non-destructive manner.  Heptio have come out with some useful kubernetes tools; sonobuoy being one.  In this post, I will spin"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.8">
+    <link rel="alternate" type="application/rss+xml" title="Tech Blog" href="https://blog.shanelee.name/rss/">
+    <meta name="google-site-verification" content="dzkjZUDovRImqR_2oGUlteWT1zcgw-r6cqBYef9qiWw">
+<meta name="google-site-verification" content="lojSObDdEFLBM0ok1Yiqy7rqgbc8yAUTyqF5iYszvWA">
+</head>
+<body class="post-template tag-kubernetes tag-docker tag-aws tag-heptio nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="https://blog.shanelee.name/">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="https://blog.shanelee.name/rss/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head " style="background-image: url(../../../../content/images/2018/02/joseph-barrientos-93565.jpg)">
+    <nav class="main-nav overlay clearfix">
+        
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post tag-kubernetes tag-docker tag-aws tag-heptio featured">
+
+        <header class="post-header">
+            <h1 class="post-title">Test drive heptio sonobuoy diagnostic kubernetes tool</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2018-02-03">03 February 2018</time>
+                 on <a href="../../../../tag/kubernetes/">kubernetes</a>, <a href="../../../../tag/docker/">docker</a>, <a href="../../../../tag/aws/">aws</a>, <a href="../../../../tag/heptio/">heptio</a>
+                ,
+
+                <!--<li class="post-meta-item">-->
+                    <a href="index.html#disqus_thread"></a>
+                <!--</li>-->
+                <!--<a href="#disqus_thread"/>-->
+            </section>
+        </header>
+
+        <section class="post-content">
+
+            <blockquote>
+  <p>Heptio Sonobuoy is a diagnostic tool that makes it easier to understand the state of a Kubernetes cluster by running a set of Kubernetes conformance tests in an accessible and non-destructive manner. </p>
+</blockquote>
+
+<p>Heptio have come out with some useful kubernetes tools; sonobuoy being one. </p>
+
+<p>In this post, I will spin up a kubernetes cluster on AWS using latest version of kops <strong>(1.8)</strong> and test drive sonobuoy scanner tool.</p>
+
+<p>Rather than install kops and kubectl locally, I have published a docker image that you can use as a utility container.</p>
+
+<p><a href="https://hub.docker.com/r/shanelee007/alpine-kops/">Alpine kops</a> docker image includes kops, kubectl, terraform, aws cli and helm. The swiss army knife for kubernetes!! </p>
+
+<h2 id="kubernetesinstallation">Kubernetes installation</h2>
+
+<p>Run the container  </p>
+
+<pre><code class="language-bash">docker run --rm -it \  
+  -v "$HOME"/.ssh:/root/.ssh:ro \
+  -v "$HOME"/.aws:/root/.aws:ro \
+  -v "$HOME"/.kube:/root/.kube:rw \
+  -v "$HOME"/.helm:/root/.helm:rw \
+  -v "$(pwd)":/workdir \
+  -w /workdir \
+  shanelee007/alpine-kops
+</code></pre>
+
+<p>Then create the cluster on AWS. Here I am creating one master instance and two worker nodes</p>
+
+<pre><code class="language-bash">  kops create cluster --v=0 \
+    --cloud=aws \
+    --node-count 2 \
+    --master-size=m3.medium \
+    --master-zones=ap-southeast-2a \
+    --zones ap-southeast-2a,ap-southeast-2c \
+    --name= ${NAME} \
+    --node-size=m3.medium \
+    --node-volume-size=20
+</code></pre>
+
+<p>Before scanning the cluster, I will deploy a few applications.</p>
+
+<p>Bitnami have come out with kubeapps, to easily deploy apps on your cluster.</p>
+
+<h2 id="bitnamikubeapps">Bitnami KubeApps</h2>
+
+<blockquote>
+  <p>Kubeapps is a Kubernetes dashboard that supercharges your Kubernetes cluster with simple browse and click deployment of apps in any format. </p>
+</blockquote>
+
+<h3 id="installation">Installation</h3>
+
+<pre><code class="language-bash">sudo curl -L https://github.com/kubeapps/installer/releases/download/v0.2.0/kubeapps-linux-amd64 -o /usr/local/bin/kubeapps &amp;&amp; sudo chmod +x /usr/local/bin/kubeapps  
+</code></pre>
+
+<p>To see what it installs, run dry run first</p>
+
+<pre><code class="language-bash">  kubeapps up --dry-run -o yaml
+</code></pre>
+
+<p>Once your happy, lets kick it off</p>
+
+<pre><code class="language-bash"> kubeapps up
+</code></pre>
+
+<h3 id="dashboard">Dashboard</h3>
+
+<p>Once Kubeapps is installed, securely access the Kubeapps Dashboard from your system by running:</p>
+
+<pre><code class="language-bash">kubeapps dashboard  
+</code></pre>
+
+<p>This will start an HTTP proxy for secure access to the Kubeapps Dashboard and launch your default browser to access it. </p>
+
+<h3 id="deploywordpress">Deploy wordpress</h3>
+
+<p>Using the "Charts" menu from the Dashboard welcome page I will select wordpress application from the list of charts in the official Kubernetes chart repository.</p>
+
+<h2 id="sonobuoy">Sonobuoy</h2>
+
+<p>Now lets install sonobuoy on the cluster and run the diagnostics.</p>
+
+<p>You will find the steps <a href="https://scanner.heptio.com">here</a></p>
+
+<p>Once you run the command, you will see in the browser to see the conformance results.</p>
+
+<p><img src="../../../../content/images/2018/02/Screen-Shot-2018-02-03-at-9-35-17-pm.png" alt=""></p>
+
+<p>You will see two pods running in the namespace heptio-sonobuoy</p>
+
+<pre><code class="language-bash">NAME                                READY     STATUS    RESTARTS   AGE  
+sonobuoy                            3/3       Running   0          5m  
+sonobuoy-e2e-job-bf586487f2f64f0b   2/2       Running   0          4m  
+</code></pre>
+
+<p>It may take up to 60 mins to run the tests. So sit back and relax... 😉</p>
+
+<p>To see what is happening you can use kubetail to tail the logs</p>
+
+<pre><code class="language-bash">kubetail sonobuoy -n heptio-sonobuoy  
+kubetail sonobuoy-e2e-job-bf586487f2f64f0b -n heptio-sonobuoy
+</code></pre>
+
+<h3 id="sonobuoyresults">Sonobuoy results</h3>
+
+<p>Once it finishes, you can download the results and keep the report by exporting as a pdf.</p>
+
+<p><img src="../../../../content/images/2018/02/Screen-Shot-2018-02-03-at-10-19-17-pm.png" alt=""></p>
+
+<p>All tests passed. There you have it!</p>
+
+<p>Stay tuned for more kubernetes goodness.. ⚓️</p>
+        </section>
+
+        <!-- disqus code snippet -->
+        <div id="disqus_thread"></div>
+        <script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+this.page.url = 'http://blog.shanelee.name/2018/02/03/test-drive-heptio-sonobuoy-diagnostic-kubernetes-tool/'; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'ghost-18'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//shavo007.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        <script id="dsq-count-scr" src="http://shavo007.disqus.com/count.js" async></script>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../../../../author/shane/" style="background-image: url(../../../../content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../../../../author/shane/">Shane Lee</a></h4>
+
+                    <p>Read <a href="../../../../author/shane/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    <span class="author-location icon-location">Melbourne</span>
+                    <span class="author-link icon-link"><a href="https://about.me/shane-lee">https://about.me/shane-lee</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Test%20drive%20heptio%20sonobuoy%20diagnostic%20kubernetes%20tool&amp;url=https://blog.shanelee.name/2018/02/03/test-drive-heptio-sonobuoy-diagnostic-kubernetes-tool/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.shanelee.name/2018/02/03/test-drive-heptio-sonobuoy-diagnostic-kubernetes-tool/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://blog.shanelee.name/2018/02/03/test-drive-heptio-sonobuoy-diagnostic-kubernetes-tool/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+
+    </article>
+</main>
+
+
+
+<aside class="read-next">
+    <a class="read-next-story prev " style="background-image: url(../../../../content/images/2018/01/robert-larsson-64547-1.jpg)" href="../../../../2017/12/17/logging-on-kubernetes-with-fluentd-and-elasticsearch-6/">
+        <section class="post">
+            <h2>Logging on kubernetes with fluentd and elasticsearch 6</h2>
+            <p>TLDR The solution I have used in the past for logging in kubernetes clusters is EFK (Elastic-Fluentd-Kibana). Alot of…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog</a> © 2018</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/prism.js"></script>
+
+
+
+</body>
