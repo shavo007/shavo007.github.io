@@ -1,0 +1,480 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Deploying istio on azure kubernetes service  (AKS)</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
+    <link rel="canonical" href="https://blog.shanelee.name/2018/08/12/istio-on-azure-aks/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="Tech Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Deploying istio on azure kubernetes service  (AKS)">
+    <meta property="og:description" content="Istio recently announced that they are production ready. Service meshes are becoming an important level of abstraction for a developer using kubernetes. And Envoy is the heartbeat of this service mesh and continues its impressive growth.    Istio reduces complexity of managing microservice deployments by providing a uniform way to secure,">
+    <meta property="og:url" content="http://blog.shanelee.name/2018/08/12/istio-on-azure-aks/">
+    <meta property="og:image" content="http://blog.shanelee.name/content/images/2018/08/peter-gonzalez-621059-unsplash.jpg">
+    <meta property="article:published_time" content="2018-08-12T04:20:09.171Z">
+    <meta property="article:modified_time" content="2018-08-14T08:11:35.269Z">
+    <meta property="article:tag" content="kubernetes">
+    <meta property="article:tag" content="azure">
+    <meta property="article:tag" content="aks">
+    <meta property="article:tag" content="istio">
+    <meta property="article:tag" content="google">
+    <meta property="article:tag" content="service-mesh">
+    <meta property="article:tag" content="k8s">
+    <meta property="article:tag" content="microservice">
+    <meta property="article:tag" content="grafana">
+    <meta property="article:tag" content="jaeger">
+    <meta property="article:tag" content="tracing">
+    <meta property="article:tag" content="metrics">
+    <meta property="article:tag" content="prometheus">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Deploying istio on azure kubernetes service  (AKS)">
+    <meta name="twitter:description" content="Istio recently announced that they are production ready. Service meshes are becoming an important level of abstraction for a developer using kubernetes. And Envoy is the heartbeat of this service mesh and continues its impressive growth.    Istio reduces complexity of managing microservice deployments by providing a uniform way to secure,">
+    <meta name="twitter:url" content="http://blog.shanelee.name/2018/08/12/istio-on-azure-aks/">
+    <meta name="twitter:image:src" content="http://blog.shanelee.name/content/images/2018/08/peter-gonzalez-621059-unsplash.jpg">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shane Lee">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="kubernetes, azure, aks, istio, google, service-mesh, k8s, microservice, grafana, jaeger, tracing, metrics, prometheus">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Tech Blog",
+        "logo": "http://blog.shanelee.name/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shane Lee",
+        "image": "http://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg",
+        "url": "http://blog.shanelee.name/author/shane/",
+        "sameAs": [
+            "https://about.me/shane-lee"
+        ]
+    },
+    "headline": "Deploying istio on azure kubernetes service  (AKS)",
+    "url": "http://blog.shanelee.name/2018/08/12/istio-on-azure-aks/",
+    "datePublished": "2018-08-12T04:20:09.171Z",
+    "dateModified": "2018-08-14T08:11:35.269Z",
+    "image": "http://blog.shanelee.name/content/images/2018/08/peter-gonzalez-621059-unsplash.jpg",
+    "keywords": "kubernetes, azure, aks, istio, google, service-mesh, k8s, microservice, grafana, jaeger, tracing, metrics, prometheus",
+    "description": "Istio recently announced that they are production ready. Service meshes are becoming an important level of abstraction for a developer using kubernetes. And Envoy is the heartbeat of this service mesh and continues its impressive growth.    Istio reduces complexity of managing microservice deployments by providing a uniform way to secure,"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.8">
+    <link rel="alternate" type="application/rss+xml" title="Tech Blog" href="https://blog.shanelee.name/rss/">
+    <meta name="google-site-verification" content="dzkjZUDovRImqR_2oGUlteWT1zcgw-r6cqBYef9qiWw">
+<meta name="google-site-verification" content="lojSObDdEFLBM0ok1Yiqy7rqgbc8yAUTyqF5iYszvWA">
+</head>
+<body class="post-template tag-kubernetes tag-azure tag-aks tag-istio tag-google tag-service-mesh tag-k8s tag-microservice tag-grafana tag-jaeger tag-tracing tag-metrics tag-prometheus nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="https://blog.shanelee.name/">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="https://blog.shanelee.name/rss/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head " style="background-image: url(../../../../content/images/2018/08/peter-gonzalez-621059-unsplash.jpg)">
+    <nav class="main-nav overlay clearfix">
+        
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post tag-kubernetes tag-azure tag-aks tag-istio tag-google tag-service-mesh tag-k8s tag-microservice tag-grafana tag-jaeger tag-tracing tag-metrics tag-prometheus featured">
+
+        <header class="post-header">
+            <h1 class="post-title">Istio on Azure AKS</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2018-08-12">12 August 2018</time>
+                 on <a href="../../../../tag/kubernetes/">kubernetes</a>, <a href="../../../../tag/azure/">azure</a>, <a href="../../../../tag/aks/">aks</a>, <a href="../../../../tag/istio/">istio</a>, <a href="../../../../tag/google/">google</a>, <a href="../../../../tag/service-mesh/">service-mesh</a>, <a href="../../../../tag/k8s/">k8s</a>, <a href="../../../../tag/microservice/">microservice</a>, <a href="../../../../tag/grafana/">grafana</a>, <a href="../../../../tag/jaeger/">jaeger</a>, <a href="../../../../tag/tracing/">tracing</a>, <a href="../../../../tag/metrics/">metrics</a>, <a href="../../../../tag/prometheus/">prometheus</a>
+                ,
+
+                <!--<li class="post-meta-item">-->
+                    <a href="index.html#disqus_thread"></a>
+                <!--</li>-->
+                <!--<a href="#disqus_thread"/>-->
+            </section>
+        </header>
+
+        <section class="post-content">
+
+            <p><img src="../../../../content/images/2018/08/istio.png" alt=""></p>
+
+<p>Istio recently <a href="https://istio.io/about/notes/1.0">announced</a> that they are production ready. Service meshes are becoming an important level of abstraction for a developer using kubernetes. And <a href="https://www.envoyproxy.io/">Envoy</a> is the heartbeat of this service mesh and continues its impressive growth. </p>
+
+<blockquote>
+  <p>Istio reduces complexity of managing microservice deployments by providing a uniform way to secure, connect, and monitor microservices.</p>
+</blockquote>
+
+<p>Google have also released a managed istio <a href="https://cloudplatform.googleblog.com/2018/07/cloud-services-platform-bringing-the-best-of-the-cloud-to-you.html">service</a></p>
+
+<p>I have previously designed and built cloud native architectures (especially on AWS). But I found that AWS have <em>dropped the ball</em> in relation to kubernetes. Azure and Google managed kuberentes services are more mature and Azure kubernetes offering is even free! </p>
+
+<p><strong>TLDR:</strong> I particulary like Azure AKS and below I will showcase how easy it is to create a cluster and run istio.</p>
+
+<p>Brendan Burns (co-founder of kubernetes and leading the azure container team) and Microsoft have invested wisely I feel in the cloud and are kicking goals. Read the latest <a href="https://azure.microsoft.com/en-us/blog/azure-kubernetes-service-aks-ga-new-regions-new-features-new-productivity/">blog</a> from Brendan on the most recent releases and updates. </p>
+
+<h2 id="launchkubernetesclusteronazureaks">Launch kubernetes cluster on azure (AKS)</h2>
+
+<p>Below these commands assume you have azure cli installed. If not check out <a href="https://docs.microsoft.com/en-us/cli/azure/get-started-with-azure-cli?view=azure-cli-latest">azure cli setup</a></p>
+
+<p>Like previous posts, I also use bash aliases for kubectl. Github project exists <a href="https://github.com/ahmetb/kubectl-aliases">here</a></p>
+
+<p>Find the location you want to create the cluster and what version of kubernetes to run. Then create the cluster with three worker nodes.</p>
+
+<pre><code class="language-bash">    az provider list --query "[?namespace=='Microsoft.ContainerService'].resourceTypes[] | [?resourceType=='managedClusters'].locations[]" -o tsv
+
+    az aks get-versions --location "Australia East" --query "orchestrators[].orchestratorVersion" 
+
+    az group create --name myResourceGroup1 --location "Australia East"
+
+    az aks create --resource-group myResourceGroup1 --name myAKSCluster --node-count 3 --kubernetes-version 1.11.1 --generate-ssh-keys
+</code></pre>
+
+<p>It takes a few minutes to spin up the cluster. Once its up, download the kubeconfig to use kubectl locally </p>
+
+<pre><code class="language-bash">  az aks get-credentials --resource-group myResourceGroup1 --name myAKSCluster
+</code></pre>
+
+<p>Verify the nodes are running <code>kgnoowide</code></p>
+
+<p><img src="../../../../content/images/2018/08/Screen-Shot-2018-08-12-at-2-28-58-pm.png" alt=""></p>
+
+<h2 id="deployistio">Deploy istio</h2>
+
+<p>Istio is installed in two parts. The first part involves the CLI tooling that will be used to deploy and manage Istio backed services. The second part configures the Kubernetes cluster to support Istio.</p>
+
+<pre><code>curl -L https://git.io/getLatestIstio | sh -  
+cd istio-1.0.0  
+export PATH=$PWD/bin:$PATH
+</code></pre>
+
+<h3 id="configureistiocrds">Configure Istio CRDs</h3>
+
+<p><code>kubectl apply -f install/kubernetes/helm/istio/templates/crds.yaml
+</code></p>
+
+<h3 id="installistiowithdefaultmutualtlsauthentication">Install Istio with default mutual TLS authentication</h3>
+
+<p><code>kubectl apply -f install/kubernetes/istio-demo-auth.yaml
+</code></p>
+
+<p>This will deploy Pilot, Mixer, Ingress-Controller, Egress-Controller and the Istio CA (Certificate Authority).</p>
+
+<p>Check the status of the pods <br>
+<code>kgpoowide -n istio-system</code></p>
+
+<p><img src="../../../../content/images/2018/08/Screen-Shot-2018-08-12-at-2-44-04-pm.png" alt=""></p>
+
+<h3 id="istioarchitecture">Istio architecture</h3>
+
+<p><img src="../../../../content/images/2018/08/istio-architecture.png" alt=""></p>
+
+<p>The previous step deployed the Istio Pilot, Mixer, Ingress-Controller, Egress-Controller and the Istio CA (Certificate Authority).</p>
+
+<ul>
+<li><p><strong>Pilot</strong> - Responsible for configuring the Envoy and Mixer at runtime.</p></li>
+<li><p><strong>Envoy</strong> - Sidecar proxies per microservice to handle ingress/egress traffic between services in the cluster and from a service to external services. The proxies form a secure microservice mesh providing a rich set of functions like discovery, rich layer-7 routing, circuit breakers, policy enforcement and telemetry recording/reporting functions.</p></li>
+<li><p><strong>Mixer</strong> - Create a portability layer on top of infrastructure backends. Enforce policies such as ACLs, rate limits, quotas, authentication, request tracing and telemetry collection at an infrastructure level.</p></li>
+<li><p><strong>Ingress/Egress</strong> - Configure path based routing.</p></li>
+<li><p><strong>Istio CA</strong> - Secures service to service communication over TLS. Providing a key management system to automate key and certificate generation, distribution, rotation, and revocation</p></li>
+</ul>
+
+<h3 id="deploybookinfoexampleapplication">Deploy BookInfo example application</h3>
+
+<p>This sample deploys a simple application composed of four separate microservices which will be used to demonstrate various features of the Istio service mesh.</p>
+
+<p>Enable default side-car injection <br>
+<code>kubectl label namespace default istio-injection=enabled
+</code></p>
+
+<p>Deploy the services <br>
+<code>kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
+</code></p>
+
+<p>Verify the pods and services are running <br>
+<code>kubectl get svc,pod</code></p>
+
+<p>Deploy the ingress <a href="https://istio.io/docs/concepts/traffic-management/#gateways">gateway</a></p>
+
+<p><code>kubectl apply -f samples/bookinfo/networking/bookinfo-gateway.yaml
+</code></p>
+
+<p>Now determine the ingress ip and port</p>
+
+<p><code>kubectl get svc istio-ingressgateway -n istio-system
+</code>
+Set the ingress ip and port</p>
+
+<pre><code class="language-bash">export INGRESS_HOST=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')  
+export INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].port}')  
+export SECURE_INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="https")].port}')  
+</code></pre>
+
+<p>Set the <code>gateway url</code></p>
+
+<p><code>export GATEWAY_URL=$INGRESS_HOST:$INGRESS_PORT
+</code></p>
+
+<p>Verify the app is up and running <br>
+<code>curl -o /dev/null -s -w "%{http_code}\n" http://${GATEWAY_URL}/productpage
+</code></p>
+
+<h5 id="applydefaultdestinationrules">Apply default destination rules</h5>
+
+<p>Before you can use Istio to control the Bookinfo version routing, you need to define the available versions, called subsets, in destination rules.</p>
+
+<p><code>kubectl apply -f samples/bookinfo/networking/destination-rule-all-mtls.yaml
+</code></p>
+
+<blockquote>
+  <p>Deploying a microservice-based application in an Istio service mesh allows one to externally control service monitoring and tracing, request (version) routing, resiliency testing, security and policy enforcement, etc., in a consistent way across the services, for the application as a whole.</p>
+</blockquote>
+
+<p>Werner Vogels (CTO of AWS) quoted at AWS Re:Invent  </p>
+
+<blockquote>
+  <p>"In the future, all the code you ever write will be business logic." </p>
+</blockquote>
+
+<p>Service mesh goes along way in helping you succeed that statement.</p>
+
+<h5 id="controlrouting">Control Routing</h5>
+
+<p>One of the main features of Istio is its traffic management. As a Microservice architectures scale, there is a requirement for more advanced service-to-service communication control.</p>
+
+<h6 id="userbasedtestingrequestrouting">User Based Testing / Request Routing</h6>
+
+<p>One aspect of traffic management is controlling traffic routing based on the HTTP request, such as user agent strings, IP address or cookies.</p>
+
+<p>The example below will send all traffic for the user "jason" to the reviews:v2, meaning they'll only see the black stars.</p>
+
+<p><code>kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml</code></p>
+
+<p>Visit the product page and signin as a user jason (password jason)</p>
+
+<h6 id="trafficshapingforcanaryreleases">Traffic Shaping for Canary Releases</h6>
+
+<p>The ability to split traffic for testing and rolling out changes is important. This allows for A/B variation testing or deploying canary releases.</p>
+
+<p>The rule below ensures that 50% of the traffic goes to reviews:v1 (no stars), or reviews:v3 (red stars).</p>
+
+<p><code>kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-50-v3.yaml</code></p>
+
+<p><img src="../../../../content/images/2018/08/Screen-Shot-2018-08-12-at-3-10-00-pm.png" alt=""></p>
+
+<h4 id="newreleases">New Releases</h4>
+
+<p>Given the above approach, if the canary release were successful then we'd want to move 100% of the traffic to reviews:v3.</p>
+
+<p><code>kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-v3.yaml</code></p>
+
+<h5 id="listallroutes">List all routes</h5>
+
+<pre><code class="language-bash">$ istioctl get virtualservices
+VIRTUAL-SERVICE NAME   GATEWAYS           HOSTS     #HTTP     #TCP      NAMESPACE   AGE  
+bookinfo               bookinfo-gateway   *             1        0      default     20m  
+reviews                                   reviews       1        0      default     5m  
+</code></pre>
+
+<h5 id="accessmetrics">Access Metrics</h5>
+
+<p><img alt="Prometheus" src="../../../../content/images/2018/08/prometheus-icon-color-1.png" style="width: 250px; height:250px"></p>
+
+<p>With Istio's insight into how applications communicate, it can generate profound insights into how applications are working and performance metrics.</p>
+
+<p>Send traffic to the application</p>
+
+<pre><code class="language-bash">while true; do  
+  curl -s http://$GATEWAY_URL/productpage &gt; /dev/null
+  echo -n .;
+  sleep 0.2
+done  
+</code></pre>
+
+<p>Setup port forwarding  </p>
+
+<pre><code class="language-bash">kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=prometheus -o jsonpath='{.items[0].metadata.name}') 9090:9090 &amp;  
+</code></pre>
+
+<p>View metrics in <a href="http://localhost:9090/graph#%5B%7B%22range_input%22%3A%221h%22%2C%22expr%22%3A%22istio_double_request_count%22%2C%22tab%22%3A1%7D%5D">Prometheus UI</a></p>
+
+<p>The provided link opens the Prometheus UI and executes a query for values of the <code>istio_double_request_count</code> metric.</p>
+
+<p><img src="../../../../content/images/2018/08/Screen-Shot-2018-08-12-at-3-26-44-pm.png" alt=""></p>
+
+<p>Prometheus was recently <a href="https://www.cncf.io/announcement/2018/08/09/prometheus-graduates/">promoted</a> from CNCF as a graduate project, following kubernetes.</p>
+
+<h5 id="grafana">Grafana</h5>
+
+<p>Verify the services are up  </p>
+
+<pre><code>kubectl -n istio-system get svc grafana prometheus  
+</code></pre>
+
+<p>Open the Istio Dashboard via the Grafana UI.</p>
+
+<p>In Kubernetes environments, execute the following command:</p>
+
+<pre><code>$ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') 3000:3000 &amp;
+</code></pre>
+
+<p>Visit <code>http://localhost:3000/dashboard/db/istio-mesh-dashboard</code> in your web browser.</p>
+
+<p><img src="../../../../content/images/2018/08/Screen-Shot-2018-08-12-at-3-35-45-pm.png" alt=""></p>
+
+<p>This gives the global view of the Mesh along with services and workloads in the mesh. </p>
+
+<p>For more info checkout <a href="https://istio.io/docs/tasks/telemetry/using-istio-dashboard/">https://istio.io/docs/tasks/telemetry/using-istio-dashboard/</a></p>
+
+<h5 id="distributedtracing">Distributed Tracing</h5>
+
+<p><img alt="jaeger" src="../../../../content/images/2018/08/jaeger-icon-color.png" style="width: 250px; height:250px"></p>
+
+<p>This task shows you how Istio-enabled applications can be configured to collect trace spans. After completing this task, you should understand all of the assumptions about your application and how to have it participate in tracing, regardless of what language/framework/platform you use to build your application.</p>
+
+<h6 id="accessingthedashboard">Accessing the dashboard</h6>
+
+<p>Setup access to the Jaeger dashboard by using port-forwarding:</p>
+
+<pre><code>$ kubectl port-forward -n istio-system $(kubectl get pod -n istio-system -l app=jaeger -o jsonpath='{.items[0].metadata.name}') 16686:16686 &amp;
+</code></pre>
+
+<p>Access the Jaeger dashboard by opening your browser to <code>http://localhost:16686</code>.</p>
+
+<p>From the left-hand pane of the Jaeger dashboard, select <code>productpage</code> from the Service drop-down list and click Find Traces. You should see something similar to the following:</p>
+
+<p><img src="../../../../content/images/2018/08/Screen-Shot-2018-08-12-at-3-43-04-pm.png" alt=""></p>
+
+<p>If you click on the top (most recent) trace, you should see the details corresponding to your latest refresh of the /productpage. The page should look something like this:</p>
+
+<p><img src="../../../../content/images/2018/08/Screen-Shot-2018-08-12-at-3-43-16-pm.png" alt=""></p>
+
+<p>And there you have it. For more information on istio check out <a href="https://istio.io/">https://istio.io/</a></p>
+
+<p>Dont forget to delete your cluster after your finished!</p>
+
+<p>Stay tuned for more posts on <strong>kubernetes</strong>.</p>
+        </section>
+
+        <!-- disqus code snippet -->
+        <div id="disqus_thread"></div>
+        <script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+this.page.url = 'http://blog.shanelee.name/2018/08/12/istio-on-azure-aks/'; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'ghost-19'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//shavo007.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        <script id="dsq-count-scr" src="http://shavo007.disqus.com/count.js" async></script>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../../../../author/shane/" style="background-image: url(../../../../content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../../../../author/shane/">Shane Lee</a></h4>
+
+                    <p>Read <a href="../../../../author/shane/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    <span class="author-location icon-location">Melbourne</span>
+                    <span class="author-link icon-link"><a href="https://about.me/shane-lee">https://about.me/shane-lee</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Istio%20on%20Azure%20AKS&amp;url=https://blog.shanelee.name/2018/08/12/istio-on-azure-aks/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.shanelee.name/2018/08/12/istio-on-azure-aks/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://blog.shanelee.name/2018/08/12/istio-on-azure-aks/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+
+    </article>
+</main>
+
+
+
+<aside class="read-next">
+    <a class="read-next-story prev " style="background-image: url(../../../../content/images/2018/02/joseph-barrientos-93565.jpg)" href="../../../02/03/test-drive-heptio-sonobuoy-diagnostic-kubernetes-tool/">
+        <section class="post">
+            <h2>Test drive heptio sonobuoy diagnostic kubernetes tool</h2>
+            <p>Heptio Sonobuoy is a diagnostic tool that makes it easier to understand the state of a Kubernetes cluster by…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog</a> © 2018</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/prism.js"></script>
+
+
+
+</body>
