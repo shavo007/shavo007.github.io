@@ -1,4 +1,72 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Tue, 14 Aug 2018 08:57:14 GMT</lastBuildDate><atom:link href="http://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Istio on Azure AKS]]></title><description><![CDATA[How to deploy istio service mesh on azure kubernetes service (AKS) and run bookinfo example application]]></description><link>http://blog.shanelee.name/2018/08/12/istio-on-azure-aks/</link><guid isPermaLink="false">1300cd8a-88a9-43ef-a409-66a2b74c5ad0</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[azure]]></category><category><![CDATA[aks]]></category><category><![CDATA[istio]]></category><category><![CDATA[google]]></category><category><![CDATA[service-mesh]]></category><category><![CDATA[k8s]]></category><category><![CDATA[microservice]]></category><category><![CDATA[grafana]]></category><category><![CDATA[jaeger]]></category><category><![CDATA[tracing]]></category><category><![CDATA[metrics]]></category><category><![CDATA[prometheus]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 12 Aug 2018 04:20:09 GMT</pubDate><media:content url="http://blog.shanelee.name/content/images/2018/08/peter-gonzalez-621059-unsplash-1.jpg" medium="image"/><content:encoded><![CDATA[<img src="http://blog.shanelee.name/content/images/2018/08/peter-gonzalez-621059-unsplash-1.jpg" alt="Istio on Azure AKS"><p><img src="http://blog.shanelee.name/content/images/2018/08/istio.png" alt="Istio on Azure AKS"></p>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Wed, 17 Oct 2018 07:56:12 GMT</lastBuildDate><atom:link href="http://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[How I aced the Certified Kubernetes Administrator (CKA) Exam]]></title><description><![CDATA[<p>I took the CKA exam recently and would like to share my own preparation and tips.</p>
+
+<p>The exam is intense as it requires 3 hours of concentrated effort during which you need to solve 24 problems. So timekeeping is very important.  If you are interested to take this exam and</p>]]></description><link>http://blog.shanelee.name/2018/10/17/how-i-aced-the-certified-kubernetes-administrator-cka-exam/</link><guid isPermaLink="false">ab6a2a07-ad36-4be5-ae74-d629d25a25bb</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[cka]]></category><category><![CDATA[exam]]></category><category><![CDATA[kubectl]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Wed, 17 Oct 2018 07:29:30 GMT</pubDate><media:content url="http://blog.shanelee.name/content/images/2018/10/clement-h-544786-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="http://blog.shanelee.name/content/images/2018/10/clement-h-544786-unsplash.jpg" alt="How I aced the Certified Kubernetes Administrator (CKA) Exam"><p>I took the CKA exam recently and would like to share my own preparation and tips.</p>
+
+<p>The exam is intense as it requires 3 hours of concentrated effort during which you need to solve 24 problems. So timekeeping is very important.  If you are interested to take this exam and have second thought about it, my sincere advice is, just do it!</p>
+
+<h2 id="gettingstarted">Getting started</h2>
+
+<p>As part of black friday deal last year I bought from linux foundation the package deal. It consisted of the CKA exam and linux foundation kubernetes fundamentals <a href="https://training.linuxfoundation.org/training/kubernetes-fundamentals/">course</a>.</p>
+
+<p>In a previous contract role I had worked with kubernetes also on a daily basis. So I was familiar with the basic concepts.</p>
+
+<h2 id="preparation">Preparation</h2>
+
+<ul>
+<li><p>Understanding the kubernetes documentation is vital here as that is the only resource you are now allowed as part of the exam. Search “<strong>What resources am I allowed to access during my exam?</strong>” at <a href="https://www.cncf.io/certification/cka/faq/">faq section</a></p></li>
+<li><p>Familiarising yourself with the official <a href="https://kubernetes.io/docs/concepts/">documentation</a> is a <strong>must</strong>.</p></li>
+<li><p>Practice each topic. Since this exam is all about solving problems, you need to practice a lot. You can use katacoda <a href="https://www.katacoda.com/courses/kubernetes/playground">playground</a> or this <a href="https://labs.play-with-k8s.com/">labs</a> site by Docker. These two tools helped me a lot during preparation. Katacoda also has several scenario based topics and it is important to practice <a href="https://www.katacoda.com/courses/kubernetes">these</a>.</p></li>
+<li><p>For each topic I found this <a href="https://cka-exam.blog/">blog</a>  extremely useful to go through.
+<em>Practice, practice, practice</em>. Get used to deploying on a cluster and using all the <strong>kubectl</strong> commands. Locally on my mac, <em>docker for mac</em> now incorporates kubernetes so no need for minikube anymore.</p></li>
+<li><p>Kubernetes the hard way - Kelsey hightowers tutorial on <a href="https://github.com/kelseyhightower/kubernetes-the-hard-way">github</a> is vital to pass this exam. Managed services like AKS, EKS or kubeadm are not going to help here. You need to get right under the hood and understand how the control plane works.</p></li>
+<li><p>Familiarise yourself with tools such as: openssl, cfssl, systemctl, etcdctl (for managing etcd)</p></li>
+</ul>
+
+<h2 id="examtime">Exam Time</h2>
+
+<p>There are 24 problems and the exam duration is 3 hours. This means you can spend seven and half minutes per question. However, the difficulty range varies; nearly dozen problems are straight and super simple. So, have a strategy for the exam. My strategy was to complete 10 easy questions in the first hour, 8 medium in the second hour and leave final hour for remaining 6 (tough) questions. Once you are done with the question, just double check whether you are saving the output as described in the question and move on (don’t try to come back and check the answers again). <strong>You will not have time to go back and check!</strong></p>
+
+<h3 id="progresstracking">Progress Tracking</h3>
+
+<p>The CKA exam allows you to write notes to a notebook, which they provide in exam’s UI. Use it wisely. Once I had my exam available, I used their Notebook to keep track of my progress. It helps you to see your progress and how much left to be finished. </p>
+
+<p>The format I used:</p>
+
+<pre><code class="language-vim"># - scoring - total
+1 4 4  
+2 5 9  
+3 3 12  
+4  
+5  
+...
+24  
+</code></pre>
+
+<p>The first column is just the number of question (24 in total). The second column — scoring, is how much the problem worth and you will get that from the problem description. The third column is “total”, where you put the total scoring as you go and it will let you know what problems are already completed and how many points you already have. This little bureaucracy will help you to understand how well you are doing and come back to some problems if you decided to skip them before. </p>
+
+<h3 id="kubectlninja">Kubectl Ninja</h3>
+
+<p>Use kubectl to create resources (such as deployment, service, cronjobs etc) instead of creating them from manifest files. It saves lot of time. <br>
+I used the <a href="https://kubernetes.io/docs/reference/kubectl/cheatsheet/">cheatsheet</a> heavily during the exam. </p>
+
+<p>First thing I did was copy in the below to notepad. It allowed me to create resources quickly from <code>stdin</code>  </p>
+
+<pre><code class="language-bash">cat &lt;&lt;EOF | kubectl create -f -
+
+EOF  
+</code></pre>
+
+<blockquote>
+  <p>Take the exam in the morning. </p>
+</blockquote>
+
+<p>I took it at 11AM. I went for a quick walk beforehand to get some fresh air and then I was ready to go!</p>
+
+<p>To reiterate, familiarise yourself with the official documentation. It has multiple sections (tasks, concepts and references) for the same topic. So, you should know what/where to look for quickly in the documentation during exam.</p>
+
+<p>Best of luck! Remember you have one free retake if needed.😃🚀⚓</p>
+
+<p><img src="http://blog.shanelee.name/content/images/2018/10/CKAcertificate.png" alt="How I aced the Certified Kubernetes Administrator (CKA) Exam"></p>]]></content:encoded></item><item><title><![CDATA[Istio on Azure AKS]]></title><description><![CDATA[How to deploy istio service mesh on azure kubernetes service (AKS) and run bookinfo example application]]></description><link>http://blog.shanelee.name/2018/08/12/istio-on-azure-aks/</link><guid isPermaLink="false">1300cd8a-88a9-43ef-a409-66a2b74c5ad0</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[azure]]></category><category><![CDATA[aks]]></category><category><![CDATA[istio]]></category><category><![CDATA[google]]></category><category><![CDATA[service-mesh]]></category><category><![CDATA[k8s]]></category><category><![CDATA[microservice]]></category><category><![CDATA[grafana]]></category><category><![CDATA[jaeger]]></category><category><![CDATA[tracing]]></category><category><![CDATA[metrics]]></category><category><![CDATA[prometheus]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 12 Aug 2018 04:20:09 GMT</pubDate><media:content url="http://blog.shanelee.name/content/images/2018/08/peter-gonzalez-621059-unsplash-1.jpg" medium="image"/><content:encoded><![CDATA[<img src="http://blog.shanelee.name/content/images/2018/08/peter-gonzalez-621059-unsplash-1.jpg" alt="Istio on Azure AKS"><p><img src="http://blog.shanelee.name/content/images/2018/08/istio.png" alt="Istio on Azure AKS"></p>
 
 <p>Istio recently <a href="https://istio.io/about/notes/1.0">announced</a> that they are production ready. Service meshes are becoming an important level of abstraction for a developer using kubernetes. And <a href="https://www.envoyproxy.io/">Envoy</a> is the heartbeat of this service mesh and continues its impressive growth. </p>
 
@@ -2104,4 +2172,4 @@ ENV COMMAND /usr/share/curator/config/delete_log_files_curator.yml
 ENTRYPOINT ["/entrypoint.sh"]
 </code></pre>
 
-<p>Try it out and any questions or feedback, please feel free to comment. </p>]]></content:encoded></item><item><title><![CDATA[ElasticSearch Part1]]></title><link>http://blog.shanelee.name/2016/06/07/elasticsearch-part1/</link><guid isPermaLink="false">8b880ffb-97d6-4d39-9f7f-6984681c2afe</guid><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 07 Jun 2016 12:37:03 GMT</pubDate><content:encoded/></item></channel></rss>
+<p>Try it out and any questions or feedback, please feel free to comment. </p>]]></content:encoded></item></channel></rss>
