@@ -1,4 +1,160 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Wed, 17 Oct 2018 07:56:12 GMT</lastBuildDate><atom:link href="http://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[How I aced the Certified Kubernetes Administrator (CKA) Exam]]></title><description><![CDATA[<p>I took the CKA exam recently and would like to share my own preparation and tips.</p>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Wed, 20 Feb 2019 08:30:56 GMT</lastBuildDate><atom:link href="http://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Skaffold for local kubernetes development]]></title><description><![CDATA[skaffold for local kubernetes development]]></description><link>http://blog.shanelee.name/2019/02/20/skaffold-for-local-kubernetes-development/</link><guid isPermaLink="false">939f9b10-3288-4a62-83c4-8de5aa50b6f6</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[node]]></category><category><![CDATA[skaffold]]></category><category><![CDATA[graphql]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Wed, 20 Feb 2019 06:37:09 GMT</pubDate><media:content url="http://blog.shanelee.name/content/images/2019/02/jacek-dylag-680347-unsplash-1.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
+  <img src="http://blog.shanelee.name/content/images/2019/02/jacek-dylag-680347-unsplash-1.jpg" alt="Skaffold for local kubernetes development"><p>Easy and Repeatable Kubernetes Development</p>
+</blockquote>
+
+<p><strong>TLDR</strong> Below, I will showcase how to install and use skaffold for local development with kubernetes.</p>
+
+<p>Currently <strong>(20/02/2019)</strong>, skaffold has nearly <mark>6000</mark> ⭐ on github.</p>
+
+<p>I have been using Skaffold for all my new projects that involve cloud native microservices, and it works like a charm on top of <code>Docker Desktop for Mac</code>/Minikube.</p>
+
+<p><strong>Skaffold</strong> is fantastic for local development with kubernetes. I can test locally my changes without having to deploy remotely. This helps speed up my local development and gives me confidence in my changes.</p>
+
+<h2 id="overview">Overview</h2>
+
+<p>Skaffold is a tool to develop containerized applications locally or remotely while deploying them on Kubernetes. It automatically builds and deploys your apps as you change your source code.</p>
+
+<p>Skaffold primarily simplifies the <mark>build → deploy → refactor → repeat</mark> cycle.</p>
+
+<h3 id="skaffoldmodes">Skaffold modes</h3>
+
+<p><img src="http://blog.shanelee.name/content/images/2019/02/skaffold-cmds.jpg" alt="Skaffold for local kubernetes development"></p>
+
+<p>In a single command, Skaffold can:</p>
+
+<ul>
+<li>Collects and watches your source code for changes</li>
+<li>Syncs files directly to pods if user marks them as syncable</li>
+<li>Builds artifacts from the source code</li>
+<li>Tests the built artifacts using container-structure-tests</li>
+<li>Tags the artifacts</li>
+<li>Pushes the artifacts</li>
+<li>Deploys the artifacts</li>
+<li>Monitors the deployed artifacts</li>
+<li>Cleans up deployed artifacts on exit (Ctrl+C)</li>
+</ul>
+
+<h2 id="skaffoldfeatures">Skaffold features</h2>
+
+<ul>
+<li><p><strong>Remote development:</strong> Skaffold doesn’t require you to run a local Kubernetes cluster (minikube or docker-for-desktop). It can build/push images locally with docker, and run them on the remote clusters (such as GKE). This is a laptop battery saver!</p></li>
+<li><p><strong>More remote development:</strong> You actually don’t need to run a local docker either. Skaffold can do remote builds using services like Google Container Builder. Although it’ll be slow.</p></li>
+<li><p><strong>Tag management:</strong> In your Kubernetes manifests, you leave the image tags out in the “image:” field, and Skaffold automatically changes the manifests with the new tags as it rebuilds the images.</p></li>
+<li><p><strong>Rebuild only what’s changed:</strong> If your microservices are on separate directories, changing source code for one will not cause rebuild for all images. Skaffold understands which images have been impacted by the change.</p></li>
+<li><p><strong>Cleanup on exit:</strong> Terminating “skaffold dev” runs a routine that cleans up the deployed k8s resources. If this fails, you can run “skaffold delete” to clean up deployed artifacts.</p></li>
+</ul>
+
+<h2 id="letsgetstarted">Lets get started!</h2>
+
+<p>On mac, you can install skaffold using brew</p>
+
+<pre><code class="language-bash">brew install skaffold  
+</code></pre>
+
+<h3 id="localdevelopment">Local development</h3>
+
+<p>Run <code>skaffold init</code> to bootstrap Skaffold config.</p>
+
+<p>Once that is complete, define in the yaml file the location of where your kubernetes manifests are defined.</p>
+
+<p>Sample skaffold yaml file</p>
+
+<pre><code class="language-yaml">apiVersion: skaffold/v1beta5  
+kind: Config  
+build:  
+  artifacts:
+  - image: shanelee007/graphql
+deploy:  
+  kubectl:
+    manifests:
+    - kubernetes/config.yaml
+    - kubernetes/deployment.yaml
+    - kubernetes/secret.yaml
+profiles:  
+- name: dev
+  build:
+    artifacts:
+    - image: shanelee007/graphql
+      sync:
+        '**/*.js': .
+      docker:
+        dockerfile: Dockerfile.dev
+</code></pre>
+
+<p>Here you can see where I defined my manifest files. Also for local development I have used a <code>profile</code> to define a development dockerfile and utilised the sync feature. </p>
+
+<blockquote>
+  <p>profiles feature grants you the freedom to switch tools as you see fit depending on the context.</p>
+</blockquote>
+
+<h3 id="localdevelopmentworkflow">Local development workflow</h3>
+
+<p><img src="http://blog.shanelee.name/content/images/2019/02/skaffold_workflow_local.png" alt="Skaffold for local kubernetes development"></p>
+
+<h5 id="syncfilestoyourpodswithskaffold">Sync files to your pods with Skaffold</h5>
+
+<p>With even one change to a file, Skaffold rebuilds the images that depend on that file, pushes them to a registry, and then redeploys the relevant parts of your Kubernetes application. </p>
+
+<p>The Skaffold file sync feature solves this problem. For each image, you can specify which files can be synced directly into a running container. Then, when you modify these files, Skaffold copies them directly into the running container rather than kicking off a full rebuild and redeploy. With Skaffold’s file sync feature, you can enjoy even faster development!</p>
+
+<p><a href="https://skaffold.dev/docs/how-tos/filesync/">Sync</a> is quite a new feature. Think of it as similar to <code>nodemon</code></p>
+
+<p>I have created my own demo <strong>github</strong> project <a href="https://github.com/shavo007/graphql-playground/tree/master/api#skaffold">here</a> if you want to follow along.</p>
+
+<p>There was an issue with publishing docker image for local development every time I ran skaffold. To prevent this from happening there is global config to disable this.</p>
+
+<pre><code class="language-bash">skaffold config set --global local-cluster true #do not push images after building  
+</code></pre>
+
+<h4 id="noteondockerfile">Note on Dockerfile</h4>
+
+<p>In my github project, you can see I use multi-stage approach with my docker <a href="https://github.com/shavo007/graphql-playground/blob/master/api/Dockerfile">files</a></p>
+
+<p>Think of it as a build pipeline as code.</p>
+
+<p>It allows you to selectively copy artifacts from one stage to another, leaving behind everything you don’t want in the final image. </p>
+
+<p>To analyse your final production image I found a useful tool called <a href="https://github.com/wagoodman/dive">dive</a></p>
+
+<p>It allows you to explore and optimise your docker image size.</p>
+
+<p><img src="http://blog.shanelee.name/content/images/2019/02/Screen-Shot-2019-02-20-at-7-23-39-pm.png" alt="Skaffold for local kubernetes development"></p>
+
+<p>Now we can run skaffold!</p>
+
+<pre><code class="language-bash">skaffold dev -p dev -v=info #run locally/watching changes dev mode  
+</code></pre>
+
+<p>If you want to try out the new experimental gui run instead </p>
+
+<pre><code class="language-bash">skaffold dev -p dev -v=info --experimental-gui  
+</code></pre>
+
+<p>Console output will look like so:</p>
+
+<p><a href="https://asciinema.org/a/220028" target="_blank"><img src="https://asciinema.org/a/220028.svg" alt="Skaffold for local kubernetes development"></a></p>
+
+<p>Every time you make a src code change, skaffold will watch for these changes and update the pod on the fly. Pretty neat!!</p>
+
+<p><img src="https://media.giphy.com/media/vEgtLzJo8n7qg/giphy.gif" alt="Skaffold for local kubernetes development"></p>
+
+<h4 id="upgrade">Upgrade</h4>
+
+<p>As of <strong>20/02/2019</strong> the latest version is <code>v1beta5</code>. To upgrade just run </p>
+
+<pre><code class="language-bash">brew upgrade skaffold  
+skaffold fix --overwrite  
+</code></pre>
+
+<p>Thats all for now. In my next post, I will discuss deploying remotely using skaffold.😃</p>
+
+<h2 id="learnmore">Learn more</h2>
+
+<ul>
+<li><p>Check out skaffold <a href="https://skaffold.dev/docs/">doc</a> to understand more</p></li>
+<li><p>There is numerous <a href="https://github.com/GoogleContainerTools/skaffold/tree/master/examples">examples</a> at the github repo</p></li>
+<li><p>My sample github <a href="https://github.com/shavo007/graphql-playground/tree/master/api">repo</a> showcasing graphql api with kubernetes</p></li>
+</ul>]]></content:encoded></item><item><title><![CDATA[How I aced the Certified Kubernetes Administrator (CKA) Exam]]></title><description><![CDATA[<p>I took the CKA exam recently and would like to share my own preparation and tips.</p>
 
 <p>The exam is intense as it requires 3 hours of concentrated effort during which you need to solve 24 problems. So timekeeping is very important.  If you are interested to take this exam and</p>]]></description><link>http://blog.shanelee.name/2018/10/17/how-i-aced-the-certified-kubernetes-administrator-cka-exam/</link><guid isPermaLink="false">ab6a2a07-ad36-4be5-ae74-d629d25a25bb</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[cka]]></category><category><![CDATA[exam]]></category><category><![CDATA[kubectl]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Wed, 17 Oct 2018 07:29:30 GMT</pubDate><media:content url="http://blog.shanelee.name/content/images/2018/10/clement-h-544786-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="http://blog.shanelee.name/content/images/2018/10/clement-h-544786-unsplash.jpg" alt="How I aced the Certified Kubernetes Administrator (CKA) Exam"><p>I took the CKA exam recently and would like to share my own preparation and tips.</p>
 
@@ -2119,57 +2275,4 @@ services:
 <li><p><a href="http://docs.pact.io/">http://docs.pact.io/</a></p></li>
 <li><p>Recently discussed at microservice meetup : <a href="http://www.meetup.com/Melbourne-Microservices/events/231874304/">http://www.meetup.com/Melbourne-Microservices/events/231874304/</a></p></li>
 <li><p><a href="http://martinfowler.com/articles/microservice-testing/#testing-contract-introduction">http://martinfowler.com/articles/microservice-testing/#testing-contract-introduction</a></p></li>
-</ul>]]></content:encoded></item><item><title><![CDATA[Elasticsearch curator 4.0 and docker]]></title><description><![CDATA[elasticsearch curator 4.0 and docker]]></description><link>http://blog.shanelee.name/2016/06/30/elasticsearch-curator-4-0-and-docker-2/</link><guid isPermaLink="false">ee2b6929-ab27-4c85-91d9-17548cbe95d0</guid><category><![CDATA[docker]]></category><category><![CDATA[elasticsearch]]></category><category><![CDATA[curator]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Thu, 30 Jun 2016 10:45:54 GMT</pubDate><content:encoded><![CDATA[<p><img src="http://blog.shanelee.name/content/images/2016/07/icon-elasticsearch-3.svg" alt="The Elasticsearch Logo"></p>
-
-<p>Recently, I have worked on elasticsearch. There is a very useful tool called curator. </p>
-
-<blockquote>
-  <p>Elasticsearch Curator helps you curate, or manage, your Elasticsearch indices and snapshots.</p>
-</blockquote>
-
-<p>They recently released a new version of curator. You can find the blog post <a href="https://www.elastic.co/blog/curator_v4_release">here</a></p>
-
-<h2 id="dockerise">Dockerise...</h2>
-
-<p><img src="https://www.docker.com/sites/default/files/Engine.png" alt="The Docker Logo"></p>
-
-<p>Based on this post, I set myself a challenge to build my first docker image. The base of this image is apache alpine (which is very lightweight)</p>
-
-<p>You can find it on <a href="https://hub.docker.com/r/shanelee007/docker-es-curator-cron/">dockerhub</a></p>
-
-<h3 id="tryitout">Try it out</h3>
-
-<pre><code class="language-bash">docker run shanelee007/docker-es-curator-cron  
-</code></pre>
-
-<p>You can mount your own configuration files if you want:  </p>
-
-<pre><code class="language-bash"> docker run -d -v "$PWD/config":/usr/share/curator/config shanelee007/curator4
-</code></pre>
-
-<p>The dockerfile is below:</p>
-
-<pre><code class="language-Docker">FROM alpine:latest
-
-
-RUN apk --update add python py-pip &amp;&amp; \  
-    pip install elasticsearch-curator &amp;&amp; \
-     rm -rf /var/cache/apk/*
-
-ADD entrypoint.sh /entrypoint.sh
-
-WORKDIR /usr/share/curator  
-COPY config ./config
-
-RUN chmod +x /entrypoint.sh
-
-#run every minute
-ENV CRON */1  *  *  * *  
-ENV ES_HOST 127.0.0.1  
-ENV CONFIG_FILE /usr/share/curator/config/curator.yml  
-ENV COMMAND /usr/share/curator/config/delete_log_files_curator.yml
-
-ENTRYPOINT ["/entrypoint.sh"]
-</code></pre>
-
-<p>Try it out and any questions or feedback, please feel free to comment. </p>]]></content:encoded></item></channel></rss>
+</ul>]]></content:encoded></item></channel></rss>
