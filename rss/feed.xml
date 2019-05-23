@@ -1,4 +1,150 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Tue, 23 Apr 2019 08:38:09 GMT</lastBuildDate><atom:link href="http://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Skaffold for local kubernetes development]]></title><description><![CDATA[skaffold for local kubernetes development]]></description><link>http://blog.shanelee.name/2019/02/20/skaffold-for-local-kubernetes-development/</link><guid isPermaLink="false">939f9b10-3288-4a62-83c4-8de5aa50b6f6</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[node]]></category><category><![CDATA[skaffold]]></category><category><![CDATA[graphql]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Wed, 20 Feb 2019 06:37:09 GMT</pubDate><media:content url="http://blog.shanelee.name/content/images/2019/02/jacek-dylag-680347-unsplash-1.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Thu, 23 May 2019 05:27:50 GMT</lastBuildDate><atom:link href="http://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[GraphQL API on the new Google Cloud Run]]></title><description><![CDATA[ Cloud Run, a serverless environment based on containers and Kubernetes.]]></description><link>http://blog.shanelee.name/2019/05/17/graphql-api-google-cloud-run/</link><guid isPermaLink="false">1dfdf148-8167-4016-8259-29cd1cd39f87</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[google]]></category><category><![CDATA[graphql]]></category><category><![CDATA[k8s]]></category><category><![CDATA[docker]]></category><category><![CDATA[gke]]></category><category><![CDATA[cloud]]></category><category><![CDATA[cloudrun]]></category><category><![CDATA[nodejs]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Fri, 17 May 2019 08:07:00 GMT</pubDate><media:content url="http://blog.shanelee.name/content/images/2019/05/fabio-comparelli-696510-unsplash-1.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
+  <img src="http://blog.shanelee.name/content/images/2019/05/fabio-comparelli-696510-unsplash-1.jpg" alt="GraphQL API on the new Google Cloud Run"><p>Cloud Run is a layer that Google built on top of Knative to simplify deploying serverless applications on the Google Cloud Platform.</p>
+</blockquote>
+
+<p>So whats <strong>Knative</strong>?? </p>
+
+<p><a href="https://cloud.google.com/knative/">Knative</a> provides an open API and runtime environment that enables you to run your serverless workloads anywhere you choose: fully managed on Google Cloud, on Google Kubernetes Engine (GKE), or on your own Kubernetes cluster.</p>
+
+<p>Knative can be deployed on any Kubernetes cluster. It acts as the middleware bridging the gap between core infrastructure services and developer experience.</p>
+
+<p>Cloud Run is Googles own implementation of Knative. <br>
+ It enables you to run stateless containers that are invocable via web requests or Cloud Pub/Sub events.</p>
+
+<p>Features include:</p>
+
+<ul>
+<li>Fast autoscaling</li>
+<li>Managed</li>
+<li>Redundancy</li>
+<li>Integrated logging and monitoring</li>
+<li>Custom domains</li>
+<li>Built on knative</li>
+</ul>
+
+<p>There are <strong>two</strong> options when it comes to using Google Cloud Run. </p>
+
+<h2 id="flavorsofcloudrun">Flavors of Cloud Run</h2>
+
+<p>Currently in beta, Google Cloud Run is available as a standalone environment and within the Google Kubernetes Engine (GKE).</p>
+
+<p>Developers can deploy apps to Cloud Run through the console or CLI. If there is a GKE cluster with Istio installation, apps targeting Cloud Run can be easy deployed to an existing Kubernetes cluster.</p>
+
+<p>Each deployment to service creates a revision. A revision consists of a specific container image, along with environment settings such as environment variables, memory limits, or concurrency value.</p>
+
+<p>Requests are automatically routed as soon as possible to the latest healthy service revision.</p>
+
+<p>For more check out the video below on the differences.</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RVdhyprptTQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<h2 id="tutorial">Tutorial</h2>
+
+<p>In this tutorial, we will deploy a graphql API based on Node.js and Postgres to the Cloud Run platform.</p>
+
+<p>There are two steps involved in this workflow: provisioning a cloud sql postgres database instance, and deploying code to Cloud Run. This tutorial assumes you have an active account on Google Cloud Platform with the CLI and SDK installed on your development machine. </p>
+
+<p><del>You also need Docker Desktop to build images locally.</del></p>
+
+<p>Actually, that's not true! You don't even need docker locally!! You can use google cloud build to run it remotely for you 🤓</p>
+
+<h3 id="letsbegin">Lets begin</h3>
+
+<p>To follow along, you can find the github project <a href="https://github.com/shavo007/graphql-playground/tree/master/api">here</a></p>
+
+<p>In a previous <a href="https://blog.shanelee.name/2019/02/20/skaffold-for-local-kubernetes-development/">post</a>, I talked about running this example on kubernetes using skaffold</p>
+
+<h4 id="googlecloudsetup">Google cloud setup</h4>
+
+<p>First on your google cloud account you need to enable billing and <a href="http://console.cloud.google.com/apis/library/run.googleapis.com">cloud run API</a></p>
+
+<p>Create your new google cloud project first and then run the following commands</p>
+
+<pre><code class="language-bash">gcloud components install beta #install beta components  
+gcloud components update #update components  
+gcloud config set run/region us-central1 #set cloud run region  
+gcloud services enable container.googleapis.com containerregistry.googleapis.com cloudbuild.googleapis.com  
+gcloud config set project [PROJECT_ID] #set project id  
+gcloud beta auth login  
+</code></pre>
+
+<h4 id="step1createcloudsqlforpostgres">Step 1: create cloud sql for postgres</h4>
+
+<p>GraphQL APIs datasource is a postgres database. Cloud run supports <a href="https://cloud.google.com/run/docs/configuring/connect-cloudsql">cloud sql</a> service.</p>
+
+<pre><code class="language-bash">gcloud sql instances create [INSTANCE_NAME]  --database-version=POSTGRES_9_6 \  
+       --tier db-f1-micro --region us-central1 
+#save on costs by using a shared-core instance 
+gcloud sql users set-password postgres no-host --instance=[INSTANCE_NAME] \  
+       --password=[PASSWORD]
+</code></pre>
+
+<p>For testing purposes, I am running a micro instance. </p>
+
+<p><a href="https://cloud.google.com/sql/docs/postgres/create-instance">Refer to doc
+</a> for more info</p>
+
+<p><img src="http://blog.shanelee.name/content/images/2019/05/CloudSQL.png" alt="GraphQL API on the new Google Cloud Run"></p>
+
+<h4 id="step2buildinganddeployingacloudrunservice">Step 2: Building and Deploying a Cloud Run Service</h4>
+
+<p><mark>You can find the docker file and src in the github repo</mark></p>
+
+<p>We will build the Docker image remotely and push it to Google Container Registry (GCR)</p>
+
+<pre><code class="language-bash">gcloud builds submit --tag gcr.io/[PROJECT-ID]/graphql #build container image  
+</code></pre>
+
+<p>Verify the image exists in GCR</p>
+
+<pre><code class="language-bash">gcloud container images list  
+</code></pre>
+
+<p>Deploy the container using cloud run and overwrite env vars to connect to the DB</p>
+
+<pre><code class="language-bash">#overwrite the host to connect over a unix domain socket and db password
+gcloud beta run deploy --image gcr.io/[PROJECT-ID]/graphql --add-cloudsql-instances [INSTANCE-NAME] --update-env-vars DB_HOST=/cloudsql/[CONNECTION NAME],name=graphql,DATABASE_PASSWORD=[PASSWORD] #respond y to allow unauthenticated invocations.  
+</code></pre>
+
+<p>The switch, <mark>–allow-unauthenticated</mark>, will let the service accept the traffic from the public internet. Notice that we are passing the Postgres connection string generated by cloudSQL as an environment variable. The code expects the connection string from the <mark>DBHOST</mark> environment variable.</p>
+
+<p>See details of the running service by running the command below</p>
+
+<pre><code class="language-bash">gcloud beta run services list  
+</code></pre>
+
+<p>Or you can view the UI console</p>
+
+<p><img src="http://blog.shanelee.name/content/images/2019/05/CloudRunServiceGraphql.png" alt="GraphQL API on the new Google Cloud Run"></p>
+
+<p>You can verify it works locally by using <a href="https://insomnia.rest/">Insomnia</a></p>
+
+<p><img src="http://blog.shanelee.name/content/images/2019/05/insomnia.png" alt="GraphQL API on the new Google Cloud Run"></p>
+
+<p>Some sample queries can be seen below to sign in a user and get back their details</p>
+
+<pre><code class="language-json"> mutation
+ {
+   signUp(username: "shane", email: "slee@x.com",password: "xxx") {
+     token
+   }
+ }
+
+ query {
+   users {
+     username
+     id
+   }
+ }
+</code></pre>
+
+<h4 id="finally">Finally</h4>
+
+<p>Finally, delete all resources after.</p>
+
+<p>Easiest way is to delete the test <a href="https://console.cloud.google.com/iam-admin/projects">project</a></p>
+
+<p>Any questions feel free to comment below. </p>]]></content:encoded></item><item><title><![CDATA[Skaffold for local kubernetes development]]></title><description><![CDATA[skaffold for local kubernetes development]]></description><link>http://blog.shanelee.name/2019/02/20/skaffold-for-local-kubernetes-development/</link><guid isPermaLink="false">939f9b10-3288-4a62-83c4-8de5aa50b6f6</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[node]]></category><category><![CDATA[skaffold]]></category><category><![CDATA[graphql]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Wed, 20 Feb 2019 06:37:09 GMT</pubDate><media:content url="http://blog.shanelee.name/content/images/2019/02/jacek-dylag-680347-unsplash-1.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
   <img src="http://blog.shanelee.name/content/images/2019/02/jacek-dylag-680347-unsplash-1.jpg" alt="Skaffold for local kubernetes development"><p>Easy and Repeatable Kubernetes Development</p>
 </blockquote>
 
@@ -2160,119 +2306,4 @@ You can do this in Chrome by launching developer tools. You will see a XHR reque
 </ul>
 
 <p><strong>TODO</strong>
-Add in video showing how it plays</p>]]></content:encoded></item><item><title><![CDATA[Consumer driven contract testing using PACT]]></title><description><![CDATA[pact framework to implement consumer driven contract testing against internal restful APIs]]></description><link>http://blog.shanelee.name/2016/07/19/consumer-driven-contract-testing-using-pact/</link><guid isPermaLink="false">1b17dbf5-5c11-4bfd-b1b7-18199f9e7fbd</guid><category><![CDATA[docker]]></category><category><![CDATA[docker-compose]]></category><category><![CDATA[pact]]></category><category><![CDATA[contract]]></category><category><![CDATA[testing]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 19 Jul 2016 11:26:24 GMT</pubDate><content:encoded><![CDATA[<h1 id="allaboutpact">All about PACT....</h1>
-
-<p><img src="https://tech.affinitas.de/wp-content/uploads/2015/04/pact_two_parts.png" alt="The PACT Logo"></p>
-
-<p>PACT enables consumer driven contract testing, providing a mock service and DSL for the consumer project, and interaction playback and verification for the service provider project.</p>
-
-<p>The Pact family of testing frameworks (Pact-JVM, Pact Ruby, Pact .NET, Pact Go, Pact.js, Pact Swift etc.) provide support for Consumer Driven <br>
-Contract Testing between dependent systems where the integration is based on HTTP (or message queues for some of the implementations).</p>
-
-<p>See <a href="https://github.com/realestate-com-au/pact/wiki#implementations-in-other-languages">implementations</a></p>
-
-<h2 id="dockerise">Dockerise...</h2>
-
-<p><img src="https://www.docker.com/sites/default/files/docker_banner_image_12312.svg" alt="Docker"></p>
-
-<p>To host your pacts, you need a pact broker. <br>
-The Pact Broker provides a repository for consumer driven contracts created using the pact gem.</p>
-
-<p>It:</p>
-
-<ul>
-<li>solves the problem of how to share pacts between consumer and provider projects</li>
-<li>allows you to decouple your service release cycles</li>
-<li>provides API documentation that is guaranteed to be up-to date</li>
-<li>shows you real examples of how your services interact</li>
-<li>allows you to visualise the relationships between your services </li>
-</ul>
-
-<p>There is a docker image already for pact broker, so i decided to create an image for the datastore; postgres. </p>
-
-<p>You can find the image <a href="https://hub.docker.com/r/shanelee007/docker-pact-postgres/">here</a></p>
-
-<p>I also defined a docker compose file to <em>orchestrate</em> starting the two containers within the same network. </p>
-
-<p>Docker Compose is an orchestration tool that makes spinning up multi-container applications effortless.</p>
-
-<p>See the file below:</p>
-
-<pre><code class="language-Docker">version: '2'  
-services:  
-  postgres:
-    image: shanelee007/docker-pact-postgres
-    environment:
-      -  POSTGRES_PASSWORD=ThePostgresPassword
-      -  POSTGRES_USER=admin
-    ports:
-      - "5432:5432"
-  pact:
-    image: dius/pact_broker
-    environment:
-      -  PACT_BROKER_DATABASE_NAME=pactbroker
-      -  PACT_BROKER_DATABASE_PASSWORD=TheUserPassword
-      -  PACT_BROKER_DATABASE_HOST=postgres
-      -  PACT_BROKER_DATABASE_USERNAME=pactbrokeruser
-    ports:
-      - "80:80"
-    depends_on:
-        - postgres
-#    entrypoint: ./wait-for-it.sh postgres:5432 -- echo "postgres is up"
-</code></pre>
-
-<p>Docker command to run is  </p>
-
-<pre><code class="language-bash">docker-compose --file docker-compose-pact.yml  up --build
-</code></pre>
-
-<p>One simple command and you have a pact broker up and running locally at <a href="http://localhost/ui/relationships">http://localhost/ui/relationships</a> 😎</p>
-
-<h2 id="acloserlookatpact">A closer look at PACT</h2>
-
-<p>I have created a github project that demonstrates Pact end-to-end.</p>
-
-<p>You can find the project <a href="https://github.com/shavo007/pact-demo">here</a></p>
-
-<p>Steps are:</p>
-
-<ul>
-<li>Spin up pact broker using docker containers</li>
-<li>Start the microservice</li>
-<li>Run js consumer test using pact mock service and publish to pact broker</li>
-<li>Run jvm consumer and publish to pact broker</li>
-</ul>
-
-<p>You should then see the contracts published at <br>
-<a href="http://localhost/ui/relationships">http://localhost/ui/relationships</a></p>
-
-<h3 id="pactbrokerrelationships">Pact broker relationships</h3>
-
-<p><img src="http://blog.shanelee.name/content/images/2016/07/Screen-Shot-2016-07-30-at-8-18-09-PM.png" alt="Pact broker"></p>
-
-<p>You can then verify the contracts against the running microservice by running  </p>
-
-<pre><code class="language-bash">./gradlew pactVerify
-</code></pre>
-
-<p><img src="http://blog.shanelee.name/content/images/2016/07/Screen-Shot-2016-07-30-at-8-03-16-PM.png" alt="Microservice console"></p>
-
-<h3 id="consoleverification">Console verification</h3>
-
-<p><img src="http://blog.shanelee.name/content/images/2016/07/Screen-Shot-2016-07-30-at-8-20-00-PM.png" alt=""></p>
-
-<p>Reports are outputted in json and markdown form. Which is very useful in your CI build pipeline.  </p>
-
-<h2 id="benefits">Benefits</h2>
-
-<p>Pact is most valuable for designing and testing integrations where you (or your team/organisation/partner organisation) control the development of both the consumer and the provider, and the requirements of the consumer are going to be used to drive the features of the provider. It is a fantastic tool for developing and testing intra-organisation microservices.</p>
-
-<h2 id="usefulresources">Useful resources</h2>
-
-<ul>
-<li><p><a href="http://dius.com.au/2014/05/19/simplifying-micro-service-testing-with-pacts/">http://dius.com.au/2014/05/19/simplifying-micro-service-testing-with-pacts/</a></p></li>
-<li><p><a href="http://thoughtworks.github.io/pacto/patterns/cdc/">http://thoughtworks.github.io/pacto/patterns/cdc/</a></p></li>
-<li><p><a href="http://docs.pact.io/">http://docs.pact.io/</a></p></li>
-<li><p>Recently discussed at microservice meetup : <a href="http://www.meetup.com/Melbourne-Microservices/events/231874304/">http://www.meetup.com/Melbourne-Microservices/events/231874304/</a></p></li>
-<li><p><a href="http://martinfowler.com/articles/microservice-testing/#testing-contract-introduction">http://martinfowler.com/articles/microservice-testing/#testing-contract-introduction</a></p></li>
-</ul>]]></content:encoded></item></channel></rss>
+Add in video showing how it plays</p>]]></content:encoded></item></channel></rss>

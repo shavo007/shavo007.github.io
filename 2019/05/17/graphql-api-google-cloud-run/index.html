@@ -1,0 +1,393 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>GraphQL API on Google Cloud Run</title>
+    <meta name="description" content="Cloud Run, a serverless environment based on containers and Kubernetes.">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
+    <link rel="canonical" href="https://blog.shanelee.name/2019/05/17/graphql-api-google-cloud-run/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="Tech Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="GraphQL API on Google Cloud Run">
+    <meta property="og:description" content="Cloud Run, a serverless environment based on containers and Kubernetes.">
+    <meta property="og:url" content="http://blog.shanelee.name/2019/05/17/graphql-api-google-cloud-run/">
+    <meta property="og:image" content="http://blog.shanelee.name/content/images/2019/05/fabio-comparelli-696510-unsplash-1.jpg">
+    <meta property="article:published_time" content="2019-05-17T08:07:00.000Z">
+    <meta property="article:modified_time" content="2019-05-23T05:27:27.182Z">
+    <meta property="article:tag" content="kubernetes">
+    <meta property="article:tag" content="google">
+    <meta property="article:tag" content="graphql">
+    <meta property="article:tag" content="k8s">
+    <meta property="article:tag" content="docker">
+    <meta property="article:tag" content="gke">
+    <meta property="article:tag" content="cloud">
+    <meta property="article:tag" content="cloudrun">
+    <meta property="article:tag" content="nodejs">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="GraphQL API on Google Cloud Run">
+    <meta name="twitter:description" content="Cloud Run, a serverless environment based on containers and Kubernetes.">
+    <meta name="twitter:url" content="http://blog.shanelee.name/2019/05/17/graphql-api-google-cloud-run/">
+    <meta name="twitter:image:src" content="http://blog.shanelee.name/content/images/2019/05/fabio-comparelli-696510-unsplash-1.jpg">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shane Lee">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="kubernetes, google, graphql, k8s, docker, gke, cloud, cloudrun, nodejs">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Tech Blog",
+        "logo": "http://blog.shanelee.name/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shane Lee",
+        "image": "http://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg",
+        "url": "http://blog.shanelee.name/author/shane/",
+        "sameAs": [
+            "https://about.me/shane-lee"
+        ]
+    },
+    "headline": "GraphQL API on Google Cloud Run",
+    "url": "http://blog.shanelee.name/2019/05/17/graphql-api-google-cloud-run/",
+    "datePublished": "2019-05-17T08:07:00.000Z",
+    "dateModified": "2019-05-23T05:27:27.182Z",
+    "image": "http://blog.shanelee.name/content/images/2019/05/fabio-comparelli-696510-unsplash-1.jpg",
+    "keywords": "kubernetes, google, graphql, k8s, docker, gke, cloud, cloudrun, nodejs",
+    "description": "Cloud Run, a serverless environment based on containers and Kubernetes."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.8">
+    <link rel="alternate" type="application/rss+xml" title="Tech Blog" href="https://blog.shanelee.name/rss/">
+    <meta name="google-site-verification" content="dzkjZUDovRImqR_2oGUlteWT1zcgw-r6cqBYef9qiWw">
+<meta name="google-site-verification" content="lojSObDdEFLBM0ok1Yiqy7rqgbc8yAUTyqF5iYszvWA">
+<link rel="preconnect" href="http://shavo007.disqus.com">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128189527-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-128189527-1');
+</script>
+<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2007283184718574",
+    enable_page_level_ads: true
+  });
+</script>
+</head>
+<body class="post-template tag-kubernetes tag-google tag-graphql tag-k8s tag-docker tag-gke tag-cloud tag-cloudrun tag-nodejs nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="https://blog.shanelee.name/">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="https://blog.shanelee.name/rss/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head " style="background-image: url(../../../../content/images/2019/05/fabio-comparelli-696510-unsplash-1.jpg)">
+    <nav class="main-nav overlay clearfix">
+        
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post tag-kubernetes tag-google tag-graphql tag-k8s tag-docker tag-gke tag-cloud tag-cloudrun tag-nodejs featured">
+
+        <header class="post-header">
+            <h1 class="post-title">GraphQL API on the new Google Cloud Run</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2019-05-17">17 May 2019</time>
+                 on <a href="../../../../tag/kubernetes/">kubernetes</a>, <a href="../../../../tag/google/">google</a>, <a href="../../../../tag/graphql/">graphql</a>, <a href="../../../../tag/k8s/">k8s</a>, <a href="../../../../tag/docker/">docker</a>, <a href="../../../../tag/gke/">gke</a>, <a href="../../../../tag/cloud/">cloud</a>, <a href="../../../../tag/cloudrun/">cloudrun</a>, <a href="../../../../tag/nodejs/">nodejs</a>
+                ,
+
+                <!--<li class="post-meta-item">-->
+                    <a href="index.html#disqus_thread"></a>
+                <!--</li>-->
+                <!--<a href="#disqus_thread"/>-->
+            </section>
+        </header>
+
+        <section class="post-content">
+
+            <blockquote>
+  <p>Cloud Run is a layer that Google built on top of Knative to simplify deploying serverless applications on the Google Cloud Platform.</p>
+</blockquote>
+
+<p>So whats <strong>Knative</strong>?? </p>
+
+<p><a href="https://cloud.google.com/knative/">Knative</a> provides an open API and runtime environment that enables you to run your serverless workloads anywhere you choose: fully managed on Google Cloud, on Google Kubernetes Engine (GKE), or on your own Kubernetes cluster.</p>
+
+<p>Knative can be deployed on any Kubernetes cluster. It acts as the middleware bridging the gap between core infrastructure services and developer experience.</p>
+
+<p>Cloud Run is Googles own implementation of Knative. <br>
+ It enables you to run stateless containers that are invocable via web requests or Cloud Pub/Sub events.</p>
+
+<p>Features include:</p>
+
+<ul>
+<li>Fast autoscaling</li>
+<li>Managed</li>
+<li>Redundancy</li>
+<li>Integrated logging and monitoring</li>
+<li>Custom domains</li>
+<li>Built on knative</li>
+</ul>
+
+<p>There are <strong>two</strong> options when it comes to using Google Cloud Run. </p>
+
+<h2 id="flavorsofcloudrun">Flavors of Cloud Run</h2>
+
+<p>Currently in beta, Google Cloud Run is available as a standalone environment and within the Google Kubernetes Engine (GKE).</p>
+
+<p>Developers can deploy apps to Cloud Run through the console or CLI. If there is a GKE cluster with Istio installation, apps targeting Cloud Run can be easy deployed to an existing Kubernetes cluster.</p>
+
+<p>Each deployment to service creates a revision. A revision consists of a specific container image, along with environment settings such as environment variables, memory limits, or concurrency value.</p>
+
+<p>Requests are automatically routed as soon as possible to the latest healthy service revision.</p>
+
+<p>For more check out the video below on the differences.</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RVdhyprptTQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<h2 id="tutorial">Tutorial</h2>
+
+<p>In this tutorial, we will deploy a graphql API based on Node.js and Postgres to the Cloud Run platform.</p>
+
+<p>There are two steps involved in this workflow: provisioning a cloud sql postgres database instance, and deploying code to Cloud Run. This tutorial assumes you have an active account on Google Cloud Platform with the CLI and SDK installed on your development machine. </p>
+
+<p><del>You also need Docker Desktop to build images locally.</del></p>
+
+<p>Actually, that's not true! You don't even need docker locally!! You can use google cloud build to run it remotely for you 🤓</p>
+
+<h3 id="letsbegin">Lets begin</h3>
+
+<p>To follow along, you can find the github project <a href="https://github.com/shavo007/graphql-playground/tree/master/api">here</a></p>
+
+<p>In a previous <a href="https://blog.shanelee.name/2019/02/20/skaffold-for-local-kubernetes-development/">post</a>, I talked about running this example on kubernetes using skaffold</p>
+
+<h4 id="googlecloudsetup">Google cloud setup</h4>
+
+<p>First on your google cloud account you need to enable billing and <a href="http://console.cloud.google.com/apis/library/run.googleapis.com">cloud run API</a></p>
+
+<p>Create your new google cloud project first and then run the following commands</p>
+
+<pre><code class="language-bash">gcloud components install beta #install beta components  
+gcloud components update #update components  
+gcloud config set run/region us-central1 #set cloud run region  
+gcloud services enable container.googleapis.com containerregistry.googleapis.com cloudbuild.googleapis.com  
+gcloud config set project [PROJECT_ID] #set project id  
+gcloud beta auth login  
+</code></pre>
+
+<h4 id="step1createcloudsqlforpostgres">Step 1: create cloud sql for postgres</h4>
+
+<p>GraphQL APIs datasource is a postgres database. Cloud run supports <a href="https://cloud.google.com/run/docs/configuring/connect-cloudsql">cloud sql</a> service.</p>
+
+<pre><code class="language-bash">gcloud sql instances create [INSTANCE_NAME]  --database-version=POSTGRES_9_6 \  
+       --tier db-f1-micro --region us-central1 
+#save on costs by using a shared-core instance 
+gcloud sql users set-password postgres no-host --instance=[INSTANCE_NAME] \  
+       --password=[PASSWORD]
+</code></pre>
+
+<p>For testing purposes, I am running a micro instance. </p>
+
+<p><a href="https://cloud.google.com/sql/docs/postgres/create-instance">Refer to doc
+</a> for more info</p>
+
+<p><img src="../../../../content/images/2019/05/CloudSQL.png" alt=""></p>
+
+<h4 id="step2buildinganddeployingacloudrunservice">Step 2: Building and Deploying a Cloud Run Service</h4>
+
+<p><mark>You can find the docker file and src in the github repo</mark></p>
+
+<p>We will build the Docker image remotely and push it to Google Container Registry (GCR)</p>
+
+<pre><code class="language-bash">gcloud builds submit --tag gcr.io/[PROJECT-ID]/graphql #build container image  
+</code></pre>
+
+<p>Verify the image exists in GCR</p>
+
+<pre><code class="language-bash">gcloud container images list  
+</code></pre>
+
+<p>Deploy the container using cloud run and overwrite env vars to connect to the DB</p>
+
+<pre><code class="language-bash">#overwrite the host to connect over a unix domain socket and db password
+gcloud beta run deploy --image gcr.io/[PROJECT-ID]/graphql --add-cloudsql-instances [INSTANCE-NAME] --update-env-vars DB_HOST=/cloudsql/[CONNECTION NAME],name=graphql,DATABASE_PASSWORD=[PASSWORD] #respond y to allow unauthenticated invocations.  
+</code></pre>
+
+<p>The switch, <mark>–allow-unauthenticated</mark>, will let the service accept the traffic from the public internet. Notice that we are passing the Postgres connection string generated by cloudSQL as an environment variable. The code expects the connection string from the <mark>DBHOST</mark> environment variable.</p>
+
+<p>See details of the running service by running the command below</p>
+
+<pre><code class="language-bash">gcloud beta run services list  
+</code></pre>
+
+<p>Or you can view the UI console</p>
+
+<p><img src="../../../../content/images/2019/05/CloudRunServiceGraphql.png" alt=""></p>
+
+<p>You can verify it works locally by using <a href="https://insomnia.rest/">Insomnia</a></p>
+
+<p><img src="../../../../content/images/2019/05/insomnia.png" alt=""></p>
+
+<p>Some sample queries can be seen below to sign in a user and get back their details</p>
+
+<pre><code class="language-json"> mutation
+ {
+   signUp(username: "shane", email: "slee@x.com",password: "xxx") {
+     token
+   }
+ }
+
+ query {
+   users {
+     username
+     id
+   }
+ }
+</code></pre>
+
+<h4 id="finally">Finally</h4>
+
+<p>Finally, delete all resources after.</p>
+
+<p>Easiest way is to delete the test <a href="https://console.cloud.google.com/iam-admin/projects">project</a></p>
+
+<p>Any questions feel free to comment below. </p>
+        </section>
+
+        <!-- disqus code snippet -->
+        <div id="disqus_thread"></div>
+        <script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+this.page.url = 'http://blog.shanelee.name/2019/05/17/graphql-api-google-cloud-run/'; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'ghost-22'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//shavo007.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        <script id="dsq-count-scr" src="http://shavo007.disqus.com/count.js" async></script>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../../../../author/shane/" style="background-image: url(../../../../content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../../../../author/shane/">Shane Lee</a></h4>
+
+                    <p>Read <a href="../../../../author/shane/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    <span class="author-location icon-location">Melbourne</span>
+                    <span class="author-link icon-link"><a href="https://about.me/shane-lee">https://about.me/shane-lee</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=GraphQL%20API%20on%20the%20new%20Google%20Cloud%20Run&amp;url=https://blog.shanelee.name/2019/05/17/graphql-api-google-cloud-run/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.shanelee.name/2019/05/17/graphql-api-google-cloud-run/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://blog.shanelee.name/2019/05/17/graphql-api-google-cloud-run/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+
+    </article>
+</main>
+
+
+
+<aside class="read-next">
+    <a class="read-next-story prev " style="background-image: url(../../../../content/images/2019/02/jacek-dylag-680347-unsplash-1.jpg)" href="../../../02/20/skaffold-for-local-kubernetes-development/">
+        <section class="post">
+            <h2>Skaffold for local kubernetes development</h2>
+            <p>Easy and Repeatable Kubernetes Development TLDR Below, I will showcase how to install and use skaffold for local development…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog</a> © 2019</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-coy.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-graphql.min.js"></script>
+<!-- Add additional languages here -->
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/prism.js"></script>
+
+
+
+</body>
