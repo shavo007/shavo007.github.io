@@ -1,0 +1,324 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>How I passed the professional google cloud architect exam</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
+    <link rel="canonical" href="https://blog.shanelee.name/2020/08/04/how-i-passed-the-professional-google-cloud-architect-exam/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="Tech Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How I passed the professional google cloud architect exam">
+    <meta property="og:description" content="So why Google cloud?? Well, the Google Cloud Platform (GCP) is behind the 8 ball for sure in comparison to AWS. But with the huge spike in companies looking to reduce their Capex and move to the cloud, its offerings in the data analytics space for example is very enticing.">
+    <meta property="og:url" content="http://blog.shanelee.name/2020/08/04/how-i-passed-the-professional-google-cloud-architect-exam/">
+    <meta property="og:image" content="http://blog.shanelee.name/content/images/2020/08/morning-brew-T0qYg2nPUWM-unsplash.jpg">
+    <meta property="article:published_time" content="2020-08-04T06:47:49.275Z">
+    <meta property="article:modified_time" content="2020-08-04T07:19:14.957Z">
+    <meta property="article:tag" content="cloud">
+    <meta property="article:tag" content="google">
+    <meta property="article:tag" content="kubernetes">
+    <meta property="article:tag" content="exam">
+    <meta property="article:tag" content="gcp">
+    <meta property="article:tag" content="google cloud">
+    <meta property="article:tag" content="architect">
+    <meta property="article:tag" content="bigquery">
+    <meta property="article:tag" content="linux academy">
+    <meta property="article:tag" content="cloud native">
+    <meta property="article:tag" content="hybrid">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How I passed the professional google cloud architect exam">
+    <meta name="twitter:description" content="So why Google cloud?? Well, the Google Cloud Platform (GCP) is behind the 8 ball for sure in comparison to AWS. But with the huge spike in companies looking to reduce their Capex and move to the cloud, its offerings in the data analytics space for example is very enticing.">
+    <meta name="twitter:url" content="http://blog.shanelee.name/2020/08/04/how-i-passed-the-professional-google-cloud-architect-exam/">
+    <meta name="twitter:image:src" content="http://blog.shanelee.name/content/images/2020/08/morning-brew-T0qYg2nPUWM-unsplash.jpg">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shane Lee">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="cloud, google, kubernetes, exam, gcp, google cloud, architect, bigquery, linux academy, cloud native, hybrid">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Tech Blog",
+        "logo": "http://blog.shanelee.name/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shane Lee",
+        "image": "http://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg",
+        "url": "http://blog.shanelee.name/author/shane/",
+        "sameAs": [
+            "https://about.me/shane-lee"
+        ]
+    },
+    "headline": "How I passed the professional google cloud architect exam",
+    "url": "http://blog.shanelee.name/2020/08/04/how-i-passed-the-professional-google-cloud-architect-exam/",
+    "datePublished": "2020-08-04T06:47:49.275Z",
+    "dateModified": "2020-08-04T07:19:14.957Z",
+    "image": "http://blog.shanelee.name/content/images/2020/08/morning-brew-T0qYg2nPUWM-unsplash.jpg",
+    "keywords": "cloud, google, kubernetes, exam, gcp, google cloud, architect, bigquery, linux academy, cloud native, hybrid",
+    "description": "So why Google cloud?? Well, the Google Cloud Platform (GCP) is behind the 8 ball for sure in comparison to AWS. But with the huge spike in companies looking to reduce their Capex and move to the cloud, its offerings in the data analytics space for example is very enticing."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.8">
+    <link rel="alternate" type="application/rss+xml" title="Tech Blog" href="https://blog.shanelee.name/rss/">
+    <meta name="google-site-verification" content="dzkjZUDovRImqR_2oGUlteWT1zcgw-r6cqBYef9qiWw">
+<meta name="google-site-verification" content="lojSObDdEFLBM0ok1Yiqy7rqgbc8yAUTyqF5iYszvWA">
+<link rel="preconnect" href="http://shavo007.disqus.com">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128189527-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-128189527-1');
+</script>
+<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2007283184718574",
+    enable_page_level_ads: true
+  });
+</script>
+</head>
+<body class="post-template tag-cloud tag-google tag-kubernetes tag-exam tag-gcp tag-google-cloud tag-architect tag-bigquery tag-linux-academy tag-cloud-native tag-hybrid nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="https://blog.shanelee.name/">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="https://blog.shanelee.name/rss/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head " style="background-image: url(../../../../content/images/2020/08/morning-brew-T0qYg2nPUWM-unsplash.jpg)">
+    <nav class="main-nav overlay clearfix">
+        
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post tag-cloud tag-google tag-kubernetes tag-exam tag-gcp tag-google-cloud tag-architect tag-bigquery tag-linux-academy tag-cloud-native tag-hybrid featured">
+
+        <header class="post-header">
+            <h1 class="post-title">How I passed the professional google cloud architect exam</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2020-08-04">04 August 2020</time>
+                 on <a href="../../../../tag/cloud/">cloud</a>, <a href="../../../../tag/google/">google</a>, <a href="../../../../tag/kubernetes/">kubernetes</a>, <a href="../../../../tag/exam/">exam</a>, <a href="../../../../tag/gcp/">gcp</a>, <a href="../../../../tag/google-cloud/">google cloud</a>, <a href="../../../../tag/architect/">architect</a>, <a href="../../../../tag/bigquery/">bigquery</a>, <a href="../../../../tag/linux-academy/">linux academy</a>, <a href="../../../../tag/cloud-native/">cloud native</a>, <a href="../../../../tag/hybrid/">hybrid</a>
+                ,
+
+                <!--<li class="post-meta-item">-->
+                    <a href="index.html#disqus_thread"></a>
+                <!--</li>-->
+                <!--<a href="#disqus_thread"/>-->
+            </section>
+        </header>
+
+        <section class="post-content">
+
+            <h1 id="sowhygooglecloud">So why Google cloud??</h1>
+
+<p>Well, the Google Cloud Platform (GCP) is behind the 8 ball for sure in comparison to AWS. But with the huge spike in companies looking to reduce their Capex and move to the cloud, its offerings in the data analytics space for example is very enticing. Also in my view, they have the best managed kubernetes service GKE. Which makes sense, when you understand that kubernetes originated from googles own internal cluster orcherstration service called <a href="https://research.google/pubs/pub43438/">borg</a>. </p>
+
+<p>I have worked with AWS for many years professionally. Gaining exposure to other cloud providers is important when you see companies adopting a  multi-cloud approach but fundamentally many of the underlying patterns and managed services commonly exist across the top 3 (AWS, GCP, Azure).</p>
+
+<p>Up until recently I did not fully understand where <a href="https://www.forbes.com/sites/janakirammsv/2020/07/19/why-bigquery-omni-is-a-big-deal-for-google-cloud-customers-and-partners/#3644f89b1843">Anthos</a> fit into the picture. But now I do. By bringing compute closer to the data, existing cloud users can now use the likes of GKE and BigQuery. Nicely played Google! <strong>If the mountain won't come to muhammed...</strong> ☺️ </p>
+
+<h2 id="certification">Certification</h2>
+
+<p>This <a href="https://cloud.google.com/certification/cloud-architect">certification</a> allowed me to analyse and understand the majority of GCP services. But also provide a solid understanding of architectural best practices when it comes to design considerations, security, reliability and cost optimisation.</p>
+
+<h2 id="exampreparation">Exam Preparation</h2>
+
+<p>There are several training providers out there that provide courses specific to this exam: Coursera, Udemy, Linux academy to name but a few.</p>
+
+<h3 id="courseras">Coursera’s:</h3>
+
+<ul>
+<li><p><a href="https://www.coursera.org/specializations/gcp-architecture">Architecting with Google Compute Engine
+</a></p></li>
+<li><p><a href="https://www.coursera.org/learn/preparing-cloud-professional-cloud-architect-exam/">Preparing for the Professional Cloud Architect Examination</a></p></li>
+</ul>
+
+<h3 id="linuxacademys">Linux Academy’s:</h3>
+
+<ul>
+<li><a href="https://linuxacademy.com/cp/modules/view/id/321">Google Cloud Certified Professional Cloud Architect
+</a></li>
+</ul>
+
+<p>I took the updated course from Linux Academy’s Google Cloud Certified Professional Cloud Architect.</p>
+
+<p>Linux Academy’s updated course was a good choice as it covers the majority of exam related GCP based topics and its practice sessions are an added advantage associated after each lesson. Their <a href="https://interactive.linuxacademy.com/diagrams/MasterBuildersGuide.html">master builders guide</a> was a very important document that I referred back to many times.</p>
+
+<p>I also like to be hands on, so I signed up to <a href="https://www.qwiklabs.com/">qwiklabs</a> and completed many of the quests they provide in relation to GCP. It's extremely helpful especially if you do not have your own google cloud account. </p>
+
+<p>Google also provides a <a href="https://lp.cloudplatformonline.com/rs/808-GJW-314/images/Professional%20Cloud%20Architect%20Journey.pdf">learning path</a> as an alternative option.</p>
+
+<h2 id="examregistration">Exam registration</h2>
+
+<p><a href="https://webassessor.com/wa.do?page=publicHome&amp;branding=GOOGLECLOUD">Register</a> for the exam when you are about 1 week into your study. This allows you to book in a slot not too far in the future and keeps you motivated.</p>
+
+<h2 id="examlayout">Exam layout</h2>
+
+<blockquote>
+  <p>The exam is two hours long. You can take it remotely or at a test centre ( I took it at home). There are 50 questions - multiple choice and multiple select. The GCP case studies take up about 12 questions with the rest, GCP in general.</p>
+</blockquote>
+
+<h3 id="examscore">Exam score</h3>
+
+<p>The passing marks are not shared by Google in any of GCP exam except it tells about pass or fail. However it has been assumed from various blogs and training providers that it’s roughly around 80% for GCP exams though no official confirmation about it.</p>
+
+<h3 id="examreadiness">Exam readiness</h3>
+
+<p>Check your readiness by taking the <a href="https://forms.gle/SHcLhSXckievBNBn6">google practice exam</a> and Linux academys (if you have signed up for the course). If you are not scoring 90% or above, then keep studying!</p>
+
+<h3 id="tips">Tips</h3>
+
+<ul>
+<li><p>You will have plenty of time to go back and review marked questions. So make sure if you are stuck, mark question and move on. </p></li>
+<li><p>Eliminate answers that you know are incorrect</p></li>
+<li><p>Look out for main keywords in the question - speeds, low latency, failover, serverless etc etc </p></li>
+</ul>
+
+<h2 id="finalsuggestions">Final suggestions</h2>
+
+<ul>
+<li><p>Remember to deeply learn Kubernetes, Bigdata services(Big Query, BigTable), NoSQL options, App engine, Storage, IAM, BigQuery Roles, Case studies..</p></li>
+<li><p>Googles new <a href="https://cloud.google.com/architecture/framework">architecture framework</a> is a very useful resource too.</p></li>
+</ul>
+
+<p><img src="../../../../content/images/2020/08/googlecert.jpg" alt=""></p>
+
+<p>Still waiting on my bag!! Best of luck.</p>
+        </section>
+
+        <!-- disqus code snippet -->
+        <div id="disqus_thread"></div>
+        <script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+this.page.url = 'http://blog.shanelee.name/2020/08/04/how-i-passed-the-professional-google-cloud-architect-exam/'; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'ghost-24'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//shavo007.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        <script id="dsq-count-scr" src="http://shavo007.disqus.com/count.js" async></script>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../../../../author/shane/" style="background-image: url(../../../../content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../../../../author/shane/">Shane Lee</a></h4>
+
+                    <p>Read <a href="../../../../author/shane/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    <span class="author-location icon-location">Melbourne</span>
+                    <span class="author-link icon-link"><a href="https://about.me/shane-lee">https://about.me/shane-lee</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=How%20I%20passed%20the%20professional%20google%20cloud%20architect%20exam&amp;url=https://blog.shanelee.name/2020/08/04/how-i-passed-the-professional-google-cloud-architect-exam/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.shanelee.name/2020/08/04/how-i-passed-the-professional-google-cloud-architect-exam/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://blog.shanelee.name/2020/08/04/how-i-passed-the-professional-google-cloud-architect-exam/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+
+    </article>
+</main>
+
+
+
+<aside class="read-next">
+    <a class="read-next-story prev " style="background-image: url(../../../../content/images/2019/05/fabio-comparelli-696510-unsplash-1.jpg)" href="../../../../2019/05/17/graphql-api-google-cloud-run/">
+        <section class="post">
+            <h2>GraphQL API on the new Google Cloud Run</h2>
+            <p>Cloud Run is a layer that Google built on top of Knative to simplify deploying serverless applications on the…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog</a> © 2020</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-coy.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-graphql.min.js"></script>
+<!-- Add additional languages here -->
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/prism.js"></script>
+
+
+
+</body>

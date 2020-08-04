@@ -1,4 +1,80 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Thu, 23 May 2019 05:27:50 GMT</lastBuildDate><atom:link href="http://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[GraphQL API on the new Google Cloud Run]]></title><description><![CDATA[ Cloud Run, a serverless environment based on containers and Kubernetes.]]></description><link>http://blog.shanelee.name/2019/05/17/graphql-api-google-cloud-run/</link><guid isPermaLink="false">1dfdf148-8167-4016-8259-29cd1cd39f87</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[google]]></category><category><![CDATA[graphql]]></category><category><![CDATA[k8s]]></category><category><![CDATA[docker]]></category><category><![CDATA[gke]]></category><category><![CDATA[cloud]]></category><category><![CDATA[cloudrun]]></category><category><![CDATA[nodejs]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Fri, 17 May 2019 08:07:00 GMT</pubDate><media:content url="http://blog.shanelee.name/content/images/2019/05/fabio-comparelli-696510-unsplash-1.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Tue, 04 Aug 2020 07:22:10 GMT</lastBuildDate><atom:link href="http://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[How I passed the professional google cloud architect exam]]></title><description><![CDATA[<h1 id="sowhygooglecloud">So why Google cloud??</h1>
+
+<p>Well, the Google Cloud Platform (GCP) is behind the 8 ball for sure in comparison to AWS. But with the huge spike in companies looking to reduce their Capex and move to the cloud, its offerings in the data analytics space for example is very enticing.</p>]]></description><link>http://blog.shanelee.name/2020/08/04/how-i-passed-the-professional-google-cloud-architect-exam/</link><guid isPermaLink="false">f54e6eec-b076-47af-959c-23f838c318f6</guid><category><![CDATA[cloud]]></category><category><![CDATA[google]]></category><category><![CDATA[kubernetes]]></category><category><![CDATA[exam]]></category><category><![CDATA[gcp]]></category><category><![CDATA[google cloud]]></category><category><![CDATA[architect]]></category><category><![CDATA[bigquery]]></category><category><![CDATA[linux academy]]></category><category><![CDATA[cloud native]]></category><category><![CDATA[hybrid]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 04 Aug 2020 06:47:49 GMT</pubDate><media:content url="http://blog.shanelee.name/content/images/2020/08/morning-brew-T0qYg2nPUWM-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<h1 id="sowhygooglecloud">So why Google cloud??</h1>
+
+<img src="http://blog.shanelee.name/content/images/2020/08/morning-brew-T0qYg2nPUWM-unsplash.jpg" alt="How I passed the professional google cloud architect exam"><p>Well, the Google Cloud Platform (GCP) is behind the 8 ball for sure in comparison to AWS. But with the huge spike in companies looking to reduce their Capex and move to the cloud, its offerings in the data analytics space for example is very enticing. Also in my view, they have the best managed kubernetes service GKE. Which makes sense, when you understand that kubernetes originated from googles own internal cluster orcherstration service called <a href="https://research.google/pubs/pub43438/">borg</a>. </p>
+
+<p>I have worked with AWS for many years professionally. Gaining exposure to other cloud providers is important when you see companies adopting a  multi-cloud approach but fundamentally many of the underlying patterns and managed services commonly exist across the top 3 (AWS, GCP, Azure).</p>
+
+<p>Up until recently I did not fully understand where <a href="https://www.forbes.com/sites/janakirammsv/2020/07/19/why-bigquery-omni-is-a-big-deal-for-google-cloud-customers-and-partners/#3644f89b1843">Anthos</a> fit into the picture. But now I do. By bringing compute closer to the data, existing cloud users can now use the likes of GKE and BigQuery. Nicely played Google! <strong>If the mountain won't come to muhammed...</strong> ☺️ </p>
+
+<h2 id="certification">Certification</h2>
+
+<p>This <a href="https://cloud.google.com/certification/cloud-architect">certification</a> allowed me to analyse and understand the majority of GCP services. But also provide a solid understanding of architectural best practices when it comes to design considerations, security, reliability and cost optimisation.</p>
+
+<h2 id="exampreparation">Exam Preparation</h2>
+
+<p>There are several training providers out there that provide courses specific to this exam: Coursera, Udemy, Linux academy to name but a few.</p>
+
+<h3 id="courseras">Coursera’s:</h3>
+
+<ul>
+<li><p><a href="https://www.coursera.org/specializations/gcp-architecture">Architecting with Google Compute Engine
+</a></p></li>
+<li><p><a href="https://www.coursera.org/learn/preparing-cloud-professional-cloud-architect-exam/">Preparing for the Professional Cloud Architect Examination</a></p></li>
+</ul>
+
+<h3 id="linuxacademys">Linux Academy’s:</h3>
+
+<ul>
+<li><a href="https://linuxacademy.com/cp/modules/view/id/321">Google Cloud Certified Professional Cloud Architect
+</a></li>
+</ul>
+
+<p>I took the updated course from Linux Academy’s Google Cloud Certified Professional Cloud Architect.</p>
+
+<p>Linux Academy’s updated course was a good choice as it covers the majority of exam related GCP based topics and its practice sessions are an added advantage associated after each lesson. Their <a href="https://interactive.linuxacademy.com/diagrams/MasterBuildersGuide.html">master builders guide</a> was a very important document that I referred back to many times.</p>
+
+<p>I also like to be hands on, so I signed up to <a href="https://www.qwiklabs.com/">qwiklabs</a> and completed many of the quests they provide in relation to GCP. It's extremely helpful especially if you do not have your own google cloud account. </p>
+
+<p>Google also provides a <a href="https://lp.cloudplatformonline.com/rs/808-GJW-314/images/Professional%20Cloud%20Architect%20Journey.pdf">learning path</a> as an alternative option.</p>
+
+<h2 id="examregistration">Exam registration</h2>
+
+<p><a href="https://webassessor.com/wa.do?page=publicHome&amp;branding=GOOGLECLOUD">Register</a> for the exam when you are about 1 week into your study. This allows you to book in a slot not too far in the future and keeps you motivated.</p>
+
+<h2 id="examlayout">Exam layout</h2>
+
+<blockquote>
+  <p>The exam is two hours long. You can take it remotely or at a test centre ( I took it at home). There are 50 questions - multiple choice and multiple select. The GCP case studies take up about 12 questions with the rest, GCP in general.</p>
+</blockquote>
+
+<h3 id="examscore">Exam score</h3>
+
+<p>The passing marks are not shared by Google in any of GCP exam except it tells about pass or fail. However it has been assumed from various blogs and training providers that it’s roughly around 80% for GCP exams though no official confirmation about it.</p>
+
+<h3 id="examreadiness">Exam readiness</h3>
+
+<p>Check your readiness by taking the <a href="https://forms.gle/SHcLhSXckievBNBn6">google practice exam</a> and Linux academys (if you have signed up for the course). If you are not scoring 90% or above, then keep studying!</p>
+
+<h3 id="tips">Tips</h3>
+
+<ul>
+<li><p>You will have plenty of time to go back and review marked questions. So make sure if you are stuck, mark question and move on. </p></li>
+<li><p>Eliminate answers that you know are incorrect</p></li>
+<li><p>Look out for main keywords in the question - speeds, low latency, failover, serverless etc etc </p></li>
+</ul>
+
+<h2 id="finalsuggestions">Final suggestions</h2>
+
+<ul>
+<li><p>Remember to deeply learn Kubernetes, Bigdata services(Big Query, BigTable), NoSQL options, App engine, Storage, IAM, BigQuery Roles, Case studies..</p></li>
+<li><p>Googles new <a href="https://cloud.google.com/architecture/framework">architecture framework</a> is a very useful resource too.</p></li>
+</ul>
+
+<p><img src="http://blog.shanelee.name/content/images/2020/08/googlecert.jpg" alt="How I passed the professional google cloud architect exam"></p>
+
+<p>Still waiting on my bag!! Best of luck.</p>]]></content:encoded></item><item><title><![CDATA[GraphQL API on the new Google Cloud Run]]></title><description><![CDATA[ Cloud Run, a serverless environment based on containers and Kubernetes.]]></description><link>http://blog.shanelee.name/2019/05/17/graphql-api-google-cloud-run/</link><guid isPermaLink="false">1dfdf148-8167-4016-8259-29cd1cd39f87</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[google]]></category><category><![CDATA[graphql]]></category><category><![CDATA[k8s]]></category><category><![CDATA[docker]]></category><category><![CDATA[gke]]></category><category><![CDATA[cloud]]></category><category><![CDATA[cloudrun]]></category><category><![CDATA[nodejs]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Fri, 17 May 2019 08:07:00 GMT</pubDate><media:content url="http://blog.shanelee.name/content/images/2019/05/fabio-comparelli-696510-unsplash-1.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
   <img src="http://blog.shanelee.name/content/images/2019/05/fabio-comparelli-696510-unsplash-1.jpg" alt="GraphQL API on the new Google Cloud Run"><p>Cloud Run is a layer that Google built on top of Knative to simplify deploying serverless applications on the Google Cloud Platform.</p>
 </blockquote>
 
@@ -2170,140 +2246,4 @@ GetNextHolidayIntent find next public holiday by state
 
 <p>This skill is not currently on the marketplace.</p>
 
-<p>Stay tuned for more skills!!</p>]]></content:encoded></item><item><title><![CDATA[Alexa, ask home theater to put on Mr. Robot]]></title><description><![CDATA[Integrate alexa skill with plex media server using serverless technology aws lambda (FAAS)]]></description><link>http://blog.shanelee.name/2016/09/06/alexa-ask-home-theater-to-put-on-mr-robot/</link><guid isPermaLink="false">49266c7f-733b-46eb-b62f-0b73847f2b46</guid><category><![CDATA[alexa]]></category><category><![CDATA[plex]]></category><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[node]]></category><category><![CDATA[dynamodb]]></category><category><![CDATA[amazon]]></category><category><![CDATA[amazon echo]]></category><category><![CDATA[serverless]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 06 Sep 2016 10:45:03 GMT</pubDate><content:encoded><![CDATA[<h1 id="plexforalexa">Plex for Alexa</h1>
-
-<p><img src="http://blog.shanelee.name/content/images/2016/09/maxresdefault.jpg" alt=""></p>
-
-<p>Recently, I have started playing around with Alexa skill services. I currently use plex for my media content and found a project on github that has built an alexa skill already. (<strong>thanks to @overloadut</strong>)</p>
-
-<p><a href="https://overloadut.github.io/alexa-plex/">https://overloadut.github.io/alexa-plex/</a></p>
-
-<p>As a pet project, I decided to get this up and running.</p>
-
-<p>Below I will go into detail on the steps involved. </p>
-
-<h1 id="process">Process</h1>
-
-<p><img src="http://blog.shanelee.name/content/images/2016/09/PlexToAlexa.png" alt="Alexa flow"></p>
-
-<h3 id="prerequisites">Prerequisites</h3>
-
-<ul>
-<li>Plex media server running</li>
-<li>AWS account</li>
-<li>Plex Home theater (PHT) client </li>
-<li>Have basic knowledge of aws services, nodeJS and setting IAM roles.</li>
-<li><a href="https://support.plex.tv/hc/en-us/articles/200484543-Enabling-Remote-Access-for-a-Server">Enable remote access for Plex</a></li>
-</ul>
-
-<h3 id="locally">Locally</h3>
-
-<p>Install node, npm and git</p>
-
-<p>Clone the github repo <a href="https://github.com/OverloadUT/alexa-plex">https://github.com/OverloadUT/alexa-plex</a></p>
-
-<p>Run  </p>
-
-<pre><code class="language-bash">npm install  
-</code></pre>
-
-<p>to install dependencies
-Create a .env file in project root with similar properties as below:</p>
-
-<pre><code class="language-bash">APP_PRODUCT=Alexa Plex  
-APP_VERSION=2.0  
-APP_DEVICE=Amazon Echo  
-APP_DEVICE_NAME=Alexa  
-APP_IDENTIFIER=  
-ALEXA_APP_ID=  
-AWS_ACCESS_KEY_ID=&lt;your own key&gt;  
-AWS_SECRET_ACCESS_KEY=&lt;your own secret key&gt;  
-</code></pre>
-
-<p>There is a deploy script at the root of the project. Before you run this and update your lambda function, you need to first create it.</p>
-
-<h3 id="awslambda">AWS Lambda</h3>
-
-<p><img src="http://blog.shanelee.name/content/images/2016/09/AWS_Simple_Icons_Compute_AWSLambda-svg--1-.png" alt=""></p>
-
-<p>Create IAM role that has access to lambda and to dynamodb. </p>
-
-<p>If you have aws cli setup try the sample script below. <br>
-<strong><em>NB: Make sure and change the role val.</em></strong></p>
-
-<pre><code class="language-bash">aws lambda create-function --function-name alexa-plex --region us-east-1 --runtime  nodejs4.3 --role arn:aws:iam::xxxxxx:role/lambda_basic_execution --handler  index.handler  
-</code></pre>
-
-<p>Verify you can view the lambda function in the aws console. </p>
-
-<p>Change to trigger to be "Alexa skills kit".</p>
-
-<h3 id="dynamodb">DynamoDB</h3>
-
-<p><img src="http://blog.shanelee.name/content/images/2016/09/AWS_Simple_Icons_Database_AmazonDynamoDB-svg.png" alt=""></p>
-
-<p>Create a table named <em>AlexaPlexUsers</em> with a primary string key of <em>userid</em>.</p>
-
-<h3 id="createalexaskill">Create alexa skill</h3>
-
-<p><img src="http://blog.shanelee.name/content/images/2016/09/icon_ask_120x120-_CB295607968_--1-.png" alt=""></p>
-
-<p>Navigate to <a href="https://developer.amazon.com/">Amazon Developer Portal</a> to begin the Alexa Skill process. </p>
-
-<p>Sign In >> Alexa >> Alexa Skills Kit >> Add new skill</p>
-
-<h4 id="skillinformation">Skill Information</h4>
-
-<p>Fill in the Alexa Skill store details. Define the invocation name as home theater.  </p>
-
-<h4 id="interactionmodel">Interaction Model</h4>
-
-<p>This will setup what commands "Plex" can process. The sample utterances enable Alexa to process a variety of phrases for the same interaction.</p>
-
-<p>Copy in the intent schema, sample utterances and custom slot. The files are located under directory ask_configuration. </p>
-
-<h4 id="configuration">Configuration</h4>
-
-<p>You'll want to fill in your Lambda <strong>ARN</strong> here. <br>
-Set Account Linking to No.</p>
-
-<h4 id="test">Test</h4>
-
-<p>Now the fun part... 😛</p>
-
-<p>Use the service simulator to test it out.</p>
-
-<p>You'll need to link Alexa to your Plex account. Open your web browser to <a href="http://plex.tv/link">http://plex.tv/link</a> and ask Alexa:</p>
-
-<blockquote>
-  <p>"Alexa, tell home theater to continue setup"</p>
-</blockquote>
-
-<p>Alexa will guide you through the steps to link your account. Simply keep saying that same command and it should move to the next step.</p>
-
-<p>Once all is good, try playing a tv show</p>
-
-<blockquote>
-  <p>"Alexa, tell home theater to play Mr. Robot"</p>
-</blockquote>
-
-<h2 id="troubleshooting">Troubleshooting</h2>
-
-<ul>
-<li><p>If you receive no response from lambda function, make sure you increase the timeout greater than ten seconds.</p></li>
-<li><p>Any errors in the function, review the cloudwatch logs.</p></li>
-<li><p>I had an issue where the default player was Plex Web for Chrome and not my Rasplex.
-So I needed to change this entry in the dynamodb table. <br>
-You will see there is a player object. You need to change the machine identifier to the client that is running plex home theater. How you find that out, is by logging into plex.tv, launching the webapp and inspecting the network requests. <br>
-You can do this in Chrome by launching developer tools. You will see a XHR request similar to  <a href="https://plex.tv/devices.xml">https://plex.tv/devices.xml</a>. If you review the response you will find the client identifier value for the device you need. For me it was rasplex.</p></li>
-</ul>
-
-<h2 id="versions">Versions</h2>
-
-<ul>
-<li>PMS Version 1.0.3.2461  </li>
-<li>Rasplex Version 1.6.2.123-e23a7eef</li>
-</ul>
-
-<p><strong>TODO</strong>
-Add in video showing how it plays</p>]]></content:encoded></item></channel></rss>
+<p>Stay tuned for more skills!!</p>]]></content:encoded></item></channel></rss>
