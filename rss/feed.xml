@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Tue, 04 Aug 2020 07:22:10 GMT</lastBuildDate><atom:link href="http://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[How I passed the professional google cloud architect exam]]></title><description><![CDATA[<h1 id="sowhygooglecloud">So why Google cloud??</h1>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog (mainly!)]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://localhost:2368/</link><generator>Ghost 0.8</generator><lastBuildDate>Wed, 19 Aug 2020 05:44:10 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[How I passed the professional google cloud architect exam]]></title><description><![CDATA[<h1 id="sowhygooglecloud">So why Google cloud??</h1>
 
-<p>Well, the Google Cloud Platform (GCP) is behind the 8 ball for sure in comparison to AWS. But with the huge spike in companies looking to reduce their Capex and move to the cloud, its offerings in the data analytics space for example is very enticing.</p>]]></description><link>http://blog.shanelee.name/2020/08/04/how-i-passed-the-professional-google-cloud-architect-exam/</link><guid isPermaLink="false">f54e6eec-b076-47af-959c-23f838c318f6</guid><category><![CDATA[cloud]]></category><category><![CDATA[google]]></category><category><![CDATA[kubernetes]]></category><category><![CDATA[exam]]></category><category><![CDATA[gcp]]></category><category><![CDATA[google cloud]]></category><category><![CDATA[architect]]></category><category><![CDATA[bigquery]]></category><category><![CDATA[linux academy]]></category><category><![CDATA[cloud native]]></category><category><![CDATA[hybrid]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 04 Aug 2020 06:47:49 GMT</pubDate><media:content url="http://blog.shanelee.name/content/images/2020/08/morning-brew-T0qYg2nPUWM-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<h1 id="sowhygooglecloud">So why Google cloud??</h1>
+<p>Well, the Google Cloud Platform (GCP) is behind the 8 ball for sure in comparison to AWS. But with the huge spike in companies looking to reduce their Capex and move to the cloud, its offerings in the data analytics space for example is very enticing.</p>]]></description><link>http://localhost:2368/2020/08/04/how-i-passed-the-professional-google-cloud-architect-exam/</link><guid isPermaLink="false">f54e6eec-b076-47af-959c-23f838c318f6</guid><category><![CDATA[cloud]]></category><category><![CDATA[google]]></category><category><![CDATA[kubernetes]]></category><category><![CDATA[exam]]></category><category><![CDATA[gcp]]></category><category><![CDATA[google cloud]]></category><category><![CDATA[architect]]></category><category><![CDATA[bigquery]]></category><category><![CDATA[linux academy]]></category><category><![CDATA[cloud native]]></category><category><![CDATA[hybrid]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 04 Aug 2020 06:47:49 GMT</pubDate><media:content url="http://localhost:2368/content/images/2020/08/morning-brew-T0qYg2nPUWM-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<h1 id="sowhygooglecloud">So why Google cloud??</h1>
 
-<img src="http://blog.shanelee.name/content/images/2020/08/morning-brew-T0qYg2nPUWM-unsplash.jpg" alt="How I passed the professional google cloud architect exam"><p>Well, the Google Cloud Platform (GCP) is behind the 8 ball for sure in comparison to AWS. But with the huge spike in companies looking to reduce their Capex and move to the cloud, its offerings in the data analytics space for example is very enticing. Also in my view, they have the best managed kubernetes service GKE. Which makes sense, when you understand that kubernetes originated from googles own internal cluster orcherstration service called <a href="https://research.google/pubs/pub43438/">borg</a>. </p>
+<img src="http://localhost:2368/content/images/2020/08/morning-brew-T0qYg2nPUWM-unsplash.jpg" alt="How I passed the professional google cloud architect exam"><p>Well, the Google Cloud Platform (GCP) is behind the 8 ball for sure in comparison to AWS. But with the huge spike in companies looking to reduce their Capex and move to the cloud, its offerings in the data analytics space for example is very enticing. Also in my view, they have the best managed kubernetes service GKE. Which makes sense, when you understand that kubernetes originated from googles own internal cluster orcherstration service called <a href="https://research.google/pubs/pub43438/">borg</a>. </p>
 
 <p>I have worked with AWS for many years professionally. Gaining exposure to other cloud providers is important when you see companies adopting a  multi-cloud approach but fundamentally many of the underlying patterns and managed services commonly exist across the top 3 (AWS, GCP, Azure).</p>
 
@@ -72,10 +72,188 @@
 <li><p>Googles new <a href="https://cloud.google.com/architecture/framework">architecture framework</a> is a very useful resource too.</p></li>
 </ul>
 
-<p><img src="http://blog.shanelee.name/content/images/2020/08/googlecert.jpg" alt="How I passed the professional google cloud architect exam"></p>
+<p><img src="http://localhost:2368/content/images/2020/08/googlecert.jpg" alt="How I passed the professional google cloud architect exam"></p>
 
-<p>Still waiting on my bag!! Best of luck.</p>]]></content:encoded></item><item><title><![CDATA[GraphQL API on the new Google Cloud Run]]></title><description><![CDATA[ Cloud Run, a serverless environment based on containers and Kubernetes.]]></description><link>http://blog.shanelee.name/2019/05/17/graphql-api-google-cloud-run/</link><guid isPermaLink="false">1dfdf148-8167-4016-8259-29cd1cd39f87</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[google]]></category><category><![CDATA[graphql]]></category><category><![CDATA[k8s]]></category><category><![CDATA[docker]]></category><category><![CDATA[gke]]></category><category><![CDATA[cloud]]></category><category><![CDATA[cloudrun]]></category><category><![CDATA[nodejs]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Fri, 17 May 2019 08:07:00 GMT</pubDate><media:content url="http://blog.shanelee.name/content/images/2019/05/fabio-comparelli-696510-unsplash-1.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
-  <img src="http://blog.shanelee.name/content/images/2019/05/fabio-comparelli-696510-unsplash-1.jpg" alt="GraphQL API on the new Google Cloud Run"><p>Cloud Run is a layer that Google built on top of Knative to simplify deploying serverless applications on the Google Cloud Platform.</p>
+<p>Still waiting on my bag!! Best of luck.</p>]]></content:encoded></item><item><title><![CDATA[Road to clean energy and sustainability]]></title><description><![CDATA[<blockquote>
+  <p>This is an overview of my journey to reducing my carbon footprint and making my home as energy efficient as possible.</p>
+</blockquote>
+
+<h2 id="energyefficiency">Energy efficiency</h2>
+
+<p>WFH myself since March, I did not realise how cold and under insulated australian households can be! I'm european and I feel colder here than winter time</p>]]></description><link>http://localhost:2368/2019/11/28/road-to-clean-energy-and-sustainability/</link><guid isPermaLink="false">e710a094-36a0-417a-980d-ad93850aa892</guid><category><![CDATA[solar]]></category><category><![CDATA[clean energy]]></category><category><![CDATA[melbourne]]></category><category><![CDATA[sustainability]]></category><category><![CDATA[cycle]]></category><category><![CDATA[bicycle]]></category><category><![CDATA[climatechange]]></category><category><![CDATA[renewables]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Thu, 28 Nov 2019 03:20:01 GMT</pubDate><media:content url="http://localhost:2368/content/images/2019/11/matt-duncan-IUY_3DvM__w-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
+  <img src="http://localhost:2368/content/images/2019/11/matt-duncan-IUY_3DvM__w-unsplash.jpg" alt="Road to clean energy and sustainability"><p>This is an overview of my journey to reducing my carbon footprint and making my home as energy efficient as possible.</p>
+</blockquote>
+
+<h2 id="energyefficiency">Energy efficiency</h2>
+
+<p>WFH myself since March, I did not realise how cold and under insulated australian households can be! I'm european and I feel colder here than winter time in Vienna at minus 10 degrees! 🥶</p>
+
+<blockquote>
+  <p>We’re lagging between 10-15 years behind in Europe, parts of US and Canada,” says Trivess Moore, a senior lecturer in construction at RMIT and member of the Sustainable Building Innovation Laboratory.</p>
+</blockquote>
+
+<p>You can read more on this topic where a housing estate project looked at building homes with at least an energy rating of <strong>7.5</strong> and the outcomes that came from this in relation to cost savings  but also wellbeing <br>
+<a href="https://onestepoffthegrid.com.au/even-with-rooftop-solar-boom-consumers-are-paying-dearly-for-what-lies-underneath/">https://onestepoffthegrid.com.au/even-with-rooftop-solar-boom-consumers-are-paying-dearly-for-what-lies-underneath/</a></p>
+
+<p>So what can we do about it?? Well, one recommendation I would like to see is for state and local councils to work with property developers and provide incentives to build energy efficient homes. But in the meantime, what can a homeowner do to rectify the situation... 🤔</p>
+
+<h2 id="renewables">Renewables</h2>
+
+<p>Last year, I installed solar panels on my house. This is something I had always planned to do when I purchased my own home. With Victorias rebate program, there is a huge uptake in residents installing solar. And why wouldn't you! Reduce your energy costs over time and become less reliant on the grid and our coal-burning plants. 🌍</p>
+
+<h3 id="solar">Solar</h3>
+
+<p><img src="http://localhost:2368/content/images/2019/11/antonio-garcia-ndz_u1_tFZo-unsplash.jpg" alt="Road to clean energy and sustainability"></p>
+
+<p>Before I chose a solar installer to go with, I researched online to understand the best solution for my home.</p>
+
+<p>Clean energy council (CEC) has a great guide on solar <a href="https://www.cleanenergycouncil.org.au/consumers">here</a>. I choose not to get a battery now as they are still quite expensive. But with the rapid innovation in this space, it won't be long in my view before it becomes attainable. </p>
+
+<p><em>Victoria energy council has expanded the <a href="https://www.solar.vic.gov.au/solar-battery-rebate">battery rebate</a> to certain postcodes if applicable.</em></p>
+
+<p>Finn at <a href="https://www.solarquotes.com.au/solar101.html">solar quotes</a> has invaluable information on choosing the right panels, inverters and provides quotes for local reviewed installers.</p>
+
+<p>I contacted around five or six installers (all CEC accredited) and was surprised by the results. One actually refused to do a house inspection and focused solely on nearmap satellite imagery. Another stated that it was not worth installing based on their panel placement! </p>
+
+<h4 id="systemchoice">System choice</h4>
+
+<p>So the system I decided on was <strong>6.27KW</strong> Solar System with:</p>
+
+<ul>
+<li>19x Q-Cells Dual Cell Q.Peak Duo G5-330W</li>
+<li>19x Micro-Inverters Enphase IQ7+</li>
+<li>1x Envoy S-Metered + DRM</li>
+<li>1x Sub-board installation to fit the Envoy relays and allow room for future use</li>
+</ul>
+
+<p>All panels were installed west facing.</p>
+
+<p><img src="http://localhost:2368/content/images/2019/11/enphase.gif" alt="Road to clean energy and sustainability"></p>
+
+<p><strong>Enphase Micro-Inverters</strong> make each panel run independently, which is a big advantage compared to a string inverter system where when one panel starts to act faulty, it shuts down the entire array of panels.</p>
+
+<p>It also comes with a monitoring system, the Enphase enlighten view, which allows you to monitor not only the PV production of your solar system but also your home electricity consumption.</p>
+
+<p>More information on micro inverters can be found <a href="https://www.cleanenergyreviews.info/blog/microinverters">here</a></p>
+
+<p>There are some myths about installing on the south for example but it really depends on where you live as Finn <a href="https://www.solarquotes.com.au/panels/direction/">explained</a>, but it will inevitably still produce energy! It all comes back to <strong>self consumption</strong></p>
+
+<p>I have the monitoring setup using enlighten and have a cheeky look every day to see my usage and production.</p>
+
+<p>Below is the energy produced for a typical summers day in Melbourne.</p>
+
+<p><img src="http://localhost:2368/content/images/2020/08/Screenshot_20200819-112109-1.png" alt="Road to clean energy and sustainability"></p>
+
+<p>There is a great sense of satisfaction knowing I am using clean energy to power my house during the day.</p>
+
+<h4 id="selfconsumption">Self consumption</h4>
+
+<p>I mentioned earlier about self-consumption. As my wife and I both work during the day (pre-covid), we try to utilize solar power when we can.</p>
+
+<p>For example, I turn on the dishwasher before I leave for work in the morning and set the washing machine on a timer to turn on at peak time around 12-1 pm during the day.</p>
+
+<p>Here is a great <a href="https://www.solar.vic.gov.au/making-most-solar">case study</a> of how a young family self consume.</p>
+
+<p>It is important to understand that the feed-in tariff (FIT) most likely will fluctuate in the future (in VIC Jul 2020 reduced from 12c to 10.2c) so try and use up as much clean energy as possible.</p>
+
+<p>Lastly, here is a fantastic write up of a resident using <a href="https://onestepoffthegrid.com.au/analysis-of-my-home-battery-solar-systems-first-year-performance/">solar</a> for a year</p>
+
+<h2 id="anenergyefficienthome">An energy efficient home</h2>
+
+<p>After installing solar, I looked into other areas I could make my home more energy efficient.</p>
+
+<p>I stumbled across <a href="https://www.victorianenergysaver.vic.gov.au/save-energy-and-money/discount-energy-saving-products/save-with-these-energy-efficient-products">vic energy saver site </a> that provides savings for energy efficient products.</p>
+
+<p>I had existing halogen downlights that I wanted to replace with LEDs and this initiative allowed me to replace all for <strong>FREE</strong>! </p>
+
+<p>I used an accredited <a href="https://www.easybeinggreen.com.au/">provider</a> and it was pretty painless. They replaced all 40 of my downlights (apart from my dimmers). <strong>#winning</strong></p>
+
+<p>The program even supports showerheads, weather sealing, and hotwater systems. Buying energy efficient appliances such as your oven, heat pump dryer, washing machine will make a difference too.</p>
+
+<h3 id="getaninspection">Get an inspection</h3>
+
+<p>Finally, if you want you can look into an <a href="https://www.victorianenergysaver.vic.gov.au/save-energy-and-money/get-a-home-energy-assessment">energy assessment</a> of your house.</p>
+
+<h2 id="waste">Waste</h2>
+
+<p>I was happy to see the Vic government bring in the plastic bag ban. Definitely well overdue. I believe in Ireland it came into play about ten years ago! </p>
+
+<p>Since China stopped accepting alot of our waste the government has been scrambling to fix the waste management issue. I am happy to see Vic government outlining their <a href="https://www.vic.gov.au/sites/default/files/2020-02/Recycling%20Victoria%20A%20new%20economy.pdf">plan.</a> Highlights are:</p>
+
+<ul>
+<li>Four bin system 🙌🏻</li>
+<li>Container deposit scheme</li>
+<li>Circular economy</li>
+</ul>
+
+<p>I actually saw new <a href="https://www.yarracity.vic.gov.au/services/roads-and-traffic/wellington-street-bike-lanes--stage-2">popup bicycle lanes</a> in fitzroy north recently using recycled plastic 👍</p>
+
+<p>More info on using recycled materials can be found <a href="https://www.sustainability.vic.gov.au/en/About-us/Latest-news/2020/08/14/00/50/New-funding-to-use-recycled-materials">here</a></p>
+
+<h3 id="foodwaste">Food waste</h3>
+
+<blockquote>
+  <p>Each year in Victoria households throw out 250,000 tonnes worth of food – enough wasted food to fill Melbourne's Eureka Tower. 😱</p>
+</blockquote>
+
+<p>My wife and I have made a joint effort when shopping to buy fruit and veg loosely if possible. And also buy organically too. We have trialed growing some herbs and vegetables at home. Trial and error! But a great learning experience.</p>
+
+<p>I listened to a podcast recently with Dr. Sandro Demaio (CEO of VicHealth) on <a href="https://open.spotify.com/episode/6w4JIeLLrnqUIDsX4jMC3E?si=nhJmzw81RtWAyH57FoNDGA">food</a> and its impact on society, our ecosystem and health. Less red meat people!!  <strong>#votewithyournote</strong></p>
+
+<p>We also bring our <a href="https://www.redcycle.net.au/">scrunchy plastic</a> to the supermarket. Both coles and woolworths support the initiative.</p>
+
+<h2 id="transport">Transport</h2>
+
+<p>After energy, transport is the biggest carbon emitter. </p>
+
+<blockquote>
+  <p>Transport in Australia contributes around 100 million tonnes of greenhouse gasses into our atmosphere every year.</p>
+</blockquote>
+
+<p>The main reasons for transport emissions trending upwards are an over-dependence on cars with high average fuel use and an over-reliance on energy-intensive road freight.</p>
+
+<p>So it comes to my favourite topic of all active transport and cycling!</p>
+
+<h3 id="activetransport">Active transport</h3>
+
+<p>Anyone who knows me, knows how I love cycling. I learned to cycle from a very young age in the irish countryside before you had to worry about cars on the road. Wherever I have worked and lived, whether in europe or australia my preferred mode of transport is the bike. For me, I love the independence and time alone on the bike. Plus it's a great way to wake up in the morning (especially if you need to cycle down chapel st 🤣)</p>
+
+<p>Anytime my wife and I go abroad, I always go check out a city's shared bicycle scheme if available and explore the city by bike. This to me is the best way to see a city. On a warm summer evening cycling down along the banks of the river seine in Paris listening to some jazz and watching the world go by is pure bliss. 🇫🇷</p>
+
+<p><img src="http://localhost:2368/content/images/2020/08/IMG-20180522-WA0000-1.jpg" alt="Road to clean energy and sustainability"></p>
+
+<p>Since covid there has been a huge uptake in cycling. I notice it myself at the weekend and on the trails. Governments like <a href="https://ecf.com/news-and-events/news/ireland-will-invest-10-total-transport-capital-budget-cycling?s=09">ireland</a> and the <a href="https://www.forbes.com/sites/carltonreid/2020/07/27/well-build-thousands-of-miles-of-protected-cycleways-pledges-boris-johnson/">UK</a> have invested heavily in protected cycleways and pedestrian infrastructure. </p>
+
+<p>Change is coming, there is no doubt about it. The new paris mayor Anne Hidalgo has called it the <a href="https://www.theguardian.com/world/2020/feb/07/paris-mayor-unveils-15-minute-city-plan-in-re-election-campaign">15 minute city</a> idea. That is to have all services within a 15 minute walk/ride from your home. The days of commuter towns and work in the city after covid will not be the same. Working from home and even coworking spaces in rural areas will become more mainstream I predict.</p>
+
+<blockquote>
+  <p>“We need to reinvent the idea of urban proximity,” Moreno says. “We know it is better for people to work near to where they live, and if they can go shopping nearby and have the leisure and services they need around them too, it allows them to have a more tranquil existence.</p>
+</blockquote>
+
+<h3 id="electricvehicles">Electric vehicles</h3>
+
+<p>Just a quick mention on EVs. I am still waiting for the national EV strategy to be released in Australia. It has been delayed many times. Nudge, nudge Angus Taylor...</p>
+
+<p>Now take <a href="https://thedriven.io/2020/07/10/the-electric-recipe-of-norways-zero-emissions-transport-boom/">Norway</a> for example - The Norwegian Parliament has decided on a goal that all new cars sold by <strong>2025</strong> should be zero (battery electric or hydrogen) emission vehicles. </p>
+
+<p>Unfortunately for alot of aussies, EVs are just too expensive right now and there is no incentive to switch.</p>
+
+<h2 id="investingforthefuture">Investing for the future</h2>
+
+<p>I just finished Ross Garnuat book recently <a href="https://books.google.com.au/books/about/Superpower.html?id=KPiPDwAAQBAJ&amp;printsec=frontcover&amp;source=kp_read_button&amp;redir_esc=y#v=onepage&amp;q&amp;f=false">Superpower: Australia's low carbon opportunity</a> and our renewable investment needs to increase dramatically. The IMF says Australia should be spending more on infrastructure, but this should be on rail, airports and seaports, <strong>rather</strong> than roads.</p>
+
+<p>With low interest rates for the forseeable future, Deloitte, Grattan institute, and many others have stated now is the time to invest and invest smartly. The IMF has called this "great reset" an opportunity for fiscal stimulus that is <strong>smarter</strong>, <strong>greener</strong> and <strong>fairer</strong>. So lets push ahead and be bold for a change.</p>
+
+<h2 id="finally">Finally</h2>
+
+<p>I know reducing our carbon footprint sounds challenging and some feel overwhelmed by it all. But I hope this article helps educate others and know there is support out there. Albert Einstein once said: </p>
+
+<blockquote>
+  <p>“In the middle of difficulty lies opportunity.” </p>
+</blockquote>
+
+<p>We <strong>all</strong> have an opportunity to make a difference and create a more sustainable future. </p>]]></content:encoded></item><item><title><![CDATA[GraphQL API on the new Google Cloud Run]]></title><description><![CDATA[ Cloud Run, a serverless environment based on containers and Kubernetes.]]></description><link>http://localhost:2368/2019/05/17/graphql-api-google-cloud-run/</link><guid isPermaLink="false">1dfdf148-8167-4016-8259-29cd1cd39f87</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[google]]></category><category><![CDATA[graphql]]></category><category><![CDATA[k8s]]></category><category><![CDATA[docker]]></category><category><![CDATA[gke]]></category><category><![CDATA[cloud]]></category><category><![CDATA[cloudrun]]></category><category><![CDATA[nodejs]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Fri, 17 May 2019 08:07:00 GMT</pubDate><media:content url="http://localhost:2368/content/images/2019/05/fabio-comparelli-696510-unsplash-1.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
+  <img src="http://localhost:2368/content/images/2019/05/fabio-comparelli-696510-unsplash-1.jpg" alt="GraphQL API on the new Google Cloud Run"><p>Cloud Run is a layer that Google built on top of Knative to simplify deploying serverless applications on the Google Cloud Platform.</p>
 </blockquote>
 
 <p>So whats <strong>Knative</strong>?? </p>
@@ -160,7 +338,7 @@ gcloud sql users set-password postgres no-host --instance=[INSTANCE_NAME] \
 <p><a href="https://cloud.google.com/sql/docs/postgres/create-instance">Refer to doc
 </a> for more info</p>
 
-<p><img src="http://blog.shanelee.name/content/images/2019/05/CloudSQL.png" alt="GraphQL API on the new Google Cloud Run"></p>
+<p><img src="http://localhost:2368/content/images/2019/05/CloudSQL.png" alt="GraphQL API on the new Google Cloud Run"></p>
 
 <h4 id="step2buildinganddeployingacloudrunservice">Step 2: Building and Deploying a Cloud Run Service</h4>
 
@@ -191,11 +369,11 @@ gcloud beta run deploy --image gcr.io/[PROJECT-ID]/graphql --add-cloudsql-instan
 
 <p>Or you can view the UI console</p>
 
-<p><img src="http://blog.shanelee.name/content/images/2019/05/CloudRunServiceGraphql.png" alt="GraphQL API on the new Google Cloud Run"></p>
+<p><img src="http://localhost:2368/content/images/2019/05/CloudRunServiceGraphql.png" alt="GraphQL API on the new Google Cloud Run"></p>
 
 <p>You can verify it works locally by using <a href="https://insomnia.rest/">Insomnia</a></p>
 
-<p><img src="http://blog.shanelee.name/content/images/2019/05/insomnia.png" alt="GraphQL API on the new Google Cloud Run"></p>
+<p><img src="http://localhost:2368/content/images/2019/05/insomnia.png" alt="GraphQL API on the new Google Cloud Run"></p>
 
 <p>Some sample queries can be seen below to sign in a user and get back their details</p>
 
@@ -220,8 +398,8 @@ gcloud beta run deploy --image gcr.io/[PROJECT-ID]/graphql --add-cloudsql-instan
 
 <p>Easiest way is to delete the test <a href="https://console.cloud.google.com/iam-admin/projects">project</a></p>
 
-<p>Any questions feel free to comment below. </p>]]></content:encoded></item><item><title><![CDATA[Skaffold for local kubernetes development]]></title><description><![CDATA[skaffold for local kubernetes development]]></description><link>http://blog.shanelee.name/2019/02/20/skaffold-for-local-kubernetes-development/</link><guid isPermaLink="false">939f9b10-3288-4a62-83c4-8de5aa50b6f6</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[node]]></category><category><![CDATA[skaffold]]></category><category><![CDATA[graphql]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Wed, 20 Feb 2019 06:37:09 GMT</pubDate><media:content url="http://blog.shanelee.name/content/images/2019/02/jacek-dylag-680347-unsplash-1.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
-  <img src="http://blog.shanelee.name/content/images/2019/02/jacek-dylag-680347-unsplash-1.jpg" alt="Skaffold for local kubernetes development"><p>Easy and Repeatable Kubernetes Development</p>
+<p>Any questions feel free to comment below. </p>]]></content:encoded></item><item><title><![CDATA[Skaffold for local kubernetes development]]></title><description><![CDATA[skaffold for local kubernetes development]]></description><link>http://localhost:2368/2019/02/20/skaffold-for-local-kubernetes-development/</link><guid isPermaLink="false">939f9b10-3288-4a62-83c4-8de5aa50b6f6</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[node]]></category><category><![CDATA[skaffold]]></category><category><![CDATA[graphql]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Wed, 20 Feb 2019 06:37:09 GMT</pubDate><media:content url="http://localhost:2368/content/images/2019/02/jacek-dylag-680347-unsplash-1.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
+  <img src="http://localhost:2368/content/images/2019/02/jacek-dylag-680347-unsplash-1.jpg" alt="Skaffold for local kubernetes development"><p>Easy and Repeatable Kubernetes Development</p>
 </blockquote>
 
 <p><strong>TLDR</strong> Below, I will showcase how to install and use skaffold for local development with kubernetes.</p>
@@ -240,7 +418,7 @@ gcloud beta run deploy --image gcr.io/[PROJECT-ID]/graphql --add-cloudsql-instan
 
 <h3 id="skaffoldmodes">Skaffold modes</h3>
 
-<p><img src="http://blog.shanelee.name/content/images/2019/02/skaffold-cmds.jpg" alt="Skaffold for local kubernetes development"></p>
+<p><img src="http://localhost:2368/content/images/2019/02/skaffold-cmds.jpg" alt="Skaffold for local kubernetes development"></p>
 
 <p>In a single command, Skaffold can:</p>
 
@@ -311,7 +489,7 @@ profiles:
 
 <h3 id="localdevelopmentworkflow">Local development workflow</h3>
 
-<p><img src="http://blog.shanelee.name/content/images/2019/02/skaffold_workflow_local.png" alt="Skaffold for local kubernetes development"></p>
+<p><img src="http://localhost:2368/content/images/2019/02/skaffold_workflow_local.png" alt="Skaffold for local kubernetes development"></p>
 
 <h5 id="syncfilestoyourpodswithskaffold">Sync files to your pods with Skaffold</h5>
 
@@ -340,7 +518,7 @@ profiles:
 
 <p>It allows you to explore and optimise your docker image size.</p>
 
-<p><img src="http://blog.shanelee.name/content/images/2019/02/Screen-Shot-2019-02-20-at-7-23-39-pm.png" alt="Skaffold for local kubernetes development"></p>
+<p><img src="http://localhost:2368/content/images/2019/02/Screen-Shot-2019-02-20-at-7-23-39-pm.png" alt="Skaffold for local kubernetes development"></p>
 
 <p>Now we can run skaffold!</p>
 
@@ -378,7 +556,7 @@ skaffold fix --overwrite
 <li><p>My sample github <a href="https://github.com/shavo007/graphql-playground/tree/master/api">repo</a> showcasing graphql api with kubernetes</p></li>
 </ul>]]></content:encoded></item><item><title><![CDATA[How I aced the Certified Kubernetes Administrator (CKA) Exam]]></title><description><![CDATA[<p>I took the CKA exam recently and would like to share my own preparation and tips.</p>
 
-<p>The exam is intense as it requires 3 hours of concentrated effort during which you need to solve 24 problems. So timekeeping is very important.  If you are interested to take this exam and</p>]]></description><link>http://blog.shanelee.name/2018/10/17/how-i-aced-the-certified-kubernetes-administrator-cka-exam/</link><guid isPermaLink="false">ab6a2a07-ad36-4be5-ae74-d629d25a25bb</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[cka]]></category><category><![CDATA[exam]]></category><category><![CDATA[kubectl]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Wed, 17 Oct 2018 07:29:30 GMT</pubDate><media:content url="http://blog.shanelee.name/content/images/2018/10/clement-h-544786-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="http://blog.shanelee.name/content/images/2018/10/clement-h-544786-unsplash.jpg" alt="How I aced the Certified Kubernetes Administrator (CKA) Exam"><p>I took the CKA exam recently and would like to share my own preparation and tips.</p>
+<p>The exam is intense as it requires 3 hours of concentrated effort during which you need to solve 24 problems. So timekeeping is very important.  If you are interested to take this exam and</p>]]></description><link>http://localhost:2368/2018/10/17/how-i-aced-the-certified-kubernetes-administrator-cka-exam/</link><guid isPermaLink="false">ab6a2a07-ad36-4be5-ae74-d629d25a25bb</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[cka]]></category><category><![CDATA[exam]]></category><category><![CDATA[kubectl]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Wed, 17 Oct 2018 07:29:30 GMT</pubDate><media:content url="http://localhost:2368/content/images/2018/10/clement-h-544786-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="http://localhost:2368/content/images/2018/10/clement-h-544786-unsplash.jpg" alt="How I aced the Certified Kubernetes Administrator (CKA) Exam"><p>I took the CKA exam recently and would like to share my own preparation and tips.</p>
 
 <p>The exam is intense as it requires 3 hours of concentrated effort during which you need to solve 24 problems. So timekeeping is very important.  If you are interested to take this exam and have second thought about it, my sincere advice is, just do it!</p>
 
@@ -444,7 +622,7 @@ EOF
 
 <p>Best of luck! Remember you have one free retake if needed.😃🚀⚓</p>
 
-<p><img src="http://blog.shanelee.name/content/images/2018/10/CKAcertificate.png" alt="How I aced the Certified Kubernetes Administrator (CKA) Exam"></p>]]></content:encoded></item><item><title><![CDATA[Istio on Azure AKS]]></title><description><![CDATA[How to deploy istio service mesh on azure kubernetes service (AKS) and run bookinfo example application]]></description><link>http://blog.shanelee.name/2018/08/12/istio-on-azure-aks/</link><guid isPermaLink="false">1300cd8a-88a9-43ef-a409-66a2b74c5ad0</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[azure]]></category><category><![CDATA[aks]]></category><category><![CDATA[istio]]></category><category><![CDATA[google]]></category><category><![CDATA[service-mesh]]></category><category><![CDATA[k8s]]></category><category><![CDATA[microservice]]></category><category><![CDATA[grafana]]></category><category><![CDATA[jaeger]]></category><category><![CDATA[tracing]]></category><category><![CDATA[metrics]]></category><category><![CDATA[prometheus]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 12 Aug 2018 04:20:09 GMT</pubDate><media:content url="http://blog.shanelee.name/content/images/2018/08/peter-gonzalez-621059-unsplash-1.jpg" medium="image"/><content:encoded><![CDATA[<img src="http://blog.shanelee.name/content/images/2018/08/peter-gonzalez-621059-unsplash-1.jpg" alt="Istio on Azure AKS"><p><img src="http://blog.shanelee.name/content/images/2018/08/istio.png" alt="Istio on Azure AKS"></p>
+<p><img src="http://localhost:2368/content/images/2018/10/CKAcertificate.png" alt="How I aced the Certified Kubernetes Administrator (CKA) Exam"></p>]]></content:encoded></item><item><title><![CDATA[Istio on Azure AKS]]></title><description><![CDATA[How to deploy istio service mesh on azure kubernetes service (AKS) and run bookinfo example application]]></description><link>http://localhost:2368/2018/08/12/istio-on-azure-aks/</link><guid isPermaLink="false">1300cd8a-88a9-43ef-a409-66a2b74c5ad0</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[azure]]></category><category><![CDATA[aks]]></category><category><![CDATA[istio]]></category><category><![CDATA[google]]></category><category><![CDATA[service-mesh]]></category><category><![CDATA[k8s]]></category><category><![CDATA[microservice]]></category><category><![CDATA[grafana]]></category><category><![CDATA[jaeger]]></category><category><![CDATA[tracing]]></category><category><![CDATA[metrics]]></category><category><![CDATA[prometheus]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 12 Aug 2018 04:20:09 GMT</pubDate><media:content url="http://localhost:2368/content/images/2018/08/peter-gonzalez-621059-unsplash-1.jpg" medium="image"/><content:encoded><![CDATA[<img src="http://localhost:2368/content/images/2018/08/peter-gonzalez-621059-unsplash-1.jpg" alt="Istio on Azure AKS"><p><img src="http://localhost:2368/content/images/2018/08/istio.png" alt="Istio on Azure AKS"></p>
 
 <p>Istio recently <a href="https://istio.io/about/notes/1.0">announced</a> that they are production ready. Service meshes are becoming an important level of abstraction for a developer using kubernetes. And <a href="https://www.envoyproxy.io/">Envoy</a> is the heartbeat of this service mesh and continues its impressive growth. </p>
 
@@ -484,7 +662,7 @@ EOF
 
 <p>Verify the nodes are running <code>kgnoowide</code></p>
 
-<p><img src="http://blog.shanelee.name/content/images/2018/08/Screen-Shot-2018-08-12-at-2-28-58-pm.png" alt="Istio on Azure AKS"></p>
+<p><img src="http://localhost:2368/content/images/2018/08/Screen-Shot-2018-08-12-at-2-28-58-pm.png" alt="Istio on Azure AKS"></p>
 
 <h2 id="deployistio">Deploy istio</h2>
 
@@ -510,11 +688,11 @@ export PATH=$PWD/bin:$PATH
 <p>Check the status of the pods <br>
 <code>kgpoowide -n istio-system</code></p>
 
-<p><img src="http://blog.shanelee.name/content/images/2018/08/Screen-Shot-2018-08-12-at-2-44-04-pm.png" alt="Istio on Azure AKS"></p>
+<p><img src="http://localhost:2368/content/images/2018/08/Screen-Shot-2018-08-12-at-2-44-04-pm.png" alt="Istio on Azure AKS"></p>
 
 <h3 id="istioarchitecture">Istio architecture</h3>
 
-<p><img src="http://blog.shanelee.name/content/images/2018/08/istio-architecture.png" alt="Istio on Azure AKS"></p>
+<p><img src="http://localhost:2368/content/images/2018/08/istio-architecture.png" alt="Istio on Azure AKS"></p>
 
 <p>The previous step deployed the Istio Pilot, Mixer, Ingress-Controller, Egress-Controller and the Istio CA (Certificate Authority).</p>
 
@@ -607,7 +785,7 @@ export SECURE_INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressga
 
 <p><code>kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-50-v3.yaml</code></p>
 
-<p><img src="http://blog.shanelee.name/content/images/2018/08/Screen-Shot-2018-08-12-at-3-10-00-pm.png" alt="Istio on Azure AKS"></p>
+<p><img src="http://localhost:2368/content/images/2018/08/Screen-Shot-2018-08-12-at-3-10-00-pm.png" alt="Istio on Azure AKS"></p>
 
 <h4 id="newreleases">New Releases</h4>
 
@@ -625,7 +803,7 @@ reviews                                   reviews       1        0      default 
 
 <h5 id="accessmetrics">Access Metrics</h5>
 
-<p><img alt="Istio on Azure AKS" src="http://blog.shanelee.name/content/images/2018/08/prometheus-icon-color-1.png" style="width: 250px; height:250px"></p>
+<p><img alt="Istio on Azure AKS" src="http://localhost:2368/content/images/2018/08/prometheus-icon-color-1.png" style="width: 250px; height:250px"></p>
 
 <p>With Istio's insight into how applications communicate, it can generate profound insights into how applications are working and performance metrics.</p>
 
@@ -647,7 +825,7 @@ done
 
 <p>The provided link opens the Prometheus UI and executes a query for values of the <code>istio_double_request_count</code> metric.</p>
 
-<p><img src="http://blog.shanelee.name/content/images/2018/08/Screen-Shot-2018-08-12-at-3-26-44-pm.png" alt="Istio on Azure AKS"></p>
+<p><img src="http://localhost:2368/content/images/2018/08/Screen-Shot-2018-08-12-at-3-26-44-pm.png" alt="Istio on Azure AKS"></p>
 
 <p>Prometheus was recently <a href="https://www.cncf.io/announcement/2018/08/09/prometheus-graduates/">promoted</a> from CNCF as a graduate project, following kubernetes.</p>
 
@@ -667,7 +845,7 @@ done
 
 <p>Visit <code>http://localhost:3000/dashboard/db/istio-mesh-dashboard</code> in your web browser.</p>
 
-<p><img src="http://blog.shanelee.name/content/images/2018/08/Screen-Shot-2018-08-12-at-3-35-45-pm.png" alt="Istio on Azure AKS"></p>
+<p><img src="http://localhost:2368/content/images/2018/08/Screen-Shot-2018-08-12-at-3-35-45-pm.png" alt="Istio on Azure AKS"></p>
 
 <p>This gives the global view of the Mesh along with services and workloads in the mesh. </p>
 
@@ -675,7 +853,7 @@ done
 
 <h5 id="distributedtracing">Distributed Tracing</h5>
 
-<p><img alt="Istio on Azure AKS" src="http://blog.shanelee.name/content/images/2018/08/jaeger-icon-color.png" style="width: 250px; height:250px"></p>
+<p><img alt="Istio on Azure AKS" src="http://localhost:2368/content/images/2018/08/jaeger-icon-color.png" style="width: 250px; height:250px"></p>
 
 <p>This task shows you how Istio-enabled applications can be configured to collect trace spans. After completing this task, you should understand all of the assumptions about your application and how to have it participate in tracing, regardless of what language/framework/platform you use to build your application.</p>
 
@@ -690,11 +868,11 @@ done
 
 <p>From the left-hand pane of the Jaeger dashboard, select <code>productpage</code> from the Service drop-down list and click Find Traces. You should see something similar to the following:</p>
 
-<p><img src="http://blog.shanelee.name/content/images/2018/08/Screen-Shot-2018-08-12-at-3-43-04-pm.png" alt="Istio on Azure AKS"></p>
+<p><img src="http://localhost:2368/content/images/2018/08/Screen-Shot-2018-08-12-at-3-43-04-pm.png" alt="Istio on Azure AKS"></p>
 
 <p>If you click on the top (most recent) trace, you should see the details corresponding to your latest refresh of the /productpage. The page should look something like this:</p>
 
-<p><img src="http://blog.shanelee.name/content/images/2018/08/Screen-Shot-2018-08-12-at-3-43-16-pm.png" alt="Istio on Azure AKS"></p>
+<p><img src="http://localhost:2368/content/images/2018/08/Screen-Shot-2018-08-12-at-3-43-16-pm.png" alt="Istio on Azure AKS"></p>
 
 <p>And there you have it. For more information on istio check out <a href="https://istio.io/">https://istio.io/</a></p>
 
@@ -706,8 +884,8 @@ done
 
 <p>Heptio have come out with some useful kubernetes tools; sonobuoy being one. </p>
 
-<p>In this post, I will spin</p>]]></description><link>http://blog.shanelee.name/2018/02/03/test-drive-heptio-sonobuoy-diagnostic-kubernetes-tool/</link><guid isPermaLink="false">395f2c06-dbbf-46ae-a335-0c12203079ef</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[aws]]></category><category><![CDATA[heptio]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 03 Feb 2018 09:33:23 GMT</pubDate><media:content url="http://blog.shanelee.name/content/images/2018/08/joseph-barrientos-93565.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
-  <img src="http://blog.shanelee.name/content/images/2018/08/joseph-barrientos-93565.jpg" alt="Test drive heptio sonobuoy diagnostic kubernetes tool"><p>Heptio Sonobuoy is a diagnostic tool that makes it easier to understand the state of a Kubernetes cluster by running a set of Kubernetes conformance tests in an accessible and non-destructive manner. </p>
+<p>In this post, I will spin</p>]]></description><link>http://localhost:2368/2018/02/03/test-drive-heptio-sonobuoy-diagnostic-kubernetes-tool/</link><guid isPermaLink="false">395f2c06-dbbf-46ae-a335-0c12203079ef</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[aws]]></category><category><![CDATA[heptio]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 03 Feb 2018 09:33:23 GMT</pubDate><media:content url="http://localhost:2368/content/images/2018/08/joseph-barrientos-93565.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
+  <img src="http://localhost:2368/content/images/2018/08/joseph-barrientos-93565.jpg" alt="Test drive heptio sonobuoy diagnostic kubernetes tool"><p>Heptio Sonobuoy is a diagnostic tool that makes it easier to understand the state of a Kubernetes cluster by running a set of Kubernetes conformance tests in an accessible and non-destructive manner. </p>
 </blockquote>
 
 <p>Heptio have come out with some useful kubernetes tools; sonobuoy being one. </p>
@@ -791,7 +969,7 @@ done
 
 <p>Once you run the command, you will see in the browser to see the conformance results.</p>
 
-<p><img src="http://blog.shanelee.name/content/images/2018/02/Screen-Shot-2018-02-03-at-9-35-17-pm.png" alt="Test drive heptio sonobuoy diagnostic kubernetes tool"></p>
+<p><img src="http://localhost:2368/content/images/2018/02/Screen-Shot-2018-02-03-at-9-35-17-pm.png" alt="Test drive heptio sonobuoy diagnostic kubernetes tool"></p>
 
 <p>You will see two pods running in the namespace heptio-sonobuoy</p>
 
@@ -812,15 +990,15 @@ kubetail sonobuoy-e2e-job-bf586487f2f64f0b -n heptio-sonobuoy
 
 <p>Once it finishes, you can download the results and keep the report by exporting as a pdf.</p>
 
-<p><img src="http://blog.shanelee.name/content/images/2018/02/Screen-Shot-2018-02-03-at-10-19-17-pm.png" alt="Test drive heptio sonobuoy diagnostic kubernetes tool"></p>
+<p><img src="http://localhost:2368/content/images/2018/02/Screen-Shot-2018-02-03-at-10-19-17-pm.png" alt="Test drive heptio sonobuoy diagnostic kubernetes tool"></p>
 
 <p>All tests passed. There you have it!</p>
 
-<p>Stay tuned for more kubernetes goodness.. ⚓️</p>]]></content:encoded></item><item><title><![CDATA[Logging on kubernetes with fluentd and elasticsearch 6]]></title><description><![CDATA[How to configure EFK (Elastic-Fluentd-Kibana) stack on kubernetes for logging]]></description><link>http://blog.shanelee.name/2017/12/17/logging-on-kubernetes-with-fluentd-and-elasticsearch-6/</link><guid isPermaLink="false">cac30a75-368d-462f-aee8-9c510bfd9de1</guid><category><![CDATA[elasticsearch]]></category><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[ingress]]></category><category><![CDATA[nginx]]></category><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[curator]]></category><category><![CDATA[fluentd]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 16 Dec 2017 13:06:59 GMT</pubDate><media:content url="http://blog.shanelee.name/content/images/2018/01/robert-larsson-64547-1.jpg" medium="image"/><content:encoded><![CDATA[<h1 id="tldr">TLDR</h1>
+<p>Stay tuned for more kubernetes goodness.. ⚓️</p>]]></content:encoded></item><item><title><![CDATA[Logging on kubernetes with fluentd and elasticsearch 6]]></title><description><![CDATA[How to configure EFK (Elastic-Fluentd-Kibana) stack on kubernetes for logging]]></description><link>http://localhost:2368/2017/12/17/logging-on-kubernetes-with-fluentd-and-elasticsearch-6/</link><guid isPermaLink="false">cac30a75-368d-462f-aee8-9c510bfd9de1</guid><category><![CDATA[elasticsearch]]></category><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[ingress]]></category><category><![CDATA[nginx]]></category><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[curator]]></category><category><![CDATA[fluentd]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 16 Dec 2017 13:06:59 GMT</pubDate><media:content url="http://localhost:2368/content/images/2018/01/robert-larsson-64547-1.jpg" medium="image"/><content:encoded><![CDATA[<h1 id="tldr">TLDR</h1>
 
-<img src="http://blog.shanelee.name/content/images/2018/01/robert-larsson-64547-1.jpg" alt="Logging on kubernetes with fluentd and elasticsearch 6"><p>The solution I have used in the past for logging in kubernetes clusters is EFK (Elastic-Fluentd-Kibana). Alot of you have probably heard of ELK stack but I find that logstash is more heavyweight and does not provide the same output plugins as fluentd.</p>
+<img src="http://localhost:2368/content/images/2018/01/robert-larsson-64547-1.jpg" alt="Logging on kubernetes with fluentd and elasticsearch 6"><p>The solution I have used in the past for logging in kubernetes clusters is EFK (Elastic-Fluentd-Kibana). Alot of you have probably heard of ELK stack but I find that logstash is more heavyweight and does not provide the same output plugins as fluentd.</p>
 
-<p><img alt="Logging on kubernetes with fluentd and elasticsearch 6" src="http://blog.shanelee.name/content/images/2017/12/icon-elasticsearch-bb-1.svg" style="width: 300px; height:300px"></p>
+<p><img alt="Logging on kubernetes with fluentd and elasticsearch 6" src="http://localhost:2368/content/images/2017/12/icon-elasticsearch-bb-1.svg" style="width: 300px; height:300px"></p>
 
 <h2 id="elasticsearch">Elasticsearch</h2>
 
@@ -846,7 +1024,7 @@ kubetail sonobuoy-e2e-job-bf586487f2f64f0b -n heptio-sonobuoy
 
 <h2 id="fluentd">FluentD</h2>
 
-<p><img src="http://blog.shanelee.name/content/images/2017/12/container_logging-1024x536.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
+<p><img src="http://localhost:2368/content/images/2017/12/container_logging-1024x536.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
 
 <p>Fluentd is an open-source framework for data collection that unifies the collection and consumption of data in a pluggable manner. There are several producer and consumer loggers for various kinds of applications. It has a huge suite of <a href="https://www.fluentd.org/plugins">plugins</a> to choose from. </p>
 
@@ -858,7 +1036,7 @@ kubetail sonobuoy-e2e-job-bf586487f2f64f0b -n heptio-sonobuoy
 
 <h2 id="whatsmissinggeo">Whats missing - Geo</h2>
 
-<p><img src="http://blog.shanelee.name/content/images/2017/12/joao-silas-72562.jpg" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
+<p><img src="http://localhost:2368/content/images/2017/12/joao-silas-72562.jpg" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
 
 <p>I found with the examples online for fluentd daesmonset there was none that supported <strong>geoip</strong>. Coreos offering and fluentd official kubernetes daemonset do not provide this feature. </p>
 
@@ -980,19 +1158,19 @@ data:
 
 <h2 id="kibana">Kibana</h2>
 
-<p><img alt="Logging on kubernetes with fluentd and elasticsearch 6" src="http://blog.shanelee.name/content/images/2017/12/icon-kibana-bb.svg" style="width: 300px; height:300px"></p>
+<p><img alt="Logging on kubernetes with fluentd and elasticsearch 6" src="http://localhost:2368/content/images/2017/12/icon-kibana-bb.svg" style="width: 300px; height:300px"></p>
 
 <p>Now access kibana - GUI for elasticsearch</p>
 
 <p>You should now see your logs ingested in elasticsearch. </p>
 
-<p><img src="http://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-26-at-3-10-18-pm.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
+<p><img src="http://localhost:2368/content/images/2017/12/Screen-Shot-2017-12-26-at-3-10-18-pm.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
 
 <h3 id="tilemapvisualization">Tile map visualization</h3>
 
 <p>There is a limitation with managed service and tile map view. I customized the settings to use WMS compliant map server. See below:</p>
 
-<p><img src="http://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-26-at-3-14-43-pm.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
+<p><img src="http://localhost:2368/content/images/2017/12/Screen-Shot-2017-12-26-at-3-14-43-pm.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
 
 <p>Once you pick the pattern, and assuming your geopoints are correctly mapped, Kibana will automatically populate the visualisation settings such as which field to aggregate on, and display the map almost instantly.</p>
 
@@ -1000,7 +1178,7 @@ data:
 
 <p>This includes multiple visualizations and a dashboard.</p>
 
-<p><img src="http://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-17-at-11-47-26-am.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
+<p><img src="http://localhost:2368/content/images/2017/12/Screen-Shot-2017-12-17-at-11-47-26-am.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
 
 <h4 id="inaccurategeolocation">Inaccurate Geolocation</h4>
 
@@ -1010,7 +1188,7 @@ data:
 
 <p>You can build up more widgets, such as url count or count by country.</p>
 
-<p><img src="http://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-26-at-3-43-45-pm.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
+<p><img src="http://localhost:2368/content/images/2017/12/Screen-Shot-2017-12-26-at-3-43-45-pm.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
 
 <h2 id="cleanupoflogindices">Cleanup of log indices</h2>
 
@@ -1024,7 +1202,7 @@ data:
 
 <p>I  assume you know what pods are so I will quickly breakdown service and ingress resources.</p>
 
-<h2 id="service">Service</h2>]]></description><link>http://blog.shanelee.name/2017/10/16/kubernetes-ingress-and-sticky-sessions/</link><guid isPermaLink="false">52c2d7b6-231c-4d3b-8fcd-7f4fa090d576</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[ingress]]></category><category><![CDATA[sticky]]></category><category><![CDATA[elb]]></category><category><![CDATA[nginx]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 15 Oct 2017 14:21:48 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
+<h2 id="service">Service</h2>]]></description><link>http://localhost:2368/2017/10/16/kubernetes-ingress-and-sticky-sessions/</link><guid isPermaLink="false">52c2d7b6-231c-4d3b-8fcd-7f4fa090d576</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[ingress]]></category><category><![CDATA[sticky]]></category><category><![CDATA[elb]]></category><category><![CDATA[nginx]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 15 Oct 2017 14:21:48 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
 
 <p>Recently I had to look at horizontally scaling a traditional web-app on kubernetes. Here i will explain how I achieved it and what ingress controller is and why to use it.</p>
 
@@ -1077,7 +1255,7 @@ data:
 
 <p>To visualise how this works, check out this little guy! Traefik is one implementation you can use as an ingress.</p>
 
-<p><img src="http://blog.shanelee.name/content/images/2017/10/architecture.png" alt=""></p>
+<p><img src="http://localhost:2368/content/images/2017/10/architecture.png" alt=""></p>
 
 <p>But I have chosen nginx ingress controller instead as it supports sticky sessions and as a reverse proxy is extremely popular solution.</p>
 
@@ -1223,7 +1401,7 @@ while true; do sleep 1;curl -b cookies.txt $ELB/foo -H 'Host: stickyingress.exam
 
 <p>As, you can see, requests are sent to the same pod for every subsequent request.</p>
 
-<p><img src="http://blog.shanelee.name/content/images/2017/10/stickySession.gif" alt=""></p>
+<p><img src="http://localhost:2368/content/images/2017/10/stickySession.gif" alt=""></p>
 
 <h3 id="proxyprotocol">Proxy protocol</h3>
 
@@ -1259,14 +1437,14 @@ while true; do sleep 1;curl -b cookies.txt $ELB/foo -H 'Host: stickyingress.exam
 
 <h2 id="awsrdsstopstart">AWS RDS stop/start</h2>
 
-<p><img src="http://blog.shanelee.name/content/images/2017/07/rds.png" alt="">
-Companies I have worked for in the past have scaled down their RDS instances for lower end envs to save</p>]]></description><link>http://blog.shanelee.name/2017/07/28/how-to-save-costs-with-serverless-and-aws-lambda/</link><guid isPermaLink="false">cd5587b1-d0bc-45cb-bda4-5436ed764cd8</guid><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[rds]]></category><category><![CDATA[serverless]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Fri, 28 Jul 2017 03:11:00 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
+<p><img src="http://localhost:2368/content/images/2017/07/rds.png" alt="">
+Companies I have worked for in the past have scaled down their RDS instances for lower end envs to save</p>]]></description><link>http://localhost:2368/2017/07/28/how-to-save-costs-with-serverless-and-aws-lambda/</link><guid isPermaLink="false">cd5587b1-d0bc-45cb-bda4-5436ed764cd8</guid><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[rds]]></category><category><![CDATA[serverless]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Fri, 28 Jul 2017 03:11:00 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
 
 <p>Recently AWS <a href="https://aws.amazon.com/about-aws/whats-new/2017/06/amazon-rds-supports-stopping-and-starting-of-database-instances/">announced</a> new feature to stop/start your RDS instances. This is something I have been looking forward to for a long while..</p>
 
 <h2 id="awsrdsstopstart">AWS RDS stop/start</h2>
 
-<p><img src="http://blog.shanelee.name/content/images/2017/07/rds.png" alt="">
+<p><img src="http://localhost:2368/content/images/2017/07/rds.png" alt="">
 Companies I have worked for in the past have scaled down their RDS instances for lower end envs to save costs. Now you can schedule to stop/start, sweet!</p>
 
 <blockquote>
@@ -1288,7 +1466,7 @@ usage running 24/7, costs on average <strong>$360.15</strong> per month</p>
 
 <p>What if you were working in a large enterprise with 10s or 100s of RDS instances... 😉</p>
 
-<p><img src="http://blog.shanelee.name/content/images/2017/07/neat.gif" alt=""></p>
+<p><img src="http://localhost:2368/content/images/2017/07/neat.gif" alt=""></p>
 
 <p>So now that we know how much you can save, how to automate the process of stopping/starting instances and run it at low cost.</p>
 
@@ -1296,7 +1474,7 @@ usage running 24/7, costs on average <strong>$360.15</strong> per month</p>
 
 <h2 id="serverlessandawslambda">Serverless and AWS Lambda</h2>
 
-<p><img src="http://blog.shanelee.name/content/images/2017/07/lambda1.png" alt=""></p>
+<p><img src="http://localhost:2368/content/images/2017/07/lambda1.png" alt=""></p>
 
 <p>Over the past few years serverless (or FaaS - Function as a Service) computing has became more and more popular.</p>
 
@@ -1335,7 +1513,7 @@ Up to 3.2 million seconds of compute time per month</li>
 
 <h2 id="serverlessframework">Serverless framework</h2>
 
-<p><img src="http://blog.shanelee.name/content/images/2017/07/serverless.png" alt=""></p>
+<p><img src="http://localhost:2368/content/images/2017/07/serverless.png" alt=""></p>
 
 <blockquote>
   <p>Build auto-scaling, pay-per-execution, event-driven apps on AWS Lambda and more..</p>
@@ -1404,13 +1582,13 @@ Up to 3.2 million seconds of compute time per month</li>
 <li><a href="https://github.com/dwyl/learn-aws-lambda">Learn AWS Lambda</a></li>
 </ul>
 
-<p>If you have any questions, let me know in the comments below!</p>]]></content:encoded></item><item><title><![CDATA[JVM Microservice with spring boot, docker and kubernetes]]></title><description><![CDATA[How to build and deploy a spring boot application using docker and kubernetes.]]></description><link>http://blog.shanelee.name/2017/07/15/jvm-microservice-with-spring-boot-docker-and-kubernetes/</link><guid isPermaLink="false">357eedf7-58d4-48b6-ab00-a8013d81dce5</guid><category><![CDATA[docker]]></category><category><![CDATA[spring-boot]]></category><category><![CDATA[kubernetes]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 15 Jul 2017 04:10:22 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
+<p>If you have any questions, let me know in the comments below!</p>]]></content:encoded></item><item><title><![CDATA[JVM Microservice with spring boot, docker and kubernetes]]></title><description><![CDATA[How to build and deploy a spring boot application using docker and kubernetes.]]></description><link>http://localhost:2368/2017/07/15/jvm-microservice-with-spring-boot-docker-and-kubernetes/</link><guid isPermaLink="false">357eedf7-58d4-48b6-ab00-a8013d81dce5</guid><category><![CDATA[docker]]></category><category><![CDATA[spring-boot]]></category><category><![CDATA[kubernetes]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 15 Jul 2017 04:10:22 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
 
 <p>That title is a bit of a mouthful...</p>
 
 <p>Over the last two weeks I have been playing with kubernetes. I have extensive experience building microservices and below I will demonstrate how to build a microservice, contain it using docker and deploy on kubernetes.</p>
 
-<p><img src="http://blog.shanelee.name/content/images/2017/07/kubernetes.png" alt="Kubernetes"></p>
+<p><img src="http://localhost:2368/content/images/2017/07/kubernetes.png" alt="Kubernetes"></p>
 
 <h2 id="creatingamicroserviceprojectusingspringboot">Creating a microservice project using spring boot</h2>
 
@@ -1426,7 +1604,7 @@ Up to 3.2 million seconds of compute time per month</li>
 We define <strong>name.shanelee</strong> as Group (if applicable) and define the artifact name. From here you can choose whatever dependencies you need for your microservice. We use <strong>Web</strong> for supporting tomcat and restful API. <br>
  <strong>Actuator</strong> dependency which implements some production-grade features useful for monitoring and managing our application like health-checks and HTTP requests traces.</p>
 
-<p><img src="http://blog.shanelee.name/content/images/2017/07/Screen-Shot-2017-07-15-at-2-25-28-pm.png" alt="Spring boot"></p>
+<p><img src="http://localhost:2368/content/images/2017/07/Screen-Shot-2017-07-15-at-2-25-28-pm.png" alt="Spring boot"></p>
 
 <p>Spring Initializr has already created everything for us. We just need to have a Java JDK 1.8 or later installed on our machine and the JAVA_HOME environment variable set accordingly.</p>
 
@@ -1479,7 +1657,7 @@ As I will be using <strong>kubernetes</strong>, I will define a daemonset loggin
 
 <h3 id="daemonsetandfluentd">Daemonset and Fluentd</h3>
 
-<p><img src="http://blog.shanelee.name/content/images/2017/07/kubernetes-elastic-fluentd.png" alt="FluentD"></p>
+<p><img src="http://localhost:2368/content/images/2017/07/kubernetes-elastic-fluentd.png" alt="FluentD"></p>
 
 <p>A <strong>DaemonSet</strong> ensures that a certain pod is scheduled to each kubelet exactly once. The <strong>fluentd</strong> pod mounts the <code>/var/lib/containers/</code> host volume to access the logs of all pods scheduled to that <strong>kubelet</strong></p>
 
@@ -1747,7 +1925,7 @@ http://192.168.99.100:31511
 <p>In version <a href="https://blog.docker.com/2016/06/docker-1-12-built-in-orchestration/">1.12</a>, Docker added the ability to perform health checks directly in the Docker engine — without needing external monitoring tools or sidecar containers.</p>
 
 <blockquote>
-  <p>Configure a check that’s run to determine whether or</p></blockquote>]]></description><link>http://blog.shanelee.name/2017/06/12/test-drive-docker-health-check/</link><guid isPermaLink="false">92dff96b-d487-442b-98bb-b77722028f90</guid><category><![CDATA[pact]]></category><category><![CDATA[docker]]></category><category><![CDATA[docker-compose]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Mon, 12 Jun 2017 05:06:53 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
+  <p>Configure a check that’s run to determine whether or</p></blockquote>]]></description><link>http://localhost:2368/2017/06/12/test-drive-docker-health-check/</link><guid isPermaLink="false">92dff96b-d487-442b-98bb-b77722028f90</guid><category><![CDATA[pact]]></category><category><![CDATA[docker]]></category><category><![CDATA[docker-compose]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Mon, 12 Jun 2017 05:06:53 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
 
 <p>Healthcheck in docker was introduced in docker compose version 2.1 and up.</p>
 
@@ -1808,7 +1986,7 @@ http://192.168.99.100:31511
 
 <p>Once you start the container, you will be able to see the health status in the <code>docker ps</code> output.</p>
 
-<p><img src="http://blog.shanelee.name/content/images/2017/06/Screen-Shot-2017-06-12-at-3-03-03-pm.png" alt=""></p>
+<p><img src="http://localhost:2368/content/images/2017/06/Screen-Shot-2017-06-12-at-3-03-03-pm.png" alt=""></p>
 
 <p>You can see the health check status of the postgres container is healthy. Pact broker container depends on this container and waits until it is healthy.</p>
 
@@ -1831,13 +2009,13 @@ http://192.168.99.100:31511
 
 <p>You can use data dumps for backup and restoration purposes, or you can use them to migrate data to a new server or development environment.</p>
 
-<p>Working with database dumps in MySQL and MariaDB is straightforward. This tutorial will cover how to export the database as well as import it</p>]]></description><link>http://blog.shanelee.name/2017/04/09/how-to-import-and-export-databases-in-mysql-or-mariadb-with-docker/</link><guid isPermaLink="false">293badb0-924e-402f-8236-eee1c16210de</guid><category><![CDATA[mariadb]]></category><category><![CDATA[docker]]></category><category><![CDATA[mysql]]></category><category><![CDATA[sql]]></category><category><![CDATA[dump]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 09 Apr 2017 04:09:25 GMT</pubDate><content:encoded><![CDATA[<h1 id="introduction">Introduction</h1>
+<p>Working with database dumps in MySQL and MariaDB is straightforward. This tutorial will cover how to export the database as well as import it</p>]]></description><link>http://localhost:2368/2017/04/09/how-to-import-and-export-databases-in-mysql-or-mariadb-with-docker/</link><guid isPermaLink="false">293badb0-924e-402f-8236-eee1c16210de</guid><category><![CDATA[mariadb]]></category><category><![CDATA[docker]]></category><category><![CDATA[mysql]]></category><category><![CDATA[sql]]></category><category><![CDATA[dump]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 09 Apr 2017 04:09:25 GMT</pubDate><content:encoded><![CDATA[<h1 id="introduction">Introduction</h1>
 
 <p>You can use data dumps for backup and restoration purposes, or you can use them to migrate data to a new server or development environment.</p>
 
 <p>Working with database dumps in MySQL and MariaDB is straightforward. This tutorial will cover how to export the database as well as import it from a dump file in MySQL and MariaDB.</p>
 
-<p><img src="http://blog.shanelee.name/content/images/2017/04/mariadb.png" alt="MariaDB Icon"></p>
+<p><img src="http://localhost:2368/content/images/2017/04/mariadb.png" alt="MariaDB Icon"></p>
 
 <h1 id="prerequisites">Prerequisites</h1>
 
@@ -1943,7 +2121,7 @@ http://192.168.99.100:31511
 
 <p>The Serverless Framework is the world’s leading development framework for building serverless architectures.</p>
 
-<h2 id="australiapubliccalendarcustomalexaskill">Australia public</h2>]]></description><link>http://blog.shanelee.name/2016/12/17/serverless-and-scheduled-lambda-function/</link><guid isPermaLink="false">337574ed-d9ac-4efb-a0ac-a8a248ef6545</guid><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[serverless]]></category><category><![CDATA[alexa]]></category><category><![CDATA[node]]></category><category><![CDATA[australia]]></category><category><![CDATA[calendar]]></category><category><![CDATA[dot]]></category><category><![CDATA[amazon echo]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 17 Dec 2016 10:19:04 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
+<h2 id="australiapubliccalendarcustomalexaskill">Australia public</h2>]]></description><link>http://localhost:2368/2016/12/17/serverless-and-scheduled-lambda-function/</link><guid isPermaLink="false">337574ed-d9ac-4efb-a0ac-a8a248ef6545</guid><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[serverless]]></category><category><![CDATA[alexa]]></category><category><![CDATA[node]]></category><category><![CDATA[australia]]></category><category><![CDATA[calendar]]></category><category><![CDATA[dot]]></category><category><![CDATA[amazon echo]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 17 Dec 2016 10:19:04 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
 
 <p>Continuing on from my previous post, I decided to try out serverless to build my scheduled lambda function.</p>
 
@@ -1955,7 +2133,7 @@ http://192.168.99.100:31511
 
 <h2 id="australiapubliccalendarcustomalexaskill">Australia public calendar custom alexa skill</h2>
 
-<p><img src="http://blog.shanelee.name/content/images/2016/12/AustraliaCalendar.png" alt="Amazon Alexa"></p>
+<p><img src="http://localhost:2368/content/images/2016/12/AustraliaCalendar.png" alt="Amazon Alexa"></p>
 
 <p>You can find the skill on the amazon marketplace <a href="https://www.amazon.com/shane-Australia-Public-Holiday-Calendar/dp/B01N0MY1B6/ref=cm_rdp_product">here</a></p>
 
@@ -1971,7 +2149,7 @@ http://192.168.99.100:31511
 
 <p>In this use case, we can invoke the API ahead of an individual user request, and organize and cache the data in s3 bucket. This improves performance, and simplifies the runtime model. Here’s a view of how this looks using the websites calendar files and how the data is staged.</p>
 
-<p><img src="http://blog.shanelee.name/content/images/2016/12/AustraliaCalendarFlow--1-.svg" alt=""></p>
+<p><img src="http://localhost:2368/content/images/2016/12/AustraliaCalendarFlow--1-.svg" alt=""></p>
 
 <p>An S3 bucket is used to store the data, and is persisted in a ical file object. Given the durability of S3, this ensures that the data is always accessible at runtime for the skill and we don't have to hammer the website again and again for what the types of calendar events are in each state.</p>
 
@@ -2070,11 +2248,11 @@ serverless invoke --function cron --log <br>
 
 <p>And voilà. Thats your scheduled lambda function up and running! 😋</p>
 
-<p>Stay tuned for more!!</p>]]></content:encoded></item><item><title><![CDATA[Alexa, ask australia calendar for next public holiday in state Victoria]]></title><description><![CDATA[Alexa skill to find next public holiday by state in Australia. ]]></description><link>http://blog.shanelee.name/2016/12/13/alexa-ask-australia-calendar-for-next-public-holiday-in-state-victoria/</link><guid isPermaLink="false">5e87a980-7a41-41be-a620-f0218a7ae396</guid><category><![CDATA[alexa]]></category><category><![CDATA[node]]></category><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[australia]]></category><category><![CDATA[calendar]]></category><category><![CDATA[dot]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 13 Dec 2016 08:52:13 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
+<p>Stay tuned for more!!</p>]]></content:encoded></item><item><title><![CDATA[Alexa, ask australia calendar for next public holiday in state Victoria]]></title><description><![CDATA[Alexa skill to find next public holiday by state in Australia. ]]></description><link>http://localhost:2368/2016/12/13/alexa-ask-australia-calendar-for-next-public-holiday-in-state-victoria/</link><guid isPermaLink="false">5e87a980-7a41-41be-a620-f0218a7ae396</guid><category><![CDATA[alexa]]></category><category><![CDATA[node]]></category><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[australia]]></category><category><![CDATA[calendar]]></category><category><![CDATA[dot]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 13 Dec 2016 08:52:13 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
 
 <p>Voice interfaces are taking off, but how advanced are they becoming? Are we at a point where they can become an automated agent, allowing us to put down our keypads and have a dialog just as if they were a friend or trusted colleague? I’ve set out to test this using Alexa, and building a custom skill (that  recently got certified on amazon marketplace).</p>
 
-<p><img src="http://blog.shanelee.name/content/images/2016/12/AustraliaCalendar.png" alt="Amazon Alexa"></p>
+<p><img src="http://localhost:2368/content/images/2016/12/AustraliaCalendar.png" alt="Amazon Alexa"></p>
 
 <p>You can find the skill on the amazon marketplace <a href="https://www.amazon.com/shane-Australia-Public-Holiday-Calendar/dp/B01N0MY1B6/ref=cm_rdp_product">here</a></p>
 
@@ -2124,7 +2302,7 @@ This structure is outlined by the developer as part of writing a custom skill, a
 
 <p>In this use case, we can invoke the API ahead of an individual user request, and organize and cache the data in s3 bucket. This improves performance, and simplifies the runtime model. Here’s a view of how this looks using the websites calendar files and how the data is staged.</p>
 
-<p><img src="http://blog.shanelee.name/content/images/2016/12/AustraliaCalendarFlow--1-.svg" alt=""></p>
+<p><img src="http://localhost:2368/content/images/2016/12/AustraliaCalendarFlow--1-.svg" alt=""></p>
 
 <p>An S3 bucket is used to store the data, and is persisted in a ical file object. Given the durability of S3, this ensures that the data is always accessible at runtime for the skill and we don't have to hammer the website again and again for what the types of calendar events are in each state.</p>
 
@@ -2162,88 +2340,6 @@ GetNextHolidayIntent find next public holiday by state
 
 <p>I have created a card for the returned holiday response for future reference. You can see an example below:</p>
 
-<p><img src="http://blog.shanelee.name/content/images/2016/12/Screen-Shot-2016-12-13-at-6-09-21-pm.png" alt=""></p>
-
-<p>Stay tuned for more skills!!</p>]]></content:encoded></item><item><title><![CDATA[Alexa, ask auspost for post offices by postcode]]></title><description><![CDATA[<h1 id="tldr">TL;DR</h1>
-
-<p>I will describe below my custom alexa skill.</p>
-
-<h2 id="amazonalexa">Amazon ALexa</h2>
-
-<p><img src="http://blog.shanelee.name/content/images/2016/11/26452717290_b51f1a1f04_z-1.jpg" alt="Amazon Alexa"></p>
-
-<p>Recently, I have started developing alexa skills.</p>
-
-<p>Alexa, the voice service that powers Echo, provides capabilities, or skills, that enable customers to interact with devices in a more intuitive way using voice. Examples of these skills include the</p>]]></description><link>http://blog.shanelee.name/2016/11/15/alexa-ask-auspost-for-post-offices-by-postcode/</link><guid isPermaLink="false">fcfc1f6e-dfe2-4002-83a4-2de0af5720e5</guid><category><![CDATA[alexa]]></category><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[node]]></category><category><![CDATA[amazon]]></category><category><![CDATA[amazon echo]]></category><category><![CDATA[serverless]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 15 Nov 2016 11:53:25 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
-
-<p>I will describe below my custom alexa skill.</p>
-
-<h2 id="amazonalexa">Amazon ALexa</h2>
-
-<p><img src="http://blog.shanelee.name/content/images/2016/11/26452717290_b51f1a1f04_z-1.jpg" alt="Amazon Alexa"></p>
-
-<p>Recently, I have started developing alexa skills.</p>
-
-<p>Alexa, the voice service that powers Echo, provides capabilities, or skills, that enable customers to interact with devices in a more intuitive way using voice. Examples of these skills include the ability to play music, answer general questions, set an alarm or timer and more.</p>
-
-<p>Amazon says:</p>
-
-<blockquote>
-  <p>Natural user interfaces, like those based on speech, represent the next major disruption in computing.</p>
-</blockquote>
-
-<p>You can now find all alexa skills on amazon.com. See the <a href="https://www.amazon.com/b?ie=UTF8&amp;node=13727921011">experience</a></p>
-
-<p>To see some examples of skills to use check out this <a href="http://www.wired.co.uk/article/the-best-features-of-amazon-echo">article</a></p>
-
-<p>There is now over 3000 skills in the marketplace and growing <a href="https://techcrunch.com/2016/09/13/amazons-alexa-app-store-hits-3000-skills-up-from-1000-in-june/">fast</a></p>
-
-<h2 id="skill">Skill</h2>
-
-<p><img src="http://blog.shanelee.name/content/images/2016/11/noun_666106_cc-2.png" alt="Auspost post office locations"></p>
-
-<p>I decided to build a skill that allows consumers of an alexa enabled device to find post offices by post code in Australia.</p>
-
-<h2 id="alexaflow">Alexa flow</h2>
-
-<p><img src="http://blog.shanelee.name/content/images/2016/11/alexaFlow.svg" alt=""></p>
-
-<h2 id="interactwithauspostskill">Interact with auspost skill</h2>
-
-<p>Now the fun part... 😛</p>
-
-<p>Use the service simulator to test it out <a href="https://echosim.io/">here</a> or use an amazon echo or dot.</p>
-
-<blockquote>
-  <p>Alexa, open auspost</p>
-</blockquote>
-
-<p>Alexa will guide you in interacting with the skill.</p>
-
-<p>Sample utterances are:</p>
-
-<p>Try to find post offices by post code</p>
-
-<blockquote>
-  <p>Alexa, ask auspost to find post offices by postcode</p>
-</blockquote>
-
-<p>Follow the dialog flow to get post offices in your vicinity and the opening hours for today.</p>
-
-<p>Here is a sneak preview!!</p>
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Lf1UUJm0R4M" frameborder="0" allowfullscreen></iframe>
-
-<h3 id="homecards">Home Cards</h3>
-
-<p>Interactions between a user and an Alexa device can include home cards displayed in the Amazon Alexa App, the companion app available for Fire OS, Android, iOS, and desktop web browsers. These are graphical cards that describe or enhance the voice interaction. A custom skill can include these cards in its responses.</p>
-
-<p>I have created a card for the post offices in the response for future reference. You can see an example below:</p>
-
-<p><img src="http://blog.shanelee.name/content/images/2016/11/Screenshot_20161115-230725-1.png" alt=""></p>
-
-<h3 id="disclaimer">Disclaimer</h3>
-
-<p>This skill is not currently on the marketplace.</p>
+<p><img src="http://localhost:2368/content/images/2016/12/Screen-Shot-2016-12-13-at-6-09-21-pm.png" alt=""></p>
 
 <p>Stay tuned for more skills!!</p>]]></content:encoded></item></channel></rss>
