@@ -1,4 +1,110 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog (mainly!)]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://localhost:2368/</link><generator>Ghost 0.8</generator><lastBuildDate>Wed, 19 Aug 2020 05:44:10 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[How I passed the professional google cloud architect exam]]></title><description><![CDATA[<h1 id="sowhygooglecloud">So why Google cloud??</h1>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog (mainly!)]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://localhost:2368/</link><generator>Ghost 0.8</generator><lastBuildDate>Sun, 30 Aug 2020 07:06:32 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Jibbing with spring boot and google cloud run]]></title><description><![CDATA[<p>I said jibbing not jiving! 😆</p>
+
+<h1 id="cloudnativearchitecture">Cloud native architecture</h1>
+
+<p>When it comes to microservices and cloud native architecture you first think about containers. Now you can of course compose your own docker file. But with jvm based microservices there is a tool from google called jib that can simplify containerization.</p>
+
+<p>We'll</p>]]></description><link>http://localhost:2368/2020/08/29/jibbing-with-spring-boot-and-google-cloud-run/</link><guid isPermaLink="false">9dc3d48c-84cb-487a-b8ca-7d14229f1fe5</guid><category><![CDATA[gcp]]></category><category><![CDATA[cloudrun]]></category><category><![CDATA[spring-boot]]></category><category><![CDATA[spring]]></category><category><![CDATA[docker]]></category><category><![CDATA[microservice]]></category><category><![CDATA[cloud]]></category><category><![CDATA[google]]></category><category><![CDATA[jib]]></category><category><![CDATA[redoc]]></category><category><![CDATA[swagger]]></category><category><![CDATA[openapi]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 29 Aug 2020 08:08:34 GMT</pubDate><media:content url="http://localhost:2368/content/images/2020/08/ardian-lumi-6Woj_wozqmA-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="http://localhost:2368/content/images/2020/08/ardian-lumi-6Woj_wozqmA-unsplash.jpg" alt="Jibbing with spring boot and google cloud run"><p>I said jibbing not jiving! 😆</p>
+
+<h1 id="cloudnativearchitecture">Cloud native architecture</h1>
+
+<p>When it comes to microservices and cloud native architecture you first think about containers. Now you can of course compose your own docker file. But with jvm based microservices there is a tool from google called jib that can simplify containerization.</p>
+
+<p>We'll take a simple Spring Boot application and build its Docker image using <a href="https://github.com/GoogleContainerTools/jib">Jib</a>. And then we'll also publish to GCR and deploy on google cloud run.</p>
+
+<h2 id="jib">Jib</h2>
+
+<blockquote>
+  <p>Jib builds optimized Docker and OCI images for your Java applications without a Docker daemon - and without deep mastery of Docker best-practices. It is available as plugins for Maven and Gradle and as a Java library.</p>
+</blockquote>
+
+<p>You don't even need docker installed. Just use maven or gradle plugin and away you go! It uses <a href="https://github.com/GoogleCloudPlatform/distroless">distroless</a> base image under the hood, but as you expect all of this is configurable.</p>
+
+<p>Jib supports multiple container registries,  can change the base image, jvm flags, tags, volumes and much more.</p>
+
+<h2 id="greetingapp">Greeting App</h2>
+
+<p>I use <strong>VSCode</strong> heavily for development so I wanted to see what support they have for java and spring boot. In fact they have many extensions. The extensions I installed are:</p>
+
+<ul>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=richardwillis.vscode-gradle-extension-pack">Gradle Extension Pack</a></li>
+<li><a href="https://aka.ms/vscode-java-installer-mac">VS Code for java</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=Pivotal.vscode-spring-boot">Spring boot tools</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-spring-initializr">Spring Initializr Java Support</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-spring-boot-dashboard">Spring Boot Dashboard</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=GabrielBB.vscode-lombok">Lombok Annotations Support for VS Code</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=42Crunch.vscode-openapi">OpenAPI (Swagger) </a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=Shan.code-settings-sync">Settings Sync </a> very important to sync if I change laptop in the future...</li>
+</ul>
+
+<p>I used Spring Initializr to create a simple project in vs code. <br>
+It'll expose a simple <strong>GET</strong> endpoint:</p>
+
+<pre><code class="language-bash">http://localhost:8080/greeting  
+</code></pre>
+
+<h3 id="deployment">Deployment</h3>
+
+<p>Now I wanted to deploy this on cloud run and not worry about defining a docker file. So I used the gradle jib plugin and configured the credentials helper to deploy to <a href="https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin#configuration">GCR</a> (Google cloud registry)</p>
+
+<h4 id="cloudrun">Cloud run</h4>
+
+<p>You can think of cloud run as CAAS (container-as-a-service) or serverless containers. It allows you to  run your stateless HTTP containers without worrying about provisioning machines, clusters or autoscaling. The main difference with app engine flexible is that it can scale to zero - only pay per request.</p>
+
+<p>If you are interested to learn more about cloud run check out the unofficial <a href="https://github.com/ahmetb/cloud-run-faq">faqs</a></p>
+
+<p>There is even a <a href="https://github.com/GoogleCloudPlatform/cloud-run-button">cloud run button</a> if you want to deploy your API publicly.</p>
+
+<p>There is a fantastic VSCode extension called <a href="https://cloud.google.com/code">cloud code</a> that can help you deploy to cloud run or GKE on google cloud. It can even pick up if you are using <a href="https://blog.shanelee.name/2019/02/20/skaffold-for-local-kubernetes-development/">skaffold</a> or jib under the hood.</p>
+
+<p><img src="http://localhost:2368/content/images/2020/08/cloudcode1.png" alt="Jibbing with spring boot and google cloud run">
+<img src="http://localhost:2368/content/images/2020/08/cloudcode2.png" alt="Jibbing with spring boot and google cloud run"></p>
+
+<p>This command will build, push your image to GCR and deploy to cloud run. And that's it!</p>
+
+<p>Now you can access the public url and test out the endpoint.</p>
+
+<p><img src="http://localhost:2368/content/images/2020/08/Cloudcodeexp.png" alt="Jibbing with spring boot and google cloud run"></p>
+
+<p>The source code for the example is over on <a href="https://github.com/shavo007/spring-boot-jib">github</a></p>
+
+<h2 id="apidesign">API design</h2>
+
+<p>In my previous <a href="https://blog.shanelee.name/2019/05/17/graphql-api-google-cloud-run/">post</a> I discussed graphQL. Graphql provides a schema for introspection and type safety. </p>
+
+<p>Now for REST, swagger or <a href="https://swagger.io/resources/open-api/">open API spec</a> is the standard for designing and documenting your API. Even <a href="https://kubernetes.io/docs/concepts/overview/kubernetes-api/#api-specification">kubernetes API </a> supports open api spec. Every time you call <code>kubectl describe &lt;resource&gt;</code> it calls this endpoint for info.</p>
+
+<p>Tools such as <a href="https://support.insomnia.rest/article/94-introduction">insomnia designer</a> and api gateways now support open api spec.</p>
+
+<p>I decided to design and document my greetings API using <a href="https://github.com/Redocly/redoc">redoc</a></p>
+
+<h3 id="redoc">Redoc</h3>
+
+<blockquote>
+  <p>OpenAPI/Swagger-generated API Reference Documentation</p>
+</blockquote>
+
+<p>Redoc supports open api spec v3 and provides responsive documentation with code samples. There is many ways to deploy but again Ill go the docker way and deploy on cloud run.</p>
+
+<h4 id="redocgenerator">Redoc generator</h4>
+
+<p>Redoc has a <a href="https://github.com/Redocly/create-openapi-repo">generator</a> which provides a docs-like-code approach to OpenAPI definitions. It allows you to validate your spec before bundling it. I documented my greetings API above, bundled it and served it as static content from the API <a href="https://github.com/shavo007/spring-boot-jib/blob/master/src/main/resources/static/swagger.yaml">itself</a></p>
+
+<p><mark>One thing to note is you need to enable CORS in your API to serve the static file. I also had an issue with @EnableMVC annotation so I removed that.</mark></p>
+
+<p>To deploy, I built redoc on GCR and deployed to cloud run. You can run this in cloud shell if you like</p>
+
+<pre><code class="language-bash">export PROJECT_ID=$(gcloud config list --format 'value(core.project)')  
+#change CLOUD_RUN_SPRING_BOOT_BASE_URI to the location of your API deployed on cloud run
+
+gcloud run deploy redoc-greetings-api --project $PROJECT_ID --image gcr.io/$PROJECT_ID/redoc --platform managed --region us-central1 --port 80 --cpu 1 --memory 256Mi --concurrency 80 --timeout 300 --update-env-vars SPEC_URL=https://&lt;CLOUD_RUN_SPRING_BOOT_BASE_URI&gt;/swagger.yaml  
+</code></pre>
+
+<p><img src="http://localhost:2368/content/images/2020/08/Redoc.png" alt="Jibbing with spring boot and google cloud run"></p>
+
+<p>Again, the src code can be found on <a href="https://github.com/shavo007/greetings-doc">github</a></p>
+
+<p>And thats it. Happy jibbing! 🕺🏻</p>]]></content:encoded></item><item><title><![CDATA[How I passed the professional google cloud architect exam]]></title><description><![CDATA[<h1 id="sowhygooglecloud">So why Google cloud??</h1>
 
 <p>Well, the Google Cloud Platform (GCP) is behind the 8 ball for sure in comparison to AWS. But with the huge spike in companies looking to reduce their Capex and move to the cloud, its offerings in the data analytics space for example is very enticing.</p>]]></description><link>http://localhost:2368/2020/08/04/how-i-passed-the-professional-google-cloud-architect-exam/</link><guid isPermaLink="false">f54e6eec-b076-47af-959c-23f838c318f6</guid><category><![CDATA[cloud]]></category><category><![CDATA[google]]></category><category><![CDATA[kubernetes]]></category><category><![CDATA[exam]]></category><category><![CDATA[gcp]]></category><category><![CDATA[google cloud]]></category><category><![CDATA[architect]]></category><category><![CDATA[bigquery]]></category><category><![CDATA[linux academy]]></category><category><![CDATA[cloud native]]></category><category><![CDATA[hybrid]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 04 Aug 2020 06:47:49 GMT</pubDate><media:content url="http://localhost:2368/content/images/2020/08/morning-brew-T0qYg2nPUWM-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<h1 id="sowhygooglecloud">So why Google cloud??</h1>
 
@@ -2248,98 +2354,4 @@ serverless invoke --function cron --log <br>
 
 <p>And voilà. Thats your scheduled lambda function up and running! 😋</p>
 
-<p>Stay tuned for more!!</p>]]></content:encoded></item><item><title><![CDATA[Alexa, ask australia calendar for next public holiday in state Victoria]]></title><description><![CDATA[Alexa skill to find next public holiday by state in Australia. ]]></description><link>http://localhost:2368/2016/12/13/alexa-ask-australia-calendar-for-next-public-holiday-in-state-victoria/</link><guid isPermaLink="false">5e87a980-7a41-41be-a620-f0218a7ae396</guid><category><![CDATA[alexa]]></category><category><![CDATA[node]]></category><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[australia]]></category><category><![CDATA[calendar]]></category><category><![CDATA[dot]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 13 Dec 2016 08:52:13 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
-
-<p>Voice interfaces are taking off, but how advanced are they becoming? Are we at a point where they can become an automated agent, allowing us to put down our keypads and have a dialog just as if they were a friend or trusted colleague? I’ve set out to test this using Alexa, and building a custom skill (that  recently got certified on amazon marketplace).</p>
-
-<p><img src="http://localhost:2368/content/images/2016/12/AustraliaCalendar.png" alt="Amazon Alexa"></p>
-
-<p>You can find the skill on the amazon marketplace <a href="https://www.amazon.com/shane-Australia-Public-Holiday-Calendar/dp/B01N0MY1B6/ref=cm_rdp_product">here</a></p>
-
-<h2 id="alexamachinelearning">Alexa Machine Learning</h2>
-
-<p>Amazon has enabled software developers to write custom skills that are published to the Alexa platform. These custom skills act as an application that can be invoked from the voice interface similar to basic features that come with the Alexa. </p>
-
-<p>Here is an example of a phrase that invokes the Australia calendar application.  </p>
-
-<blockquote>
-  <p>Alexa, ask Australia Calendar whats the next holiday in state Victoria?</p>
-</blockquote>
-
-<p>The Alexa Skills Kit establishes the framework for how the powerful machine learning algorithms that Amazon has developed can be leveraged. <br>
-A key concept within the platform is around the learning algorithms, and teaching Alexa what “might” be the expected outcome of a particular phrase. A simple example to understand this pattern is the following.</p>
-
-<blockquote>
-  <p>State {AUSPOST_STATE-SLOT}</p>
-</blockquote>
-
-<p>In Alexa terminology, the overall phrase is called an “Utterance”, and what’s in the brackets is referred to as a “Slot”. So when someone states “State Victoria” or “State Queensland”, both of these have the same intent, it’s just that the state is a variable that is defined in the slot. When modeling the application, the developer will establish possible choices that might be in the slot (i.e. Victoria, Tasmania, Queensland etc.) <br>
-This structure is outlined by the developer as part of writing a custom skill, and once approved by the Alexa team, the model (including custom slots) is ingested into the platform which then influences the algorithms. This type of teaching is common in machine learning, and is useful for establishing patterns.</p>
-
-<p>Once Alexa deciphers the spoken word, it translates into one of these patterns, then invokes the API provided by the developer, passing over which pattern was uttered, along with any variables from slots.</p>
-
-<p>More on custom slots can be seen <a href="https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/migrating-to-the-improved-built-in-and-custom-slot-types">here</a></p>
-
-<p>When authoring an Alexa Skill (the custom “app”) the challenge is how to establish all the different ways in which a question or statement could be made, then building custom slots for variables within the utterance. That’s where the engineering comes in by the developer (me!) to take advantage of the underlying machine learning in the Alexa platform. If the pattern matching isn’t effective, that’s a problem with the machine learning and the platform itself.</p>
-
-<h2 id="voiceuserinterfacedesignthoughtfulcodewritingmatters">Voice User Interface Design (Thoughtful code writing matters)</h2>
-
-<p>Once the processing is done on Alexa, an API call is made to a micro-service developed by me using aws lambda (serverless compute service). The quality of the user interaction is very dependent upon how “flexible” the skill is written, and that effort has been put into understanding the difference between a visual/keyboard interface and a voice driven one.</p>
-
-<h2 id="alexaflow">Alexa flow</h2>
-
-<p>Trying to create a good skill requires picking some potential flows that a narrative may go through between a user and Alexa. The current version of the skill splits into one direction.</p>
-
-<h3 id="architectingthesolution">Architecting the solution</h3>
-
-<p>There is the pattern leveraging calendar files where the data is relatively static, and it’s more important to organize it in such a manner that allows navigation through voice commands. There's an ongoing process that can refresh it over time. Going deeper, let's explore the following utterance.</p>
-
-<blockquote>
-  <p>“Alexa, ask Australia Calendar to find next public holiday by state Victoria”</p>
-</blockquote>
-
-<p>The dialog with this question will be determining what calendar file to get. In this example, the data is static (there aren't new holidays being created every day), and the interaction will be around navigating a list of calendar events.</p>
-
-<p>In this use case, we can invoke the API ahead of an individual user request, and organize and cache the data in s3 bucket. This improves performance, and simplifies the runtime model. Here’s a view of how this looks using the websites calendar files and how the data is staged.</p>
-
-<p><img src="http://localhost:2368/content/images/2016/12/AustraliaCalendarFlow--1-.svg" alt=""></p>
-
-<p>An S3 bucket is used to store the data, and is persisted in a ical file object. Given the durability of S3, this ensures that the data is always accessible at runtime for the skill and we don't have to hammer the website again and again for what the types of calendar events are in each state.</p>
-
-<h2 id="buildingtheskill">Building the Skill</h2>
-
-<p>The code is organized into a series of functions that are invoked based on the intent. Here are sample mappings from utterances to intent for this skill.</p>
-
-<pre><code class="language-javascript">GetNextHolidayIntent what is the next holiday for {State}  
-GetNextHolidayIntent what is the next holiday for state {State}  
-GetNextHolidayIntent what is the next public holiday for {State}  
-GetNextHolidayIntent what is the next public holiday for state {State}  
-GetNextHolidayIntent find next public holiday in state {State}  
-GetNextHolidayIntent find next public holiday by state {State}  
-GetNextHolidayIntent find next public holiday by state
-</code></pre>
-
-<p>Each of the intents have their own functions, and then gather the data for the response by leveraging cached data in the local memory of the skill, or by calling out to a S3 bucket. Here's a mapping of where the data is retrieved from:</p>
-
-<table>  
-  <tr>
-    <th>Intent</th>
-    <th>Function</th>
-    <th>Data</th>
-  </tr>
-  <tr>
-    <td>GetNextHolidayIntent</td>
-    <td>GetNextHolidayIntent()</td>
-    <td>S3 Bucket</td>
-  </tr>
-</table>
-
-<h2 id="homecards">Home Cards</h2>
-
-<p>Interactions between a user and an Alexa device can include home cards displayed in the Amazon Alexa App, the companion app available for Fire OS, Android, iOS, and desktop web browsers. These are graphical cards that describe or enhance the voice interaction. A custom skill can include these cards in its responses.</p>
-
-<p>I have created a card for the returned holiday response for future reference. You can see an example below:</p>
-
-<p><img src="http://localhost:2368/content/images/2016/12/Screen-Shot-2016-12-13-at-6-09-21-pm.png" alt=""></p>
-
-<p>Stay tuned for more skills!!</p>]]></content:encoded></item></channel></rss>
+<p>Stay tuned for more!!</p>]]></content:encoded></item></channel></rss>

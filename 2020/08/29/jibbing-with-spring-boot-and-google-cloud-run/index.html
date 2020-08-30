@@ -1,0 +1,351 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Jibbing with spring boot and google cloud run</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
+    <link rel="canonical" href="https://blog.shanelee.name/2020/08/29/jibbing-with-spring-boot-and-google-cloud-run/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="Tech Blog (mainly!)">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Jibbing with spring boot and google cloud run">
+    <meta property="og:description" content="I said jibbing not jiving! 😆 Cloud native architecture When it comes to microservices and cloud native architecture you first think about containers. Now you can of course compose your own docker file. But with jvm based microservices there is a tool from google called jib that can simplify containerization. We'll">
+    <meta property="og:url" content="http://blog.shanelee.name/2020/08/29/jibbing-with-spring-boot-and-google-cloud-run/">
+    <meta property="og:image" content="http://blog.shanelee.name/content/images/2020/08/ardian-lumi-6Woj_wozqmA-unsplash.jpg">
+    <meta property="article:published_time" content="2020-08-29T08:08:34.002Z">
+    <meta property="article:modified_time" content="2020-08-30T06:55:19.737Z">
+    <meta property="article:tag" content="gcp">
+    <meta property="article:tag" content="cloudrun">
+    <meta property="article:tag" content="spring-boot">
+    <meta property="article:tag" content="spring">
+    <meta property="article:tag" content="docker">
+    <meta property="article:tag" content="microservice">
+    <meta property="article:tag" content="cloud">
+    <meta property="article:tag" content="google">
+    <meta property="article:tag" content="jib">
+    <meta property="article:tag" content="redoc">
+    <meta property="article:tag" content="swagger">
+    <meta property="article:tag" content="openapi">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Jibbing with spring boot and google cloud run">
+    <meta name="twitter:description" content="I said jibbing not jiving! 😆 Cloud native architecture When it comes to microservices and cloud native architecture you first think about containers. Now you can of course compose your own docker file. But with jvm based microservices there is a tool from google called jib that can simplify containerization. We'll">
+    <meta name="twitter:url" content="http://blog.shanelee.name/2020/08/29/jibbing-with-spring-boot-and-google-cloud-run/">
+    <meta name="twitter:image:src" content="http://blog.shanelee.name/content/images/2020/08/ardian-lumi-6Woj_wozqmA-unsplash.jpg">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shane Lee">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="gcp, cloudrun, spring-boot, spring, docker, microservice, cloud, google, jib, redoc, swagger, openapi">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Tech Blog (mainly!)",
+        "logo": "http://blog.shanelee.name/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shane Lee",
+        "image": "http://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg",
+        "url": "http://blog.shanelee.name/author/shane/",
+        "sameAs": [
+            "https://about.me/shane-lee"
+        ]
+    },
+    "headline": "Jibbing with spring boot and google cloud run",
+    "url": "http://blog.shanelee.name/2020/08/29/jibbing-with-spring-boot-and-google-cloud-run/",
+    "datePublished": "2020-08-29T08:08:34.002Z",
+    "dateModified": "2020-08-30T06:55:19.737Z",
+    "image": "http://blog.shanelee.name/content/images/2020/08/ardian-lumi-6Woj_wozqmA-unsplash.jpg",
+    "keywords": "gcp, cloudrun, spring-boot, spring, docker, microservice, cloud, google, jib, redoc, swagger, openapi",
+    "description": "I said jibbing not jiving! 😆 Cloud native architecture When it comes to microservices and cloud native architecture you first think about containers. Now you can of course compose your own docker file. But with jvm based microservices there is a tool from google called jib that can simplify containerization. We&#x27;ll"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.8">
+    <link rel="alternate" type="application/rss+xml" title="Tech Blog (mainly!)" href="https://blog.shanelee.name/rss/">
+    <meta name="google-site-verification" content="dzkjZUDovRImqR_2oGUlteWT1zcgw-r6cqBYef9qiWw">
+<meta name="google-site-verification" content="lojSObDdEFLBM0ok1Yiqy7rqgbc8yAUTyqF5iYszvWA">
+<link rel="preconnect" href="http://shavo007.disqus.com">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128189527-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-128189527-1');
+</script>
+<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2007283184718574",
+    enable_page_level_ads: true
+  });
+</script>
+</head>
+<body class="post-template tag-gcp tag-cloudrun tag-spring-boot tag-spring tag-docker tag-microservice tag-cloud tag-google tag-jib tag-redoc tag-swagger tag-openapi nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="https://blog.shanelee.name/">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="https://blog.shanelee.name/rss/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head " style="background-image: url(../../../../content/images/2020/08/ardian-lumi-6Woj_wozqmA-unsplash.jpg)">
+    <nav class="main-nav overlay clearfix">
+        
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post tag-gcp tag-cloudrun tag-spring-boot tag-spring tag-docker tag-microservice tag-cloud tag-google tag-jib tag-redoc tag-swagger tag-openapi featured">
+
+        <header class="post-header">
+            <h1 class="post-title">Jibbing with spring boot and google cloud run</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2020-08-29">29 August 2020</time>
+                 on <a href="../../../../tag/gcp/">gcp</a>, <a href="../../../../tag/cloudrun/">cloudrun</a>, <a href="../../../../tag/spring-boot/">spring-boot</a>, <a href="../../../../tag/spring/">spring</a>, <a href="../../../../tag/docker/">docker</a>, <a href="../../../../tag/microservice/">microservice</a>, <a href="../../../../tag/cloud/">cloud</a>, <a href="../../../../tag/google/">google</a>, <a href="../../../../tag/jib/">jib</a>, <a href="../../../../tag/redoc/">redoc</a>, <a href="../../../../tag/swagger/">swagger</a>, <a href="../../../../tag/openapi/">openapi</a>
+                ,
+
+                <!--<li class="post-meta-item">-->
+                    <a href="index.html#disqus_thread"></a>
+                <!--</li>-->
+                <!--<a href="#disqus_thread"/>-->
+            </section>
+        </header>
+
+        <section class="post-content">
+
+            <p>I said jibbing not jiving! 😆</p>
+
+<h1 id="cloudnativearchitecture">Cloud native architecture</h1>
+
+<p>When it comes to microservices and cloud native architecture you first think about containers. Now you can of course compose your own docker file. But with jvm based microservices there is a tool from google called jib that can simplify containerization.</p>
+
+<p>We'll take a simple Spring Boot application and build its Docker image using <a href="https://github.com/GoogleContainerTools/jib">Jib</a>. And then we'll also publish to GCR and deploy on google cloud run.</p>
+
+<h2 id="jib">Jib</h2>
+
+<blockquote>
+  <p>Jib builds optimized Docker and OCI images for your Java applications without a Docker daemon - and without deep mastery of Docker best-practices. It is available as plugins for Maven and Gradle and as a Java library.</p>
+</blockquote>
+
+<p>You don't even need docker installed. Just use maven or gradle plugin and away you go! It uses <a href="https://github.com/GoogleCloudPlatform/distroless">distroless</a> base image under the hood, but as you expect all of this is configurable.</p>
+
+<p>Jib supports multiple container registries,  can change the base image, jvm flags, tags, volumes and much more.</p>
+
+<h2 id="greetingapp">Greeting App</h2>
+
+<p>I use <strong>VSCode</strong> heavily for development so I wanted to see what support they have for java and spring boot. In fact they have many extensions. The extensions I installed are:</p>
+
+<ul>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=richardwillis.vscode-gradle-extension-pack">Gradle Extension Pack</a></li>
+<li><a href="https://aka.ms/vscode-java-installer-mac">VS Code for java</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=Pivotal.vscode-spring-boot">Spring boot tools</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-spring-initializr">Spring Initializr Java Support</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-spring-boot-dashboard">Spring Boot Dashboard</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=GabrielBB.vscode-lombok">Lombok Annotations Support for VS Code</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=42Crunch.vscode-openapi">OpenAPI (Swagger) </a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=Shan.code-settings-sync">Settings Sync </a> very important to sync if I change laptop in the future...</li>
+</ul>
+
+<p>I used Spring Initializr to create a simple project in vs code. <br>
+It'll expose a simple <strong>GET</strong> endpoint:</p>
+
+<pre><code class="language-bash">http://localhost:8080/greeting  
+</code></pre>
+
+<h3 id="deployment">Deployment</h3>
+
+<p>Now I wanted to deploy this on cloud run and not worry about defining a docker file. So I used the gradle jib plugin and configured the credentials helper to deploy to <a href="https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin#configuration">GCR</a> (Google cloud registry)</p>
+
+<h4 id="cloudrun">Cloud run</h4>
+
+<p>You can think of cloud run as CAAS (container-as-a-service) or serverless containers. It allows you to  run your stateless HTTP containers without worrying about provisioning machines, clusters or autoscaling. The main difference with app engine flexible is that it can scale to zero - only pay per request.</p>
+
+<p>If you are interested to learn more about cloud run check out the unofficial <a href="https://github.com/ahmetb/cloud-run-faq">faqs</a></p>
+
+<p>There is even a <a href="https://github.com/GoogleCloudPlatform/cloud-run-button">cloud run button</a> if you want to deploy your API publicly.</p>
+
+<p>There is a fantastic VSCode extension called <a href="https://cloud.google.com/code">cloud code</a> that can help you deploy to cloud run or GKE on google cloud. It can even pick up if you are using <a href="https://blog.shanelee.name/2019/02/20/skaffold-for-local-kubernetes-development/">skaffold</a> or jib under the hood.</p>
+
+<p><img src="../../../../content/images/2020/08/cloudcode1.png" alt="">
+<img src="../../../../content/images/2020/08/cloudcode2.png" alt=""></p>
+
+<p>This command will build, push your image to GCR and deploy to cloud run. And that's it!</p>
+
+<p>Now you can access the public url and test out the endpoint.</p>
+
+<p><img src="../../../../content/images/2020/08/Cloudcodeexp.png" alt=""></p>
+
+<p>The source code for the example is over on <a href="https://github.com/shavo007/spring-boot-jib">github</a></p>
+
+<h2 id="apidesign">API design</h2>
+
+<p>In my previous <a href="https://blog.shanelee.name/2019/05/17/graphql-api-google-cloud-run/">post</a> I discussed graphQL. Graphql provides a schema for introspection and type safety. </p>
+
+<p>Now for REST, swagger or <a href="https://swagger.io/resources/open-api/">open API spec</a> is the standard for designing and documenting your API. Even <a href="https://kubernetes.io/docs/concepts/overview/kubernetes-api/#api-specification">kubernetes API </a> supports open api spec. Every time you call <code>kubectl describe &lt;resource&gt;</code> it calls this endpoint for info.</p>
+
+<p>Tools such as <a href="https://support.insomnia.rest/article/94-introduction">insomnia designer</a> and api gateways now support open api spec.</p>
+
+<p>I decided to design and document my greetings API using <a href="https://github.com/Redocly/redoc">redoc</a></p>
+
+<h3 id="redoc">Redoc</h3>
+
+<blockquote>
+  <p>OpenAPI/Swagger-generated API Reference Documentation</p>
+</blockquote>
+
+<p>Redoc supports open api spec v3 and provides responsive documentation with code samples. There is many ways to deploy but again Ill go the docker way and deploy on cloud run.</p>
+
+<h4 id="redocgenerator">Redoc generator</h4>
+
+<p>Redoc has a <a href="https://github.com/Redocly/create-openapi-repo">generator</a> which provides a docs-like-code approach to OpenAPI definitions. It allows you to validate your spec before bundling it. I documented my greetings API above, bundled it and served it as static content from the API <a href="https://github.com/shavo007/spring-boot-jib/blob/master/src/main/resources/static/swagger.yaml">itself</a></p>
+
+<p><mark>One thing to note is you need to enable CORS in your API to serve the static file. I also had an issue with @EnableMVC annotation so I removed that.</mark></p>
+
+<p>To deploy, I built redoc on GCR and deployed to cloud run. You can run this in cloud shell if you like</p>
+
+<pre><code class="language-bash">export PROJECT_ID=$(gcloud config list --format 'value(core.project)')  
+#change CLOUD_RUN_SPRING_BOOT_BASE_URI to the location of your API deployed on cloud run
+
+gcloud run deploy redoc-greetings-api --project $PROJECT_ID --image gcr.io/$PROJECT_ID/redoc --platform managed --region us-central1 --port 80 --cpu 1 --memory 256Mi --concurrency 80 --timeout 300 --update-env-vars SPEC_URL=https://&lt;CLOUD_RUN_SPRING_BOOT_BASE_URI&gt;/swagger.yaml  
+</code></pre>
+
+<p><img src="../../../../content/images/2020/08/Redoc.png" alt=""></p>
+
+<p>Again, the src code can be found on <a href="https://github.com/shavo007/greetings-doc">github</a></p>
+
+<p>And thats it. Happy jibbing! 🕺🏻</p>
+        </section>
+
+        <!-- disqus code snippet -->
+        <div id="disqus_thread"></div>
+        <script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+this.page.url = 'http://blog.shanelee.name/2020/08/29/jibbing-with-spring-boot-and-google-cloud-run/'; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'ghost-25'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//shavo007.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        <script id="dsq-count-scr" src="http://shavo007.disqus.com/count.js" async></script>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../../../../author/shane/" style="background-image: url(../../../../content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../../../../author/shane/">Shane Lee</a></h4>
+
+                    <p>Read <a href="../../../../author/shane/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    <span class="author-location icon-location">Melbourne</span>
+                    <span class="author-link icon-link"><a href="https://about.me/shane-lee">https://about.me/shane-lee</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Jibbing%20with%20spring%20boot%20and%20google%20cloud%20run&amp;url=https://blog.shanelee.name/2020/08/29/jibbing-with-spring-boot-and-google-cloud-run/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.shanelee.name/2020/08/29/jibbing-with-spring-boot-and-google-cloud-run/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://blog.shanelee.name/2020/08/29/jibbing-with-spring-boot-and-google-cloud-run/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+
+    </article>
+</main>
+
+
+
+<aside class="read-next">
+    <a class="read-next-story prev " style="background-image: url(../../../../content/images/2020/08/morning-brew-T0qYg2nPUWM-unsplash.jpg)" href="../../04/how-i-passed-the-professional-google-cloud-architect-exam/">
+        <section class="post">
+            <h2>How I passed the professional google cloud architect exam</h2>
+            <p>So why Google cloud?? Well, the Google Cloud Platform (GCP) is behind the 8 ball for sure in comparison…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2020</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-coy.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-graphql.min.js"></script>
+<!-- Add additional languages here -->
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/prism.js"></script>
+
+
+
+</body>
