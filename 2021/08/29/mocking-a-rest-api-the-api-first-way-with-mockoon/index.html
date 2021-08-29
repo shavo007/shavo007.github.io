@@ -1,0 +1,640 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Mocking a REST API the "API first" approach with Mockoon</title>
+    <meta name="description" content="How to mock an API with mockoon. Showcase using open API spec and mockoon to mock an API and run with docker.">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
+    <link rel="canonical" href="https://blog.shanelee.name/2021/08/29/mocking-a-rest-api-the-api-first-way-with-mockoon/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="Tech Blog (mainly!)">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content='Mocking a REST API the "API first" approach with Mockoon'>
+    <meta property="og:description" content="How to mock an API with mockoon. Showcase using open API spec and mockoon to mock an API and run with docker.">
+    <meta property="og:url" content="http://blog.shanelee.name/2021/08/29/mocking-a-rest-api-the-api-first-way-with-mockoon/">
+    <meta property="og:image" content="http://blog.shanelee.name/content/images/2021/08/chris-ensminger-gWo-hfRotrI-unsplash.jpg">
+    <meta property="article:published_time" content="2021-08-29T07:27:00.000Z">
+    <meta property="article:modified_time" content="2021-08-29T07:25:10.762Z">
+    <meta property="article:tag" content="swagger">
+    <meta property="article:tag" content="docker">
+    <meta property="article:tag" content="openapi">
+    <meta property="article:tag" content="oas">
+    <meta property="article:tag" content="github">
+    <meta property="article:tag" content="api">
+    <meta property="article:tag" content="rest">
+    <meta property="article:tag" content="mock">
+    <meta property="article:tag" content="stub">
+    <meta property="article:tag" content="mockoon">
+    <meta property="article:tag" content="insomnia">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content='Mocking a REST API the "API first" approach with Mockoon'>
+    <meta name="twitter:description" content="How to mock an API with mockoon. Showcase using open API spec and mockoon to mock an API and run with docker.">
+    <meta name="twitter:url" content="http://blog.shanelee.name/2021/08/29/mocking-a-rest-api-the-api-first-way-with-mockoon/">
+    <meta name="twitter:image:src" content="http://blog.shanelee.name/content/images/2021/08/chris-ensminger-gWo-hfRotrI-unsplash.jpg">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shane Lee">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="swagger, docker, openapi, oas, github, api, rest, mock, stub, mockoon, insomnia">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Tech Blog (mainly!)",
+        "logo": "http://blog.shanelee.name/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shane Lee",
+        "image": "http://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg",
+        "url": "http://blog.shanelee.name/author/shane/",
+        "sameAs": [
+            "https://about.me/shane-lee"
+        ]
+    },
+    "headline": "Mocking a REST API the &quot;API first&quot; approach with Mockoon",
+    "url": "http://blog.shanelee.name/2021/08/29/mocking-a-rest-api-the-api-first-way-with-mockoon/",
+    "datePublished": "2021-08-29T07:27:00.000Z",
+    "dateModified": "2021-08-29T07:25:10.762Z",
+    "image": "http://blog.shanelee.name/content/images/2021/08/chris-ensminger-gWo-hfRotrI-unsplash.jpg",
+    "keywords": "swagger, docker, openapi, oas, github, api, rest, mock, stub, mockoon, insomnia",
+    "description": "How to mock an API with mockoon. Showcase using open API spec and mockoon to mock an API and run with docker."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.8">
+    <link rel="alternate" type="application/rss+xml" title="Tech Blog (mainly!)" href="https://blog.shanelee.name/rss/">
+    <meta name="google-site-verification" content="dzkjZUDovRImqR_2oGUlteWT1zcgw-r6cqBYef9qiWw">
+<meta name="google-site-verification" content="lojSObDdEFLBM0ok1Yiqy7rqgbc8yAUTyqF5iYszvWA">
+<link rel="preconnect" href="http://shavo007.disqus.com">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128189527-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-128189527-1');
+</script>
+<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2007283184718574",
+    enable_page_level_ads: true
+  });
+</script>
+</head>
+<body class="post-template tag-swagger tag-docker tag-openapi tag-oas tag-github tag-api tag-rest tag-mock tag-stub tag-mockoon tag-insomnia nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="https://blog.shanelee.name/">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="https://blog.shanelee.name/rss/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head " style="background-image: url(../../../../content/images/2021/08/chris-ensminger-gWo-hfRotrI-unsplash.jpg)">
+    <nav class="main-nav overlay clearfix">
+        
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post tag-swagger tag-docker tag-openapi tag-oas tag-github tag-api tag-rest tag-mock tag-stub tag-mockoon tag-insomnia featured">
+
+        <header class="post-header">
+            <h1 class="post-title">Mocking a REST API the "API first" approach with Mockoon</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2021-08-29">29 August 2021</time>
+                 on <a href="../../../../tag/swagger/">swagger</a>, <a href="../../../../tag/docker/">docker</a>, <a href="../../../../tag/openapi/">openapi</a>, <a href="../../../../tag/oas/">oas</a>, <a href="../../../../tag/github/">github</a>, <a href="../../../../tag/api/">api</a>, <a href="../../../../tag/rest/">rest</a>, <a href="../../../../tag/mock/">mock</a>, <a href="../../../../tag/stub/">stub</a>, <a href="../../../../tag/mockoon/">mockoon</a>, <a href="../../../../tag/insomnia/">insomnia</a>
+                ,
+
+                <!--<li class="post-meta-item">-->
+                    <a href="index.html#disqus_thread"></a>
+                <!--</li>-->
+                <!--<a href="#disqus_thread"/>-->
+            </section>
+        </header>
+
+        <section class="post-content">
+
+            <p>Recently, I have spent considerable time researching and analyzing the tooling available for "API first". At the core of this eco-system is the OAS (Open API specification) or interface as we normally like to call it. </p>
+
+<h2 id="oasopenapispecification">OAS (Open API Specification)</h2>
+
+<p>OAS (or what was commonly known as swagger spec) is the industry standard for defining REST interfaces. I had previously worked with many others such as RAML and Blueprint, but it's good to see we have a winner! <a href="https://github.com/OAI/OpenAPI-Specification/releases/tag/3.1.0">Latest</a> release of OAS (V3.x) includes webhook support and the latest JSON schema draft. Open API is now under the governance of the Linux Foundation. The OpenAPI Specification was originally based on the Swagger Specification, donated by SmartBear Software.</p>
+
+<h2 id="mocking">Mocking</h2>
+
+<p>The term <strong>"mock"</strong> for a lot of developers will have unit-testing connotations. In unit-testing, a mock is a fake implementation of a class or function, which accepts the same arguments as the real thing. It might return something pretty similar to the expected output, and different test cases might even modify those returns to see how the code under test works.</p>
+
+<p>This is almost exactly the concept here, just at a HTTP level instead. This is done using a "mock server", which will respond to the expected endpoints, error for non-existent endpoints, often even provide realistic validation errors if a client sends it an invalid request.</p>
+
+<p>So today, I am going to talk about mocking REST APIs. Anyone that has worked in cross-functional teams before would be very used to mocking APIs for local development. If for example, your team consisted of front and back-end devs, normally the BE devs would aim to design the interface upfront (API first) and provide a mock API to FE devs to commence development in parallel. </p>
+
+<p>Why? <br>
+Both streams of work should occur in parallel, rather than sequentially. Less waterfall!</p>
+
+<p>But there are many other benefits of mocking APIs such as:</p>
+
+<ul>
+<li>Showcasing to stakeholders the interactions as part of the API design process</li>
+<li>Showcase to external consumers</li>
+<li>Use as a sandbox on the dev portal</li>
+<li>Integration testing on CI ("shift testing left")</li>
+<li>Performance testing on CI ("shift perf left")</li>
+</ul>
+
+<h3 id="tools">Tools</h3>
+
+<p>I have used many frameworks and tools in the past to mock APIs. When I developed with typescript or nodeJS, a framework I used heavily was expressJS. Other tools out there include mountebank or wiremock. But now there is a new breed of mock API tools that are <strong>OAS compliant</strong>. Two that I have found recently are prism from stoplight and Mockoon.</p>
+
+<h2 id="mockoon">Mockoon</h2>
+
+<p><img src="../../../../content/images/2021/08/Mockoon.svg" alt=""></p>
+
+<blockquote>
+  <p>Mockoon lets you mock an API in seconds</p>
+</blockquote>
+
+<p>Some features include:</p>
+
+<ul>
+<li>Intuitive interface to create your mock API and run anywhere via CLI</li>
+<li>Integrates with your workflow - Compatible with the OpenAPI specification, Mockoon integrates perfectly with your existing applications and API design workflow.</li>
+<li>Advanced features and tackle the most complex situation with HTTP requests recording, proxying, integration testing, etc.</li>
+<li>Complex rules system and dynamic body templating</li>
+<li>Powerful forwarding and debugging</li>
+</ul>
+
+<p><insert img here></insert></p>
+
+<h2 id="creatingourfirstapiwithmockoon">Creating our first API with Mockoon</h2>
+
+<h3 id="step1installation">Step1. Installation</h3>
+
+<p>Mockoon is available on the three major operating systems: Windows, macOS, and Linux. <br>
+You can install the native app <a href="https://mockoon.com/download/">here</a>.</p>
+
+<h3 id="step2createyourfirstmockapi">Step 2. Create your first mock API</h3>
+
+<p>After launching the application for the first time, you will find a demo mock API, also called "environment" in Mockoon. You can keep it and build from here or create a new one. To create a new mock API, open the collapsible environments menu on the left and press the blue "plus" button:</p>
+
+<p><img src="../../../../content/images/2021/08/Screen-Shot-2021-08-27-at-11-42-09-am.png" alt=""></p>
+
+<h3 id="step3createyourfirstapiroute">Step 3. Create your first API route</h3>
+
+<p>The newly created mock API already includes a route on <code>/</code>. You can modify it by setting up the method and path of your choice.</p>
+
+<p>You can also create a new endpoint by clicking on the blue "plus" button at the top of the endpoint list:</p>
+
+<p><img src="../../../../content/images/2021/08/Screen-Shot-2021-08-27-at-11-55-50-am-5.png" alt=""></p>
+
+<h3 id="step4apiendpointconfiguration">Step 4. API endpoint configuration</h3>
+
+<p>You can further customize your endpoint by adding a custom header and the following sample body (which makes use of Mockoon's templating system).</p>
+
+<h3 id="step5runandcallmockapi">Step 5. Run and call Mock API</h3>
+
+<p>The last step is to run your mock API. For this, click on the green "play" arrow in the header:</p>
+
+<p>Your mock server is now available on <code>http://localhost:3001</code> (but also on <code>http://127.0.0.1</code> and all your local network adapters).</p>
+
+<p>You can do a test call to the following URL <code>http://localhost:3001/tutorials</code> using your favorite tool (here using <a href="https://insomnia.rest/">Insomnia</a>) and see the returned response:</p>
+
+<p><img src="../../../../content/images/2021/08/Screen-Shot-2021-08-27-at-11-59-39-am-3.png" alt=""></p>
+
+<pre><code class="language-bash">curl --request POST \  
+  --url http://localhost:3001/tutorials
+</code></pre>
+
+<p>So now you have got the hang of it, let's look at its more advanced features and its "API first" support.</p>
+
+<h2 id="apifirstapproach">API first approach</h2>
+
+<p>So let's import a sample OAS file with Mockoon.</p>
+
+<h3 id="step1importoas">Step 1 Import OAS</h3>
+
+<p>Open the app and go to <code>Import/Export &gt; Swagger/Open API &gt; Import Swagger v2/Open API v3</code></p>
+
+<p>I have defined a sample OAS file <a href="https://github.com/shavo007/mockoon-demo/blob/main/oas3.yaml">here</a> that you can use to follow along. Once you import, it now should look like this.</p>
+
+<p><img src="../../../../content/images/2021/08/Screen-Shot-2021-08-27-at-12-22-57-pm.png" alt=""></p>
+
+<p>You can see that for each route, it has already been set up for you all the responses you have defined in the spec and the examples. You can easily toggle on random responses or sequential responses based on the route (<strong>NB: This will disable the rules tho</strong>)</p>
+
+<p><img src="../../../../content/images/2021/08/Screen-Shot-2021-08-27-at-12-36-20-pm.png" alt=""></p>
+
+<p>It is even smart enough to convert certain fields <code>weatherType</code> and <code>status</code> to its templating language. How cool is that! And again, based on previous steps you can start the server and test it out via Insomnia.</p>
+
+<p><img src="../../../../content/images/2021/08/Screen-Shot-2021-08-29-at-4-34-35-pm.png" alt=""></p>
+
+<p>Insomnia is such a powerful app also as it supports the "API first" approach. I can import in the exact same OAS file and test the endpoints. (You will start to see a recurring trend here of "API first" tools 😅) </p>
+
+<h3 id="step2runmockanywhere">Step 2 Run mock anywhere</h3>
+
+<p>Ok, so now we are happy with the mock responses, how can I run this anywhere? </p>
+
+<h3 id="introducingmockooncli">Introducing Mockoon CLI 🎉🎉🎊🥳</h3>
+
+<blockquote>
+  <p>Mockoon's perfect complement for all your headless and automated environments.</p>
+</blockquote>
+
+<p>Mockoon CLI Supports all Mockoon's features, Lightweight and fast, and allows you to Run your mocks everywhere.</p>
+
+<p>NB: Also available as a Docker image, run your mock APIs in Github Actions or on your favorite CI platform!</p>
+
+<p>The CLI is a companion application to Mockoon's main interface designed to receive an exported Mockoon data file.</p>
+
+<p>It has been written in JavaScript/TypeScript and uses some great libraries like <code>oclif</code> and <code>PM2</code>. One of the benefits of using PM2 is that you can easily manage your running mock APIs through the CLI or by using PM2 commands if you are used to them.</p>
+
+<h3 id="step3installmockooncli">Step3. Install mockoon CLI</h3>
+
+<p>I installed using nodeJS</p>
+
+<pre><code class="language-bash">npm install -g @mockoon/cli
+</code></pre>
+
+<h3 id="step4exportyourmockapitoajsonfile">Step 4. Export your mock API to a JSON file</h3>
+
+<p>To export your environment, open the <code>"Import/export"</code> application menu and choose <code>"Mockoon's format" -&gt; "Export all environments to a file (JSON)"</code> or <code>"Export current environment to a file (JSON)"</code>.</p>
+
+<p>You can then select a location to save the export data file. Let's name the file <code>Greetings_Mockoon.json</code>.</p>
+
+<h3 id="step5startyourmockapi">Step 5. Start your mock API</h3>
+
+<p>After exporting your data file, you are ready to run your API mock with the CLI.</p>
+
+<p>In your terminal, navigate to the folder where your export data file is and run the following command:</p>
+
+<p><code>mockoon-cli start --data ./Greetings_Mockoon.json</code></p>
+
+<p>If you want to use a remotely hosted file, you can also provide a URL to the --data flag like this:</p>
+
+<p><code>mockoon-cli start --data https://domain.com/data-export.json</code></p>
+
+<h3 id="step6manageyourapimock">Step 6. Manage your API mock</h3>
+
+<p>After running one or more API server mock, you might want to check their health and statuses. To do so you can type <code>mockoon-cli list</code>:</p>
+
+<pre><code class="language-bash">shanelee at shanes-MacBook-Air in ~/projects/mockoon-demo on main [?]  
+$ mockoon-cli list
+ Name                 Id   Status    Cpu    Memory    Hostname       Port
+ ──────────────────── ──── ───────── ────── ───────── ────────────── ──────
+ mockoon-greeting-api 0    online    0.5    71 MB     0.0.0.0        3002
+</code></pre>
+
+<p>You can also stop all running servers at once with <code>mockoon-cli stop all</code></p>
+
+<h3 id="step7viewarunningmockslogs">Step 7. View a running mock's logs</h3>
+
+<p>Mockoon CLI log all events like requests and errors in your user folder in the following files: <code>~/mockoon-cli/logs/{process_name}-out.log</code> and <code>~/mockoon-cli/logs/{process_name}-error.log</code>.</p>
+
+<h3 id="step8deploymockooncliusingdocker">Step 8. Deploy Mockoon CLI using Docker</h3>
+
+<p>Now to the fun part! The CLI can containerize your mock API for you. The docker base image is <code>node:14-alpine</code> which is very lightweight.</p>
+
+<h3 id="usingthedockerizecommand">Using the dockerize command</h3>
+
+<pre><code class="language-bash">mockoon-cli dockerize --data ./Greetings_Mockoon.json --port 3000 --index 0 --output ./Dockerfile
+</code></pre>
+
+<p>Now build the image:  </p>
+
+<pre><code class="language-bash">    docker build -t mockoon-greeting-api .
+</code></pre>
+
+<p>And then run the container:</p>
+
+<pre><code class="language-bash">    docker run -d -p 3000:3000 mockoon-greeting-api
+</code></pre>
+
+<p><a href="https://asciinema.org/a/432855"><img src="https://asciinema.org/a/432855.svg" alt="asciicast" title=""></a></p>
+
+<h3 id="step9usemockooncliinacienvironmentgithubactions">Step 9. Use Mockoon CLI in a CI environment: GitHub Actions</h3>
+
+<p>Mockoon CLI being a Javascript application, it can run on any environment where Node.js is installed, including continuous integration systems like GitHub Actions, Buildkite, or CircleCI. It is useful when you want to run a mock server while running integration tests on another application. For example, you could mock the backend when running React front-end application tests. Or when you are running IT tests for a java based application that <code>integrates</code> with Greetings API.</p>
+
+<p>Here is an example of a GitHub Action running a mock API (via docker) before running some tests:</p>
+
+<pre><code class="language-yaml">name: Run mock API server
+
+on: [push]
+
+jobs:  
+  run_integ_tests:
+    name: Run integ tests
+    runs-on: ubuntu-latest
+    services:
+      greetings:
+        image: shanelee007/mockoon-greeting-api:latest
+        ports:
+          - 3000:3000
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+        distribution: 'adopt'
+    - name: Cache Maven packages
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+    - name: Build with Maven
+      run: mvn --batch-mode -ff -V --update-snapshots verify
+</code></pre>
+
+<p>So just to summarise with the "API first" approach I can:</p>
+
+<ul>
+<li>import an OAS to mockoon</li>
+<li>configure the routes (if needed)</li>
+<li>set some rules</li>
+<li>add dynamic templating to responses (more on this later)</li>
+<li>export this file, containerise using the CLI and run it as part of my CI build. </li>
+</ul>
+
+<p>All within a matter of seconds!</p>
+
+<h2 id="generatingdynamicdata">Generating dynamic data</h2>
+
+<p>Mocking an API can save you time. By faking the backend responses early, you don't have to worry about whether an endpoint is ready or not. You are up and running in no time and can start implementing your application. However, your mock should still be realistic. And the examples provided in the OAS are often not enough to surface UI layout problems, container overflowed by text, etc.</p>
+
+<p>When mocking using <code>Mockoon</code>, you can easily customize your endpoints to make them look like real ones and even behave realistically, thanks to the dynamic templating system.</p>
+
+<h3 id="generaterandomfakedata">Generate random fake data</h3>
+
+<p>Nowadays, most developers work with JSON. Generating a massive amount of fake JSON data with Mockoon is a breeze thanks to the powerful templating system based on Handlebars syntax.</p>
+
+<p>Mockoon also offers multiple helpers and embarks the <code>Faker.js</code> library, which can generate localized random data as various as cities, addresses, first names, phone numbers, UUID, etc.</p>
+
+<h4 id="completejsonexamplepostslist">Complete JSON example: posts list</h4>
+
+<p>So let's revisit our Greetings API again. The API provides a <code>GET</code> request to return all greetings. So let's override the examples provided from OAS with much richer content.</p>
+
+<p>By using a combination of <code>repeat</code>, <code>image.avatar</code>, <code>lorem.sentences</code>, etc. you can quickly get a massive amount of random data. Combined with the latency option, you can even simulate a slow server and check how your application behaves under stress.</p>
+
+<p>To use the templating system, you only have to use the response body editor and start adding your content. Remember to use the double curly braces to delimit your helpers <code>{{ helperName }}</code> Let's have a look at what such a body could look like:</p>
+
+<pre><code class="language-handlebars">[
+  {{#repeat (queryParam 'total' '5')}}
+  {
+    "id": {{@index}},
+    "message": "{{faker 'lorem.sentence' 3 5}}",
+    "creationDate": "{{date '2020-11-20' '2020-11-25' "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"}}",
+    "label": "key",
+    "isFriendly": {{faker 'random.boolean'}},
+    "weatherType": "{{oneOf (array '1' '2' '3')}}",
+    "status": "{{oneOf (array 'SMILEY_FACE' 'SAD_FACE')}}"
+  }
+  {{/repeat}}
+]
+</code></pre>
+
+<p>After a call to Mockoon, this would be the kind of body generated from this template:</p>
+
+<pre><code class="language-json">[
+  {
+    "id": 0,
+    "message": "Earum veritatis est.",
+    "creationDate": "2020-11-24T17:32:33.293Z",
+    "label": "key",
+    "isFriendly": false,
+    "weatherType": "1",
+    "status": "SMILEY_FACE"
+  },
+  {
+    "id": 1,
+    "message": "Rerum ipsa autem.",
+    "creationDate": "2020-11-23T10:30:00.526Z",
+    "label": "key",
+    "isFriendly": true,
+    "weatherType": "3",
+    "status": "SAD_FACE"
+  },
+  {
+    "id": 2,
+    "message": "Porro aut dolores.",
+    "creationDate": "2020-11-22T21:03:58.452Z",
+    "label": "key",
+    "isFriendly": true,
+    "weatherType": "1",
+    "status": "SMILEY_FACE"
+  },
+  {
+    "id": 3,
+    "message": "Qui repudiandae quibusdam.",
+    "creationDate": "2020-11-22T09:13:08.923Z",
+    "label": "key",
+    "isFriendly": true,
+    "weatherType": "2",
+    "status": "SAD_FACE"
+  },
+  {
+    "id": 4,
+    "message": "Qui et voluptatem.",
+    "creationDate": "2020-11-22T08:36:19.770Z",
+    "label": "key",
+    "isFriendly": true,
+    "weatherType": "1",
+    "status": "SMILEY_FACE"
+  }
+]
+</code></pre>
+
+<p>This example makes extensive usage of what Mockoon and Faker.js have to offer. First, it generates as many "greetings" items as provided in the <code>total</code> query parameter (or default to 5) when calling GET <code>/your/endpoint?total=140</code>. It is especially useful when you want to request a specific number of items depending on the pagination or a "number per pages" user setting. Second, you can see that multiple properties are defined, and random mock data is generated like sentence, date-time, boolean etc.</p>
+
+<p>There are a lot of possibilities and combinations you can try. You can also make your template react to a lot of parameters from the entering request by using Mockoon's helpers. We've already seen <code>queryParam</code> above, but you will find many more in the templating documentation. They allow you to query the request information like <code>body</code>, <code>urlParam</code>, <code>header</code>, <code>method</code>, etc.</p>
+
+<blockquote>
+  <p>Mockoon does not limit you to JSON. The templating language based on Handlebars is compatible with any content type. It means that you can generate CSV, HTML, XML, etc. You will find below some examples of what can you can achieve with the templating system.</p>
+</blockquote>
+
+<h4 id="generatedynamictemplatingdependingontherequest">Generate dynamic templating depending on the request</h4>
+
+<p>We just saw some interesting use-cases but still quite simple. When working on your application, you may want to go a little bit further by making the template react to the request sent to Mockoon. This is possible by using various helpers that you will find in the templating documentation: <code>body</code>, <code>queryParam</code>, <code>urlParam</code>, <code>cookie</code>, <code>header</code>, <code>hostname</code>, <code>ip</code>, <code>method</code>, etc.</p>
+
+<p>They allow you to access the entering request's information. Combined with other helpers like <code>repeat</code>, <code>switch</code>, or <code>if</code>, you will be able to dynamically generate more complex content.</p>
+
+<p>You will find below some examples:</p>
+
+<h5 id="newgreetingafterapostrequest">New greeting after a POST request</h5>
+
+<p>We will reuse in the response the various parameters present in the request:</p>
+
+<pre><code class="language-json">{
+  "id": "{{faker 'random.uuid'}}",
+  "message": "{{body 'message'}}",
+  "creationDate": "{{date '2020-11-20' '2020-11-25' "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"}}",
+  "label": "{{body 'label'}}",
+  "isFriendly": {{body 'isFriendly'}},
+  "weatherType": {{body 'weatherType'}},
+  "status": "{{body 'status'}}"
+}
+</code></pre>
+
+<p>After a call to this endpoint with the following body:</p>
+
+<pre><code class="language-bash">POST /greetings  
+Content-Type: application/json
+
+{
+  "message": "Hello Docker",
+  "label": "key",
+  "isFriendly": true,
+  "weatherType": 0,
+  "status": "SMILEY_FACE"
+}
+</code></pre>
+
+<p>We would receive this kind of response content, containing the request information plus some new fields (id and creationDate):</p>
+
+<pre><code class="language-json">{
+  "id": "6df3c0c6-bce8-4094-ae29-5cb637fc15a3",
+  "message": "Hello Docker",
+  "creationDate": "2020-11-24T14:49:47.139Z",
+  "label": "key",
+  "isFriendly": true,
+  "weatherType": 0,
+  "status": "SMILEY_FACE"
+}
+</code></pre>
+
+<p>For more complex cases or to test various error handling scenarios, you could also create multiple responses for the same route, with different bodies, and trigger them by defining some <code>rules</code>. To learn more about using multiple responses combined with rules, you can have a look at the related <a href="https://mockoon.com/docs/latest/route-responses/dynamic-rules/">documentation</a>.</p>
+
+<p>Src files used in this post can be found on <a href="https://github.com/shavo007/mockoon-demo">github</a></p>
+        </section>
+
+        <!-- disqus code snippet -->
+        <div id="disqus_thread"></div>
+        <script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+this.page.url = 'http://blog.shanelee.name/2021/08/29/mocking-a-rest-api-the-api-first-way-with-mockoon/'; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'ghost-26'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//shavo007.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        <script id="dsq-count-scr" src="http://shavo007.disqus.com/count.js" async></script>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../../../../author/shane/" style="background-image: url(../../../../content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../../../../author/shane/">Shane Lee</a></h4>
+
+                    <p>Read <a href="../../../../author/shane/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    <span class="author-location icon-location">Melbourne</span>
+                    <span class="author-link icon-link"><a href="https://about.me/shane-lee">https://about.me/shane-lee</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Mocking%20a%20REST%20API%20the%20%22API%20first%22%20approach%20with%20Mockoon&amp;url=https://blog.shanelee.name/2021/08/29/mocking-a-rest-api-the-api-first-way-with-mockoon/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.shanelee.name/2021/08/29/mocking-a-rest-api-the-api-first-way-with-mockoon/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://blog.shanelee.name/2021/08/29/mocking-a-rest-api-the-api-first-way-with-mockoon/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+
+    </article>
+</main>
+
+
+
+<aside class="read-next">
+    <a class="read-next-story prev " style="background-image: url(../../../../content/images/2020/08/ardian-lumi-6Woj_wozqmA-unsplash.jpg)" href="../../../../2020/08/29/jibbing-with-spring-boot-and-google-cloud-run/">
+        <section class="post">
+            <h2>Jibbing with spring boot and google cloud run</h2>
+            <p>I said jibbing not jiving! 😆 Cloud native architecture When it comes to microservices and cloud native architecture you first…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2021</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-coy.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-graphql.min.js"></script>
+<!-- Add additional languages here -->
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/prism.js"></script>
+
+
+
+</body>
