@@ -1,0 +1,676 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Performance testing with k6</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
+    <link rel="canonical" href="https://blog.shanelee.name/2021/12/15/performance-testing-with-k6/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="Tech Blog (mainly!)">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Performance testing with k6">
+    <meta property="og:description" content="I started looking into API performance testing again recently. As part of delivering an API to production, performance testing is crucial to see how your API performs under load ( more on that shortly) You might have heard of the ridiculous load that Shopify handled over BFCM (Black Friday/Cyber Monday)">
+    <meta property="og:url" content="http://blog.shanelee.name/2021/12/15/performance-testing-with-k6/">
+    <meta property="og:image" content="http://blog.shanelee.name/content/images/2021/12/marc-olivier-jodoin-NqOInJ-ttqM-unsplash.jpg">
+    <meta property="article:published_time" content="2021-12-15T06:03:00.000Z">
+    <meta property="article:modified_time" content="2021-12-19T05:54:55.872Z">
+    <meta property="article:tag" content="testing">
+    <meta property="article:tag" content="oas">
+    <meta property="article:tag" content="grafana">
+    <meta property="article:tag" content="docker">
+    <meta property="article:tag" content="api">
+    <meta property="article:tag" content="k6">
+    <meta property="article:tag" content="perf">
+    <meta property="article:tag" content="apifirst">
+    <meta property="article:tag" content="typescript">
+    <meta property="article:tag" content="performance">
+    <meta property="article:tag" content="api first">
+    <meta property="article:tag" content="javascript">
+    <meta property="article:tag" content="golang">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Performance testing with k6">
+    <meta name="twitter:description" content="I started looking into API performance testing again recently. As part of delivering an API to production, performance testing is crucial to see how your API performs under load ( more on that shortly) You might have heard of the ridiculous load that Shopify handled over BFCM (Black Friday/Cyber Monday)">
+    <meta name="twitter:url" content="http://blog.shanelee.name/2021/12/15/performance-testing-with-k6/">
+    <meta name="twitter:image:src" content="http://blog.shanelee.name/content/images/2021/12/marc-olivier-jodoin-NqOInJ-ttqM-unsplash.jpg">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shane Lee">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="testing, oas, grafana, docker, api, k6, perf, apifirst, typescript, performance, api first, javascript, golang">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Tech Blog (mainly!)",
+        "logo": "http://blog.shanelee.name/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shane Lee",
+        "image": "http://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg",
+        "url": "http://blog.shanelee.name/author/shane/",
+        "sameAs": [
+            "https://about.me/shane-lee"
+        ]
+    },
+    "headline": "Performance testing with k6",
+    "url": "http://blog.shanelee.name/2021/12/15/performance-testing-with-k6/",
+    "datePublished": "2021-12-15T06:03:00.000Z",
+    "dateModified": "2021-12-19T05:54:55.872Z",
+    "image": "http://blog.shanelee.name/content/images/2021/12/marc-olivier-jodoin-NqOInJ-ttqM-unsplash.jpg",
+    "keywords": "testing, oas, grafana, docker, api, k6, perf, apifirst, typescript, performance, api first, javascript, golang",
+    "description": "I started looking into API performance testing again recently. As part of delivering an API to production, performance testing is crucial to see how your API performs under load ( more on that shortly) You might have heard of the ridiculous load that Shopify handled over BFCM (Black Friday/Cyber Monday)"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.8">
+    <link rel="alternate" type="application/rss+xml" title="Tech Blog (mainly!)" href="https://blog.shanelee.name/rss/">
+    <meta name="google-site-verification" content="dzkjZUDovRImqR_2oGUlteWT1zcgw-r6cqBYef9qiWw">
+<meta name="google-site-verification" content="lojSObDdEFLBM0ok1Yiqy7rqgbc8yAUTyqF5iYszvWA">
+<link rel="preconnect" href="http://shavo007.disqus.com">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128189527-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-128189527-1');
+</script>
+<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2007283184718574",
+    enable_page_level_ads: true
+  });
+</script>
+</head>
+<body class="post-template tag-testing tag-oas tag-grafana tag-docker tag-api tag-k6 tag-perf tag-apifirst tag-typescript tag-performance tag-api-first tag-javascript tag-golang nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="https://blog.shanelee.name/">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="https://blog.shanelee.name/rss/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head " style="background-image: url(../../../../content/images/2021/12/marc-olivier-jodoin-NqOInJ-ttqM-unsplash.jpg)">
+    <nav class="main-nav overlay clearfix">
+        
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post tag-testing tag-oas tag-grafana tag-docker tag-api tag-k6 tag-perf tag-apifirst tag-typescript tag-performance tag-api-first tag-javascript tag-golang">
+
+        <header class="post-header">
+            <h1 class="post-title">Performance testing with k6</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2021-12-15">15 December 2021</time>
+                 on <a href="../../../../tag/testing/">testing</a>, <a href="../../../../tag/oas/">oas</a>, <a href="../../../../tag/grafana/">grafana</a>, <a href="../../../../tag/docker/">docker</a>, <a href="../../../../tag/api/">api</a>, <a href="../../../../tag/k6/">k6</a>, <a href="../../../../tag/perf/">perf</a>, <a href="../../../../tag/apifirst/">apifirst</a>, <a href="../../../../tag/typescript/">typescript</a>, <a href="../../../../tag/performance/">performance</a>, <a href="../../../../tag/api-first/">api first</a>, <a href="../../../../tag/javascript/">javascript</a>, <a href="../../../../tag/golang/">golang</a>
+                ,
+
+                <!--<li class="post-meta-item">-->
+                    <a href="index.html#disqus_thread"></a>
+                <!--</li>-->
+                <!--<a href="#disqus_thread"/>-->
+            </section>
+        </header>
+
+        <section class="post-content">
+
+            <p>I started looking into API performance testing again recently. As part of delivering an API to production, performance testing is crucial to see how your API performs under load ( more on that shortly)</p>
+
+<p>You might have heard of the ridiculous load that Shopify handled over <strong>BFCM</strong> (Black Friday/Cyber Monday) weekend. They executed and ran performance testing on their systems well in advance as far back as July to make sure they were well prepared for <code>"game-day"</code>.</p>
+
+<p></p><blockquote class="twitter-tweet"><p lang="en" dir="ltr">⏪ Rewinding for a moment — preparing for an event of this scale doesn't happen overnight. In anticipation of BFCM 2021 we began load testing back in July! To better simulate real global traffic we spread out our load generation across <a href="https://twitter.com/googlecloud?ref_src=twsrc%5Etfw">@GoogleCloud</a>'s global network. <a href="https://t.co/5oXqFOadae">pic.twitter.com/5oXqFOadae</a></p>— Shopify Engineering (@ShopifyEng) <a href="https://twitter.com/ShopifyEng/status/1465806698954772489?ref_src=twsrc%5Etfw">November 30, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>Now there are many tools that are out there in the wild. I have worked with <code>JMeter</code> quite extensively, <code>Gatling</code> and <code>Artillery</code>. But as always, I like to do some research and see what is happening in that space.</p>
+
+<p>Enter <code>k6</code>!</p>
+
+<p>I follow ThoughtWorks <a href="https://www.thoughtworks.com/radar/tools?blipid=202010078">tech radar</a> and they identified this new tool. So I decided to have a play around.</p>
+
+<h2 id="k6">K6</h2>
+
+<p><img src="https://raw.githubusercontent.com/grafana/k6/master/assets/logo.svg" alt=""></p>
+
+<ul>
+<li>Created in 2016 by loadImpact</li>
+<li>Acquired by Grafana in 2021</li>
+<li>14.6k Github stars ⭐️</li>
+<li>Built in golang, test scripts using <del>Javascript</del> Typescript 😉</li>
+<li>Multiple choices for storage (datadog/kafka/cloudwatch/Prometheus/JSON/CSV)</li>
+<li>Converters (HAR/Postman/OAS)</li>
+<li>Github action</li>
+<li>Test builder/browser recorder (low code options)</li>
+<li>Aligns with “API first” approach</li>
+</ul>
+
+<p><mark>I mention "API first" here as that is a common practice for organizations now.</mark> In my previous post, I talked about another API first tool to use when <a href="https://blog.shanelee.name/2021/08/29/mocking-a-rest-api-the-api-first-way-with-mockoon/">mocking APIs</a>.</p>
+
+<h3 id="installation">Installation</h3>
+
+<p>There are several ways to install k6 depending on your operating system or system environment. But in this article, I will only touch on two of them, MacBook and Docker.</p>
+
+<p>You can install k6 on a MacBook by using brew</p>
+
+<pre><code class="language-bash">brew install k6
+</code></pre>
+
+<p>or via docker</p>
+
+<pre><code class="language-bash">docker pull loadimpact/k6  
+</code></pre>
+
+<p>You can find the full explanation here <a href="https://k6.io/docs/getting-started/installation/">https://k6.io/docs/getting-started/installation/</a></p>
+
+<h3 id="typescripttemplate">Typescript template</h3>
+
+<p>As I mentioned above, the test scripts can be defined in javascript. But I have decided from the beginning to use typescript instead for static type checking. I have created a typescript template on <a href="https://github.com/shavo007/k6-demo">Github</a> that can be easily re-used by anyone. It is built on the good work that k6 did with some enhancements.</p>
+
+<p><img src="../../../../content/images/2021/12/Screen-Shot-2021-12-16-at-5-23-12-pm.png" alt=""></p>
+
+<h4 id="rationale">Rationale</h4>
+
+<p>While JavaScript is great for a myriad of reasons, one area where it falls short is type safety and developer ergonomics. It's perfectly possible to write JavaScript code that will look <code>OK</code> and behave <code>OK</code> until a certain condition forces the executor into a faulty branch.</p>
+
+<p>While it, of course, still is possible to shoot yourself in the foot with TypeScript as well, it's significantly harder. Without adding much overhead, TypeScript will:</p>
+
+<ul>
+<li>Improve the ability to safely refactor your code.</li>
+<li>Improve readability and maintainability.</li>
+<li>Allow you to drop a lot of the defensive code previously needed to make sure consumers are calling functions properly.</li>
+</ul>
+
+<h3 id="lifecycle">Lifecycle</h3>
+
+<p>The four distinct life cycle stages in a k6 test are <code>"init"</code>, <code>"setup"</code>, <code>"VU"</code> and <code>"teardown"</code></p>
+
+<h4 id="initandvustages">Init and VU stages</h4>
+
+<p>Scripts must contain, at the very least, a default function - this defines the entry point for your VUs, similar to the <code>main()</code> function in many other languages.</p>
+
+<p>Code inside default is called "VU code", and is run over and over for as long as the test is running. Code outside of it is called "init code", and is run only once per VU (Virtual User).</p>
+
+<p>A VU will execute the default function from start to end in sequence. Nothing out of the ordinary so far, but here's the important part; once the VU reaches the end of the default function it will loop back to the start and execute the code all over.</p>
+
+<h4 id="setupandteardownstages">Setup and teardown stages</h4>
+
+<p>Beyond the required <code>init</code> and <code>VU</code> stages, which is code run for each VU, k6 also supports test-wide setup and teardown stages, like many other testing frameworks and tools. The setup and teardown functions, like the default function, need to be exported functions. But unlike the default function setup and teardown are only called once for a test. setup is called at the beginning of the test, after the init stage but before the VU stage (default function), and teardown is called at the end of a test, after the VU stage (default function).</p>
+
+<p>You might have noticed the function signature of the default function and teardown function takes an argument, which we here refer to as data.</p>
+
+<p>This data will be whatever is returned in the setup function, so a mechanism for passing data from the setup stage to the subsequent VU and teardown stages.</p>
+
+<p><em>Further below I will showcase how in <code>setup</code> you can inject in an access token to the default function for an API secured by OAuth2</em>.</p>
+
+<h3 id="basicexample">Basic example</h3>
+
+<pre><code class="language-javascript">import { sleep, check } from "k6";  
+import { Options } from "k6/options";  
+import http, { Response } from "k6/http";  
+import { padStart } from "lodash";  
+import { textSummary } from "./helper";  
+import { Trend } from "k6/metrics";
+
+// 1. init code
+
+console.log(padStart("Hello TypeScript!", 20, " "));
+
+//custom define metric
+const durationInSeconds = new Trend("duration_in_seconds");
+
+export let options: Options = {  
+  vus: 5, //no. of concurrent virtual users
+  duration: "5s",
+  discardResponseBodies: true, //discard response bodies to improve perf
+  //if you want to fail the whole load test use thresholds
+  thresholds: {
+    http_req_failed: ["rate&lt;0.01"], // http errors should be less than 1%
+    http_req_duration: ["p(95)&lt;350"], // 95% of requests should be below 350ms
+  },
+  // httpDebug: "true",
+  userAgent: "K6GreetingsDemo/1.0",
+};
+
+export function setup() {  
+  //setup is called once off
+  // 2. setup code
+}
+
+export default () =&gt; {  
+  // 3. VU code
+
+  let baseUrl = __ENV.BASE_URL ?? "http://localhost:8090";
+  let url = `${baseUrl}/greetings`;
+  const res: Response = http.get(url, {
+    tags: { team: "team-label", api: "greetings" },
+  });
+  check(res, {
+    "status is 200": () =&gt; res.status === 200
+  });
+  // we know that the duration is in millisecond
+  // but for demonstration purposes, we convert it to second
+  durationInSeconds.add(res.timings.duration / 1000);
+  sleep(1);
+};
+
+export function handleSummary(data: any) {  
+  console.log("Preparing the end-of-test summary...");
+
+  // Send the results to some remote server or trigger a hook
+
+  return {
+    stdout: textSummary(data, { indent: " ", enableColors: true }), // Show the text summary to stdout...
+  };
+}
+</code></pre>
+
+<p>First, we imported the dependencies on top. k6 has types (<code>@k6/types</code>) that are nice when developing in typescript. </p>
+
+<p><em>Note that in the background, k6 doesn’t run in NodeJS, since in general JavaScript is not well suited for high performance. It’s written in <code>Go</code> to achieve the desired high-performance testing.</em></p>
+
+<p>The test itself is running inside the exported <code>default</code> function. This part of the code is what we usually called as <code>VU Code</code>. So, the test is running once and uses only one virtual user (think of this as a real user, but simulated) by default, but you can change that using options. <em>We discussed the lifecycle earlier</em>.</p>
+
+<p>So in the example above, we are simulating 5 users over 5 secs. We have set thresholds for the test in relation to response time and error rate. We have added in an additional <code>trend</code> to showcase how that is defined. No setup is involved here. We have one check that the status is <code>200</code>.</p>
+
+<p>To run this we can run the script <code>yarn bundle</code>. This will transpile to JS using babel and bundled with webpack. The outputted file will be located in the <code>dist</code> dir. <br>
+Now run locally:</p>
+
+<pre><code class="language-bash">k6 run dist/greetings.js  
+</code></pre>
+
+<p>You’ll see the result of the test right away on the terminal. Something similar to this.</p>
+
+<p><img src="https://raw.githubusercontent.com/shavo007/k6-demo/main/assets/greeting-test-results.png" alt=""></p>
+
+<p>You can see the built-in metrics that were outputted and also your custom metrics <code>duration_in_seconds</code>. To read more about the metrics go to <a href="https://k6.io/docs/using-k6/metrics/">https://k6.io/docs/using-k6/metrics/</a></p>
+
+<p>Now I have only outputted this to stdout. But you may decide you want to pipe it into a time series database like influxdb, APM such as datadog or appdynamics which is all possible. For more on the supported outputs check out <a href="https://k6.io/docs/getting-started/results-output/">https://k6.io/docs/getting-started/results-output/</a>. If you want to look at an example of using influxdb and grafana check out <a href="https://github.com/shavo007/k6-demo#load-testing-with-influxdb-and-grafana">here</a>.</p>
+
+<h3 id="apifirsttools">API first tools</h3>
+
+<p>Now I mentioned earlier that it supports the "api first" approach. In the past, I have looked to use tools such as open api generator to generate server stubs based on the OAS. </p>
+
+<p><em><a href="https://slack.engineering/how-we-design-our-apis-at-slack/">Slack</a> have talked about this approach recently regarding their APIs. And <a href="https://blog.stoplight.io/api-first-vs.-api-design-first-a-comprehensive-guide">stoplight</a> has some great resources on the API first approach too.</em> So I looked into open api generator and saw they actually supported k6. Let's try that out next.</p>
+
+<h4 id="oask6">OAS + k6</h4>
+
+<p>I have designed a sample <a href="https://github.com/shavo007/k6-demo/blob/main/oas3.yaml">OAS</a> already, called <code>greetings API</code> and I wanted to generate the k6 script using open api generator. You can follow along by cloning this <a href="https://github.com/shavo007/k6-demo">repo</a></p>
+
+<pre><code class="language-bash">docker pull openapitools/openapi-generator-cli
+
+docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate \  
+    -i /local/oas3.yaml \
+    -g k6 \
+    -o /local/k6-oas3/ \
+    --skip-validate-spec
+</code></pre>
+
+<p>Here I pull down the docker image and then run the cmd by mounting my oas file and using the generator type <code>k6</code>. This then generates some boilerplate test script code inside the dir <code>k6-oas3</code>.</p>
+
+<p><mark><strong>NB:</strong> This will need to be refined and enhanced afterward but is a great starting point</mark>.</p>
+
+<h4 id="openapitotypescript">open api to typescript</h4>
+
+<p>Another tool I found useful is this node module <a href="https://www.npmjs.com/package/openapi-typescript">open api typescript</a>. </p>
+
+<p>I read an article recently on how <a href="https://codeascraft.com/2021/11/08/etsys-journey-to-typescript/">etsy</a> migrated from JS to TS and they used this tool to generate the types which can save a lot of time and aligns with the "API first" approach.</p>
+
+<p>So in the example below I will showcase how to use the types when running a load test against <a href="https://developer.bpaygroup.com.au/validate-bpay-payment">bpay API</a>. This API is secured by <code>OAuth2 client credentials</code> grant type also. You will see that I use the <code>setup</code> function to inject in the access_token that's needed when running the test.</p>
+
+<p>As I am defining my script in typescript and this API method is a post, I can use <code>openapi-typescript</code> to generate the types for me from the OAS. This saves me a lot of time not having to define my own interfaces.</p>
+
+<p>To generate the types:</p>
+
+<pre><code class="language-bash">npx openapi-typescript bpay/oas3.yaml --output src/bpay/schema.ts  
+</code></pre>
+
+<p>This generates the types in the <code>bpay</code> dir.</p>
+
+<p>Now let's have a look at the test script for bpay API.</p>
+
+<pre><code class="language-javascript">import http from "k6/http";  
+import { group, check, sleep } from "k6";  
+import { PaymentPaymentMethodEnum } from "./bpay";  
+import { Options } from "k6/options";  
+import { getToken, Options as BpayOptions } from "./helper";  
+import { components } from "./bpay";
+
+type Payment = components["schemas"]["Payment"];  
+type PaymentItem = components["schemas"]["PaymentItem"];
+
+const BASE_URL = "https://sandbox.api.bpaygroup.com.au/payments/v1";  
+// Sleep duration between successive requests.
+// You might want to edit the value of this variable or remove calls to the sleep function on the script.
+const SLEEP_DURATION = 0.1;  
+// Global variables should be initialized.
+
+export let options: Options = {  
+  vus: 1, //no. of concurrent visual users
+  duration: "1s",
+  httpDebug: "true",
+};
+
+export function setup() {  
+  const options: BpayOptions = {
+    clientId: `${__ENV.CLIENT_ID}`,
+    clientSecret: `${__ENV.CLIENT_SECRET}`,
+    domain: "https://sandbox.api.bpaygroup.com.au",
+  };
+  try {
+    return getToken(options);
+  } catch (error) {
+    return "";
+  }
+}
+
+//desctructing assigment here and explicit type annotation
+export default function ({ access_token = "" }: { access_token: string }) {  
+  group("/validatepayments", () =&gt; {
+    let url = BASE_URL + `/validatepayments`;
+
+    const payment: Payment = {
+      billerCode: "565572",
+      crn: "651234567890123",
+      amount: 234.83,
+      paymentMethod: PaymentPaymentMethodEnum.Debit,
+      settlementDate: "2017-10-23",
+    };
+    const payment1: Payment = {
+      billerCode: "1313",
+      crn: "1230",
+      amount: 1045.98,
+      paymentMethod: PaymentPaymentMethodEnum.Debit,
+      settlementDate: "2017-11-06",
+    };
+    const paymentItem: PaymentItem = { tid: "1", payment };
+    const paymentItem1: PaymentItem = { tid: "2", payment: payment1 };
+    const payments: Array&lt;PaymentItem&gt; = [];
+    payments.push(paymentItem);
+    payments.push(paymentItem1);
+    const payload = { payments };
+    let params = {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${access_token}`,
+      },
+    };
+    let request = http.post(url, JSON.stringify(payload), params);
+    check(request, {
+      "ok":
+        (r) =&gt; r.status === 200,
+    });
+    sleep(SLEEP_DURATION);
+  });
+}
+</code></pre>
+
+<p>Let's look at the imports first. You can see we are importing bpay types that were auto-generated. These types are subsequently used when building up the payload inside the <br>
+default function. I'm running against bpays sandbox env and it's a simple <a href="https://k6.io/docs/test-types/smoke-testing/">smoke test</a>. </p>
+
+<p><em>I will shed some light on the different types of performance tests you can run later</em>.</p>
+
+<p>Now in the setup function, you can see I've defined a helper fn to get the access token. This performs a request against the sandbox env with your client id and secret and returns the access token. I can then return this value which is then passed into the default fn to be used in the Authorisation header.</p>
+
+<p><mark><strong>NB</strong> I am using env variables here for client_id and secret as they should not be committed into src code</mark>.</p>
+
+<p>The default fn constructs the payload and submits the post request to the API with the bearer token.</p>
+
+<p>I have not defined any thresholds in this example but just a simple check on the HTTP status response. <br>
+You can see how easy it is to define your smoke test and utilize the tools at your disposal if you adopt the "api first" approach.</p>
+
+<h3 id="browserbuilder">Browser builder</h3>
+
+<p>Now, let's say I'm a bit lazy 😅 and want to go the low-code approach! k6 does have a <a href="https://k6.io/docs/test-authoring/recording-a-session/">browser recorder extension</a> for chrome and firefox that can record your interactions and download a har (HTTP archive file). This then can be imported into <a href="https://k6.io/docs/test-authoring/test-builder/">k6 cloud</a> and provide a nice GUI to construct the script. Once you are happy with the script you can copy this locally and use it with the CLI.</p>
+
+<p>Builder:</p>
+
+<p><img src="https://raw.githubusercontent.com/shavo007/k6-demo/main/assets/builder.png" alt=""></p>
+
+<p>Corresponding script:</p>
+
+<p><img src="https://raw.githubusercontent.com/shavo007/k6-demo/main/assets/app-k6-io-Performance-testing-for-developers-like-unit-testing-for-performance.png" alt=""></p>
+
+<h3 id="typesoftesting">Types of testing</h3>
+
+<p>The examples above showcased smoke tests running against your environment(s) (or what is now called "shifting perf left"). But it is possible to perform many types of tests using k6, each type serving a different purpose.</p>
+
+<h4 id="smoketest">Smoke test</h4>
+
+<blockquote>
+  <p>Smoke test is a regular load test, configured for a minimal load.</p>
+</blockquote>
+
+<p>You want to run a smoke test as a <code>sanity check</code> every time you write a new script or modify an existing script.</p>
+
+<p><img src="https://raw.githubusercontent.com/shavo007/k6-demo/main/assets/smoke-test.png" alt=""></p>
+
+<ul>
+<li>can be run as part  of CI pipeline - "shifting perf left"</li>
+<li>More ideal for microservices</li>
+</ul>
+
+<p>k6 options for smoke test:</p>
+
+<p><img src="https://raw.githubusercontent.com/shavo007/k6-demo/main/assets/smoke.png" alt=""></p>
+
+<h4 id="loadtest">Load test</h4>
+
+<blockquote>
+  <p>Load Testing is primarily concerned with assessing the current performance of your system in terms of concurrent users or requests per second.</p>
+</blockquote>
+
+<p><img src="https://raw.githubusercontent.com/shavo007/k6-demo/main/assets/load-test.png" alt=""></p>
+
+<p>If you need some understanding about the amount of traffic your system is seeing on average and during peak <br>
+hours. <strong>ie.</strong> How to configure performance thresholds.</p>
+
+<p><mark>If your system crashes under a load test, it means that
+your load test has morphed into a stress test!</mark></p>
+
+<p>K6 options for load test:</p>
+
+<p><img src="https://raw.githubusercontent.com/shavo007/k6-demo/main/assets/load.png" alt=""></p>
+
+<h4 id="stresstest">Stress test</h4>
+
+<blockquote>
+  <p>Stress testing is to assess the availability and stability of the system under heavy load (think HA).</p>
+</blockquote>
+
+<p>To execute a proper stress test, you need a tool to push the system over its normal operations, to its limits, and beyond the <em>breaking point</em>.”</p>
+
+<p><img src="https://raw.githubusercontent.com/shavo007/k6-demo/main/assets/stress-test.png" alt=""></p>
+
+<p>You typically want to stress test an API or website to <br>
+determine:</p>
+
+<ul>
+<li>How your system will behave under extreme
+conditions.  </li>
+<li>What the maximum capacity of your system is in
+terms of users or throughput.  </li>
+<li>The breaking point of your system and its failure
+mode.  </li>
+<li>If your system will recover without manual
+intervention after the stress test is over.</li>
+</ul>
+
+<p><em>Companies use this form of testing for <strong>black Friday sales</strong> for example</em>.</p>
+
+<p>K6 options for stress test:</p>
+
+<p><img src="https://raw.githubusercontent.com/shavo007/k6-demo/main/assets/stress.png" alt=""></p>
+
+<h4 id="soaktest">Soak test</h4>
+
+<blockquote>
+  <p>A soak test uncovers performance and reliability issues stemming from a system being under
+  pressure for an extended period.</p>
+</blockquote>
+
+<p><img src="https://raw.githubusercontent.com/shavo007/k6-demo/main/assets/soak-test.png" alt=""></p>
+
+<p>You typically run this test to:</p>
+
+<ul>
+<li>Verify that your system doesn't suffer from bugs or
+memory leaks, which result in a crash or restart after <br>
+several hours of operation.  </li>
+<li>Verify that expected application restarts don't lose
+requests.  </li>
+<li>Find bugs related to race-conditions that appear
+sporadically.  </li>
+<li>Make sure your database doesn't exhaust the
+allotted storage space and stops.  </li>
+<li>Make sure your logs don't exhaust the allotted disk
+storage.  </li>
+<li>Make sure the external services you depend on don't
+stop working after a certain amount of requests are <br>
+executed.</li>
+</ul>
+
+<p>K6 options for soak test:</p>
+
+<p><img src="https://raw.githubusercontent.com/shavo007/k6-demo/main/assets/soak.png" alt=""></p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>If you are comfortable developing in javascript or typescript, k6 is a breeze to use. There are so many options you could use, scenarios if you need advanced user behavior, saving the test result in a CSV or JSON file, having a dashboard for presentation using grafana, etc.</p>
+
+<p>As I demoed earlier, if you adopt the "API first" approach there are tools you can use such as <code>open API generator</code> and <code>openapi-to-typescript</code> that can help improve the development experience.</p>
+
+<p>Happy testing! </p>
+        </section>
+
+        <!-- disqus code snippet -->
+        <div id="disqus_thread"></div>
+        <script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+this.page.url = 'http://blog.shanelee.name/2021/12/15/performance-testing-with-k6/'; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'ghost-27'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//shavo007.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        <script id="dsq-count-scr" src="http://shavo007.disqus.com/count.js" async></script>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../../../../author/shane/" style="background-image: url(../../../../content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../../../../author/shane/">Shane Lee</a></h4>
+
+                    <p>Read <a href="../../../../author/shane/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    <span class="author-location icon-location">Melbourne</span>
+                    <span class="author-link icon-link"><a href="https://about.me/shane-lee">https://about.me/shane-lee</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Performance%20testing%20with%20k6&amp;url=https://blog.shanelee.name/2021/12/15/performance-testing-with-k6/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.shanelee.name/2021/12/15/performance-testing-with-k6/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://blog.shanelee.name/2021/12/15/performance-testing-with-k6/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+
+    </article>
+</main>
+
+
+
+<aside class="read-next">
+    <a class="read-next-story prev " style="background-image: url(../../../../content/images/2021/08/chris-ensminger-gWo-hfRotrI-unsplash.jpg)" href="../../../08/29/mocking-a-rest-api-the-api-first-way-with-mockoon/">
+        <section class="post">
+            <h2>Mocking a REST API the "API first" approach with Mockoon</h2>
+            <p>Recently, I have spent considerable time researching and analyzing the tooling available for "API first". At the core of…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2021</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-coy.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-graphql.min.js"></script>
+<!-- Add additional languages here -->
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/prism.js"></script>
+
+
+
+</body>
