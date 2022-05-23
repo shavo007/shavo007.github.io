@@ -1,0 +1,474 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Book review: Accelerate</title>
+    <meta name="description" content="Review of Accelerate, high performing organizations and the four key metrics of change lead time, deployment frequency, mean time to recover, and change failure rate.">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
+    <link rel="canonical" href="https://blog.shanelee.name/2022/05/15/book-review-accelerate-and-my-experience-in-high-performing-organisations/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="Tech Blog (mainly!)">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Book review: Accelerate">
+    <meta property="og:description" content="Review of Accelerate, high performing organizations and the four key metrics of change lead time, deployment frequency, mean time to recover, and change failure rate.">
+    <meta property="og:url" content="https://blog.shanelee.name/2022/05/15/book-review-accelerate-and-my-experience-in-high-performing-organisations/">
+    <meta property="og:image" content="https://blog.shanelee.name/content/images/2022/05/jacek-dylag-fZglO1JkwoM-unsplash--1-.jpg">
+    <meta property="article:published_time" content="2022-05-15T07:27:53.062Z">
+    <meta property="article:modified_time" content="2022-05-23T05:15:29.810Z">
+    <meta property="article:tag" content="accelerate">
+    <meta property="article:tag" content="devops">
+    <meta property="article:tag" content="culture">
+    <meta property="article:tag" content="leadership">
+    <meta property="article:tag" content="CD">
+    <meta property="article:tag" content="continuous delivery">
+    <meta property="article:tag" content="high-performing">
+    <meta property="article:tag" content="transformation">
+    <meta property="article:tag" content="tracing">
+    <meta property="article:tag" content="docker">
+    <meta property="article:tag" content="github">
+    <meta property="article:tag" content="aws">
+    <meta property="article:tag" content="cloud">
+    <meta property="article:tag" content="google">
+    <meta property="article:tag" content="CI">
+    <meta property="article:tag" content="fourkeymetrics">
+    <meta property="article:tag" content="lean">
+    <meta property="article:tag" content="agile">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Book review: Accelerate">
+    <meta name="twitter:description" content="Review of Accelerate, high performing organizations and the four key metrics of change lead time, deployment frequency, mean time to recover, and change failure rate.">
+    <meta name="twitter:url" content="https://blog.shanelee.name/2022/05/15/book-review-accelerate-and-my-experience-in-high-performing-organisations/">
+    <meta name="twitter:image:src" content="https://blog.shanelee.name/content/images/2022/05/jacek-dylag-fZglO1JkwoM-unsplash--1-.jpg">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shane Lee">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="accelerate, devops, culture, leadership, CD, continuous delivery, high-performing, transformation, tracing, docker, github, aws, cloud, google, CI, fourkeymetrics, lean, agile">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Tech Blog (mainly!)",
+        "logo": "https://blog.shanelee.name/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shane Lee",
+        "image": "https://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg",
+        "url": "https://blog.shanelee.name/author/shane/",
+        "sameAs": [
+            "https://about.me/shane-lee"
+        ]
+    },
+    "headline": "Book review: Accelerate",
+    "url": "https://blog.shanelee.name/2022/05/15/book-review-accelerate-and-my-experience-in-high-performing-organisations/",
+    "datePublished": "2022-05-15T07:27:53.062Z",
+    "dateModified": "2022-05-23T05:15:29.810Z",
+    "image": "https://blog.shanelee.name/content/images/2022/05/jacek-dylag-fZglO1JkwoM-unsplash--1-.jpg",
+    "keywords": "accelerate, devops, culture, leadership, CD, continuous delivery, high-performing, transformation, tracing, docker, github, aws, cloud, google, CI, fourkeymetrics, lean, agile",
+    "description": "Review of Accelerate, high performing organizations and the four key metrics of change lead time, deployment frequency, mean time to recover, and change failure rate."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.8">
+    <link rel="alternate" type="application/rss+xml" title="Tech Blog (mainly!)" href="https://blog.shanelee.name/rss/">
+    <meta name="google-site-verification" content="dzkjZUDovRImqR_2oGUlteWT1zcgw-r6cqBYef9qiWw">
+<meta name="google-site-verification" content="lojSObDdEFLBM0ok1Yiqy7rqgbc8yAUTyqF5iYszvWA">
+<link rel="preconnect" href="http://shavo007.disqus.com">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128189527-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-128189527-1');
+</script>
+<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2007283184718574",
+    enable_page_level_ads: true
+  });
+</script>
+</head>
+<body class="post-template tag-accelerate tag-devops tag-culture tag-leadership tag-cd tag-continuous-delivery tag-high-performing tag-transformation tag-tracing tag-docker tag-github tag-aws tag-cloud tag-google tag-ci tag-fourkeymetrics tag-lean tag-agile nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="https://blog.shanelee.name/">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="https://blog.shanelee.name/rss/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head " style="background-image: url(../../../../content/images/2022/05/jacek-dylag-fZglO1JkwoM-unsplash--1-.jpg)">
+    <nav class="main-nav overlay clearfix">
+        
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post tag-accelerate tag-devops tag-culture tag-leadership tag-cd tag-continuous-delivery tag-high-performing tag-transformation tag-tracing tag-docker tag-github tag-aws tag-cloud tag-google tag-ci tag-fourkeymetrics tag-lean tag-agile">
+
+        <header class="post-header">
+            <h1 class="post-title">Book review: Accelerate</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2022-05-15">15 May 2022</time>
+                 on <a href="../../../../tag/accelerate/">accelerate</a>, <a href="../../../../tag/devops/">devops</a>, <a href="../../../../tag/culture/">culture</a>, <a href="../../../../tag/leadership/">leadership</a>, <a href="../../../../tag/cd/">CD</a>, <a href="../../../../tag/continuous-delivery/">continuous delivery</a>, <a href="../../../../tag/high-performing/">high-performing</a>, <a href="../../../../tag/transformation/">transformation</a>, <a href="../../../../tag/tracing/">tracing</a>, <a href="../../../../tag/docker/">docker</a>, <a href="../../../../tag/github/">github</a>, <a href="../../../../tag/aws/">aws</a>, <a href="../../../../tag/cloud/">cloud</a>, <a href="../../../../tag/google/">google</a>, <a href="../../../../tag/ci/">CI</a>, <a href="../../../../tag/fourkeymetrics/">fourkeymetrics</a>, <a href="../../../../tag/lean/">lean</a>, <a href="../../../../tag/agile/">agile</a>
+                ,
+
+                <!--<li class="post-meta-item">-->
+                    <a href="index.html#disqus_thread"></a>
+                <!--</li>-->
+                <!--<a href="#disqus_thread"/>-->
+            </section>
+        </header>
+
+        <section class="post-content">
+
+            <h1 id="overview">Overview</h1>
+
+<p>In the book, <em>Accelerate: The Science of Lean Software and DevOps: Building and Scaling High Performing Technology Organizations</em>, Dr. Nicole Forsgren, Jez Humble, and Gene Kim studied what made separated strong performing technology organizations from their less effective counterparts.</p>
+
+<p>The book summarises <strong>4 years</strong> of rigorous research from years of State of DevOps Reports, built upon <strong>23,000 datasets</strong> from over <strong>2,000 unique companies</strong> all around the world. The organizations studied included start-ups and enterprises, profit and not-for-profit organisations, and companies that were born digital alongside those that had to undergo digital transformation.</p>
+
+<h2 id="fourkeymetrics">Four key metrics</h2>
+
+<p>The research identified that just <strong>Four Key Metrics</strong> distinguish the performance of various organisations. These “North Star” metrics serve as indicators of overall software engineering health. <br>
+These metrics aren’t “The Goal” of a business, but organisations that did well against these metrics had higher rates of <strong>profitability 💵, market share, and customer satisfaction</strong>. In other words; they allowed organisations to <strong>experiment faster 🚀, ship reliably, and prevent burnout</strong>.</p>
+
+<p>The Four Key Metrics were as follows:</p>
+
+<ul>
+<li><mark>Cycle Time (Change Lead Time)</mark> - Time to implement, test, and deliver code for a feature (measured from first commit to deployment)</li>
+<li><mark>Deployment Frequency</mark> - Number of deployments in a given duration of time</li>
+<li><mark>Change Failure Rate (CFR)</mark> - Percentage of deployments which caused a failure in production</li>
+<li><mark>Mean Time to Recovery (MTTR)</mark> - Mean time it takes to restore service after production failure</li>
+</ul>
+
+<p><img src="../../../../content/images/2022/05/Screen-Shot-2022-05-15-at-6-10-07-pm.png" alt=""></p>
+
+<h2 id="whythesemetrics">Why these metrics</h2>
+
+<p>Where is the evidence that these metrics help organisational performance though? How do you convince your boss that these things matter??</p>
+
+<h3 id="martinfowleronacceleratemetrics">Martin Fowler on Accelerate metrics</h3>
+
+<p>The picture they paint is compelling. They describe how effective IT delivery organizations take about an hour to get code from <strong>"committed to mainline"</strong> to <strong>"running in production"</strong>, a journey lesser organizations take months to do. They, thus, update their software many times a day instead of once every few months, increasing their ability to use software to explore the market, respond to events, and release features faster than their competition. This huge increase in responsiveness does not come at a cost in stability, since these organizations find their updates cause failures at a fraction of the rate of their less-performing peers, and these failures are usually fixed within the hour. Their evidence refutes the bimodal IT notion that you have to choose between <strong>speed and stability</strong> instead, speed <strong>depends</strong> on stability, so good IT practices give you both.</p>
+
+<p>So, as you may expect, I'm delighted that they've put this book into production, and I will be recommending it willy-nilly over the next few years. (I've already been using many bits from its drafts in my talks.) However, I do want to put in a few notes of caution. They do a good job of explaining why their approach to surveys makes them a good basis for their data. However, they are still surveys that capture subjective perceptions, and I wonder how their population sample reflects the general IT world. I'll have more confidence in their results when other teams, using different approaches, are able to confirm their reasoning. The book already has some of this, as the work done by Google on team cultures provides further evidence to support their judgment on how important a <strong>Westrum-generative organizational culture</strong> is for effective software teams.</p>
+
+<h3 id="nicoleforsgrenonhowdevopsmetricscorrelatewithorganisationalperformance">Nicole Forsgren On How DevOps Metrics Correlate With Organisational Performance</h3>
+
+<p>Rigorous appraisal of these Four Key Metrics has shown that higher performers are <strong>2x more likely</strong> to meet their <strong>commercial goals</strong> <em>(productivity, profitability, market share, number of customers)</em> and their <strong>non-commercial goals</strong> <em>(quantity of products or services, operating efficiency, customer satisfaction, quality of products or services and achieving organisational or mission goals)</em>. Indeed, companies which do well under these DevOps metrics have a <strong>50%</strong> higher market cap growth over 3 years. 📈</p>
+
+<p><strong>NOTE</strong>: These findings will apply whether you’re using a traditional “waterfall” methodology (also known as <em>gated, structured, or plan-driven</em>) and just beginning your technology transformation, or whether you have been implementing Agile and DevOps practices for years.</p>
+
+<h2 id="flawsinpreviousattemptstomeasureperformance">Flaws in previous attempts to measure performance</h2>
+
+<p>Before I jump into what <em>capabilities</em> a company needs to focus on to achieve these metrics, I wanted to explain how companies have in the past measured performance.</p>
+
+<p>There have been many attempts to measure the performance of software teams. Most of these measurements focus on productivity. In general, they suffer from <strong>two</strong> drawbacks.</p>
+
+<ul>
+<li>First, they focus on <strong>outputs rather than outcomes</strong>.</li>
+<li>Second, they focus on <strong>individual</strong> or <strong>local measures</strong> rather than a team or global ones.</li>
+</ul>
+
+<h3 id="loclinesofcode">LOC (lines of code)</h3>
+
+<p>Measuring productivity in terms of lines of code has a long history in software. Some companies even required developers to record the lines of code committed per week. However, in reality, we would prefer a <em>10-line solution</em> to a <em>1,000-line solution</em> to a problem. Rewarding developers for writing lines of code leads to bloated software that incurs <strong>higher maintenance costs</strong> and <strong>higher costs of change</strong>. </p>
+
+<p>Ideally, we should reward developers for solving business problems with the minimum amount of code and it's even better if we can solve a problem without writing code at all or by deleting code (perhaps by a business process change). However, minimizing lines of code isn't an ideal measure either. At the extreme, this too has its drawbacks. Accomplishing a task in a single line of code that no one else can understand is less desirable than writing a few lines of code that are easily understood and maintained.</p>
+
+<h3 id="velocity">Velocity</h3>
+
+<p>With the advent of Agile software development came a new way to measure productivity: <strong>velocity</strong>. In many schools of Agile, problems are broken down into stories. Stories are then estimated by developers and assigned a number of "points" representing the relative effort expected to complete them. At the end of an iteration, the total number of points signed off by the customer is recorded; this is the team's velocity. </p>
+
+<p>Velocity is designed to be used as a capacity planning tool; for example, it can be used to extrapolate how long it will take the team to complete all the work that has been planned and estimated. However, some managers have also used it as a way to measure team productivity, or even to compare teams.</p>
+
+<p>Using velocity as a productivity metric has several flaws. First, velocity is a relative and team-dependent measure, not an absolute one. Teams usually have significantly different contexts which render their velocities incommensurable. Second, when velocity is used as a productivity measure, teams inevitably work to game their velocity. They inflate their estimates and focus on completing as many stories as at the expense of collaboration with other teams (which might decrease their velocity and increase the other team's velocity, making them look bad). Not only does this destroy the utility of velocity for its intended purpose, but it also inhibits collaboration between teams.</p>
+
+<p>I have seen this in the past myself, <strong>"gaming"</strong> the system and engineers aiming to deliver as my story points as you can within a sprint. Teams celebrating burn down charts and how many points they delivered compared to other squads...</p>
+
+<p>This obfuscates the underlying quality of the code. And what tech debt or improvements you could have made but decided not to. If you don't have the right leadership in place or a peer review process, then this can unfold very quickly. And not being a <a href="https://www.stepsize.com/blog/how-to-be-an-effective-boy-girl-scout-engineer">good girl scout or boy scout</a>. They talk about this more in "system thinking" and not having that <a href="https://medium.com/@Smrimell/it-s-a-trap-systems-traps-in-software-development-dc6341022795#:~:text=you%20actually%20incentivising%3F-,Drift%20to%20low%20performance,-Drift%20to%20low">growth mindset</a>.</p>
+
+<h3 id="utilisation">Utilisation</h3>
+
+<p>Finally, many organizations measure utilization as a proxy for productivity. The problem with this method is that <strong>high utilization</strong> is only good up to a point. Once utilization gets above a certain level, there is no spare capacity (or "slack") to absorb unplanned work, changes to the plan, or improvement work. This results in longer lead times to work. Queue theory in math tells us that as utilization approaches 100%, lead times approach infinity-in other words, once you get to very high levels of utilization, it takes teams exponentially longer to get anything done. Since lead time is a measure of how fast work can be completed, and is a productivity metric that doesn't suffer from the drawbacks of the other metrics we've seen, it's essential that we manage utilization to balance it against lead time in an economically optimal way.</p>
+
+<h2 id="performancemetrics">Performance metrics</h2>
+
+<p>Below you can see the different groupings of teams and how they perform. You can see the elite teams, they're able to deploy on-demand. Their Cycle Time is less than one day. Their MTTR, mean time to restore, is less than one hour. Change failure rate is in the zero to 15% range. You can really see how the Cycle Time, in particular, the lead time for changes, how varies throughout those four columns. It's less than one day for the elite teams. For the high-performance teams, it goes down to that one day and one week. Medium teams one week and one month and the low performing teams are really between that one month and six months mark.</p>
+
+<p><img src="../../../../content/images/2022/05/Screen-Shot-2022-05-15-at-6-14-09-pm.png" alt=""></p>
+
+<p><img src="../../../../content/images/2022/05/Screen-Shot-2022-05-15-at-6-08-18-pm.png" alt=""></p>
+
+<p>I will highlight next the main capabilities and provide real use-cases that I have observed in my experience:</p>
+
+<h3 id="capabilities">Capabilities</h3>
+
+<p><img src="../../../../content/images/2022/05/Accelerate--1-.jpg" alt=""></p>
+
+<p><img src="../../../../content/images/2022/05/Screen-Shot-2022-05-15-at-6-23-34-pm.png" alt=""></p>
+
+<h2 id="thoughtsandfeedback">Thoughts and feedback</h2>
+
+<p>As highlighted above, there is a lot of investment needed to achieve CD (Continuous Delivery) and become high-performing. Whenever you are asked about what makes a high-performing team, people say trust and a sense of purpose are important. And they are, don't get me wrong. But you also need engineers with a growth mindset, discipline, and technical acumen to make it a reality.</p>
+
+<p>But regarding trust and a sense of purpose, there are numerous ways to achieve this within your team. Team topologies go in-depth into this discussion. They talk about <em>Dunbar's trust number</em> and having <em>two size pizza teams</em> (normally 5-8 depending on the complexity of the domain). </p>
+
+<p><img src="../../../../content/images/2022/05/Screen-Shot-2022-05-18-at-11-48-54-am.png" alt=""></p>
+
+<p>Then there is also <em>Tuckman's model approach</em> to team development: <strong>forming-storming-norming-performing</strong>. </p>
+
+<p><img src="../../../../content/images/2022/05/Screen-Shot-2022-05-16-at-2-35-06-pm.png" alt=""></p>
+
+<p>Regular social events with your team and <a href="https://www.atlassian.com/team-playbook/plays">team playbooks</a> are a great way to break the ice and start to understand eachothers personalities. Especially when you work in a culturally diverse environment. Working in Europe and the Asia Pacific, I have worked with many nationalities and am always keen to understand more about their culture. </p>
+
+<p><strong>Sense of purpose</strong> - having that clear vision and objective for the team and getting alignment is crucial to the success of the team. Running exercises such as <a href="https://miro.com/guides/team-charter/">team charter</a> and <a href="https://miro.com/templates/raci-matrix/">RACI model</a> help with this.</p>
+
+<p>But now onto the fun part; the technical aspects. But I will let you in with a little secret first:</p>
+
+<blockquote>
+  <p>Engineers love shipping software! 😛</p>
+</blockquote>
+
+<p><img src="../../../../content/images/2022/05/Screen-Shot-2022-05-13-at-10-41-01-am.png" alt=""></p>
+
+<p>I remember years ago working in London for a mobile apps company. There was an engineer who I worked with that hadn't shipped code in over six months! (due to indecisiveness on the client's part). I could see how demoralized she looked not able to see her hard work go live. So always remember, engineers, <strong>love to ship software</strong>. </p>
+
+<p>I have worked in high-performing teams in the past where <strong>change lead time</strong> was <strong>&lt; 90 mins</strong> and <strong>deployment frequency daily</strong>. I have seen firsthand how it has a direct impact on job satisfaction.  Having engaged employees doing meaningful work drives <strong>business value</strong>.</p>
+
+<h3 id="deploymentpipeline">Deployment pipeline</h3>
+
+<p>Continuous delivery does not happen overnight. You need to methodically design your CI pipeline, and focus on your technical capabilities to make it a reality. Working with CI servers such as buildkite, GitHub actions or circleCI allows you to design your pipeline as code. We have moved on from the clickops days of TeamCity or bamboo where engineers are not across how CI/CD works. To be able to visualise it as code, can really help even new team members understand and get up to speed so much faster. </p>
+
+<p>A lot of these CI servers now support plugins and integrations to expedite your delivery and simplify the work needed in the pipeline. Accessing secrets from secret manager, running docker-compose, generating test reports, and more. Continually looking to optimise and improve your pipeline to run as fast as possible through certain software techniques/enhancements or agent upgrades is an ongoing task.</p>
+
+<h3 id="testautomation">Test Automation</h3>
+
+<p>Software quality and test automation are the next phases. Working in cross-functional teams can be a mindset change for a lot of engineers. It is well publicised now the mandate at AWS of decoupling architecture and building <em>two size pizza teams</em> that build, run, and support your workloads. Working on teams with <strong>24/7 support</strong>, your mindset changes into how you perceive the quality of your code. Getting a change "out the door" to achieve a deadline is frowned upon. And those traditional measures of <em>velocity</em> and <em>high utilisation</em>.</p>
+
+<p>If you are on 24/7 support, you don't want to be woken up at 3 AM in the morning right! So your mindset changes. You are more aware of the quality of your code and of others. Working on trunk-based development makes engineers' life also easier when reviewing PRs.</p>
+
+<p>There is a lot of talk about shifting left and specifically shifting testing left. Having a healthy automated test suite and being aware of anti-patterns such as ice cream cones and <a href="https://www.thoughtworks.com/en-au/insights/blog/introducing-software-testing-cupcake-anti-pattern">cupcake</a> is very important. </p>
+
+<p>You cannot achieve CD by having a <strong>heavy</strong> layer of e-2-e tests. This will delay your change lead time and overtime those tests will become <a href="https://www.thoughtworks.com/en-au/insights/blog/transitioning-conventional-shift-left-testing">flaky</a> and less reliable. </p>
+
+<p><img src="../../../../content/images/2022/05/ice_cream_cone.png" alt=""></p>
+
+<p>Shifting left to integration tests (that can run on your local machine) is the key. QAs focus less on manual tests and free them up to look at exploratory testing or chaos engineering for example. But many high-performing teams these days hire more engineers to focus on test automation and shifting testing and performance left rather than hire QAs. Working with the teams to educate them on the benefits of shifting left and changing that mindset of how to test a feature is extremely valuable.</p>
+
+<p>Now companies are given the space to revisit their environments and look to <a href="https://www.infoq.com/news/2022/05/removing-staging-environments/">consolidate</a>. Not only does this improve change lead time and MTTR. But also the maintenance overhead of trying to keep envs in <a href="https://12factor.net/dev-prod-parity">parity</a>. Cost savings on your cloud provider can be significant too.</p>
+
+<h3 id="featuretoggles">Feature toggles</h3>
+
+<p>Feature toggles are a great way to separate deploy from release when looking to consolidate envs. There are several commercial options out there such as launch darkly and other <a href="https://github.com/Unleash/unleash">open source</a> options to help with this. <a href="https://github.blog/2021-04-27-ship-code-faster-safer-feature-flags/">Github</a> provides a great example of how they ship frequently and safely to production with the use of feature toggles.</p>
+
+<h3 id="cloud">Cloud</h3>
+
+<p>Cloud infrastructure is adopted quite heavily now by companies. And there is an expectation now for engineers to upskill in cloud providers such as AWS or Google Cloud. Working in cross-functional teams in the past we managed our own AWS accounts and infrastructure. There are many tools of choice for infra as code such as cloudformation, terraform, AWS CDK, and pulumi. </p>
+
+<p>Companies also these days are identifying areas of the platform to design and build to provide self-service capabilities to the delivery teams. I have worked with teams that treated the platform as a product and its internal customers as delivery teams and looked to streamline their development process by providing custom tooling with well-documented APIs and support. </p>
+
+<p><img src="../../../../content/images/2022/05/Screen-Shot-2022-05-16-at-5-57-35-pm.png" alt=""></p>
+
+<p>Deploying static sites and deploying app workloads to Kubernetes are examples I have seen. The key is to balance <strong>autonomy with alignment</strong> and still allow teams to choose their own tooling when needed. They call it providing a "thinnable viable" platform.</p>
+
+<p>Slack has a great article on how they adopted this <a href="https://slack.engineering/applying-product-thinking-to-slacks-internal-compute-platform/">approach</a>.</p>
+
+<h3 id="proactivemonitoring">Proactive monitoring</h3>
+
+<p>Once you are happy with your pipeline, code quality, and test automation, the next area to invest in is monitoring. I am not going into the specifics here but you have many tools at your disposal now for logging and monitoring namely Splunk, sumologic, datadog, new relic, and appdymanics. </p>
+
+<p>In a loosely coupled architecture having distributed tracing and a common log format really helps when troubleshooting. Investing time in an incident management playbook and alert notifications too. <mark>Just be aware of <a href="https://www.pagerduty.com/blog/reduce-alert-fatigue/!">alert fatigue</a></mark></p>
+
+<h3 id="leanmanagementandproductdevelopment">Lean Management and product development</h3>
+
+<p>With this investment in CD, your team can now afford to streamline its change approval process. Gone are the days that you need to present to CAB for production deployments. This allows the team to adopt a peer-review process via pair programming or intra-team code review without sacrificing speed or quality. </p>
+
+<p>One common requirement I hear from companies is segregation of duties which is a common regulatory requirement. This can now be achieved by using peer review to meet the goal of segregation of duties, with <strong>reviews</strong>, <strong>comments</strong>, and <strong>approvals</strong> captured in the team's development platform as part of the development process.</p>
+
+<p>The time and attention of those in leadership and management positions are freed up to focus on more strategic work. This transition, from <em>gatekeeper</em> to <em>process architect and information beacon</em>, is consistent with the practices of organizations that excel at software delivery performance.</p>
+
+<blockquote>
+  <p>CAB idea is a form of risk management theater: we check boxes so that when something goes wrong, we can say at least we followed the process. At best, the process only introduces time delays and handoffs.</p>
+</blockquote>
+
+<p>Lean product management and visibility of work from the business all the way through to customers is a new approach that I have seen. Team experimentation, visibility into customer feedback, and <a href="https://www.producttalk.org/continuous-discovery/">continous discovery</a> are ways for the team and engineers to feel empowered to contribute on what opportunities to work on next, and become more engaged in product discovery and engaging with customers.</p>
+
+<h3 id="shiftingsecurityleft">Shifting security left</h3>
+
+<p>Security is another CFR that can be shifted left. Areas I have worked on in the past are the automated management of dependencies via tools such as <a href="https://github.blog/2020-06-01-keep-all-your-packages-up-to-date-with-dependabot/">dependabot</a>, <a href="https://snyk.io/">snyk</a> or <a href="https://www.whitesourcesoftware.com/free-developer-tools/renovate/">renovate</a>. </p>
+
+<p>We devised a schedule on what frequency and priority we needed to be notified of, for our repos to prevent dependency fatigue. Having multiple automated PRs created every day for patches is not an efficient use of time! Tools such as snyk also provide infra scanning and container scanning. Engaging teams such as architecture and security earlier in the development lifecycle is also recommended.</p>
+
+<h3 id="cultureandtransformativeleadership">Culture and transformative leadership</h3>
+
+<p>And lastly, but most importantly <strong>culture</strong>. Creating a climate for learning is a key investment within a company and investing in your people. <br>
+Some steps that I have advocated for and adopted in the past include:</p>
+
+<ul>
+<li>Creating a training budget</li>
+<li>Ensuring the team has the resources to engage in informal learning and space to explore ideas</li>
+<li>Blameless culture and making it safe to fail</li>
+<li>Creating opportunities and spaces to share information through lightning talks or guilds</li>
+<li>Make resources available for continued education such as meetups and attending conferences</li>
+</ul>
+
+<p>As this survey has highlighted, investing in culture that values <em>learning</em> contributes significantly to software delivery performance.</p>
+
+<p>As a leader, it is important to really invest in culture and be able to measure it. Your work is never done, always looking to continually improve. Providing the <strong>technical vision</strong> and <strong>where the company is going</strong>, <strong>supportive leadership</strong>, and <strong>challenging team members</strong> (intellectual stimulation) are the areas I continually focus on.</p>
+
+<h2 id="pitfallstowatchoutfor">Pitfalls to watch out for</h2>
+
+<ul>
+<li><p><strong>Focus on capabilities and not maturity</strong> The key to successful change is measuring and understanding the right things with a focus on capabilities - not on maturity.
+Maturity models focus on helping an org <code>"arrive"</code> at a mature state and declare themselves done with their journey. Alternatively, capability models focus on helping an org continually improve and progress, realising that the technological and business landscape is ever-changing.</p></li>
+<li><p><strong>Treating transformation as a one-time project.</strong> in high-performing organizations, getting better is an ongoing effort and part of everybody's daily work. However, many transformation programs are treated as large-scale, one-time events in which everyone is expected to rapidly change the way they work and then continue on with business as usual. Teams are not given the capacity, resources, or authority to improve the way they work, and their performance gradually degrades as the team's processes, skills, and capabilities become an ever poorer fit for the evolving reality of the work. You should think of technology transformation as an important value-delivery part of the business, one that you won't stop investing in. After all, do you plan to stop investing in customer acquisition or customer support?</p></li>
+<li><p><strong>Treating transformation as a top-down effort.</strong> In this model, organizational reporting lines are changed, teams are moved around or restructured, and new processes are implemented. Often, the people who are affected are given little control of the changes and are not given opportunities for input. This can cause stress and lost productivity as people learn new ways of working, often while they are still delivering on existing commitments. When combined with the poor communication that is frequent in transformation initiatives, the top-down approach can lead to employees becoming unhappy and disengaged. It's also uncommon for the team that's planning and executing the top-down transformation to gather feedback on the effects of their work and to make changes accordingly. Instead, the plan is implemented regardless of the consequences.</p></li>
+</ul>
+
+<h2 id="googleproject">Google project</h2>
+
+<p>Google provides a very useful project on <a href="https://github.com/GoogleCloudPlatform/fourkeys">github</a> showcasing how to capture these metrics. They use services on GCP such as Pub/Sub and BigQuery to capture this data in real-time. I would love to see an example of using Kafka and ksqlDB to mirror this approach (hack day idea!)</p>
+
+<p><img src="https://raw.githubusercontent.com/GoogleCloudPlatform/fourkeys/main/images/dashboard.png" alt=""></p>
+
+<p>To find out where your company sits, run this <a href="https://www.devops-research.com/quickcheck.html">quick survey</a></p>
+
+<p>I hope you have found this post insightful and helped create a conversation in your organization about where you stand today. And where you want to go.</p>
+
+<p>As my main man Kelsey said:</p>
+
+<p><img src="../../../../content/images/2022/05/Screen-Shot-2022-05-15-at-5-38-24-pm.png" alt=""></p>
+        </section>
+
+        <!-- disqus code snippet -->
+        <div id="disqus_thread"></div>
+        <script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+this.page.url = 'https://blog.shanelee.name/2022/05/15/book-review-accelerate-and-my-experience-in-high-performing-organisations/'; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'ghost-28'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//shavo007.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        <script id="dsq-count-scr" src="http://shavo007.disqus.com/count.js" async></script>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../../../../author/shane/" style="background-image: url(../../../../content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../../../../author/shane/">Shane Lee</a></h4>
+
+                    <p>Read <a href="../../../../author/shane/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    <span class="author-location icon-location">Melbourne</span>
+                    <span class="author-link icon-link"><a href="https://about.me/shane-lee">https://about.me/shane-lee</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Book%20review%3A%20Accelerate&amp;url=https://blog.shanelee.name/2022/05/15/book-review-accelerate-and-my-experience-in-high-performing-organisations/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.shanelee.name/2022/05/15/book-review-accelerate-and-my-experience-in-high-performing-organisations/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://blog.shanelee.name/2022/05/15/book-review-accelerate-and-my-experience-in-high-performing-organisations/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+
+    </article>
+</main>
+
+
+
+<aside class="read-next">
+    <a class="read-next-story prev " style="background-image: url(../../../../content/images/2021/12/marc-olivier-jodoin-NqOInJ-ttqM-unsplash.jpg)" href="../../../../2021/12/15/performance-testing-with-k6/">
+        <section class="post">
+            <h2>Performance testing with k6</h2>
+            <p>I started looking into API performance testing again recently. As part of delivering an API to production, performance testing…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2022</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-coy.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-graphql.min.js"></script>
+<!-- Add additional languages here -->
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/prism.js"></script>
+
+
+
+</body>
