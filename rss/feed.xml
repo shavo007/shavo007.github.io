@@ -1,6 +1,142 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog (mainly!)]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>https://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Mon, 23 May 2022 11:07:49 GMT</lastBuildDate><atom:link href="https://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Book review: Accelerate]]></title><description><![CDATA[Review of Accelerate, high performing organizations and the four key metrics of change lead time, deployment frequency, mean time to recover, and change failure rate.]]></description><link>https://blog.shanelee.name/2022/05/15/book-review-accelerate-and-my-experience-in-high-performing-organisations/</link><guid isPermaLink="false">9d648e15-7d5f-473f-bc43-bcb2d8e354d8</guid><category><![CDATA[accelerate]]></category><category><![CDATA[devops]]></category><category><![CDATA[culture]]></category><category><![CDATA[leadership]]></category><category><![CDATA[CD]]></category><category><![CDATA[continuous delivery]]></category><category><![CDATA[high-performing]]></category><category><![CDATA[transformation]]></category><category><![CDATA[tracing]]></category><category><![CDATA[docker]]></category><category><![CDATA[github]]></category><category><![CDATA[aws]]></category><category><![CDATA[cloud]]></category><category><![CDATA[google]]></category><category><![CDATA[CI]]></category><category><![CDATA[fourkeymetrics]]></category><category><![CDATA[lean]]></category><category><![CDATA[agile]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 15 May 2022 07:27:53 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2022/05/jacek-dylag-fZglO1JkwoM-unsplash--1-.jpg" medium="image"/><content:encoded><![CDATA[<h1 id="overview">Overview</h1>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog (mainly!)]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://https://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Mon, 14 Nov 2022 23:50:43 GMT</lastBuildDate><atom:link href="http://https://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Shifting security left]]></title><description><![CDATA[<p>As part of adopting CD (Continuous Delivery) and embracing a DevOps culture, shifting security left is one of the capabilities needed to drive high software delivery and organisational performance.</p>
 
-<img src="https://blog.shanelee.name/content/images/2022/05/jacek-dylag-fZglO1JkwoM-unsplash--1-.jpg" alt="Book review: Accelerate"><p>In the book, <em>Accelerate: The Science of Lean Software and DevOps: Building and Scaling High Performing Technology Organizations</em>, Dr. Nicole Forsgren, Jez Humble, and Gene Kim studied what made separated strong performing technology organizations from their less effective counterparts.</p>
+<p>Tech companies have identified that security is EVERYONE's responsibility. ie. Security is a distributed ownership model. What <strong>shifting left</strong> means is</p>]]></description><link>http://https://blog.shanelee.name/2022/11/04/shifting-security-left/</link><guid isPermaLink="false">fedd7be5-31ee-4340-9199-bc0eb054c558</guid><category><![CDATA[github]]></category><category><![CDATA[culture]]></category><category><![CDATA[aws]]></category><category><![CDATA[devops]]></category><category><![CDATA[devsecops]]></category><category><![CDATA[security]]></category><category><![CDATA[owasp]]></category><category><![CDATA[dependabot]]></category><category><![CDATA[renovate]]></category><category><![CDATA[team-topologies]]></category><category><![CDATA[checkov]]></category><category><![CDATA[actions]]></category><category><![CDATA[tflint]]></category><category><![CDATA[terraform]]></category><category><![CDATA[tfsec]]></category><category><![CDATA[devX]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Fri, 04 Nov 2022 08:43:55 GMT</pubDate><media:content url="http://https://blog.shanelee.name/content/images/2022/11/matthew-henry-fPxOowbR6ls-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="http://https://blog.shanelee.name/content/images/2022/11/matthew-henry-fPxOowbR6ls-unsplash.jpg" alt="Shifting security left"><p>As part of adopting CD (Continuous Delivery) and embracing a DevOps culture, shifting security left is one of the capabilities needed to drive high software delivery and organisational performance.</p>
+
+<p>Tech companies have identified that security is EVERYONE's responsibility. ie. Security is a distributed ownership model. What <strong>shifting left</strong> means is including concerns such as security earlier in the development lifecycle.</p>
+
+<blockquote>
+  <p>The principles of shifting left also apply to security, not only to operations. It’s critical to prevent breaches before they can affect users, and to move quickly to address newly discovered security vulnerabilities and fix them.</p>
+</blockquote>
+
+<p>In software development, there are at least these four activities: design, develop, test, and release. In a traditional software development cycle, testing (including security testing), happens after development is complete. This typically means that a team discovers significant problems, including architectural flaws, that are expensive to fix.</p>
+
+<p>After defects are discovered, developers must then find the contributing factors and how to fix them. In complex production systems, it's not usually a single cause; instead, it's often a series of factors that interact to cause a defect. Defects involving security, performance, and availability are expensive and <a href="https://linearb.io/blog/engineering-metrics-benchmarks-what-makes-elite-teams/#:~:text=PR%20review%20process.-,Rework%20Rate,-%3A">time-consuming</a> to remedy; they often require architectural changes. The time required to find the defect, develop a solution, and fully test the fix are unpredictable. This can further push out delivery dates.</p>
+
+<p>Research from <a href="https://www.infoq.com/news/2022/10/google-devops-2022/">Accelerate State of DevOps Research and Assessment 2022</a> (DORA) shows that teams can achieve better outcomes by making security a part of everyone's daily work, instead of testing for security concerns at the end of the process. <mark>One key finding is that the largest predictor of an organization's software security practices was not technical but instead <code>cultural</code>.</mark> Leveraging Westrum's organizational topology, high-trust, low-blame cultures focused on performance were significantly more likely to adopt emerging security practices than low-trust, high-blame cultures that focused on power or rules. For more on organisational culture and my assessment of the book Accelerate check out my previous <a href="https://blog.shanelee.name/2022/05/15/book-review-accelerate-and-my-experience-in-high-performing-organisations/">blog post</a></p>
+
+<h2 id="howtoimplementimprovedsecurityquality">How to implement improved security quality</h2>
+
+<h3 id="getinfosecinvolvedinsoftwaredesign">Get Infosec involved in software design</h3>
+
+<p>The Infosec team should get involved in the design phase for all projects. As you can imagine, the ratio of engineers/builders to security within a company rates pretty high. So companies these days need to rethink how to approach shifting security left. I found this great article on how a company adopted the team's topology approach and looked to re-frame security as an <a href="https://www.securitydifferently.com/minimum-viable-security-knowledge-and-team-topologies-for-security/">enablement team</a>.</p>
+
+<blockquote>
+  <p>This mode helps reduce gaps in capabilities and is suited to situations where one or more teams would benefit from the active help of another team facilitating or coaching an aspect of their work. This is the primary operating mode of an enabling team and provides support to many other teams. It can also help discover gaps or inconsistencies in existing components and services used.</p>
+</blockquote>
+
+<p>Educating teams on <a href="https://thenewstack.io/the-latest-owasp-top-10-looks-a-lot-like-the-old-owasp/">OWASP 10</a> and <a href="https://apisecurity.io/encyclopedia/content/owasp/owasp-api-security-top-10.htm">API security</a> is extremely important. Understanding AuthZ, excessive data exposure and insufficient logging and monitoring remain high on the list. </p>
+
+<h3 id="educationprograms">Education Programs</h3>
+
+<p>Companies like AWS have created a guardian program whereby every stream-aligned team needs a security guardian (or what I like to call a security “champion”). So you cannot deliver value to your customers (release to prod) until these criteria are met. No guardian, no shipping software! 😛</p>
+
+<p>The program consists of workshops and training from the security team (OWASP, threat modelling, AWS Well-Architected framework (security pillar) etc). Due to the ratio of engineers to security, they regard the security team as an <code>enablement</code> function. This ties back to team topologies again and its four-team types (enablement/stream aligned/platform/complicated sub-system).</p>
+
+<blockquote>
+  <p>Instead of “us versus them,” make security part of development from the start, and encourage day-to-day collaboration between both teams.</p>
+</blockquote>
+
+<h2 id="securityandcompliance">Security and compliance</h2>
+
+<h3 id="threatmodelling">Threat modelling</h3>
+
+<p><img src="http://https://blog.shanelee.name/content/images/2022/11/cupcake-256x256.png" alt="Shifting security left"></p>
+
+<p>I have observed companies adopting a threat modelling framework as part of the assessment. <a href="https://www.appsecengineer.com/blog/what-is-threat-modeling-how-do-you-learn-it">Frameworks</a> such as <code>STRIDE</code> and <code>PASTA</code> are quite popular. OWASP for example has a modelling tool called <a href="https://owasp.org/www-project-threat-dragon/">Threat Dragon</a> that supports frameworks like <code>STRIDE</code>.</p>
+
+<p>Threat modelling is a set of techniques to help you identify and classify potential threats during the development process — but I want to emphasize that this is not a <strong>one-off activity</strong> only done at the start of projects.</p>
+
+<p>This is because throughout the lifetime of any software, new threats will emerge and existing ones will continue to evolve thanks to external events and ongoing changes to requirements and architecture. This means that threat modelling needs to be <strong>repeated periodically</strong> — the frequency of repetition will depend on the circumstances and will need to consider factors such as the cost of running the exercise and the potential risk to the business. When used in conjunction with other techniques, such as establishing cross-functional security requirements to address common risks in the project's technologies and using automated security scanners, threat modelling can be a powerful asset.</p>
+
+<p>AWS provides <a href="https://catalog.workshops.aws/threatmodel/en-US">workshops</a> on threat modelling and educating teams on the approach. GitHub talks about its threat modelling <a href="https://github.blog/2020-09-02-how-we-threat-model/">process</a> and how it brings more improved communication between security and the engineering teams and how they are able to "shift left".</p>
+
+<h3 id="bugbountyprograms">Bug bounty programs</h3>
+
+<p><img src="http://https://blog.shanelee.name/content/images/2022/11/download.jpeg" alt="Shifting security left"></p>
+
+<p>Many companies are now adopting and investing in bug bounty programs. Bug bounty programs give you continuous, real-time vulnerability insights across your expanding digital attack surface so you can eliminate critical threat “blind spots” and strengthen your security posture.</p>
+
+<p>Check out this interview with one of the security researchers in the <a href="https://github.blog/2022-10-28-cybersecurity-spotlight-on-bug-bounty-researcher-ahacker1/">Github Security Bug Bounty program</a> to understand more about their background and how they keep up with the latest vulnerability trends. One program I have used in the past is <a href="https://www.bugcrowd.com/">BugCrowd.</a></p>
+
+<p><a href="https://en.wikipedia.org/wiki/Capture_the_flag_(cybersecurity)">CTF</a> (<strong>Capture The Flag</strong>) competitions are also a great way to keep engineers engaged (security mindset).</p>
+
+<p>Adopting an <em>NFR (Non-Functional Requirements) checklist</em> in the design phase helps to deliver quality at speed; incorporating performance, security and reliability. One example of compliance is the <strong>4-eyes principle</strong> where at least <em>two</em> approvers are needed before merging the PR. <a href="https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners">CODEOWNERS</a> helps automatically assign individuals (or teams) to review PRs. Below I will elaborate further on the tooling that can enable and automate compliance as part of the development lifecycle early.</p>
+
+<h2 id="securityapprovedtools">Security-approved tools</h2>
+
+<p>Security-approved tools help to integrate and automate many tooling into your day-to-day life as an engineer. I have noticed over time the rapid rise of Devsecops and tooling that can help achieve this. The areas that I used and have observed include (<em>non-exhaustive list</em>):</p>
+
+<h3 id="infraascodescanning">Infra as code scanning</h3>
+
+<ul>
+<li><a href="https://github.com/aquasecurity/tfsec">Tfsec</a> - Uses static analysis of your terraform code to spot potential misconfiguration. Can be easily incorporated into your CI pipeline.</li>
+</ul>
+
+<p><img src="http://https://blog.shanelee.name/content/images/2022/11/example-github-pr-check.png" alt="Shifting security left"></p>
+
+<ul>
+<li><a href="https://www.checkov.io/">Checkov by Bridgecrew</a> - Can scan results across platforms such as Terraform, CloudFormation, Kubernetes, Helm, ARM Templates and Serverless framework.</li>
+<li><a href="https://snyk.io/product/infrastructure-as-code-security/">Snyk</a> supports many formats and can also detect drifts post-deployment.</li>
+<li>Policy enforcement for terraform using <a href="https://www.conftest.dev/">conftest</a> - Doordash have a great <a href="https://doordash.engineering/2022/09/20/how-doordash-ensures-velocity-and-reliability-through-policy-automation/">article</a> on how they ensure reliability and velocity through conftest and Atlantis. </li>
+</ul>
+
+<h3 id="bots">Bots</h3>
+
+<p><img src="http://https://blog.shanelee.name/content/images/2022/11/1_MARssNdoQ3kG1mdZEDV3iA.png" alt="Shifting security left"></p>
+
+<p>I am a big fan of chatbots! I watched a presentation from a company recently that built multiple chatbots on shifting security left and helping with remediation. </p>
+
+<p>They had an intern with an interest in python and he created some very nifty chatbots. <br>
+Behind the scenes, they use Cloud conformity from Trend Micro. Now when an engineer is naughty and maybe clickops and opens a security group to the world or an s3 bucket, the bot will alert the channel and notify of the issue in real-time (they only broadcast on high and mediums). You can then ask the bot also who made the change. It will then scan Cloudtrail, find the IAM user in question and link it back to the slack handle of the user and post back to the channel who's to “blame” (more in the sense of git blame than to literally blame!). The bot could also perform auto-remediation. This is just an example of the opportunities that exist with chatbots.</p>
+
+<h3 id="lintingcompliance">Linting (Compliance)</h3>
+
+<p><img src="http://https://blog.shanelee.name/content/images/2022/11/icon-512.png" alt="Shifting security left"></p>
+
+<p>Linters are tools used to flag programming errors, bugs, stylistic errors and suspicious constructs. Examples include:</p>
+
+<ul>
+<li><a href="https://eslint.org/">Eslint</a> - is an open-source project that helps you find and fix problems with your JavaScript code.</li>
+<li><a href="https://github.com/terraform-linters/tflint">TFlint</a> is a pluggable terraform linter that finds possible errors (like invalid instance types) for Major Cloud providers (AWS/Azure/GCP) and enforces best practices.</li>
+<li><a href="https://github.com/rhysd/actionlint">Actionlint</a> is a static checker for GitHub workflow files. I use the VSCode extension extensively.</li>
+<li><a href="https://github.com/adrienverge/yamllint">yamllint</a> is a linter for YAML files.</li>
+<li><a href="https://stoplight.io/open-source/spectral">oaslint</a> - Spectral is an OAS linter to enforce best practices for API design of Open API Specs. I have introduced this linter before at organisations to align with companies' API guidelines and catch any inconsistencies early in the development lifecycle.</li>
+</ul>
+
+<p>If you are using GitHub actions check out this awesome list of <a href="https://github.com/sdras/awesome-actions#linting">linters</a> that the community recommends.</p>
+
+<h3 id="securityversionupdates">Security &amp; Version updates</h3>
+
+<p><img src="http://https://blog.shanelee.name/content/images/2022/11/dependabot.png" alt="Shifting security left"></p>
+
+<p>OWASP published last year their top ten, and <strong>vulnerable and outdated components</strong> moved up to <a href="https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components">sixth position</a></p>
+
+<p><a href="https://docs.github.com/en/code-security/dependabot/dependabot-alerts/about-dependabot-alerts">Dependabot</a> and <a href="https://docs.renovatebot.com/#why-use-renovate">Renovate</a> are two tools I have used in the past for dependency updates and vulnerability management. Dependabot is part of the GitHub ecosystem now and is maturing every day. But I do miss the nice presets that Renovate has and how you can group certain dependencies too.</p>
+
+<p>One lesson I have learnt from automating this process is to be aware of <em>dependency fatigue</em>. Work with the team on your schedule and what dependencies are the highest priority. Otherwise, you could end up becoming overwhelmed with PRs and start to ignore updates!</p>
+
+<p><a href="https://github.blog/2022-05-25-how-we-use-dependabot-to-secure-github/">Github</a> talks about how they use dependabot internally to secure their own platform.</p>
+
+<p>OWASP <a href="https://owasp.org/www-project-dependency-check/">dependency checker</a> is also a useful tool to run as part of your CI pipeline to identify security vulnerabilities.</p>
+
+<h3 id="codescanningsast">Code scanning (SAST)</h3>
+
+<p><img src="http://https://blog.shanelee.name/content/images/2022/11/dev-cycle.png" alt="Shifting security left"></p>
+
+<p><a href="https://www.sonarqube.org/">SonarQube</a> is a self-managed, automatic code review tool that systematically helps you deliver Clean Code. As a core element of their solution, SonarQube integrates into your existing workflow and detects issues in your code to help you perform continuous code inspections of your projects. The tool analyses <em>30+ different programming languages</em> and integrates into your CI pipeline and DevOps platform to ensure that your code meets high-quality standards.</p>
+
+<h3 id="containerscanning">Container scanning</h3>
+
+<ul>
+<li><p><a href="https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/tools/twistcli">Twistlock</a> is now part of Palo Alto’s Prisma Cloud offering and is one of the leading container security scanning solutions.</p></li>
+<li><p><a href="https://docs.snyk.io/products/snyk-container/how-snyk-container-works">Snyk</a> also provides a similar product offering to scan images.</p></li>
+</ul>
+
+<p>I hope you have found this list of security tools useful. Head over to <a href="https://landscape.cncf.io/card-mode?category=security-compliance,security">CNCF</a> to find more.</p>
+
+<p>Suffice it to say are we still shifting left? Is it realistic to expect developers to take on the burdens of security and infrastructure provisioning, as well as writing their applications? Is platform engineering the answer to saving the DevOps dream?? I will leave you with that thought! 😉</p>]]></content:encoded></item><item><title><![CDATA[Book review: Accelerate]]></title><description><![CDATA[Review of Accelerate, high performing organizations and the four key metrics of change lead time, deployment frequency, mean time to recover, and change failure rate.]]></description><link>http://https://blog.shanelee.name/2022/05/15/book-review-accelerate-and-my-experience-in-high-performing-organisations/</link><guid isPermaLink="false">9d648e15-7d5f-473f-bc43-bcb2d8e354d8</guid><category><![CDATA[accelerate]]></category><category><![CDATA[devops]]></category><category><![CDATA[culture]]></category><category><![CDATA[leadership]]></category><category><![CDATA[CD]]></category><category><![CDATA[continuous delivery]]></category><category><![CDATA[high-performing]]></category><category><![CDATA[transformation]]></category><category><![CDATA[tracing]]></category><category><![CDATA[docker]]></category><category><![CDATA[github]]></category><category><![CDATA[aws]]></category><category><![CDATA[cloud]]></category><category><![CDATA[google]]></category><category><![CDATA[CI]]></category><category><![CDATA[fourkeymetrics]]></category><category><![CDATA[lean]]></category><category><![CDATA[agile]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 15 May 2022 07:27:53 GMT</pubDate><media:content url="http://https://blog.shanelee.name/content/images/2022/05/jacek-dylag-fZglO1JkwoM-unsplash--1-.jpg" medium="image"/><content:encoded><![CDATA[<h1 id="overview">Overview</h1>
+
+<img src="http://https://blog.shanelee.name/content/images/2022/05/jacek-dylag-fZglO1JkwoM-unsplash--1-.jpg" alt="Book review: Accelerate"><p>In the book, <em>Accelerate: The Science of Lean Software and DevOps: Building and Scaling High Performing Technology Organizations</em>, Dr. Nicole Forsgren, Jez Humble, and Gene Kim studied what made separated strong performing technology organizations from their less effective counterparts.</p>
 
 <p>The book summarises <strong>4 years</strong> of rigorous research from years of State of DevOps Reports, built upon <strong>23,000 datasets</strong> from over <strong>2,000 unique companies</strong> all around the world. The organizations studied included start-ups and enterprises, profit and not-for-profit organisations, and companies that were born digital alongside those that had to undergo digital transformation.</p>
 
@@ -18,7 +154,7 @@ These metrics aren’t “The Goal” of a business, but organisations that did 
 <li><mark>Mean Time to Recovery (MTTR)</mark> - Mean time it takes to restore service after production failure</li>
 </ul>
 
-<p><img src="https://blog.shanelee.name/content/images/2022/05/Screen-Shot-2022-05-15-at-6-10-07-pm.png" alt="Book review: Accelerate"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2022/05/Screen-Shot-2022-05-15-at-6-10-07-pm.png" alt="Book review: Accelerate"></p>
 
 <h2 id="whythesemetrics">Why these metrics</h2>
 
@@ -73,17 +209,17 @@ These metrics aren’t “The Goal” of a business, but organisations that did 
 
 <p>Below you can see the different groupings of teams and how they perform. You can see the elite teams, they're able to deploy on-demand. Their Cycle Time is less than one day. Their MTTR, mean time to restore, is less than one hour. Change failure rate is in the zero to 15% range. You can really see how the Cycle Time, in particular, the lead time for changes, how varies throughout those four columns. It's less than one day for the elite teams. For the high-performance teams, it goes down to that one day and one week. Medium teams one week and one month and the low performing teams are really between that one month and six months mark.</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2022/05/Screen-Shot-2022-05-15-at-6-14-09-pm.png" alt="Book review: Accelerate"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2022/05/Screen-Shot-2022-05-15-at-6-14-09-pm.png" alt="Book review: Accelerate"></p>
 
-<p><img src="https://blog.shanelee.name/content/images/2022/05/Screen-Shot-2022-05-15-at-6-08-18-pm.png" alt="Book review: Accelerate"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2022/05/Screen-Shot-2022-05-15-at-6-08-18-pm.png" alt="Book review: Accelerate"></p>
 
 <p>I will highlight next the main capabilities and provide real use-cases that I have observed in my experience:</p>
 
 <h3 id="capabilities">Capabilities</h3>
 
-<p><img src="https://blog.shanelee.name/content/images/2022/05/Accelerate--1-.jpg" alt="Book review: Accelerate"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2022/05/Accelerate--1-.jpg" alt="Book review: Accelerate"></p>
 
-<p><img src="https://blog.shanelee.name/content/images/2022/05/Screen-Shot-2022-05-15-at-6-23-34-pm.png" alt="Book review: Accelerate"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2022/05/Screen-Shot-2022-05-15-at-6-23-34-pm.png" alt="Book review: Accelerate"></p>
 
 <h2 id="thoughtsandfeedback">Thoughts and feedback</h2>
 
@@ -91,11 +227,11 @@ These metrics aren’t “The Goal” of a business, but organisations that did 
 
 <p>But regarding trust and a sense of purpose, there are numerous ways to achieve this within your team. Team topologies go in-depth into this discussion. They talk about <em>Dunbar's trust number</em> and having <em>two size pizza teams</em> (normally 5-8 depending on the complexity of the domain). </p>
 
-<p><img src="https://blog.shanelee.name/content/images/2022/05/Screen-Shot-2022-05-18-at-11-48-54-am.png" alt="Book review: Accelerate"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2022/05/Screen-Shot-2022-05-18-at-11-48-54-am.png" alt="Book review: Accelerate"></p>
 
 <p>Then there is also <em>Tuckman's model approach</em> to team development: <strong>forming-storming-norming-performing</strong>. </p>
 
-<p><img src="https://blog.shanelee.name/content/images/2022/05/Screen-Shot-2022-05-16-at-2-35-06-pm.png" alt="Book review: Accelerate"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2022/05/Screen-Shot-2022-05-16-at-2-35-06-pm.png" alt="Book review: Accelerate"></p>
 
 <p>Regular social events with your team and <a href="https://www.atlassian.com/team-playbook/plays">team playbooks</a> are a great way to break the ice and start to understand eachothers personalities. Especially when you work in a culturally diverse environment. Working in Europe and the Asia Pacific, I have worked with many nationalities and am always keen to understand more about their culture. </p>
 
@@ -107,7 +243,7 @@ These metrics aren’t “The Goal” of a business, but organisations that did 
   <p>Engineers love shipping software! 😛</p>
 </blockquote>
 
-<p><img src="https://blog.shanelee.name/content/images/2022/05/Screen-Shot-2022-05-13-at-10-41-01-am.png" alt="Book review: Accelerate"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2022/05/Screen-Shot-2022-05-13-at-10-41-01-am.png" alt="Book review: Accelerate"></p>
 
 <p>I remember years ago working in London for a mobile apps company. There was an engineer who I worked with that hadn't shipped code in over six months! (due to indecisiveness on the client's part). I could see how demoralized she looked not able to see her hard work go live. So always remember, engineers, <strong>love to ship software</strong>. </p>
 
@@ -129,7 +265,7 @@ These metrics aren’t “The Goal” of a business, but organisations that did 
 
 <p>You cannot achieve CD by having a <strong>heavy</strong> layer of e-2-e tests. This will delay your change lead time and overtime those tests will become <a href="https://www.thoughtworks.com/en-au/insights/blog/transitioning-conventional-shift-left-testing">flaky</a> and less reliable. </p>
 
-<p><img src="https://blog.shanelee.name/content/images/2022/05/ice_cream_cone.png" alt="Book review: Accelerate"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2022/05/ice_cream_cone.png" alt="Book review: Accelerate"></p>
 
 <p>Shifting left to integration tests (that can run on your local machine) is the key. QAs focus less on manual tests and free them up to look at exploratory testing or chaos engineering for example. But many high-performing teams these days hire more engineers to focus on test automation and shifting testing and performance left rather than hire QAs. Working with the teams to educate them on the benefits of shifting left and changing that mindset of how to test a feature is extremely valuable.</p>
 
@@ -145,7 +281,7 @@ These metrics aren’t “The Goal” of a business, but organisations that did 
 
 <p>Companies also these days are identifying areas of the platform to design and build to provide self-service capabilities to the delivery teams. I have worked with teams that treated the platform as a product and its internal customers as delivery teams and looked to streamline their development process by providing custom tooling with well-documented APIs and support. </p>
 
-<p><img src="https://blog.shanelee.name/content/images/2022/05/Screen-Shot-2022-05-16-at-5-57-35-pm.png" alt="Book review: Accelerate"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2022/05/Screen-Shot-2022-05-16-at-5-57-35-pm.png" alt="Book review: Accelerate"></p>
 
 <p>Deploying static sites and deploying app workloads to Kubernetes are examples I have seen. The key is to balance <strong>autonomy with alignment</strong> and still allow teams to choose their own tooling when needed. They call it providing a "thinnable viable" platform.</p>
 
@@ -215,9 +351,9 @@ Maturity models focus on helping an org <code>"arrive"</code> at a mature state 
 
 <p>As my main man Kelsey said:</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2022/05/Screen-Shot-2022-05-15-at-5-38-24-pm.png" alt="Book review: Accelerate"></p>]]></content:encoded></item><item><title><![CDATA[Performance testing with k6]]></title><description><![CDATA[<p>I started looking into API performance testing again recently. As part of delivering an API to production, performance testing is crucial to see how your API performs under load ( more on that shortly)</p>
+<p><img src="http://https://blog.shanelee.name/content/images/2022/05/Screen-Shot-2022-05-15-at-5-38-24-pm.png" alt="Book review: Accelerate"></p>]]></content:encoded></item><item><title><![CDATA[Performance testing with k6]]></title><description><![CDATA[<p>I started looking into API performance testing again recently. As part of delivering an API to production, performance testing is crucial to see how your API performs under load ( more on that shortly)</p>
 
-<p>You might have heard of the ridiculous load that Shopify handled over <strong>BFCM</strong> (Black Friday/Cyber Monday)</p>]]></description><link>https://blog.shanelee.name/2021/12/15/performance-testing-with-k6/</link><guid isPermaLink="false">35b5397d-d54f-4305-9f95-32975623f93f</guid><category><![CDATA[testing]]></category><category><![CDATA[oas]]></category><category><![CDATA[grafana]]></category><category><![CDATA[docker]]></category><category><![CDATA[api]]></category><category><![CDATA[k6]]></category><category><![CDATA[perf]]></category><category><![CDATA[apifirst]]></category><category><![CDATA[typescript]]></category><category><![CDATA[performance]]></category><category><![CDATA[api first]]></category><category><![CDATA[javascript]]></category><category><![CDATA[golang]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Wed, 15 Dec 2021 06:03:00 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2021/12/marc-olivier-jodoin-NqOInJ-ttqM-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="https://blog.shanelee.name/content/images/2021/12/marc-olivier-jodoin-NqOInJ-ttqM-unsplash.jpg" alt="Performance testing with k6"><p>I started looking into API performance testing again recently. As part of delivering an API to production, performance testing is crucial to see how your API performs under load ( more on that shortly)</p>
+<p>You might have heard of the ridiculous load that Shopify handled over <strong>BFCM</strong> (Black Friday/Cyber Monday)</p>]]></description><link>http://https://blog.shanelee.name/2021/12/15/performance-testing-with-k6/</link><guid isPermaLink="false">35b5397d-d54f-4305-9f95-32975623f93f</guid><category><![CDATA[testing]]></category><category><![CDATA[oas]]></category><category><![CDATA[grafana]]></category><category><![CDATA[docker]]></category><category><![CDATA[api]]></category><category><![CDATA[k6]]></category><category><![CDATA[perf]]></category><category><![CDATA[apifirst]]></category><category><![CDATA[typescript]]></category><category><![CDATA[performance]]></category><category><![CDATA[api first]]></category><category><![CDATA[javascript]]></category><category><![CDATA[golang]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Wed, 15 Dec 2021 06:03:00 GMT</pubDate><media:content url="http://https://blog.shanelee.name/content/images/2021/12/marc-olivier-jodoin-NqOInJ-ttqM-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="http://https://blog.shanelee.name/content/images/2021/12/marc-olivier-jodoin-NqOInJ-ttqM-unsplash.jpg" alt="Performance testing with k6"><p>I started looking into API performance testing again recently. As part of delivering an API to production, performance testing is crucial to see how your API performs under load ( more on that shortly)</p>
 
 <p>You might have heard of the ridiculous load that Shopify handled over <strong>BFCM</strong> (Black Friday/Cyber Monday) weekend. They executed and ran performance testing on their systems well in advance as far back as July to make sure they were well prepared for <code>"game-day"</code>.</p>
 
@@ -267,7 +403,7 @@ Maturity models focus on helping an org <code>"arrive"</code> at a mature state 
 
 <p>As I mentioned above, the test scripts can be defined in javascript. But I have decided from the beginning to use typescript instead for static type checking. I have created a typescript template on <a href="https://github.com/shavo007/k6-demo">Github</a> that can be easily re-used by anyone. It is built on the good work that k6 did with some enhancements.</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2021/12/Screen-Shot-2021-12-16-at-5-23-12-pm.png" alt="Performance testing with k6"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2021/12/Screen-Shot-2021-12-16-at-5-23-12-pm.png" alt="Performance testing with k6"></p>
 
 <h4 id="rationale">Rationale</h4>
 
@@ -641,7 +777,7 @@ executed.</li>
 
 <p>As I demoed earlier, if you adopt the "API first" approach there are tools you can use such as <code>open API generator</code> and <code>openapi-to-typescript</code> that can help improve the development experience.</p>
 
-<p>Happy testing! </p>]]></content:encoded></item><item><title><![CDATA[Mocking a REST API the "API first" approach with Mockoon]]></title><description><![CDATA[How to mock an API with mockoon. Showcase using open API spec and mockoon to mock an API and run with docker.]]></description><link>https://blog.shanelee.name/2021/08/29/mocking-a-rest-api-the-api-first-way-with-mockoon/</link><guid isPermaLink="false">a64b3164-634b-4cd1-8761-2af6a3c1c2c1</guid><category><![CDATA[swagger]]></category><category><![CDATA[docker]]></category><category><![CDATA[openapi]]></category><category><![CDATA[oas]]></category><category><![CDATA[github]]></category><category><![CDATA[api]]></category><category><![CDATA[rest]]></category><category><![CDATA[mock]]></category><category><![CDATA[stub]]></category><category><![CDATA[mockoon]]></category><category><![CDATA[insomnia]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 29 Aug 2021 07:27:00 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2021/08/chris-ensminger-gWo-hfRotrI-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="https://blog.shanelee.name/content/images/2021/08/chris-ensminger-gWo-hfRotrI-unsplash.jpg" alt="Mocking a REST API the "API first" approach with Mockoon"><p>Recently, I have spent considerable time researching and analyzing the tooling available for "API first". At the core of this eco-system is the OAS (Open API specification) or interface as we normally like to call it. </p>
+<p>Happy testing! </p>]]></content:encoded></item><item><title><![CDATA[Mocking a REST API the "API first" approach with Mockoon]]></title><description><![CDATA[How to mock an API with mockoon. Showcase using open API spec and mockoon to mock an API and run with docker.]]></description><link>http://https://blog.shanelee.name/2021/08/29/mocking-a-rest-api-the-api-first-way-with-mockoon/</link><guid isPermaLink="false">a64b3164-634b-4cd1-8761-2af6a3c1c2c1</guid><category><![CDATA[swagger]]></category><category><![CDATA[docker]]></category><category><![CDATA[openapi]]></category><category><![CDATA[oas]]></category><category><![CDATA[github]]></category><category><![CDATA[api]]></category><category><![CDATA[rest]]></category><category><![CDATA[mock]]></category><category><![CDATA[stub]]></category><category><![CDATA[mockoon]]></category><category><![CDATA[insomnia]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 29 Aug 2021 07:27:00 GMT</pubDate><media:content url="http://https://blog.shanelee.name/content/images/2021/08/chris-ensminger-gWo-hfRotrI-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="http://https://blog.shanelee.name/content/images/2021/08/chris-ensminger-gWo-hfRotrI-unsplash.jpg" alt="Mocking a REST API the "API first" approach with Mockoon"><p>Recently, I have spent considerable time researching and analyzing the tooling available for "API first". At the core of this eco-system is the OAS (Open API specification) or interface as we normally like to call it. </p>
 
 <h2 id="oasopenapispecification">OAS (Open API Specification)</h2>
 
@@ -674,7 +810,7 @@ Both streams of work should occur in parallel, rather than sequentially. Less wa
 
 <h2 id="mockoon">Mockoon</h2>
 
-<p><img src="https://blog.shanelee.name/content/images/2021/08/Mockoon.svg" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2021/08/Mockoon.svg" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
 
 <blockquote>
   <p>Mockoon lets you mock an API in seconds</p>
@@ -703,7 +839,7 @@ You can install the native app <a href="https://mockoon.com/download/">here</a>.
 
 <p>After launching the application for the first time, you will find a demo mock API, also called "environment" in Mockoon. You can keep it and build from here or create a new one. To create a new mock API, open the collapsible environments menu on the left and press the blue "plus" button:</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2021/08/Screen-Shot-2021-08-27-at-11-42-09-am.png" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2021/08/Screen-Shot-2021-08-27-at-11-42-09-am.png" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
 
 <h3 id="step3createyourfirstapiroute">Step 3. Create your first API route</h3>
 
@@ -711,7 +847,7 @@ You can install the native app <a href="https://mockoon.com/download/">here</a>.
 
 <p>You can also create a new endpoint by clicking on the blue "plus" button at the top of the endpoint list:</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2021/08/Screen-Shot-2021-08-27-at-11-55-50-am-5.png" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2021/08/Screen-Shot-2021-08-27-at-11-55-50-am-5.png" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
 
 <h3 id="step4apiendpointconfiguration">Step 4. API endpoint configuration</h3>
 
@@ -725,7 +861,7 @@ You can install the native app <a href="https://mockoon.com/download/">here</a>.
 
 <p>You can do a test call to the following URL <code>http://localhost:3001/tutorials</code> using your favorite tool (here using <a href="https://insomnia.rest/">Insomnia</a>) and see the returned response:</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2021/08/Screen-Shot-2021-08-27-at-11-59-39-am-3.png" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2021/08/Screen-Shot-2021-08-27-at-11-59-39-am-3.png" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
 
 <pre><code class="language-bash">curl --request POST \  
   --url http://localhost:3001/tutorials
@@ -743,15 +879,15 @@ You can install the native app <a href="https://mockoon.com/download/">here</a>.
 
 <p>I have defined a sample OAS file <a href="https://github.com/shavo007/mockoon-demo/blob/main/oas3.yaml">here</a> that you can use to follow along. Once you import, it now should look like this.</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2021/08/Screen-Shot-2021-08-27-at-12-22-57-pm.png" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2021/08/Screen-Shot-2021-08-27-at-12-22-57-pm.png" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
 
 <p>You can see that for each route, it has already been set up for you all the responses you have defined in the spec and the examples. You can easily toggle on random responses or sequential responses based on the route (<strong>NB: This will disable the rules tho</strong>)</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2021/08/Screen-Shot-2021-08-27-at-12-36-20-pm.png" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2021/08/Screen-Shot-2021-08-27-at-12-36-20-pm.png" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
 
 <p>It is even smart enough to convert certain fields <code>weatherType</code> and <code>status</code> to its templating language. How cool is that! And again, based on previous steps you can start the server and test it out via Insomnia.</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2021/08/Screen-Shot-2021-08-29-at-4-34-35-pm.png" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2021/08/Screen-Shot-2021-08-29-at-4-34-35-pm.png" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
 
 <p>Insomnia is such a powerful app also as it supports the "API first" approach. I can import in the exact same OAS file and test the endpoints. (You will start to see a recurring trend here of "API first" tools 😅) </p>
 
@@ -1037,7 +1173,7 @@ Content-Type: application/json
 
 <p>When it comes to microservices and cloud native architecture you first think about containers. Now you can of course compose your own docker file. But with jvm based microservices there is a tool from google called jib that can simplify containerization.</p>
 
-<p>We'll</p>]]></description><link>https://blog.shanelee.name/2020/08/29/jibbing-with-spring-boot-and-google-cloud-run/</link><guid isPermaLink="false">9dc3d48c-84cb-487a-b8ca-7d14229f1fe5</guid><category><![CDATA[gcp]]></category><category><![CDATA[cloudrun]]></category><category><![CDATA[spring-boot]]></category><category><![CDATA[spring]]></category><category><![CDATA[docker]]></category><category><![CDATA[microservice]]></category><category><![CDATA[cloud]]></category><category><![CDATA[google]]></category><category><![CDATA[jib]]></category><category><![CDATA[redoc]]></category><category><![CDATA[swagger]]></category><category><![CDATA[openapi]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 29 Aug 2020 08:08:34 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2020/08/ardian-lumi-6Woj_wozqmA-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="https://blog.shanelee.name/content/images/2020/08/ardian-lumi-6Woj_wozqmA-unsplash.jpg" alt="Jibbing with spring boot and google cloud run"><p>I said jibbing not jiving! 😆</p>
+<p>We'll</p>]]></description><link>http://https://blog.shanelee.name/2020/08/29/jibbing-with-spring-boot-and-google-cloud-run/</link><guid isPermaLink="false">9dc3d48c-84cb-487a-b8ca-7d14229f1fe5</guid><category><![CDATA[gcp]]></category><category><![CDATA[cloudrun]]></category><category><![CDATA[spring-boot]]></category><category><![CDATA[spring]]></category><category><![CDATA[docker]]></category><category><![CDATA[microservice]]></category><category><![CDATA[cloud]]></category><category><![CDATA[google]]></category><category><![CDATA[jib]]></category><category><![CDATA[redoc]]></category><category><![CDATA[swagger]]></category><category><![CDATA[openapi]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 29 Aug 2020 08:08:34 GMT</pubDate><media:content url="http://https://blog.shanelee.name/content/images/2020/08/ardian-lumi-6Woj_wozqmA-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="http://https://blog.shanelee.name/content/images/2020/08/ardian-lumi-6Woj_wozqmA-unsplash.jpg" alt="Jibbing with spring boot and google cloud run"><p>I said jibbing not jiving! 😆</p>
 
 <h1 id="cloudnativearchitecture">Cloud native architecture</h1>
 
@@ -1090,14 +1226,14 @@ It'll expose a simple <strong>GET</strong> endpoint:</p>
 
 <p>There is a fantastic VSCode extension called <a href="https://cloud.google.com/code">cloud code</a> that can help you deploy to cloud run or GKE on google cloud. It can even pick up if you are using <a href="https://blog.shanelee.name/2019/02/20/skaffold-for-local-kubernetes-development/">skaffold</a> or jib under the hood.</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2020/08/cloudcode1.png" alt="Jibbing with spring boot and google cloud run">
-<img src="https://blog.shanelee.name/content/images/2020/08/cloudcode2.png" alt="Jibbing with spring boot and google cloud run"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2020/08/cloudcode1.png" alt="Jibbing with spring boot and google cloud run">
+<img src="http://https://blog.shanelee.name/content/images/2020/08/cloudcode2.png" alt="Jibbing with spring boot and google cloud run"></p>
 
 <p>This command will build, push your image to GCR and deploy to cloud run. And that's it!</p>
 
 <p>Now you can access the public url and test out the endpoint.</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2020/08/Cloudcodeexp.png" alt="Jibbing with spring boot and google cloud run"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2020/08/Cloudcodeexp.png" alt="Jibbing with spring boot and google cloud run"></p>
 
 <p>The source code for the example is over on <a href="https://github.com/shavo007/spring-boot-jib">github</a></p>
 
@@ -1133,15 +1269,15 @@ It'll expose a simple <strong>GET</strong> endpoint:</p>
 gcloud run deploy redoc-greetings-api --project $PROJECT_ID --image gcr.io/$PROJECT_ID/redoc --platform managed --region us-central1 --port 80 --cpu 1 --memory 256Mi --concurrency 80 --timeout 300 --update-env-vars SPEC_URL=https://&lt;CLOUD_RUN_SPRING_BOOT_BASE_URI&gt;/swagger.yaml  
 </code></pre>
 
-<p><img src="https://blog.shanelee.name/content/images/2020/08/Redoc.png" alt="Jibbing with spring boot and google cloud run"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2020/08/Redoc.png" alt="Jibbing with spring boot and google cloud run"></p>
 
 <p>Again, the src code can be found on <a href="https://github.com/shavo007/greetings-doc">github</a></p>
 
 <p>And thats it. Happy jibbing! 🕺🏻</p>]]></content:encoded></item><item><title><![CDATA[How I passed the professional google cloud architect exam]]></title><description><![CDATA[<h1 id="sowhygooglecloud">So why Google cloud??</h1>
 
-<p>Well, the Google Cloud Platform (GCP) is behind the 8 ball for sure in comparison to AWS. But with the huge spike in companies looking to reduce their Capex and move to the cloud, its offerings in the data analytics space for example is very enticing.</p>]]></description><link>https://blog.shanelee.name/2020/08/04/how-i-passed-the-professional-google-cloud-architect-exam/</link><guid isPermaLink="false">f54e6eec-b076-47af-959c-23f838c318f6</guid><category><![CDATA[cloud]]></category><category><![CDATA[google]]></category><category><![CDATA[kubernetes]]></category><category><![CDATA[exam]]></category><category><![CDATA[gcp]]></category><category><![CDATA[google cloud]]></category><category><![CDATA[architect]]></category><category><![CDATA[bigquery]]></category><category><![CDATA[linux academy]]></category><category><![CDATA[cloud native]]></category><category><![CDATA[hybrid]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 04 Aug 2020 06:47:49 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2020/08/morning-brew-T0qYg2nPUWM-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<h1 id="sowhygooglecloud">So why Google cloud??</h1>
+<p>Well, the Google Cloud Platform (GCP) is behind the 8 ball for sure in comparison to AWS. But with the huge spike in companies looking to reduce their Capex and move to the cloud, its offerings in the data analytics space for example is very enticing.</p>]]></description><link>http://https://blog.shanelee.name/2020/08/04/how-i-passed-the-professional-google-cloud-architect-exam/</link><guid isPermaLink="false">f54e6eec-b076-47af-959c-23f838c318f6</guid><category><![CDATA[cloud]]></category><category><![CDATA[google]]></category><category><![CDATA[kubernetes]]></category><category><![CDATA[exam]]></category><category><![CDATA[gcp]]></category><category><![CDATA[google cloud]]></category><category><![CDATA[architect]]></category><category><![CDATA[bigquery]]></category><category><![CDATA[linux academy]]></category><category><![CDATA[cloud native]]></category><category><![CDATA[hybrid]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 04 Aug 2020 06:47:49 GMT</pubDate><media:content url="http://https://blog.shanelee.name/content/images/2020/08/morning-brew-T0qYg2nPUWM-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<h1 id="sowhygooglecloud">So why Google cloud??</h1>
 
-<img src="https://blog.shanelee.name/content/images/2020/08/morning-brew-T0qYg2nPUWM-unsplash.jpg" alt="How I passed the professional google cloud architect exam"><p>Well, the Google Cloud Platform (GCP) is behind the 8 ball for sure in comparison to AWS. But with the huge spike in companies looking to reduce their Capex and move to the cloud, its offerings in the data analytics space for example is very enticing. Also in my view, they have the best managed kubernetes service GKE. Which makes sense, when you understand that kubernetes originated from googles own internal cluster orcherstration service called <a href="https://research.google/pubs/pub43438/">borg</a>. </p>
+<img src="http://https://blog.shanelee.name/content/images/2020/08/morning-brew-T0qYg2nPUWM-unsplash.jpg" alt="How I passed the professional google cloud architect exam"><p>Well, the Google Cloud Platform (GCP) is behind the 8 ball for sure in comparison to AWS. But with the huge spike in companies looking to reduce their Capex and move to the cloud, its offerings in the data analytics space for example is very enticing. Also in my view, they have the best managed kubernetes service GKE. Which makes sense, when you understand that kubernetes originated from googles own internal cluster orcherstration service called <a href="https://research.google/pubs/pub43438/">borg</a>. </p>
 
 <p>I have worked with AWS for many years professionally. Gaining exposure to other cloud providers is important when you see companies adopting a  multi-cloud approach but fundamentally many of the underlying patterns and managed services commonly exist across the top 3 (AWS, GCP, Azure).</p>
 
@@ -1211,7 +1347,7 @@ gcloud run deploy redoc-greetings-api --project $PROJECT_ID --image gcr.io/$PROJ
 <li><p>Googles new <a href="https://cloud.google.com/architecture/framework">architecture framework</a> is a very useful resource too.</p></li>
 </ul>
 
-<p><img src="https://blog.shanelee.name/content/images/2020/08/googlecert.jpg" alt="How I passed the professional google cloud architect exam"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2020/08/googlecert.jpg" alt="How I passed the professional google cloud architect exam"></p>
 
 <p>Still waiting on my bag!! Best of luck.</p>]]></content:encoded></item><item><title><![CDATA[Road to clean energy and sustainability]]></title><description><![CDATA[<blockquote>
   <p>This is an overview of my journey to reducing my carbon footprint and making my home as energy efficient as possible.</p>
@@ -1219,8 +1355,8 @@ gcloud run deploy redoc-greetings-api --project $PROJECT_ID --image gcr.io/$PROJ
 
 <h2 id="energyefficiency">Energy efficiency</h2>
 
-<p>WFH myself since March, I did not realise how cold and under insulated australian households can be! I'm european and I feel colder here than winter time</p>]]></description><link>https://blog.shanelee.name/2019/11/28/road-to-clean-energy-and-sustainability/</link><guid isPermaLink="false">e710a094-36a0-417a-980d-ad93850aa892</guid><category><![CDATA[solar]]></category><category><![CDATA[clean energy]]></category><category><![CDATA[melbourne]]></category><category><![CDATA[sustainability]]></category><category><![CDATA[cycle]]></category><category><![CDATA[bicycle]]></category><category><![CDATA[climatechange]]></category><category><![CDATA[renewables]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Thu, 28 Nov 2019 03:20:01 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2019/11/matt-duncan-IUY_3DvM__w-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
-  <img src="https://blog.shanelee.name/content/images/2019/11/matt-duncan-IUY_3DvM__w-unsplash.jpg" alt="Road to clean energy and sustainability"><p>This is an overview of my journey to reducing my carbon footprint and making my home as energy efficient as possible.</p>
+<p>WFH myself since March, I did not realise how cold and under insulated australian households can be! I'm european and I feel colder here than winter time</p>]]></description><link>http://https://blog.shanelee.name/2019/11/28/road-to-clean-energy-and-sustainability/</link><guid isPermaLink="false">e710a094-36a0-417a-980d-ad93850aa892</guid><category><![CDATA[solar]]></category><category><![CDATA[clean energy]]></category><category><![CDATA[melbourne]]></category><category><![CDATA[sustainability]]></category><category><![CDATA[cycle]]></category><category><![CDATA[bicycle]]></category><category><![CDATA[climatechange]]></category><category><![CDATA[renewables]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Thu, 28 Nov 2019 03:20:01 GMT</pubDate><media:content url="http://https://blog.shanelee.name/content/images/2019/11/matt-duncan-IUY_3DvM__w-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
+  <img src="http://https://blog.shanelee.name/content/images/2019/11/matt-duncan-IUY_3DvM__w-unsplash.jpg" alt="Road to clean energy and sustainability"><p>This is an overview of my journey to reducing my carbon footprint and making my home as energy efficient as possible.</p>
 </blockquote>
 
 <h2 id="energyefficiency">Energy efficiency</h2>
@@ -1242,7 +1378,7 @@ gcloud run deploy redoc-greetings-api --project $PROJECT_ID --image gcr.io/$PROJ
 
 <h3 id="solar">Solar</h3>
 
-<p><img src="https://blog.shanelee.name/content/images/2019/11/antonio-garcia-ndz_u1_tFZo-unsplash.jpg" alt="Road to clean energy and sustainability"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2019/11/antonio-garcia-ndz_u1_tFZo-unsplash.jpg" alt="Road to clean energy and sustainability"></p>
 
 <p>Before I chose a solar installer to go with, I researched online to understand the best solution for my home.</p>
 
@@ -1267,7 +1403,7 @@ gcloud run deploy redoc-greetings-api --project $PROJECT_ID --image gcr.io/$PROJ
 
 <p>All panels were installed west facing.</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2019/11/enphase.gif" alt="Road to clean energy and sustainability"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2019/11/enphase.gif" alt="Road to clean energy and sustainability"></p>
 
 <p><strong>Enphase Micro-Inverters</strong> make each panel run independently, which is a big advantage compared to a string inverter system where when one panel starts to act faulty, it shuts down the entire array of panels.</p>
 
@@ -1281,7 +1417,7 @@ gcloud run deploy redoc-greetings-api --project $PROJECT_ID --image gcr.io/$PROJ
 
 <p>Below is the energy produced for a typical summers day in Melbourne.</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2020/08/Screenshot_20200819-112109-1.png" alt="Road to clean energy and sustainability"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2020/08/Screenshot_20200819-112109-1.png" alt="Road to clean energy and sustainability"></p>
 
 <p>There is a great sense of satisfaction knowing I am using clean energy to power my house during the day.</p>
 
@@ -1359,7 +1495,7 @@ gcloud run deploy redoc-greetings-api --project $PROJECT_ID --image gcr.io/$PROJ
 
 <p>Anytime my wife and I go abroad, I always go check out a city's shared bicycle scheme if available and explore the city by bike. This to me is the best way to see a city. On a warm summer evening cycling down along the banks of the river seine in Paris listening to some jazz and watching the world go by is pure bliss. 🇫🇷</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2020/08/IMG-20180522-WA0000-1.jpg" alt="Road to clean energy and sustainability"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2020/08/IMG-20180522-WA0000-1.jpg" alt="Road to clean energy and sustainability"></p>
 
 <p>Since covid there has been a huge uptake in cycling. I notice it myself at the weekend and on the trails. Governments like <a href="https://ecf.com/news-and-events/news/ireland-will-invest-10-total-transport-capital-budget-cycling?s=09">ireland</a> and the <a href="https://www.forbes.com/sites/carltonreid/2020/07/27/well-build-thousands-of-miles-of-protected-cycleways-pledges-boris-johnson/">UK</a> have invested heavily in protected cycleways and pedestrian infrastructure. </p>
 
@@ -1391,8 +1527,8 @@ gcloud run deploy redoc-greetings-api --project $PROJECT_ID --image gcr.io/$PROJ
   <p>“In the middle of difficulty lies opportunity.” </p>
 </blockquote>
 
-<p>We <strong>all</strong> have an opportunity to make a difference and create a more sustainable future. </p>]]></content:encoded></item><item><title><![CDATA[GraphQL API on the new Google Cloud Run]]></title><description><![CDATA[ Cloud Run, a serverless environment based on containers and Kubernetes.]]></description><link>https://blog.shanelee.name/2019/05/17/graphql-api-google-cloud-run/</link><guid isPermaLink="false">1dfdf148-8167-4016-8259-29cd1cd39f87</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[google]]></category><category><![CDATA[graphql]]></category><category><![CDATA[k8s]]></category><category><![CDATA[docker]]></category><category><![CDATA[gke]]></category><category><![CDATA[cloud]]></category><category><![CDATA[cloudrun]]></category><category><![CDATA[nodejs]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Fri, 17 May 2019 08:07:00 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2019/05/fabio-comparelli-696510-unsplash-1.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
-  <img src="https://blog.shanelee.name/content/images/2019/05/fabio-comparelli-696510-unsplash-1.jpg" alt="GraphQL API on the new Google Cloud Run"><p>Cloud Run is a layer that Google built on top of Knative to simplify deploying serverless applications on the Google Cloud Platform.</p>
+<p>We <strong>all</strong> have an opportunity to make a difference and create a more sustainable future. </p>]]></content:encoded></item><item><title><![CDATA[GraphQL API on the new Google Cloud Run]]></title><description><![CDATA[ Cloud Run, a serverless environment based on containers and Kubernetes.]]></description><link>http://https://blog.shanelee.name/2019/05/17/graphql-api-google-cloud-run/</link><guid isPermaLink="false">1dfdf148-8167-4016-8259-29cd1cd39f87</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[google]]></category><category><![CDATA[graphql]]></category><category><![CDATA[k8s]]></category><category><![CDATA[docker]]></category><category><![CDATA[gke]]></category><category><![CDATA[cloud]]></category><category><![CDATA[cloudrun]]></category><category><![CDATA[nodejs]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Fri, 17 May 2019 08:07:00 GMT</pubDate><media:content url="http://https://blog.shanelee.name/content/images/2019/05/fabio-comparelli-696510-unsplash-1.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
+  <img src="http://https://blog.shanelee.name/content/images/2019/05/fabio-comparelli-696510-unsplash-1.jpg" alt="GraphQL API on the new Google Cloud Run"><p>Cloud Run is a layer that Google built on top of Knative to simplify deploying serverless applications on the Google Cloud Platform.</p>
 </blockquote>
 
 <p>So whats <strong>Knative</strong>?? </p>
@@ -1477,7 +1613,7 @@ gcloud sql users set-password postgres no-host --instance=[INSTANCE_NAME] \
 <p><a href="https://cloud.google.com/sql/docs/postgres/create-instance">Refer to doc
 </a> for more info</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2019/05/CloudSQL.png" alt="GraphQL API on the new Google Cloud Run"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2019/05/CloudSQL.png" alt="GraphQL API on the new Google Cloud Run"></p>
 
 <h4 id="step2buildinganddeployingacloudrunservice">Step 2: Building and Deploying a Cloud Run Service</h4>
 
@@ -1508,11 +1644,11 @@ gcloud beta run deploy --image gcr.io/[PROJECT-ID]/graphql --add-cloudsql-instan
 
 <p>Or you can view the UI console</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2019/05/CloudRunServiceGraphql.png" alt="GraphQL API on the new Google Cloud Run"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2019/05/CloudRunServiceGraphql.png" alt="GraphQL API on the new Google Cloud Run"></p>
 
 <p>You can verify it works locally by using <a href="https://insomnia.rest/">Insomnia</a></p>
 
-<p><img src="https://blog.shanelee.name/content/images/2019/05/insomnia.png" alt="GraphQL API on the new Google Cloud Run"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2019/05/insomnia.png" alt="GraphQL API on the new Google Cloud Run"></p>
 
 <p>Some sample queries can be seen below to sign in a user and get back their details</p>
 
@@ -1537,8 +1673,8 @@ gcloud beta run deploy --image gcr.io/[PROJECT-ID]/graphql --add-cloudsql-instan
 
 <p>Easiest way is to delete the test <a href="https://console.cloud.google.com/iam-admin/projects">project</a></p>
 
-<p>Any questions feel free to comment below. </p>]]></content:encoded></item><item><title><![CDATA[Skaffold for local kubernetes development]]></title><description><![CDATA[skaffold for local kubernetes development]]></description><link>https://blog.shanelee.name/2019/02/20/skaffold-for-local-kubernetes-development/</link><guid isPermaLink="false">939f9b10-3288-4a62-83c4-8de5aa50b6f6</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[node]]></category><category><![CDATA[skaffold]]></category><category><![CDATA[graphql]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Wed, 20 Feb 2019 06:37:09 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2019/02/jacek-dylag-680347-unsplash-1.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
-  <img src="https://blog.shanelee.name/content/images/2019/02/jacek-dylag-680347-unsplash-1.jpg" alt="Skaffold for local kubernetes development"><p>Easy and Repeatable Kubernetes Development</p>
+<p>Any questions feel free to comment below. </p>]]></content:encoded></item><item><title><![CDATA[Skaffold for local kubernetes development]]></title><description><![CDATA[skaffold for local kubernetes development]]></description><link>http://https://blog.shanelee.name/2019/02/20/skaffold-for-local-kubernetes-development/</link><guid isPermaLink="false">939f9b10-3288-4a62-83c4-8de5aa50b6f6</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[node]]></category><category><![CDATA[skaffold]]></category><category><![CDATA[graphql]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Wed, 20 Feb 2019 06:37:09 GMT</pubDate><media:content url="http://https://blog.shanelee.name/content/images/2019/02/jacek-dylag-680347-unsplash-1.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
+  <img src="http://https://blog.shanelee.name/content/images/2019/02/jacek-dylag-680347-unsplash-1.jpg" alt="Skaffold for local kubernetes development"><p>Easy and Repeatable Kubernetes Development</p>
 </blockquote>
 
 <p><strong>TLDR</strong> Below, I will showcase how to install and use skaffold for local development with kubernetes.</p>
@@ -1557,7 +1693,7 @@ gcloud beta run deploy --image gcr.io/[PROJECT-ID]/graphql --add-cloudsql-instan
 
 <h3 id="skaffoldmodes">Skaffold modes</h3>
 
-<p><img src="https://blog.shanelee.name/content/images/2019/02/skaffold-cmds.jpg" alt="Skaffold for local kubernetes development"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2019/02/skaffold-cmds.jpg" alt="Skaffold for local kubernetes development"></p>
 
 <p>In a single command, Skaffold can:</p>
 
@@ -1628,7 +1764,7 @@ profiles:
 
 <h3 id="localdevelopmentworkflow">Local development workflow</h3>
 
-<p><img src="https://blog.shanelee.name/content/images/2019/02/skaffold_workflow_local.png" alt="Skaffold for local kubernetes development"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2019/02/skaffold_workflow_local.png" alt="Skaffold for local kubernetes development"></p>
 
 <h5 id="syncfilestoyourpodswithskaffold">Sync files to your pods with Skaffold</h5>
 
@@ -1657,7 +1793,7 @@ profiles:
 
 <p>It allows you to explore and optimise your docker image size.</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2019/02/Screen-Shot-2019-02-20-at-7-23-39-pm.png" alt="Skaffold for local kubernetes development"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2019/02/Screen-Shot-2019-02-20-at-7-23-39-pm.png" alt="Skaffold for local kubernetes development"></p>
 
 <p>Now we can run skaffold!</p>
 
@@ -1695,7 +1831,7 @@ skaffold fix --overwrite
 <li><p>My sample github <a href="https://github.com/shavo007/graphql-playground/tree/master/api">repo</a> showcasing graphql api with kubernetes</p></li>
 </ul>]]></content:encoded></item><item><title><![CDATA[How I aced the Certified Kubernetes Administrator (CKA) Exam]]></title><description><![CDATA[<p>I took the CKA exam recently and would like to share my own preparation and tips.</p>
 
-<p>The exam is intense as it requires 3 hours of concentrated effort during which you need to solve 24 problems. So timekeeping is very important.  If you are interested to take this exam and</p>]]></description><link>https://blog.shanelee.name/2018/10/17/how-i-aced-the-certified-kubernetes-administrator-cka-exam/</link><guid isPermaLink="false">ab6a2a07-ad36-4be5-ae74-d629d25a25bb</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[cka]]></category><category><![CDATA[exam]]></category><category><![CDATA[kubectl]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Wed, 17 Oct 2018 07:29:30 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2018/10/clement-h-544786-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="https://blog.shanelee.name/content/images/2018/10/clement-h-544786-unsplash.jpg" alt="How I aced the Certified Kubernetes Administrator (CKA) Exam"><p>I took the CKA exam recently and would like to share my own preparation and tips.</p>
+<p>The exam is intense as it requires 3 hours of concentrated effort during which you need to solve 24 problems. So timekeeping is very important.  If you are interested to take this exam and</p>]]></description><link>http://https://blog.shanelee.name/2018/10/17/how-i-aced-the-certified-kubernetes-administrator-cka-exam/</link><guid isPermaLink="false">ab6a2a07-ad36-4be5-ae74-d629d25a25bb</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[cka]]></category><category><![CDATA[exam]]></category><category><![CDATA[kubectl]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Wed, 17 Oct 2018 07:29:30 GMT</pubDate><media:content url="http://https://blog.shanelee.name/content/images/2018/10/clement-h-544786-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="http://https://blog.shanelee.name/content/images/2018/10/clement-h-544786-unsplash.jpg" alt="How I aced the Certified Kubernetes Administrator (CKA) Exam"><p>I took the CKA exam recently and would like to share my own preparation and tips.</p>
 
 <p>The exam is intense as it requires 3 hours of concentrated effort during which you need to solve 24 problems. So timekeeping is very important.  If you are interested to take this exam and have second thought about it, my sincere advice is, just do it!</p>
 
@@ -1761,7 +1897,7 @@ EOF
 
 <p>Best of luck! Remember you have one free retake if needed.😃🚀⚓</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2018/10/CKAcertificate.png" alt="How I aced the Certified Kubernetes Administrator (CKA) Exam"></p>]]></content:encoded></item><item><title><![CDATA[Istio on Azure AKS]]></title><description><![CDATA[How to deploy istio service mesh on azure kubernetes service (AKS) and run bookinfo example application]]></description><link>https://blog.shanelee.name/2018/08/12/istio-on-azure-aks/</link><guid isPermaLink="false">1300cd8a-88a9-43ef-a409-66a2b74c5ad0</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[azure]]></category><category><![CDATA[aks]]></category><category><![CDATA[istio]]></category><category><![CDATA[google]]></category><category><![CDATA[service-mesh]]></category><category><![CDATA[k8s]]></category><category><![CDATA[microservice]]></category><category><![CDATA[grafana]]></category><category><![CDATA[jaeger]]></category><category><![CDATA[tracing]]></category><category><![CDATA[metrics]]></category><category><![CDATA[prometheus]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 12 Aug 2018 04:20:09 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2018/08/peter-gonzalez-621059-unsplash-1.jpg" medium="image"/><content:encoded><![CDATA[<img src="https://blog.shanelee.name/content/images/2018/08/peter-gonzalez-621059-unsplash-1.jpg" alt="Istio on Azure AKS"><p><img src="https://blog.shanelee.name/content/images/2018/08/istio.png" alt="Istio on Azure AKS"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2018/10/CKAcertificate.png" alt="How I aced the Certified Kubernetes Administrator (CKA) Exam"></p>]]></content:encoded></item><item><title><![CDATA[Istio on Azure AKS]]></title><description><![CDATA[How to deploy istio service mesh on azure kubernetes service (AKS) and run bookinfo example application]]></description><link>http://https://blog.shanelee.name/2018/08/12/istio-on-azure-aks/</link><guid isPermaLink="false">1300cd8a-88a9-43ef-a409-66a2b74c5ad0</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[azure]]></category><category><![CDATA[aks]]></category><category><![CDATA[istio]]></category><category><![CDATA[google]]></category><category><![CDATA[service-mesh]]></category><category><![CDATA[k8s]]></category><category><![CDATA[microservice]]></category><category><![CDATA[grafana]]></category><category><![CDATA[jaeger]]></category><category><![CDATA[tracing]]></category><category><![CDATA[metrics]]></category><category><![CDATA[prometheus]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 12 Aug 2018 04:20:09 GMT</pubDate><media:content url="http://https://blog.shanelee.name/content/images/2018/08/peter-gonzalez-621059-unsplash-1.jpg" medium="image"/><content:encoded><![CDATA[<img src="http://https://blog.shanelee.name/content/images/2018/08/peter-gonzalez-621059-unsplash-1.jpg" alt="Istio on Azure AKS"><p><img src="http://https://blog.shanelee.name/content/images/2018/08/istio.png" alt="Istio on Azure AKS"></p>
 
 <p>Istio recently <a href="https://istio.io/about/notes/1.0">announced</a> that they are production ready. Service meshes are becoming an important level of abstraction for a developer using kubernetes. And <a href="https://www.envoyproxy.io/">Envoy</a> is the heartbeat of this service mesh and continues its impressive growth. </p>
 
@@ -1801,7 +1937,7 @@ EOF
 
 <p>Verify the nodes are running <code>kgnoowide</code></p>
 
-<p><img src="https://blog.shanelee.name/content/images/2018/08/Screen-Shot-2018-08-12-at-2-28-58-pm.png" alt="Istio on Azure AKS"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2018/08/Screen-Shot-2018-08-12-at-2-28-58-pm.png" alt="Istio on Azure AKS"></p>
 
 <h2 id="deployistio">Deploy istio</h2>
 
@@ -1827,11 +1963,11 @@ export PATH=$PWD/bin:$PATH
 <p>Check the status of the pods <br>
 <code>kgpoowide -n istio-system</code></p>
 
-<p><img src="https://blog.shanelee.name/content/images/2018/08/Screen-Shot-2018-08-12-at-2-44-04-pm.png" alt="Istio on Azure AKS"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2018/08/Screen-Shot-2018-08-12-at-2-44-04-pm.png" alt="Istio on Azure AKS"></p>
 
 <h3 id="istioarchitecture">Istio architecture</h3>
 
-<p><img src="https://blog.shanelee.name/content/images/2018/08/istio-architecture.png" alt="Istio on Azure AKS"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2018/08/istio-architecture.png" alt="Istio on Azure AKS"></p>
 
 <p>The previous step deployed the Istio Pilot, Mixer, Ingress-Controller, Egress-Controller and the Istio CA (Certificate Authority).</p>
 
@@ -1924,7 +2060,7 @@ export SECURE_INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressga
 
 <p><code>kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-50-v3.yaml</code></p>
 
-<p><img src="https://blog.shanelee.name/content/images/2018/08/Screen-Shot-2018-08-12-at-3-10-00-pm.png" alt="Istio on Azure AKS"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2018/08/Screen-Shot-2018-08-12-at-3-10-00-pm.png" alt="Istio on Azure AKS"></p>
 
 <h4 id="newreleases">New Releases</h4>
 
@@ -1942,7 +2078,7 @@ reviews                                   reviews       1        0      default 
 
 <h5 id="accessmetrics">Access Metrics</h5>
 
-<p><img alt="Istio on Azure AKS" src="https://blog.shanelee.name/content/images/2018/08/prometheus-icon-color-1.png" style="width: 250px; height:250px"></p>
+<p><img alt="Istio on Azure AKS" src="http://https://blog.shanelee.name/content/images/2018/08/prometheus-icon-color-1.png" style="width: 250px; height:250px"></p>
 
 <p>With Istio's insight into how applications communicate, it can generate profound insights into how applications are working and performance metrics.</p>
 
@@ -1964,7 +2100,7 @@ done
 
 <p>The provided link opens the Prometheus UI and executes a query for values of the <code>istio_double_request_count</code> metric.</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2018/08/Screen-Shot-2018-08-12-at-3-26-44-pm.png" alt="Istio on Azure AKS"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2018/08/Screen-Shot-2018-08-12-at-3-26-44-pm.png" alt="Istio on Azure AKS"></p>
 
 <p>Prometheus was recently <a href="https://www.cncf.io/announcement/2018/08/09/prometheus-graduates/">promoted</a> from CNCF as a graduate project, following kubernetes.</p>
 
@@ -1984,7 +2120,7 @@ done
 
 <p>Visit <code>http://localhost:3000/dashboard/db/istio-mesh-dashboard</code> in your web browser.</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2018/08/Screen-Shot-2018-08-12-at-3-35-45-pm.png" alt="Istio on Azure AKS"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2018/08/Screen-Shot-2018-08-12-at-3-35-45-pm.png" alt="Istio on Azure AKS"></p>
 
 <p>This gives the global view of the Mesh along with services and workloads in the mesh. </p>
 
@@ -1992,7 +2128,7 @@ done
 
 <h5 id="distributedtracing">Distributed Tracing</h5>
 
-<p><img alt="Istio on Azure AKS" src="https://blog.shanelee.name/content/images/2018/08/jaeger-icon-color.png" style="width: 250px; height:250px"></p>
+<p><img alt="Istio on Azure AKS" src="http://https://blog.shanelee.name/content/images/2018/08/jaeger-icon-color.png" style="width: 250px; height:250px"></p>
 
 <p>This task shows you how Istio-enabled applications can be configured to collect trace spans. After completing this task, you should understand all of the assumptions about your application and how to have it participate in tracing, regardless of what language/framework/platform you use to build your application.</p>
 
@@ -2007,11 +2143,11 @@ done
 
 <p>From the left-hand pane of the Jaeger dashboard, select <code>productpage</code> from the Service drop-down list and click Find Traces. You should see something similar to the following:</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2018/08/Screen-Shot-2018-08-12-at-3-43-04-pm.png" alt="Istio on Azure AKS"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2018/08/Screen-Shot-2018-08-12-at-3-43-04-pm.png" alt="Istio on Azure AKS"></p>
 
 <p>If you click on the top (most recent) trace, you should see the details corresponding to your latest refresh of the /productpage. The page should look something like this:</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2018/08/Screen-Shot-2018-08-12-at-3-43-16-pm.png" alt="Istio on Azure AKS"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2018/08/Screen-Shot-2018-08-12-at-3-43-16-pm.png" alt="Istio on Azure AKS"></p>
 
 <p>And there you have it. For more information on istio check out <a href="https://istio.io/">https://istio.io/</a></p>
 
@@ -2023,8 +2159,8 @@ done
 
 <p>Heptio have come out with some useful kubernetes tools; sonobuoy being one. </p>
 
-<p>In this post, I will spin</p>]]></description><link>https://blog.shanelee.name/2018/02/03/test-drive-heptio-sonobuoy-diagnostic-kubernetes-tool/</link><guid isPermaLink="false">395f2c06-dbbf-46ae-a335-0c12203079ef</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[aws]]></category><category><![CDATA[heptio]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 03 Feb 2018 09:33:23 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2018/08/joseph-barrientos-93565.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
-  <img src="https://blog.shanelee.name/content/images/2018/08/joseph-barrientos-93565.jpg" alt="Test drive heptio sonobuoy diagnostic kubernetes tool"><p>Heptio Sonobuoy is a diagnostic tool that makes it easier to understand the state of a Kubernetes cluster by running a set of Kubernetes conformance tests in an accessible and non-destructive manner. </p>
+<p>In this post, I will spin</p>]]></description><link>http://https://blog.shanelee.name/2018/02/03/test-drive-heptio-sonobuoy-diagnostic-kubernetes-tool/</link><guid isPermaLink="false">395f2c06-dbbf-46ae-a335-0c12203079ef</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[aws]]></category><category><![CDATA[heptio]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 03 Feb 2018 09:33:23 GMT</pubDate><media:content url="http://https://blog.shanelee.name/content/images/2018/08/joseph-barrientos-93565.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
+  <img src="http://https://blog.shanelee.name/content/images/2018/08/joseph-barrientos-93565.jpg" alt="Test drive heptio sonobuoy diagnostic kubernetes tool"><p>Heptio Sonobuoy is a diagnostic tool that makes it easier to understand the state of a Kubernetes cluster by running a set of Kubernetes conformance tests in an accessible and non-destructive manner. </p>
 </blockquote>
 
 <p>Heptio have come out with some useful kubernetes tools; sonobuoy being one. </p>
@@ -2108,7 +2244,7 @@ done
 
 <p>Once you run the command, you will see in the browser to see the conformance results.</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2018/02/Screen-Shot-2018-02-03-at-9-35-17-pm.png" alt="Test drive heptio sonobuoy diagnostic kubernetes tool"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2018/02/Screen-Shot-2018-02-03-at-9-35-17-pm.png" alt="Test drive heptio sonobuoy diagnostic kubernetes tool"></p>
 
 <p>You will see two pods running in the namespace heptio-sonobuoy</p>
 
@@ -2129,15 +2265,15 @@ kubetail sonobuoy-e2e-job-bf586487f2f64f0b -n heptio-sonobuoy
 
 <p>Once it finishes, you can download the results and keep the report by exporting as a pdf.</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2018/02/Screen-Shot-2018-02-03-at-10-19-17-pm.png" alt="Test drive heptio sonobuoy diagnostic kubernetes tool"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2018/02/Screen-Shot-2018-02-03-at-10-19-17-pm.png" alt="Test drive heptio sonobuoy diagnostic kubernetes tool"></p>
 
 <p>All tests passed. There you have it!</p>
 
-<p>Stay tuned for more kubernetes goodness.. ⚓️</p>]]></content:encoded></item><item><title><![CDATA[Logging on kubernetes with fluentd and elasticsearch 6]]></title><description><![CDATA[How to configure EFK (Elastic-Fluentd-Kibana) stack on kubernetes for logging]]></description><link>https://blog.shanelee.name/2017/12/17/logging-on-kubernetes-with-fluentd-and-elasticsearch-6/</link><guid isPermaLink="false">cac30a75-368d-462f-aee8-9c510bfd9de1</guid><category><![CDATA[elasticsearch]]></category><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[ingress]]></category><category><![CDATA[nginx]]></category><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[curator]]></category><category><![CDATA[fluentd]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 16 Dec 2017 13:06:59 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2018/01/robert-larsson-64547-1.jpg" medium="image"/><content:encoded><![CDATA[<h1 id="tldr">TLDR</h1>
+<p>Stay tuned for more kubernetes goodness.. ⚓️</p>]]></content:encoded></item><item><title><![CDATA[Logging on kubernetes with fluentd and elasticsearch 6]]></title><description><![CDATA[How to configure EFK (Elastic-Fluentd-Kibana) stack on kubernetes for logging]]></description><link>http://https://blog.shanelee.name/2017/12/17/logging-on-kubernetes-with-fluentd-and-elasticsearch-6/</link><guid isPermaLink="false">cac30a75-368d-462f-aee8-9c510bfd9de1</guid><category><![CDATA[elasticsearch]]></category><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[ingress]]></category><category><![CDATA[nginx]]></category><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[curator]]></category><category><![CDATA[fluentd]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 16 Dec 2017 13:06:59 GMT</pubDate><media:content url="http://https://blog.shanelee.name/content/images/2018/01/robert-larsson-64547-1.jpg" medium="image"/><content:encoded><![CDATA[<h1 id="tldr">TLDR</h1>
 
-<img src="https://blog.shanelee.name/content/images/2018/01/robert-larsson-64547-1.jpg" alt="Logging on kubernetes with fluentd and elasticsearch 6"><p>The solution I have used in the past for logging in kubernetes clusters is EFK (Elastic-Fluentd-Kibana). Alot of you have probably heard of ELK stack but I find that logstash is more heavyweight and does not provide the same output plugins as fluentd.</p>
+<img src="http://https://blog.shanelee.name/content/images/2018/01/robert-larsson-64547-1.jpg" alt="Logging on kubernetes with fluentd and elasticsearch 6"><p>The solution I have used in the past for logging in kubernetes clusters is EFK (Elastic-Fluentd-Kibana). Alot of you have probably heard of ELK stack but I find that logstash is more heavyweight and does not provide the same output plugins as fluentd.</p>
 
-<p><img alt="Logging on kubernetes with fluentd and elasticsearch 6" src="https://blog.shanelee.name/content/images/2017/12/icon-elasticsearch-bb-1.svg" style="width: 300px; height:300px"></p>
+<p><img alt="Logging on kubernetes with fluentd and elasticsearch 6" src="http://https://blog.shanelee.name/content/images/2017/12/icon-elasticsearch-bb-1.svg" style="width: 300px; height:300px"></p>
 
 <h2 id="elasticsearch">Elasticsearch</h2>
 
@@ -2163,7 +2299,7 @@ kubetail sonobuoy-e2e-job-bf586487f2f64f0b -n heptio-sonobuoy
 
 <h2 id="fluentd">FluentD</h2>
 
-<p><img src="https://blog.shanelee.name/content/images/2017/12/container_logging-1024x536.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2017/12/container_logging-1024x536.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
 
 <p>Fluentd is an open-source framework for data collection that unifies the collection and consumption of data in a pluggable manner. There are several producer and consumer loggers for various kinds of applications. It has a huge suite of <a href="https://www.fluentd.org/plugins">plugins</a> to choose from. </p>
 
@@ -2175,7 +2311,7 @@ kubetail sonobuoy-e2e-job-bf586487f2f64f0b -n heptio-sonobuoy
 
 <h2 id="whatsmissinggeo">Whats missing - Geo</h2>
 
-<p><img src="https://blog.shanelee.name/content/images/2017/12/joao-silas-72562.jpg" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2017/12/joao-silas-72562.jpg" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
 
 <p>I found with the examples online for fluentd daesmonset there was none that supported <strong>geoip</strong>. Coreos offering and fluentd official kubernetes daemonset do not provide this feature. </p>
 
@@ -2297,19 +2433,19 @@ data:
 
 <h2 id="kibana">Kibana</h2>
 
-<p><img alt="Logging on kubernetes with fluentd and elasticsearch 6" src="https://blog.shanelee.name/content/images/2017/12/icon-kibana-bb.svg" style="width: 300px; height:300px"></p>
+<p><img alt="Logging on kubernetes with fluentd and elasticsearch 6" src="http://https://blog.shanelee.name/content/images/2017/12/icon-kibana-bb.svg" style="width: 300px; height:300px"></p>
 
 <p>Now access kibana - GUI for elasticsearch</p>
 
 <p>You should now see your logs ingested in elasticsearch. </p>
 
-<p><img src="https://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-26-at-3-10-18-pm.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-26-at-3-10-18-pm.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
 
 <h3 id="tilemapvisualization">Tile map visualization</h3>
 
 <p>There is a limitation with managed service and tile map view. I customized the settings to use WMS compliant map server. See below:</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-26-at-3-14-43-pm.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-26-at-3-14-43-pm.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
 
 <p>Once you pick the pattern, and assuming your geopoints are correctly mapped, Kibana will automatically populate the visualisation settings such as which field to aggregate on, and display the map almost instantly.</p>
 
@@ -2317,7 +2453,7 @@ data:
 
 <p>This includes multiple visualizations and a dashboard.</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-17-at-11-47-26-am.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-17-at-11-47-26-am.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
 
 <h4 id="inaccurategeolocation">Inaccurate Geolocation</h4>
 
@@ -2327,7 +2463,7 @@ data:
 
 <p>You can build up more widgets, such as url count or count by country.</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-26-at-3-43-45-pm.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-26-at-3-43-45-pm.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
 
 <h2 id="cleanupoflogindices">Cleanup of log indices</h2>
 
@@ -2341,7 +2477,7 @@ data:
 
 <p>I  assume you know what pods are so I will quickly breakdown service and ingress resources.</p>
 
-<h2 id="service">Service</h2>]]></description><link>https://blog.shanelee.name/2017/10/16/kubernetes-ingress-and-sticky-sessions/</link><guid isPermaLink="false">52c2d7b6-231c-4d3b-8fcd-7f4fa090d576</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[ingress]]></category><category><![CDATA[sticky]]></category><category><![CDATA[elb]]></category><category><![CDATA[nginx]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 15 Oct 2017 14:21:48 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
+<h2 id="service">Service</h2>]]></description><link>http://https://blog.shanelee.name/2017/10/16/kubernetes-ingress-and-sticky-sessions/</link><guid isPermaLink="false">52c2d7b6-231c-4d3b-8fcd-7f4fa090d576</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[ingress]]></category><category><![CDATA[sticky]]></category><category><![CDATA[elb]]></category><category><![CDATA[nginx]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 15 Oct 2017 14:21:48 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
 
 <p>Recently I had to look at horizontally scaling a traditional web-app on kubernetes. Here i will explain how I achieved it and what ingress controller is and why to use it.</p>
 
@@ -2394,7 +2530,7 @@ data:
 
 <p>To visualise how this works, check out this little guy! Traefik is one implementation you can use as an ingress.</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2017/10/architecture.png" alt=""></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2017/10/architecture.png" alt=""></p>
 
 <p>But I have chosen nginx ingress controller instead as it supports sticky sessions and as a reverse proxy is extremely popular solution.</p>
 
@@ -2540,7 +2676,7 @@ while true; do sleep 1;curl -b cookies.txt $ELB/foo -H 'Host: stickyingress.exam
 
 <p>As, you can see, requests are sent to the same pod for every subsequent request.</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2017/10/stickySession.gif" alt=""></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2017/10/stickySession.gif" alt=""></p>
 
 <h3 id="proxyprotocol">Proxy protocol</h3>
 
@@ -2576,14 +2712,14 @@ while true; do sleep 1;curl -b cookies.txt $ELB/foo -H 'Host: stickyingress.exam
 
 <h2 id="awsrdsstopstart">AWS RDS stop/start</h2>
 
-<p><img src="https://blog.shanelee.name/content/images/2017/07/rds.png" alt="">
-Companies I have worked for in the past have scaled down their RDS instances for lower end envs to save</p>]]></description><link>https://blog.shanelee.name/2017/07/28/how-to-save-costs-with-serverless-and-aws-lambda/</link><guid isPermaLink="false">cd5587b1-d0bc-45cb-bda4-5436ed764cd8</guid><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[rds]]></category><category><![CDATA[serverless]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Fri, 28 Jul 2017 03:11:00 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
+<p><img src="http://https://blog.shanelee.name/content/images/2017/07/rds.png" alt="">
+Companies I have worked for in the past have scaled down their RDS instances for lower end envs to save</p>]]></description><link>http://https://blog.shanelee.name/2017/07/28/how-to-save-costs-with-serverless-and-aws-lambda/</link><guid isPermaLink="false">cd5587b1-d0bc-45cb-bda4-5436ed764cd8</guid><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[rds]]></category><category><![CDATA[serverless]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Fri, 28 Jul 2017 03:11:00 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
 
 <p>Recently AWS <a href="https://aws.amazon.com/about-aws/whats-new/2017/06/amazon-rds-supports-stopping-and-starting-of-database-instances/">announced</a> new feature to stop/start your RDS instances. This is something I have been looking forward to for a long while..</p>
 
 <h2 id="awsrdsstopstart">AWS RDS stop/start</h2>
 
-<p><img src="https://blog.shanelee.name/content/images/2017/07/rds.png" alt="">
+<p><img src="http://https://blog.shanelee.name/content/images/2017/07/rds.png" alt="">
 Companies I have worked for in the past have scaled down their RDS instances for lower end envs to save costs. Now you can schedule to stop/start, sweet!</p>
 
 <blockquote>
@@ -2605,7 +2741,7 @@ usage running 24/7, costs on average <strong>$360.15</strong> per month</p>
 
 <p>What if you were working in a large enterprise with 10s or 100s of RDS instances... 😉</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2017/07/neat.gif" alt=""></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2017/07/neat.gif" alt=""></p>
 
 <p>So now that we know how much you can save, how to automate the process of stopping/starting instances and run it at low cost.</p>
 
@@ -2613,7 +2749,7 @@ usage running 24/7, costs on average <strong>$360.15</strong> per month</p>
 
 <h2 id="serverlessandawslambda">Serverless and AWS Lambda</h2>
 
-<p><img src="https://blog.shanelee.name/content/images/2017/07/lambda1.png" alt=""></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2017/07/lambda1.png" alt=""></p>
 
 <p>Over the past few years serverless (or FaaS - Function as a Service) computing has became more and more popular.</p>
 
@@ -2652,7 +2788,7 @@ Up to 3.2 million seconds of compute time per month</li>
 
 <h2 id="serverlessframework">Serverless framework</h2>
 
-<p><img src="https://blog.shanelee.name/content/images/2017/07/serverless.png" alt=""></p>
+<p><img src="http://https://blog.shanelee.name/content/images/2017/07/serverless.png" alt=""></p>
 
 <blockquote>
   <p>Build auto-scaling, pay-per-execution, event-driven apps on AWS Lambda and more..</p>
@@ -2721,340 +2857,4 @@ Up to 3.2 million seconds of compute time per month</li>
 <li><a href="https://github.com/dwyl/learn-aws-lambda">Learn AWS Lambda</a></li>
 </ul>
 
-<p>If you have any questions, let me know in the comments below!</p>]]></content:encoded></item><item><title><![CDATA[JVM Microservice with spring boot, docker and kubernetes]]></title><description><![CDATA[How to build and deploy a spring boot application using docker and kubernetes.]]></description><link>https://blog.shanelee.name/2017/07/15/jvm-microservice-with-spring-boot-docker-and-kubernetes/</link><guid isPermaLink="false">357eedf7-58d4-48b6-ab00-a8013d81dce5</guid><category><![CDATA[docker]]></category><category><![CDATA[spring-boot]]></category><category><![CDATA[kubernetes]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 15 Jul 2017 04:10:22 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
-
-<p>That title is a bit of a mouthful...</p>
-
-<p>Over the last two weeks I have been playing with kubernetes. I have extensive experience building microservices and below I will demonstrate how to build a microservice, contain it using docker and deploy on kubernetes.</p>
-
-<p><img src="https://blog.shanelee.name/content/images/2017/07/kubernetes.png" alt="Kubernetes"></p>
-
-<h2 id="creatingamicroserviceprojectusingspringboot">Creating a microservice project using spring boot</h2>
-
-<p>Spring boot allows a developer to build a production-grade stand-alone application, like a typical CRUD application exposing a RESTful API, with minimal configuration, reducing the learning curve required for using the Spring Framework drastically. </p>
-
-<blockquote>
-  <p>Spring Boot favors convention over configuration and is designed to get you up and running as quickly as possible.</p>
-</blockquote>
-
-<h3 id="createspringbootapplication">Create spring boot application</h3>
-
-<p>To create your spring boot app we will use  <a href="https://start.spring.io/">Spring Initializr</a> web page and generate a Gradle Project with the pre-selected Spring Boot Version. <br>
-We define <strong>name.shanelee</strong> as Group (if applicable) and define the artifact name. From here you can choose whatever dependencies you need for your microservice. We use <strong>Web</strong> for supporting tomcat and restful API. <br>
- <strong>Actuator</strong> dependency which implements some production-grade features useful for monitoring and managing our application like health-checks and HTTP requests traces.</p>
-
-<p><img src="https://blog.shanelee.name/content/images/2017/07/Screen-Shot-2017-07-15-at-2-25-28-pm.png" alt="Spring boot"></p>
-
-<p>Spring Initializr has already created everything for us. We just need to have a Java JDK 1.8 or later installed on our machine and the JAVA_HOME environment variable set accordingly.</p>
-
-<pre><code class="language-bash">### Extracting and launching the application
-shanelee at shanes-MacBook-Air in ~/java-projects  
-$ unzip   ~/Downloads/demo.zip -d microservice
-$ cd microservice/demo/
-$ ./gradlew bootRun
-</code></pre>
-
-<p><strong>The application is up and running and we did not write one line of code!</strong></p>
-
-<p>Spring Boot is opinionated and auto-configures the application with sane default values and beans. It also scans the classpath for known dependencies and initializes them. In our case, we immediately enjoy all the production-grade services offered by <a href="http://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html">Spring Actuator</a>.</p>
-
-<pre><code class="language-bash">~$ curl http://localhost:8080/health
-{"status":"UP","diskSpace":{"status":"UP","total":981190307840,"free":744776503296,"threshold":10485760}}
-</code></pre>
-
-<p><strong>NB: Actuator endpoints is important when we deploy the container in kubernetes. It needs to know when the microservice is ready to handle network traffic.</strong></p>
-
-<p>For more information see <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/">https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/</a></p>
-
-<h2 id="packagingaspringbootapplicationasadockercontainer">Packaging a Spring Boot application as a Docker container</h2>
-
-<p>Let's start by creating the Dockerfile in the root directory of our project.</p>
-
-<pre><code class="language-Docker">FROM openjdk:8u131-jdk-alpine  
-VOLUME /tmp  
-WORKDIR /app  
-COPY ./build/libs/demo-0.0.1-SNAPSHOT.jar .  
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app/demo-0.0.1-SNAPSHOT.jar"]  
-</code></pre>
-
-<p>The FROM keyword defines the base Docker image of our container. We chose <a href="http://openjdk.java.net/">OpenJDK</a> installed on <a href="https://alpinelinux.org/">Alpine Linux</a> which is a lightweight Linux distribution. To understand why I use alpine as base image check out these <a href="https://diveintodocker.com/blog/the-3-biggest-wins-when-using-alpine-as-a-base-docker-image">benefits</a></p>
-
-<p>The <strong>VOLUME</strong> instruction creates a mount point with the specified name and marks it as holding externally mounted volumes from the native host or other containers. <strong>ENTRYPOINT</strong> defines the command to execute when the container is started. Since Spring Boot produces an executable JAR with embedded Tomcat, the command to execute is simply <code>java -jar microservice.jar</code>. The additional flag <code>java.security.edg=file:/dev/./urandom</code> is used to speed up the application start-up and avoid possible freezes. By default, Java uses <code>/dev/random</code> to seed its SecureRandom class which is known to block if its entropy pool is empty.</p>
-
-<h2 id="logging">Logging</h2>
-
-<blockquote>
-  <p>Treat logs as event streams</p>
-</blockquote>
-
-<p>This is what is recommended by <strong>12factor</strong> principles. </p>
-
-<p>Microservice should not attempt to write to or manage logfiles. Instead, each running process writes its event stream, unbuffered, to stdout. During local development, the developer will view this stream in the foreground of their terminal to observe the app’s behavior.</p>
-
-<p>In staging or production deploys, each process’ stream will be captured by the execution environment and routed to one or more final destinations for viewing and long-term archival. <br>
-As I will be using <strong>kubernetes</strong>, I will define a daemonset logging shipper called <strong>fluentd</strong>. </p>
-
-<h3 id="daemonsetandfluentd">Daemonset and Fluentd</h3>
-
-<p><img src="https://blog.shanelee.name/content/images/2017/07/kubernetes-elastic-fluentd.png" alt="FluentD"></p>
-
-<p>A <strong>DaemonSet</strong> ensures that a certain pod is scheduled to each kubelet exactly once. The <strong>fluentd</strong> pod mounts the <code>/var/lib/containers/</code> host volume to access the logs of all pods scheduled to that <strong>kubelet</strong></p>
-
-<p>Daemonset for fluentd can be found <a href="https://github.com/fluent/fluentd-kubernetes-daemonset">here</a></p>
-
-<p><strong>Kubernetes</strong> logs the content of the <code>stdout</code> and <code>stderr</code> streams of a pod to a file. It creates one file for each container in a pod. The default location for these files is <code>/var/log/containers</code> . The filename contains the pod name, the namespace of the pod, the container name, and the container id. The file contains one JSON object per line of the two streams stdout and stderr. </p>
-
-<p>Fluentd is a flexible log data collector. It supports various inputs like log files or syslog and supports many outputs like <strong>elasticsearch</strong> or Hadoop. Fluentd converts each log line to an event. Those events can be processed and enriched in the fluentd pipeline.</p>
-
-<h4 id="considerationsforproductiondeployments">Considerations for Production Deployments</h4>
-
-<p>In a production environment you have to implement a log rotation of the stored log data. Since the above fluentd configuration generally will generate one index per day this is easy. <a href="https://www.elastic.co/guide/en/elasticsearch/client/curator/current/index.html">Elasticsearch Curator</a> is a tool made for exactly this job. <br>
-Curator can run as a container similar to one I defined <a href="https://hub.docker.com/r/shanelee007/docker-es-curator-cron/">here</a> also or a scheduled <a href="https://www.elastic.co/blog/serverless-elasticsearch-curator-on-aws-lambda">lambda</a> function. <br>
-Logs to <code>stdout</code> have to be in <strong>JSON</strong> format. </p>
-
-<h2 id="kubernetes">Kubernetes</h2>
-
-<blockquote>
-  <p>Kubernetes is an open-source system for automating deployment, scaling, and management of containerized applications.</p>
-</blockquote>
-
-<p>I will discuss how to run kubernetes locally using minikube and how to define resource objects for the microservice above. In a later post I will talk about creating cluster on aws using kops.</p>
-
-<h2 id="howtorunkuberneteslocally">How to run kubernetes locally</h2>
-
-<p>To run kubernetes locally you need <a href="https://kubernetes.io/docs/getting-started-guides/minikube/">minikube</a>. Minikube runs a single-node Kubernetes cluster inside a VM on your laptop for users looking to try out Kubernetes or develop with it day-to-day.</p>
-
-<p>To install locally follow the steps <a href="https://kubernetes.io/docs/tasks/tools/install-minikube/">here</a></p>
-
-<p><mark>Increase the storage size when starting</mark></p>
-
-<pre><code class="language-bash">minikube start --disk-size="10g" --memory="4096"  
-#Switch to minikube context
-kubectl config use-context minikube  
-</code></pre>
-
-<p>After cluster created, open the dashboard. Dashboard is an <a href="https://github.com/kubernetes/kubernetes/tree/master/cluster/addons">addon</a> for kubernetes. </p>
-
-<p><code>minikube dashboard</code></p>
-
-<h2 id="createdeploymentandservicefordemomicroservice">Create deployment and service for demo microservice</h2>
-
-<p>To test locally build and tag your docker image <br>
-You can point your docker client to the VM's docker daemon by running</p>
-
-<p><code>eval $(minikube docker-env)</code></p>
-
-<pre><code class="language-Docker">docker build -t demo .  
-</code></pre>
-
-<p>You should see output like below  </p>
-
-<pre><code class="language-bash">Sending build context to Docker daemon  15.76MB  
-Step 1/5 : FROM openjdk:8u131-jdk-alpine  
-8u131-jdk-alpine: Pulling from library/openjdk  
-88286f41530e: Pull complete  
-009f6e766a1b: Pull complete  
-86ed68184682: Pull complete  
-Digest: sha256:2b1f15e04904dd44a2667a07e34c628ac4b239f92f413b587538f801a0a57c88  
-Status: Downloaded newer image for openjdk:8u131-jdk-alpine  
- ---&gt; 478bf389b75b
-Step 2/5 : VOLUME /tmp  
- ---&gt; Running in ff8bd4023ec3
- ---&gt; 61232f70a630
-Removing intermediate container ff8bd4023ec3  
-Step 3/5 : WORKDIR /app  
- ---&gt; 79ea27f4f4ea
-Removing intermediate container 01fac4d0f9a3  
-Step 4/5 : COPY ./build/libs/demo-0.0.1-SNAPSHOT.jar .  
- ---&gt; f9aa60a3ac4a
-Removing intermediate container d90236650b23  
-Step 5/5 : ENTRYPOINT java -Djava.security.egd=file:/dev/./urandom -jar /app/demo-0.0.1-SNAPSHOT.jar  
- ---&gt; Running in 7c8a6c01cef0
- ---&gt; abdcba6bf841
-Removing intermediate container 7c8a6c01cef0  
-Successfully built abdcba6bf841  
-Successfully tagged demo:latest
-</code></pre>
-
-<h2 id="addons">Addons</h2>
-
-<p>Minikube has a set of built in addons that can be used enabled, disabled, and opened inside of the local k8s environment. </p>
-
-<p>To enable addon for minkube run <code>minikube addons enable &lt;addon&gt;</code></p>
-
-<p>To verify get the list of addons  </p>
-
-<pre><code class="language-bash">$ minikube addons list
-- dashboard: enabled
-- default-storageclass: enabled
-- kube-dns: enabled
-- heapster: disabled
-- ingress: enabled
-- registry: enabled
-- registry-creds: disabled
-- addon-manager: enabled
-</code></pre>
-
-<p>Below is a sample deployment config. Here I defined the service and deployment resource objects. </p>
-
-<pre><code class="language-yaml">apiVersion: v1  
-kind: Service  
-metadata:  
-  name: demo-microservice
-  labels:
-    app: demo
-spec:  
-  ports:
-    - port: 8081
-  selector:
-    app: demo
-    tier: microservice
-  type: LoadBalancer
----
-
----
-apiVersion: extensions/v1beta1  
-kind: Deployment  
-metadata:  
-  name: demo-microservice
-  creationTimestamp: null
-  labels:
-     app: demo
-spec:  
-  replicas: 1
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      creationTimestamp: null
-      labels:
-        app: demo
-        tier: microservice
-        env: dev
-    spec:
-      containers:
-        - name: demo
-          image: demo
-          imagePullPolicy: Never
-          ports:
-          - containerPort: 8081
-          env:
-            - name: SERVER_PORT
-              value: "8081"
-</code></pre>
-
-<p>This is the definition of a Kubernetes <a href="http://kubernetes.io/docs/user-guide/deployments/">Deployment</a> named <strong>demo-microservice</strong>. The replicas element defines the target number of Pods. Kubernetes performs automated binpacking and self-healing of the system to comply with the deployment specifications while achieving optimal utilization of compute resources. A Pod can be composed of multiple containers. In this scenario, I included one container: one for demo microservice image.</p>
-
-<p>If using private docker registry  you need to set an entry under the <strong>imagePullSecrets</strong> which is used to authenticate to the docker Registry.</p>
-
-<p><mark>For a detailed explanation of Kubernetes resources and concepts refer to the <a href="http://kubernetes.io/">official documentation</a>.</mark></p>
-
-<h2 id="democreation">Demo creation</h2>
-
-<p>Now create the service and deployment</p>
-
-<pre><code>$ kubectl apply -f deployment.yml --record
-service "demo-microservice" configured  
-deployment "demo-microservice" created  
-</code></pre>
-
-<p>Kubernetes will create one pod with one container inside.</p>
-
-<p>To verify the pod is running  </p>
-
-<pre><code class="language-bash">kubectl get pods  
-#To tail the logs of the microservice container run
-kubectl logs -f &lt;pod&gt;  
-</code></pre>
-
-<p>Now that the container is running in the pod, we can verify the health of the microservice. <br>
-The pod is exposed through a service. <br>
-To get information about the service run <br>
-<code>$ kubectl describe svc demo-microservice</code></p>
-
-<p>To access locally get the public url  </p>
-
-<pre><code class="language-bash">$ minikube service demo-microservice --url
-http://192.168.99.100:31511  
-</code></pre>
-
-<h3 id="verifyhealth">Verify health</h3>
-
-<p>Then hit the health endpoint to verify the status of the microservice  </p>
-
-<pre><code class="language-bash">$ curl http://192.168.99.100:31511/health
-{"status":"UP","diskSpace":{"status":"UP","total":19163156480,"free":9866866688,"threshold":10485760}}
-</code></pre>
-
-<h4 id="configurelivenessandreadinessprobes">Configure Liveness and Readiness Probes</h4>
-
-<p>Now that we are happy with the deployment, we are going to add an additional feature. </p>
-
-<p>The <a href="https://kubernetes.io/docs/admin/kubelet/">kubelet</a> uses liveness probes to know when to restart a Container. For example, liveness probes could catch a deadlock, where an application is running, but unable to make progress. Restarting a Container in such a state can help to make the application more available despite bugs.</p>
-
-<p>The kubelet uses readiness probes to know when a Container is ready to start accepting traffic. A Pod is considered ready when all of its Containers are ready. One use of this signal is to control which Pods are used as backends for Services. When a Pod is not ready, it is removed from Service load balancers.</p>
-
-<p>The right combination of liveness and readiness probes used with Kubernetes deployments can:</p>
-
-<ul>
-<li><p>Enable zero downtime deploys</p></li>
-<li><p>Prevent deployment of broken images</p></li>
-<li><p>Ensure that failed containers are automatically restarted</p></li>
-</ul>
-
-<pre><code class="language-yaml"> livenessProbe:
-              httpGet:
-                path: /health
-                port: 8081
-                httpHeaders:
-                  - name: X-Custom-Header
-                    value: Awesome
-              initialDelaySeconds: 30
-              periodSeconds: 3
-</code></pre>
-
-<p>The <strong>livenessProbe</strong> field specifies that the kubelet should perform a liveness probe every 3 seconds for demo. The initialDelaySeconds field tells the kubelet that it should wait 30 seconds before performing the first probe. </p>
-
-<p>To perform a probe, the kubelet sends an HTTP GET request to the server that is running in the Container and listening on port 8081. If the handler for the server’s /health path returns a success code, the kubelet considers the Container to be alive and healthy. If the handler returns a failure code, the kubelet kills the Container and restarts it.</p>
-
-<p>To try the HTTP liveness check, update the deployment</p>
-
-<pre><code class="language-bash">$ kubectl apply -f kubernetes/deployment.yml --record
-</code></pre>
-
-<p>If you describe the pod, you will see the liveness http request <br>
- <code>Liveness: http-get http://:8081/health delay=30s timeout=1s period=3s #success=1 #failure=3</code></p>
-
-<p>The readiness probe has similar configuration:  </p>
-
-<pre><code class="language-yaml ">readinessProbe:  
-   httpGet:
-     path: /health
-     port: 8081
-   initialDelaySeconds: 30
-   periodSeconds: 10
-</code></pre>
-
-<p>Readiness and liveness probes can be used in parallel for the same container. Using both can ensure that traffic does not reach a container that is not ready for it, and that containers are restarted when they fail.</p>
-
-<p>To verify these changes, spring boot actuator has a production ready endpoint called trace.</p>
-
-<blockquote>
-  <p>Displays trace information (by default the last 100 HTTP requests).</p>
-</blockquote>
-
-<p>If you access this endpoint, you will see the health requests like below <br>
-<a href="http://192.168.99.100:31511/trace">http://192.168.99.100:31511/trace</a></p>
-
-<pre><code class="language-bash">{timestamp: 1499927068835,info: {method: "GET",path: "/health",headers: {request: {host: "172.17.0.3:8081",user-agent: "Go-http-client/1.1",x-custom-header: "Awesome",accept-encoding: "gzip",connection: "close"},response: {X-Application-Context: "application:local:8081",Content-Type: "application/vnd.spring-boot.actuator.v1+json;charset=UTF-8",Transfer-Encoding: "chunked",Date: "Thu, 13 Jul 2017 06:24:28 GMT",Connection: "close",status: "200"}},timeTaken: "4"}},
-</code></pre>
-
-<p>The actuator <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html">endpoints</a> provide a wealth of information for your microservice. Make sure you become accustomed to them. </p>
-
-<p>There you have it!</p>
-
-<p>A working example of using spring boot, docker and kubernetes.</p>
-
-<p>Stay tuned for more kubernetes goodness... ;-)</p>
-
-<p>If you want to view the sample code check out github repo <a href="https://github.com/shavo007/spring-boot-k8s">here</a></p>]]></content:encoded></item></channel></rss>
+<p>If you have any questions, let me know in the comments below!</p>]]></content:encoded></item></channel></rss>

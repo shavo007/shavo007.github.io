@@ -1,0 +1,389 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Shifting security left (DevSecOps)</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
+    <link rel="canonical" href="https://blog.shanelee.name/2022/11/04/shifting-security-left/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="Tech Blog (mainly!)">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Shifting security left (DevSecOps)">
+    <meta property="og:description" content="As part of adopting CD (Continuous Delivery) and embracing a DevOps culture, shifting security left is one of the capabilities needed to drive high software delivery and organisational performance. Tech companies have identified that security is EVERYONE's responsibility. ie. Security is a distributed ownership model. What shifting left means is">
+    <meta property="og:url" content="https://blog.shanelee.name/2022/11/04/shifting-security-left/">
+    <meta property="og:image" content="https://blog.shanelee.name/content/images/2022/11/matthew-henry-fPxOowbR6ls-unsplash.jpg">
+    <meta property="article:published_time" content="2022-11-04T08:43:55.080Z">
+    <meta property="article:modified_time" content="2022-11-14T23:49:36.402Z">
+    <meta property="article:tag" content="github">
+    <meta property="article:tag" content="culture">
+    <meta property="article:tag" content="aws">
+    <meta property="article:tag" content="devops">
+    <meta property="article:tag" content="devsecops">
+    <meta property="article:tag" content="security">
+    <meta property="article:tag" content="owasp">
+    <meta property="article:tag" content="dependabot">
+    <meta property="article:tag" content="renovate">
+    <meta property="article:tag" content="team-topologies">
+    <meta property="article:tag" content="checkov">
+    <meta property="article:tag" content="actions">
+    <meta property="article:tag" content="tflint">
+    <meta property="article:tag" content="terraform">
+    <meta property="article:tag" content="tfsec">
+    <meta property="article:tag" content="devX">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Shifting security left (DevSecOps)">
+    <meta name="twitter:description" content="As part of adopting CD (Continuous Delivery) and embracing a DevOps culture, shifting security left is one of the capabilities needed to drive high software delivery and organisational performance. Tech companies have identified that security is EVERYONE's responsibility. ie. Security is a distributed ownership model. What shifting left means is">
+    <meta name="twitter:url" content="https://blog.shanelee.name/2022/11/04/shifting-security-left/">
+    <meta name="twitter:image:src" content="https://blog.shanelee.name/content/images/2022/11/matthew-henry-fPxOowbR6ls-unsplash.jpg">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shane Lee">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="github, culture, aws, devops, devsecops, security, owasp, dependabot, renovate, team-topologies, checkov, actions, tflint, terraform, tfsec, devX">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Tech Blog (mainly!)",
+        "logo": "https://blog.shanelee.name/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shane Lee",
+        "image": "https://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg",
+        "url": "https://blog.shanelee.name/author/shane/",
+        "sameAs": [
+            "https://about.me/shane-lee"
+        ]
+    },
+    "headline": "Shifting security left (DevSecOps)",
+    "url": "https://blog.shanelee.name/2022/11/04/shifting-security-left/",
+    "datePublished": "2022-11-04T08:43:55.080Z",
+    "dateModified": "2022-11-14T23:49:36.402Z",
+    "image": "https://blog.shanelee.name/content/images/2022/11/matthew-henry-fPxOowbR6ls-unsplash.jpg",
+    "keywords": "github, culture, aws, devops, devsecops, security, owasp, dependabot, renovate, team-topologies, checkov, actions, tflint, terraform, tfsec, devX",
+    "description": "As part of adopting CD (Continuous Delivery) and embracing a DevOps culture, shifting security left is one of the capabilities needed to drive high software delivery and organisational performance. Tech companies have identified that security is EVERYONE&#x27;s responsibility. ie. Security is a distributed ownership model. What shifting left means is"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.8">
+    <link rel="alternate" type="application/rss+xml" title="Tech Blog (mainly!)" href="https://blog.shanelee.name/rss/">
+    <meta name="google-site-verification" content="dzkjZUDovRImqR_2oGUlteWT1zcgw-r6cqBYef9qiWw">
+<meta name="google-site-verification" content="lojSObDdEFLBM0ok1Yiqy7rqgbc8yAUTyqF5iYszvWA">
+<link rel="preconnect" href="http://shavo007.disqus.com">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128189527-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-128189527-1');
+</script>
+<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2007283184718574",
+    enable_page_level_ads: true
+  });
+</script>
+</head>
+<body class="post-template tag-github tag-culture tag-aws tag-devops tag-devsecops tag-security tag-owasp tag-dependabot tag-renovate tag-team-topologies tag-checkov tag-actions tag-tflint tag-terraform tag-tfsec tag-devx nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="https://blog.shanelee.name/">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="https://blog.shanelee.name/rss/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head " style="background-image: url(../../../../content/images/2022/11/matthew-henry-fPxOowbR6ls-unsplash.jpg)">
+    <nav class="main-nav overlay clearfix">
+        
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post tag-github tag-culture tag-aws tag-devops tag-devsecops tag-security tag-owasp tag-dependabot tag-renovate tag-team-topologies tag-checkov tag-actions tag-tflint tag-terraform tag-tfsec tag-devx">
+
+        <header class="post-header">
+            <h1 class="post-title">Shifting security left</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2022-11-04">04 November 2022</time>
+                 on <a href="../../../../tag/github/">github</a>, <a href="../../../../tag/culture/">culture</a>, <a href="../../../../tag/aws/">aws</a>, <a href="../../../../tag/devops/">devops</a>, <a href="../../../../tag/devsecops/">devsecops</a>, <a href="../../../../tag/security/">security</a>, <a href="../../../../tag/owasp/">owasp</a>, <a href="../../../../tag/dependabot/">dependabot</a>, <a href="../../../../tag/renovate/">renovate</a>, <a href="../../../../tag/team-topologies/">team-topologies</a>, <a href="../../../../tag/checkov/">checkov</a>, <a href="../../../../tag/actions/">actions</a>, <a href="../../../../tag/tflint/">tflint</a>, <a href="../../../../tag/terraform/">terraform</a>, <a href="../../../../tag/tfsec/">tfsec</a>, <a href="../../../../tag/devx/">devX</a>
+                ,
+
+                <!--<li class="post-meta-item">-->
+                    <a href="index.html#disqus_thread"></a>
+                <!--</li>-->
+                <!--<a href="#disqus_thread"/>-->
+            </section>
+        </header>
+
+        <section class="post-content">
+
+            <p>As part of adopting CD (Continuous Delivery) and embracing a DevOps culture, shifting security left is one of the capabilities needed to drive high software delivery and organisational performance.</p>
+
+<p>Tech companies have identified that security is EVERYONE's responsibility. ie. Security is a distributed ownership model. What <strong>shifting left</strong> means is including concerns such as security earlier in the development lifecycle.</p>
+
+<blockquote>
+  <p>The principles of shifting left also apply to security, not only to operations. It’s critical to prevent breaches before they can affect users, and to move quickly to address newly discovered security vulnerabilities and fix them.</p>
+</blockquote>
+
+<p>In software development, there are at least these four activities: design, develop, test, and release. In a traditional software development cycle, testing (including security testing), happens after development is complete. This typically means that a team discovers significant problems, including architectural flaws, that are expensive to fix.</p>
+
+<p>After defects are discovered, developers must then find the contributing factors and how to fix them. In complex production systems, it's not usually a single cause; instead, it's often a series of factors that interact to cause a defect. Defects involving security, performance, and availability are expensive and <a href="https://linearb.io/blog/engineering-metrics-benchmarks-what-makes-elite-teams/#:~:text=PR%20review%20process.-,Rework%20Rate,-%3A">time-consuming</a> to remedy; they often require architectural changes. The time required to find the defect, develop a solution, and fully test the fix are unpredictable. This can further push out delivery dates.</p>
+
+<p>Research from <a href="https://www.infoq.com/news/2022/10/google-devops-2022/">Accelerate State of DevOps Research and Assessment 2022</a> (DORA) shows that teams can achieve better outcomes by making security a part of everyone's daily work, instead of testing for security concerns at the end of the process. <mark>One key finding is that the largest predictor of an organization's software security practices was not technical but instead <code>cultural</code>.</mark> Leveraging Westrum's organizational topology, high-trust, low-blame cultures focused on performance were significantly more likely to adopt emerging security practices than low-trust, high-blame cultures that focused on power or rules. For more on organisational culture and my assessment of the book Accelerate check out my previous <a href="https://blog.shanelee.name/2022/05/15/book-review-accelerate-and-my-experience-in-high-performing-organisations/">blog post</a></p>
+
+<h2 id="howtoimplementimprovedsecurityquality">How to implement improved security quality</h2>
+
+<h3 id="getinfosecinvolvedinsoftwaredesign">Get Infosec involved in software design</h3>
+
+<p>The Infosec team should get involved in the design phase for all projects. As you can imagine, the ratio of engineers/builders to security within a company rates pretty high. So companies these days need to rethink how to approach shifting security left. I found this great article on how a company adopted the team's topology approach and looked to re-frame security as an <a href="https://www.securitydifferently.com/minimum-viable-security-knowledge-and-team-topologies-for-security/">enablement team</a>.</p>
+
+<blockquote>
+  <p>This mode helps reduce gaps in capabilities and is suited to situations where one or more teams would benefit from the active help of another team facilitating or coaching an aspect of their work. This is the primary operating mode of an enabling team and provides support to many other teams. It can also help discover gaps or inconsistencies in existing components and services used.</p>
+</blockquote>
+
+<p>Educating teams on <a href="https://thenewstack.io/the-latest-owasp-top-10-looks-a-lot-like-the-old-owasp/">OWASP 10</a> and <a href="https://apisecurity.io/encyclopedia/content/owasp/owasp-api-security-top-10.htm">API security</a> is extremely important. Understanding AuthZ, excessive data exposure and insufficient logging and monitoring remain high on the list. </p>
+
+<h3 id="educationprograms">Education Programs</h3>
+
+<p>Companies like AWS have created a guardian program whereby every stream-aligned team needs a security guardian (or what I like to call a security “champion”). So you cannot deliver value to your customers (release to prod) until these criteria are met. No guardian, no shipping software! 😛</p>
+
+<p>The program consists of workshops and training from the security team (OWASP, threat modelling, AWS Well-Architected framework (security pillar) etc). Due to the ratio of engineers to security, they regard the security team as an <code>enablement</code> function. This ties back to team topologies again and its four-team types (enablement/stream aligned/platform/complicated sub-system).</p>
+
+<blockquote>
+  <p>Instead of “us versus them,” make security part of development from the start, and encourage day-to-day collaboration between both teams.</p>
+</blockquote>
+
+<h2 id="securityandcompliance">Security and compliance</h2>
+
+<h3 id="threatmodelling">Threat modelling</h3>
+
+<p><img src="../../../../content/images/2022/11/cupcake-256x256.png" alt=""></p>
+
+<p>I have observed companies adopting a threat modelling framework as part of the assessment. <a href="https://www.appsecengineer.com/blog/what-is-threat-modeling-how-do-you-learn-it">Frameworks</a> such as <code>STRIDE</code> and <code>PASTA</code> are quite popular. OWASP for example has a modelling tool called <a href="https://owasp.org/www-project-threat-dragon/">Threat Dragon</a> that supports frameworks like <code>STRIDE</code>.</p>
+
+<p>Threat modelling is a set of techniques to help you identify and classify potential threats during the development process — but I want to emphasize that this is not a <strong>one-off activity</strong> only done at the start of projects.</p>
+
+<p>This is because throughout the lifetime of any software, new threats will emerge and existing ones will continue to evolve thanks to external events and ongoing changes to requirements and architecture. This means that threat modelling needs to be <strong>repeated periodically</strong> — the frequency of repetition will depend on the circumstances and will need to consider factors such as the cost of running the exercise and the potential risk to the business. When used in conjunction with other techniques, such as establishing cross-functional security requirements to address common risks in the project's technologies and using automated security scanners, threat modelling can be a powerful asset.</p>
+
+<p>AWS provides <a href="https://catalog.workshops.aws/threatmodel/en-US">workshops</a> on threat modelling and educating teams on the approach. GitHub talks about its threat modelling <a href="https://github.blog/2020-09-02-how-we-threat-model/">process</a> and how it brings more improved communication between security and the engineering teams and how they are able to "shift left".</p>
+
+<h3 id="bugbountyprograms">Bug bounty programs</h3>
+
+<p><img src="../../../../content/images/2022/11/download.jpeg" alt=""></p>
+
+<p>Many companies are now adopting and investing in bug bounty programs. Bug bounty programs give you continuous, real-time vulnerability insights across your expanding digital attack surface so you can eliminate critical threat “blind spots” and strengthen your security posture.</p>
+
+<p>Check out this interview with one of the security researchers in the <a href="https://github.blog/2022-10-28-cybersecurity-spotlight-on-bug-bounty-researcher-ahacker1/">Github Security Bug Bounty program</a> to understand more about their background and how they keep up with the latest vulnerability trends. One program I have used in the past is <a href="https://www.bugcrowd.com/">BugCrowd.</a></p>
+
+<p><a href="https://en.wikipedia.org/wiki/Capture_the_flag_(cybersecurity)">CTF</a> (<strong>Capture The Flag</strong>) competitions are also a great way to keep engineers engaged (security mindset).</p>
+
+<p>Adopting an <em>NFR (Non-Functional Requirements) checklist</em> in the design phase helps to deliver quality at speed; incorporating performance, security and reliability. One example of compliance is the <strong>4-eyes principle</strong> where at least <em>two</em> approvers are needed before merging the PR. <a href="https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners">CODEOWNERS</a> helps automatically assign individuals (or teams) to review PRs. Below I will elaborate further on the tooling that can enable and automate compliance as part of the development lifecycle early.</p>
+
+<h2 id="securityapprovedtools">Security-approved tools</h2>
+
+<p>Security-approved tools help to integrate and automate many tooling into your day-to-day life as an engineer. I have noticed over time the rapid rise of Devsecops and tooling that can help achieve this. The areas that I used and have observed include (<em>non-exhaustive list</em>):</p>
+
+<h3 id="infraascodescanning">Infra as code scanning</h3>
+
+<ul>
+<li><a href="https://github.com/aquasecurity/tfsec">Tfsec</a> - Uses static analysis of your terraform code to spot potential misconfiguration. Can be easily incorporated into your CI pipeline.</li>
+</ul>
+
+<p><img src="../../../../content/images/2022/11/example-github-pr-check.png" alt=""></p>
+
+<ul>
+<li><a href="https://www.checkov.io/">Checkov by Bridgecrew</a> - Can scan results across platforms such as Terraform, CloudFormation, Kubernetes, Helm, ARM Templates and Serverless framework.</li>
+<li><a href="https://snyk.io/product/infrastructure-as-code-security/">Snyk</a> supports many formats and can also detect drifts post-deployment.</li>
+<li>Policy enforcement for terraform using <a href="https://www.conftest.dev/">conftest</a> - Doordash have a great <a href="https://doordash.engineering/2022/09/20/how-doordash-ensures-velocity-and-reliability-through-policy-automation/">article</a> on how they ensure reliability and velocity through conftest and Atlantis. </li>
+</ul>
+
+<h3 id="bots">Bots</h3>
+
+<p><img src="../../../../content/images/2022/11/1_MARssNdoQ3kG1mdZEDV3iA.png" alt=""></p>
+
+<p>I am a big fan of chatbots! I watched a presentation from a company recently that built multiple chatbots on shifting security left and helping with remediation. </p>
+
+<p>They had an intern with an interest in python and he created some very nifty chatbots. <br>
+Behind the scenes, they use Cloud conformity from Trend Micro. Now when an engineer is naughty and maybe clickops and opens a security group to the world or an s3 bucket, the bot will alert the channel and notify of the issue in real-time (they only broadcast on high and mediums). You can then ask the bot also who made the change. It will then scan Cloudtrail, find the IAM user in question and link it back to the slack handle of the user and post back to the channel who's to “blame” (more in the sense of git blame than to literally blame!). The bot could also perform auto-remediation. This is just an example of the opportunities that exist with chatbots.</p>
+
+<h3 id="lintingcompliance">Linting (Compliance)</h3>
+
+<p><img src="../../../../content/images/2022/11/icon-512.png" alt=""></p>
+
+<p>Linters are tools used to flag programming errors, bugs, stylistic errors and suspicious constructs. Examples include:</p>
+
+<ul>
+<li><a href="https://eslint.org/">Eslint</a> - is an open-source project that helps you find and fix problems with your JavaScript code.</li>
+<li><a href="https://github.com/terraform-linters/tflint">TFlint</a> is a pluggable terraform linter that finds possible errors (like invalid instance types) for Major Cloud providers (AWS/Azure/GCP) and enforces best practices.</li>
+<li><a href="https://github.com/rhysd/actionlint">Actionlint</a> is a static checker for GitHub workflow files. I use the VSCode extension extensively.</li>
+<li><a href="https://github.com/adrienverge/yamllint">yamllint</a> is a linter for YAML files.</li>
+<li><a href="https://stoplight.io/open-source/spectral">oaslint</a> - Spectral is an OAS linter to enforce best practices for API design of Open API Specs. I have introduced this linter before at organisations to align with companies' API guidelines and catch any inconsistencies early in the development lifecycle.</li>
+</ul>
+
+<p>If you are using GitHub actions check out this awesome list of <a href="https://github.com/sdras/awesome-actions#linting">linters</a> that the community recommends.</p>
+
+<h3 id="securityversionupdates">Security &amp; Version updates</h3>
+
+<p><img src="../../../../content/images/2022/11/dependabot.png" alt=""></p>
+
+<p>OWASP published last year their top ten, and <strong>vulnerable and outdated components</strong> moved up to <a href="https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components">sixth position</a></p>
+
+<p><a href="https://docs.github.com/en/code-security/dependabot/dependabot-alerts/about-dependabot-alerts">Dependabot</a> and <a href="https://docs.renovatebot.com/#why-use-renovate">Renovate</a> are two tools I have used in the past for dependency updates and vulnerability management. Dependabot is part of the GitHub ecosystem now and is maturing every day. But I do miss the nice presets that Renovate has and how you can group certain dependencies too.</p>
+
+<p>One lesson I have learnt from automating this process is to be aware of <em>dependency fatigue</em>. Work with the team on your schedule and what dependencies are the highest priority. Otherwise, you could end up becoming overwhelmed with PRs and start to ignore updates!</p>
+
+<p><a href="https://github.blog/2022-05-25-how-we-use-dependabot-to-secure-github/">Github</a> talks about how they use dependabot internally to secure their own platform.</p>
+
+<p>OWASP <a href="https://owasp.org/www-project-dependency-check/">dependency checker</a> is also a useful tool to run as part of your CI pipeline to identify security vulnerabilities.</p>
+
+<h3 id="codescanningsast">Code scanning (SAST)</h3>
+
+<p><img src="../../../../content/images/2022/11/dev-cycle.png" alt=""></p>
+
+<p><a href="https://www.sonarqube.org/">SonarQube</a> is a self-managed, automatic code review tool that systematically helps you deliver Clean Code. As a core element of their solution, SonarQube integrates into your existing workflow and detects issues in your code to help you perform continuous code inspections of your projects. The tool analyses <em>30+ different programming languages</em> and integrates into your CI pipeline and DevOps platform to ensure that your code meets high-quality standards.</p>
+
+<h3 id="containerscanning">Container scanning</h3>
+
+<ul>
+<li><p><a href="https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/tools/twistcli">Twistlock</a> is now part of Palo Alto’s Prisma Cloud offering and is one of the leading container security scanning solutions.</p></li>
+<li><p><a href="https://docs.snyk.io/products/snyk-container/how-snyk-container-works">Snyk</a> also provides a similar product offering to scan images.</p></li>
+</ul>
+
+<p>I hope you have found this list of security tools useful. Head over to <a href="https://landscape.cncf.io/card-mode?category=security-compliance,security">CNCF</a> to find more.</p>
+
+<p>Suffice it to say are we still shifting left? Is it realistic to expect developers to take on the burdens of security and infrastructure provisioning, as well as writing their applications? Is platform engineering the answer to saving the DevOps dream?? I will leave you with that thought! 😉</p>
+        </section>
+
+        <!-- disqus code snippet -->
+        <div id="disqus_thread"></div>
+        <script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+this.page.url = 'https://blog.shanelee.name/2022/11/04/shifting-security-left/'; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'ghost-29'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//shavo007.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        <script id="dsq-count-scr" src="http://shavo007.disqus.com/count.js" async></script>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../../../../author/shane/" style="background-image: url(../../../../content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../../../../author/shane/">Shane Lee</a></h4>
+
+                    <p>Read <a href="../../../../author/shane/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    <span class="author-location icon-location">Melbourne</span>
+                    <span class="author-link icon-link"><a href="https://about.me/shane-lee">https://about.me/shane-lee</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Shifting%20security%20left&amp;url=https://blog.shanelee.name/2022/11/04/shifting-security-left/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.shanelee.name/2022/11/04/shifting-security-left/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://blog.shanelee.name/2022/11/04/shifting-security-left/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+
+    </article>
+</main>
+
+
+
+<aside class="read-next">
+    <a class="read-next-story prev " style="background-image: url(../../../../content/images/2022/05/jacek-dylag-fZglO1JkwoM-unsplash--1-.jpg)" href="../../../05/15/book-review-accelerate-and-my-experience-in-high-performing-organisations/">
+        <section class="post">
+            <h2>Book review: Accelerate</h2>
+            <p>Overview In the book, Accelerate: The Science of Lean Software and DevOps: Building and Scaling High Performing Technology Organizations,…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2022</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-coy.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-graphql.min.js"></script>
+<!-- Add additional languages here -->
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/prism.js"></script>
+
+
+
+</body>
