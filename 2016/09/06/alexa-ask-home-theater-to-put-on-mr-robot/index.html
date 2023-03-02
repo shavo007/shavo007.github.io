@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
     <link rel="canonical" href="https://blog.shanelee.name/2016/09/06/alexa-ask-home-theater-to-put-on-mr-robot/">
     <meta name="referrer" content="origin">
-    
+
     <meta property="og:site_name" content="Tech Blog (mainly!)">
     <meta property="og:type" content="article">
     <meta property="og:title" content="Alexa skill for plex media server">
@@ -33,7 +33,7 @@
     <meta property="article:tag" content="amazon">
     <meta property="article:tag" content="amazon echo">
     <meta property="article:tag" content="serverless">
-    
+
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Alexa skill for plex media server">
     <meta name="twitter:description" content="Integrate alexa skill with plex media server using serverless technology aws lambda (FAAS)">
@@ -42,7 +42,7 @@
     <meta name="twitter:data1" content="Shane Lee">
     <meta name="twitter:label2" content="Filed under">
     <meta name="twitter:data2" content="alexa, plex, lambda, aws, node, dynamodb, amazon, amazon echo, serverless">
-    
+
     <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -110,12 +110,12 @@
 
     <div class="site-wrapper">
 
-        
+
 
 
 <header class="main-header post-head no-cover">
     <nav class="main-nav  clearfix">
-        
+
             <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
     </nav>
 </header>
@@ -173,20 +173,20 @@
 
 <p>Run  </p>
 
-<pre><code class="language-bash">npm install  
+<pre><code class="language-bash">npm install
 </code></pre>
 
 <p>to install dependencies
 Create a .env file in project root with similar properties as below:</p>
 
-<pre><code class="language-bash">APP_PRODUCT=Alexa Plex  
-APP_VERSION=2.0  
-APP_DEVICE=Amazon Echo  
-APP_DEVICE_NAME=Alexa  
-APP_IDENTIFIER=  
-ALEXA_APP_ID=  
-AWS_ACCESS_KEY_ID=&lt;your own key&gt;  
-AWS_SECRET_ACCESS_KEY=&lt;your own secret key&gt;  
+<pre><code class="language-bash">APP_PRODUCT=Alexa Plex
+APP_VERSION=2.0
+APP_DEVICE=Amazon Echo
+APP_DEVICE_NAME=Alexa
+APP_IDENTIFIER=
+ALEXA_APP_ID=
+AWS_ACCESS_KEY_ID=&lt;your own key&gt;
+AWS_SECRET_ACCESS_KEY=&lt;your own secret key&gt;
 </code></pre>
 
 <p>There is a deploy script at the root of the project. Before you run this and update your lambda function, you need to first create it.</p>
@@ -200,7 +200,7 @@ AWS_SECRET_ACCESS_KEY=&lt;your own secret key&gt;
 <p>If you have aws cli setup try the sample script below. <br>
 <strong><em>NB: Make sure and change the role val.</em></strong></p>
 
-<pre><code class="language-bash">aws lambda create-function --function-name alexa-plex --region us-east-1 --runtime  nodejs4.3 --role arn:aws:iam::xxxxxx:role/lambda_basic_execution --handler  index.handler  
+<pre><code class="language-bash">aws lambda create-function --function-name alexa-plex --region us-east-1 --runtime  nodejs4.3 --role arn:aws:iam::xxxxxx:role/lambda_basic_execution --handler  index.handler
 </code></pre>
 
 <p>Verify you can view the lambda function in the aws console. </p>
@@ -360,7 +360,7 @@ s.setAttribute('data-timestamp', +new Date());
 
 
         <footer class="site-footer clearfix">
-            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2022</section>
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2023</section>
             <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
         </footer>
 

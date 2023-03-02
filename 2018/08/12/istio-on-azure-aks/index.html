@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
     <link rel="canonical" href="https://blog.shanelee.name/2018/08/12/istio-on-azure-aks/">
     <meta name="referrer" content="origin">
-    
+
     <meta property="og:site_name" content="Tech Blog (mainly!)">
     <meta property="og:type" content="article">
     <meta property="og:title" content="Deploying istio on azure kubernetes service  (AKS)">
@@ -38,7 +38,7 @@
     <meta property="article:tag" content="tracing">
     <meta property="article:tag" content="metrics">
     <meta property="article:tag" content="prometheus">
-    
+
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Deploying istio on azure kubernetes service  (AKS)">
     <meta name="twitter:description" content="How to deploy istio service mesh on azure kubernetes service (AKS) and run bookinfo example application">
@@ -48,7 +48,7 @@
     <meta name="twitter:data1" content="Shane Lee">
     <meta name="twitter:label2" content="Filed under">
     <meta name="twitter:data2" content="kubernetes, azure, aks, istio, google, service-mesh, k8s, microservice, grafana, jaeger, tracing, metrics, prometheus">
-    
+
     <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -117,12 +117,12 @@
 
     <div class="site-wrapper">
 
-        
+
 
 
 <header class="main-header post-head " style="background-image: url(../../../../content/images/2018/08/peter-gonzalez-621059-unsplash-1.jpg)">
     <nav class="main-nav overlay clearfix">
-        
+
             <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
     </nav>
 </header>
@@ -172,7 +172,7 @@
 
 <pre><code class="language-bash">    az provider list --query "[?namespace=='Microsoft.ContainerService'].resourceTypes[] | [?resourceType=='managedClusters'].locations[]" -o tsv
 
-    az aks get-versions --location "Australia East" --query "orchestrators[].orchestratorVersion" 
+    az aks get-versions --location "Australia East" --query "orchestrators[].orchestratorVersion"
 
     az group create --name myResourceGroup1 --location "Australia East"
 
@@ -192,8 +192,8 @@
 
 <p>Istio is installed in two parts. The first part involves the CLI tooling that will be used to deploy and manage Istio backed services. The second part configures the Kubernetes cluster to support Istio.</p>
 
-<pre><code>curl -L https://git.io/getLatestIstio | sh -  
-cd istio-1.0.0  
+<pre><code>curl -L https://git.io/getLatestIstio | sh -
+cd istio-1.0.0
 export PATH=$PWD/bin:$PATH
 </code></pre>
 
@@ -254,9 +254,9 @@ export PATH=$PWD/bin:$PATH
 </code>
 Set the ingress ip and port</p>
 
-<pre><code class="language-bash">export INGRESS_HOST=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')  
-export INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].port}')  
-export SECURE_INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="https")].port}')  
+<pre><code class="language-bash">export INGRESS_HOST=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+export INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].port}')
+export SECURE_INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="https")].port}')
 </code></pre>
 
 <p>Set the <code>gateway url</code></p>
@@ -320,9 +320,9 @@ export SECURE_INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressga
 <h5 id="listallroutes">List all routes</h5>
 
 <pre><code class="language-bash">$ istioctl get virtualservices
-VIRTUAL-SERVICE NAME   GATEWAYS           HOSTS     #HTTP     #TCP      NAMESPACE   AGE  
-bookinfo               bookinfo-gateway   *             1        0      default     20m  
-reviews                                   reviews       1        0      default     5m  
+VIRTUAL-SERVICE NAME   GATEWAYS           HOSTS     #HTTP     #TCP      NAMESPACE   AGE
+bookinfo               bookinfo-gateway   *             1        0      default     20m
+reviews                                   reviews       1        0      default     5m
 </code></pre>
 
 <h5 id="accessmetrics">Access Metrics</h5>
@@ -333,16 +333,16 @@ reviews                                   reviews       1        0      default 
 
 <p>Send traffic to the application</p>
 
-<pre><code class="language-bash">while true; do  
+<pre><code class="language-bash">while true; do
   curl -s http://$GATEWAY_URL/productpage &gt; /dev/null
   echo -n .;
   sleep 0.2
-done  
+done
 </code></pre>
 
 <p>Setup port forwarding  </p>
 
-<pre><code class="language-bash">kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=prometheus -o jsonpath='{.items[0].metadata.name}') 9090:9090 &amp;  
+<pre><code class="language-bash">kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=prometheus -o jsonpath='{.items[0].metadata.name}') 9090:9090 &amp;
 </code></pre>
 
 <p>View metrics in <a href="http://localhost:9090/graph#%5B%7B%22range_input%22%3A%221h%22%2C%22expr%22%3A%22istio_double_request_count%22%2C%22tab%22%3A1%7D%5D">Prometheus UI</a></p>
@@ -357,7 +357,7 @@ done
 
 <p>Verify the services are up  </p>
 
-<pre><code>kubectl -n istio-system get svc grafana prometheus  
+<pre><code>kubectl -n istio-system get svc grafana prometheus
 </code></pre>
 
 <p>Open the Istio Dashboard via the Grafana UI.</p>
@@ -487,7 +487,7 @@ s.setAttribute('data-timestamp', +new Date());
 
 
         <footer class="site-footer clearfix">
-            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2022</section>
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2023</section>
             <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
         </footer>
 

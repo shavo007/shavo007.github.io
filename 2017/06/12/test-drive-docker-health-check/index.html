@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
     <link rel="canonical" href="https://blog.shanelee.name/2017/06/12/test-drive-docker-health-check/">
     <meta name="referrer" content="origin">
-    
+
     <meta property="og:site_name" content="Tech Blog (mainly!)">
     <meta property="og:type" content="article">
     <meta property="og:title" content="Test drive docker health check">
@@ -27,7 +27,7 @@
     <meta property="article:tag" content="pact">
     <meta property="article:tag" content="docker">
     <meta property="article:tag" content="docker-compose">
-    
+
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Test drive docker health check">
     <meta name="twitter:description" content="TL;DR Healthcheck in docker was introduced in docker compose version 2.1 and up. In version 1.12, Docker added the ability to perform health checks directly in the Docker engine — without needing external monitoring tools or sidecar containers.   Configure a check that’s run to determine whether or">
@@ -36,7 +36,7 @@
     <meta name="twitter:data1" content="Shane Lee">
     <meta name="twitter:label2" content="Filed under">
     <meta name="twitter:data2" content="pact, docker, docker-compose">
-    
+
     <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -104,12 +104,12 @@
 
     <div class="site-wrapper">
 
-        
+
 
 
 <header class="main-header post-head no-cover">
     <nav class="main-nav  clearfix">
-        
+
             <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
     </nav>
 </header>
@@ -185,7 +185,7 @@
 
 <p>Now that we have defined the instructions, lets kick it off:</p>
 
-<pre><code class="language-bash">docker-compose up --build  
+<pre><code class="language-bash">docker-compose up --build
 </code></pre>
 
 <p>docker-compose waits for the PostgreSQL service to be "healthy" before starting pact broker.</p>
@@ -207,7 +207,7 @@
 
 <p>we can view the output from the command.</p>
 
-<pre><code class="language-bash">docker inspect --format "{{json .State.Health.Status }}" pactdemo_postgres_1  
+<pre><code class="language-bash">docker inspect --format "{{json .State.Health.Status }}" pactdemo_postgres_1
 </code></pre>
 
 <pre><code class="language-bash">"healthy"
@@ -298,7 +298,7 @@ s.setAttribute('data-timestamp', +new Date());
 
 
         <footer class="site-footer clearfix">
-            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2022</section>
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2023</section>
             <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
         </footer>
 

@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
     <link rel="canonical" href="https://blog.shanelee.name/2017/07/15/jvm-microservice-with-spring-boot-docker-and-kubernetes/">
     <meta name="referrer" content="origin">
-    
+
     <meta property="og:site_name" content="Tech Blog (mainly!)">
     <meta property="og:type" content="article">
     <meta property="og:title" content="JVM Microservice with spring boot, docker and kubernetes">
@@ -27,7 +27,7 @@
     <meta property="article:tag" content="docker">
     <meta property="article:tag" content="spring-boot">
     <meta property="article:tag" content="kubernetes">
-    
+
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="JVM Microservice with spring boot, docker and kubernetes">
     <meta name="twitter:description" content="How to build and deploy a spring boot application using docker and kubernetes.">
@@ -36,7 +36,7 @@
     <meta name="twitter:data1" content="Shane Lee">
     <meta name="twitter:label2" content="Filed under">
     <meta name="twitter:data2" content="docker, spring-boot, kubernetes">
-    
+
     <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -104,12 +104,12 @@
 
     <div class="site-wrapper">
 
-        
+
 
 
 <header class="main-header post-head no-cover">
     <nav class="main-nav  clearfix">
-        
+
             <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
     </nav>
 </header>
@@ -160,7 +160,7 @@ We define <strong>name.shanelee</strong> as Group (if applicable) and define the
 <p>Spring Initializr has already created everything for us. We just need to have a Java JDK 1.8 or later installed on our machine and the JAVA_HOME environment variable set accordingly.</p>
 
 <pre><code class="language-bash">### Extracting and launching the application
-shanelee at shanes-MacBook-Air in ~/java-projects  
+shanelee at shanes-MacBook-Air in ~/java-projects
 $ unzip   ~/Downloads/demo.zip -d microservice
 $ cd microservice/demo/
 $ ./gradlew bootRun
@@ -182,11 +182,11 @@ $ ./gradlew bootRun
 
 <p>Let's start by creating the Dockerfile in the root directory of our project.</p>
 
-<pre><code class="language-Docker">FROM openjdk:8u131-jdk-alpine  
-VOLUME /tmp  
-WORKDIR /app  
-COPY ./build/libs/demo-0.0.1-SNAPSHOT.jar .  
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app/demo-0.0.1-SNAPSHOT.jar"]  
+<pre><code class="language-Docker">FROM openjdk:8u131-jdk-alpine
+VOLUME /tmp
+WORKDIR /app
+COPY ./build/libs/demo-0.0.1-SNAPSHOT.jar .
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app/demo-0.0.1-SNAPSHOT.jar"]
 </code></pre>
 
 <p>The FROM keyword defines the base Docker image of our container. We chose <a href="http://openjdk.java.net/">OpenJDK</a> installed on <a href="https://alpinelinux.org/">Alpine Linux</a> which is a lightweight Linux distribution. To understand why I use alpine as base image check out these <a href="https://diveintodocker.com/blog/the-3-biggest-wins-when-using-alpine-as-a-base-docker-image">benefits</a></p>
@@ -240,9 +240,9 @@ Logs to <code>stdout</code> have to be in <strong>JSON</strong> format. </p>
 
 <p><mark>Increase the storage size when starting</mark></p>
 
-<pre><code class="language-bash">minikube start --disk-size="10g" --memory="4096"  
+<pre><code class="language-bash">minikube start --disk-size="10g" --memory="4096"
 #Switch to minikube context
-kubectl config use-context minikube  
+kubectl config use-context minikube
 </code></pre>
 
 <p>After cluster created, open the dashboard. Dashboard is an <a href="https://github.com/kubernetes/kubernetes/tree/master/cluster/addons">addon</a> for kubernetes. </p>
@@ -256,35 +256,35 @@ You can point your docker client to the VM's docker daemon by running</p>
 
 <p><code>eval $(minikube docker-env)</code></p>
 
-<pre><code class="language-Docker">docker build -t demo .  
+<pre><code class="language-Docker">docker build -t demo .
 </code></pre>
 
 <p>You should see output like below  </p>
 
-<pre><code class="language-bash">Sending build context to Docker daemon  15.76MB  
-Step 1/5 : FROM openjdk:8u131-jdk-alpine  
-8u131-jdk-alpine: Pulling from library/openjdk  
-88286f41530e: Pull complete  
-009f6e766a1b: Pull complete  
-86ed68184682: Pull complete  
-Digest: sha256:2b1f15e04904dd44a2667a07e34c628ac4b239f92f413b587538f801a0a57c88  
-Status: Downloaded newer image for openjdk:8u131-jdk-alpine  
+<pre><code class="language-bash">Sending build context to Docker daemon  15.76MB
+Step 1/5 : FROM openjdk:8u131-jdk-alpine
+8u131-jdk-alpine: Pulling from library/openjdk
+88286f41530e: Pull complete
+009f6e766a1b: Pull complete
+86ed68184682: Pull complete
+Digest: sha256:2b1f15e04904dd44a2667a07e34c628ac4b239f92f413b587538f801a0a57c88
+Status: Downloaded newer image for openjdk:8u131-jdk-alpine
  ---&gt; 478bf389b75b
-Step 2/5 : VOLUME /tmp  
+Step 2/5 : VOLUME /tmp
  ---&gt; Running in ff8bd4023ec3
  ---&gt; 61232f70a630
-Removing intermediate container ff8bd4023ec3  
-Step 3/5 : WORKDIR /app  
+Removing intermediate container ff8bd4023ec3
+Step 3/5 : WORKDIR /app
  ---&gt; 79ea27f4f4ea
-Removing intermediate container 01fac4d0f9a3  
-Step 4/5 : COPY ./build/libs/demo-0.0.1-SNAPSHOT.jar .  
+Removing intermediate container 01fac4d0f9a3
+Step 4/5 : COPY ./build/libs/demo-0.0.1-SNAPSHOT.jar .
  ---&gt; f9aa60a3ac4a
-Removing intermediate container d90236650b23  
-Step 5/5 : ENTRYPOINT java -Djava.security.egd=file:/dev/./urandom -jar /app/demo-0.0.1-SNAPSHOT.jar  
+Removing intermediate container d90236650b23
+Step 5/5 : ENTRYPOINT java -Djava.security.egd=file:/dev/./urandom -jar /app/demo-0.0.1-SNAPSHOT.jar
  ---&gt; Running in 7c8a6c01cef0
  ---&gt; abdcba6bf841
-Removing intermediate container 7c8a6c01cef0  
-Successfully built abdcba6bf841  
+Removing intermediate container 7c8a6c01cef0
+Successfully built abdcba6bf841
 Successfully tagged demo:latest
 </code></pre>
 
@@ -309,13 +309,13 @@ Successfully tagged demo:latest
 
 <p>Below is a sample deployment config. Here I defined the service and deployment resource objects. </p>
 
-<pre><code class="language-yaml">apiVersion: v1  
-kind: Service  
-metadata:  
+<pre><code class="language-yaml">apiVersion: v1
+kind: Service
+metadata:
   name: demo-microservice
   labels:
     app: demo
-spec:  
+spec:
   ports:
     - port: 8081
   selector:
@@ -325,14 +325,14 @@ spec:
 ---
 
 ---
-apiVersion: extensions/v1beta1  
-kind: Deployment  
-metadata:  
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
   name: demo-microservice
   creationTimestamp: null
   labels:
      app: demo
-spec:  
+spec:
   replicas: 1
   strategy:
     type: Recreate
@@ -366,17 +366,17 @@ spec:
 <p>Now create the service and deployment</p>
 
 <pre><code>$ kubectl apply -f deployment.yml --record
-service "demo-microservice" configured  
-deployment "demo-microservice" created  
+service "demo-microservice" configured
+deployment "demo-microservice" created
 </code></pre>
 
 <p>Kubernetes will create one pod with one container inside.</p>
 
 <p>To verify the pod is running  </p>
 
-<pre><code class="language-bash">kubectl get pods  
+<pre><code class="language-bash">kubectl get pods
 #To tail the logs of the microservice container run
-kubectl logs -f &lt;pod&gt;  
+kubectl logs -f &lt;pod&gt;
 </code></pre>
 
 <p>Now that the container is running in the pod, we can verify the health of the microservice. <br>
@@ -387,7 +387,7 @@ To get information about the service run <br>
 <p>To access locally get the public url  </p>
 
 <pre><code class="language-bash">$ minikube service demo-microservice --url
-http://192.168.99.100:31511  
+http://192.168.99.100:31511
 </code></pre>
 
 <h3 id="verifyhealth">Verify health</h3>
@@ -439,7 +439,7 @@ http://192.168.99.100:31511
 
 <p>The readiness probe has similar configuration:  </p>
 
-<pre><code class="language-yaml ">readinessProbe:  
+<pre><code class="language-yaml ">readinessProbe:
    httpGet:
      path: /health
      port: 8081
@@ -554,7 +554,7 @@ s.setAttribute('data-timestamp', +new Date());
 
 
         <footer class="site-footer clearfix">
-            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2022</section>
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2023</section>
             <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
         </footer>
 

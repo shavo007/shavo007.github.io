@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
     <link rel="canonical" href="https://blog.shanelee.name/2021/12/15/performance-testing-with-k6/">
     <meta name="referrer" content="origin">
-    
+
     <meta property="og:site_name" content="Tech Blog (mainly!)">
     <meta property="og:type" content="article">
     <meta property="og:title" content="Performance testing with k6">
@@ -38,7 +38,7 @@
     <meta property="article:tag" content="api first">
     <meta property="article:tag" content="javascript">
     <meta property="article:tag" content="golang">
-    
+
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Performance testing with k6">
     <meta name="twitter:description" content="I started looking into API performance testing again recently. As part of delivering an API to production, performance testing is crucial to see how your API performs under load ( more on that shortly) You might have heard of the ridiculous load that Shopify handled over BFCM (Black Friday/Cyber Monday)">
@@ -48,7 +48,7 @@
     <meta name="twitter:data1" content="Shane Lee">
     <meta name="twitter:label2" content="Filed under">
     <meta name="twitter:data2" content="testing, oas, grafana, docker, api, k6, perf, apifirst, typescript, performance, api first, javascript, golang">
-    
+
     <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -117,12 +117,12 @@
 
     <div class="site-wrapper">
 
-        
+
 
 
 <header class="main-header post-head " style="background-image: url(../../../../content/images/2021/12/marc-olivier-jodoin-NqOInJ-ttqM-unsplash.jpg)">
     <nav class="main-nav overlay clearfix">
-        
+
             <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
     </nav>
 </header>
@@ -187,7 +187,7 @@
 
 <p>or via docker</p>
 
-<pre><code class="language-bash">docker pull loadimpact/k6  
+<pre><code class="language-bash">docker pull loadimpact/k6
 </code></pre>
 
 <p>You can find the full explanation here <a href="https://k6.io/docs/getting-started/installation/">https://k6.io/docs/getting-started/installation/</a></p>
@@ -234,11 +234,11 @@
 
 <h3 id="basicexample">Basic example</h3>
 
-<pre><code class="language-javascript">import { sleep, check } from "k6";  
-import { Options } from "k6/options";  
-import http, { Response } from "k6/http";  
-import { padStart } from "lodash";  
-import { textSummary } from "./helper";  
+<pre><code class="language-javascript">import { sleep, check } from "k6";
+import { Options } from "k6/options";
+import http, { Response } from "k6/http";
+import { padStart } from "lodash";
+import { textSummary } from "./helper";
 import { Trend } from "k6/metrics";
 
 // 1. init code
@@ -248,7 +248,7 @@ console.log(padStart("Hello TypeScript!", 20, " "));
 //custom define metric
 const durationInSeconds = new Trend("duration_in_seconds");
 
-export let options: Options = {  
+export let options: Options = {
   vus: 5, //no. of concurrent virtual users
   duration: "5s",
   discardResponseBodies: true, //discard response bodies to improve perf
@@ -261,12 +261,12 @@ export let options: Options = {
   userAgent: "K6GreetingsDemo/1.0",
 };
 
-export function setup() {  
+export function setup() {
   //setup is called once off
   // 2. setup code
 }
 
-export default () =&gt; {  
+export default () =&gt; {
   // 3. VU code
 
   let baseUrl = __ENV.BASE_URL ?? "http://localhost:8090";
@@ -283,7 +283,7 @@ export default () =&gt; {
   sleep(1);
 };
 
-export function handleSummary(data: any) {  
+export function handleSummary(data: any) {
   console.log("Preparing the end-of-test summary...");
 
   // Send the results to some remote server or trigger a hook
@@ -305,7 +305,7 @@ export function handleSummary(data: any) {
 <p>To run this we can run the script <code>yarn bundle</code>. This will transpile to JS using babel and bundled with webpack. The outputted file will be located in the <code>dist</code> dir. <br>
 Now run locally:</p>
 
-<pre><code class="language-bash">k6 run dist/greetings.js  
+<pre><code class="language-bash">k6 run dist/greetings.js
 </code></pre>
 
 <p>You’ll see the result of the test right away on the terminal. Something similar to this.</p>
@@ -328,7 +328,7 @@ Now run locally:</p>
 
 <pre><code class="language-bash">docker pull openapitools/openapi-generator-cli
 
-docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate \  
+docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate \
     -i /local/oas3.yaml \
     -g k6 \
     -o /local/k6-oas3/ \
@@ -351,36 +351,36 @@ docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate \
 
 <p>To generate the types:</p>
 
-<pre><code class="language-bash">npx openapi-typescript bpay/oas3.yaml --output src/bpay/schema.ts  
+<pre><code class="language-bash">npx openapi-typescript bpay/oas3.yaml --output src/bpay/schema.ts
 </code></pre>
 
 <p>This generates the types in the <code>bpay</code> dir.</p>
 
 <p>Now let's have a look at the test script for bpay API.</p>
 
-<pre><code class="language-javascript">import http from "k6/http";  
-import { group, check, sleep } from "k6";  
-import { PaymentPaymentMethodEnum } from "./bpay";  
-import { Options } from "k6/options";  
-import { getToken, Options as BpayOptions } from "./helper";  
+<pre><code class="language-javascript">import http from "k6/http";
+import { group, check, sleep } from "k6";
+import { PaymentPaymentMethodEnum } from "./bpay";
+import { Options } from "k6/options";
+import { getToken, Options as BpayOptions } from "./helper";
 import { components } from "./bpay";
 
-type Payment = components["schemas"]["Payment"];  
+type Payment = components["schemas"]["Payment"];
 type PaymentItem = components["schemas"]["PaymentItem"];
 
-const BASE_URL = "https://sandbox.api.bpaygroup.com.au/payments/v1";  
+const BASE_URL = "https://sandbox.api.bpaygroup.com.au/payments/v1";
 // Sleep duration between successive requests.
 // You might want to edit the value of this variable or remove calls to the sleep function on the script.
-const SLEEP_DURATION = 0.1;  
+const SLEEP_DURATION = 0.1;
 // Global variables should be initialized.
 
-export let options: Options = {  
+export let options: Options = {
   vus: 1, //no. of concurrent visual users
   duration: "1s",
   httpDebug: "true",
 };
 
-export function setup() {  
+export function setup() {
   const options: BpayOptions = {
     clientId: `${__ENV.CLIENT_ID}`,
     clientSecret: `${__ENV.CLIENT_SECRET}`,
@@ -394,7 +394,7 @@ export function setup() {
 }
 
 //desctructing assigment here and explicit type annotation
-export default function ({ access_token = "" }: { access_token: string }) {  
+export default function ({ access_token = "" }: { access_token: string }) {
   group("/validatepayments", () =&gt; {
     let url = BASE_URL + `/validatepayments`;
 
@@ -655,7 +655,7 @@ s.setAttribute('data-timestamp', +new Date());
 
 
         <footer class="site-footer clearfix">
-            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2022</section>
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2023</section>
             <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
         </footer>
 

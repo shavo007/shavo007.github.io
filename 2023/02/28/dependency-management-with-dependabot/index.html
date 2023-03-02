@@ -1,0 +1,360 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Dependency management with dependabot</title>
+    <meta name="description" content="How to shift security left and manage dependencies via dependabot and reduce the no. of security vulnerabilities.">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
+    <link rel="canonical" href="https://blog.shanelee.name/2023/02/28/dependency-management-with-dependabot/">
+    <meta name="referrer" content="origin">
+
+    <meta property="og:site_name" content="Tech Blog (mainly!)">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Dependency management with dependabot">
+    <meta property="og:description" content="How to shift security left and manage dependencies via dependabot and reduce the no. of security vulnerabilities.">
+    <meta property="og:url" content="https://blog.shanelee.name/2023/02/28/dependency-management-with-dependabot/">
+    <meta property="og:image" content="https://blog.shanelee.name/content/images/2023/02/guerrillabuzz-blockchain-pr-agency-SYofhg_IX3A-unsplash.jpg">
+    <meta property="article:published_time" content="2023-02-28T03:30:31.864Z">
+    <meta property="article:modified_time" content="2023-03-02T22:41:55.852Z">
+    <meta property="article:tag" content="github">
+    <meta property="article:tag" content="devsecops">
+    <meta property="article:tag" content="dependabot">
+    <meta property="article:tag" content="owasp">
+    <meta property="article:tag" content="security">
+    <meta property="article:tag" content="culture">
+    <meta property="article:tag" content="leadership">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Dependency management with dependabot">
+    <meta name="twitter:description" content="How to shift security left and manage dependencies via dependabot and reduce the no. of security vulnerabilities.">
+    <meta name="twitter:url" content="https://blog.shanelee.name/2023/02/28/dependency-management-with-dependabot/">
+    <meta name="twitter:image:src" content="https://blog.shanelee.name/content/images/2023/02/guerrillabuzz-blockchain-pr-agency-SYofhg_IX3A-unsplash.jpg">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shane Lee">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="github, devsecops, dependabot, owasp, security, culture, leadership">
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Tech Blog (mainly!)",
+        "logo": "https://blog.shanelee.name/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shane Lee",
+        "image": "https://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg",
+        "url": "https://blog.shanelee.name/author/shane/",
+        "sameAs": [
+            "https://about.me/shane-lee"
+        ]
+    },
+    "headline": "Dependency management with dependabot",
+    "url": "https://blog.shanelee.name/2023/02/28/dependency-management-with-dependabot/",
+    "datePublished": "2023-02-28T03:30:31.864Z",
+    "dateModified": "2023-03-02T22:41:55.852Z",
+    "image": "https://blog.shanelee.name/content/images/2023/02/guerrillabuzz-blockchain-pr-agency-SYofhg_IX3A-unsplash.jpg",
+    "keywords": "github, devsecops, dependabot, owasp, security, culture, leadership",
+    "description": "How to shift security left and manage dependencies via dependabot and reduce the no. of security vulnerabilities."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.8">
+    <link rel="alternate" type="application/rss+xml" title="Tech Blog (mainly!)" href="https://blog.shanelee.name/rss/">
+    <meta name="google-site-verification" content="dzkjZUDovRImqR_2oGUlteWT1zcgw-r6cqBYef9qiWw">
+<meta name="google-site-verification" content="lojSObDdEFLBM0ok1Yiqy7rqgbc8yAUTyqF5iYszvWA">
+<link rel="preconnect" href="http://shavo007.disqus.com">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128189527-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-128189527-1');
+</script>
+<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2007283184718574",
+    enable_page_level_ads: true
+  });
+</script>
+</head>
+<body class="post-template tag-github tag-devsecops tag-dependabot tag-owasp tag-security tag-culture tag-leadership nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="https://blog.shanelee.name/">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="https://blog.shanelee.name/rss/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+
+
+
+<header class="main-header post-head " style="background-image: url(../../../../content/images/2023/02/guerrillabuzz-blockchain-pr-agency-SYofhg_IX3A-unsplash.jpg)">
+    <nav class="main-nav overlay clearfix">
+
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post tag-github tag-devsecops tag-dependabot tag-owasp tag-security tag-culture tag-leadership">
+
+        <header class="post-header">
+            <h1 class="post-title">Dependency management with dependabot</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2023-02-28">28 February 2023</time>
+                 on <a href="../../../../tag/github/">github</a>, <a href="../../../../tag/devsecops/">devsecops</a>, <a href="../../../../tag/dependabot/">dependabot</a>, <a href="../../../../tag/owasp/">owasp</a>, <a href="../../../../tag/security/">security</a>, <a href="../../../../tag/culture/">culture</a>, <a href="../../../../tag/leadership/">leadership</a>
+                ,
+
+                <!--<li class="post-meta-item">-->
+                    <a href="index.html#disqus_thread"></a>
+                <!--</li>-->
+                <!--<a href="#disqus_thread"/>-->
+            </section>
+        </header>
+
+        <section class="post-content">
+
+            <p>We all know how vital shifting security left is and how engineering needs to work more closely with security. According to the Cloud Security Alliance (CSA), 70% of <a href="https://cloudsecurityalliance.org/artifacts/secure-devops-and-misconfigurations-survey-report/">security professionals and engineering teams</a> struggle to <strong>“shift left,”</strong> with many unable to recognize the formation of anti-patterns and understand/appreciate the wider impact to development, cost, governance, culture, etc.</p>
+
+<h2 id="recognizingtheparadigmshift">Recognizing the Paradigm Shift</h2>
+
+<p>Engineering teams that implement DevSecOps practices and automate security tooling will <mark>discover security risks earlier, saving developers time, accelerating release cycles, and shipping more secure and compliant code</mark>.</p>
+
+<p>As I have previously <a href="https://blog.shanelee.name/2022/11/04/shifting-security-left/">discussed</a>, dependency management is an important part of securing your software supply chain. This post covers how to roll out Dependabot internally within your company to keep your dependencies up to date.</p>
+
+<p><mark>NB: There are other tools such as Renovate and Snyk, but as Dependabot is native to the GitHub platform I am focusing the talk on this tool.</mark></p>
+
+<p>Keeping your dependencies up to date is one of the easiest ways to keep your systems secure. The issue of supply chain security has become increasingly obvious in the past number of years, from the malicious <code>flatmap-stream</code> package to the most recent <code>log4shell</code> vulnerabilities. <a href="https://docs.github.com/en/code-security/dependabot/dependabot-alerts/about-dependabot-alerts">Dependabot</a> will alert developers when a repository is using a software dependency with a known vulnerability. By rolling out Dependabot internally to all of your repositories, you can measure, and significantly reduce, your usage of software dependencies with known vulnerabilities.</p>
+
+<p>Everyone will remember the security breach at <a href="https://www.infoq.com/news/2017/09/struts/">Experian</a> in 2017. Hackers stole the personal details of <strong>143 million Americans</strong> from the Equifax credit report company after exploiting a security flaw in the Apache Struts framework. That is why it is so important to keep track of your dependencies and any known vulnerabilities.</p>
+
+<p>OWASP published last year their top ten, and vulnerable and outdated components moved up to <a href="https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/">sixth position</a>. Every organization must ensure an ongoing plan for monitoring, triaging, and applying updates or configuration changes for the lifetime of the application or portfolio. There are over 20,000 common vulnerabilities and exposures (CVEs) discovered per year in open-source and third-party code.</p>
+
+<p><img src="../../../../content/images/2023/02/owasp.png" alt=""></p>
+
+<h2 id="empoweringdeveloperstobesecurityminded">Empowering developers to be security minded</h2>
+
+<p>According to the SANS 2022 DevSecOps Survey: <a href="https://www.deepfactor.io/sans-2022-devsecops-survey/">Creating a Culture to Significantly Improve Your Organization’s Security Posture</a>, “management buy-in” was the number one factor contributing to DevSecOps security programs’ success.</p>
+
+<p><img src="../../../../content/images/2023/02/image2.png" alt=""></p>
+
+<h2 id="whatisdependabot">What is Dependabot?</h2>
+
+<p><img src="../../../../content/images/2023/02/depend.png" alt=""></p>
+
+<p>There are a number of guiding principles when evaluating tools and designing a rollout plan. For example, Does the security benefit of this new process outweigh the impact on engineering teams? How do we roll this out incrementally and gather feedback? What are our expectations for engineers, and how do we clearly communicate these expectations?</p>
+
+<p>For Dependabot in particular, some of these questions are easy to answer. Dependabot is a native feature of GitHub, meaning, that it integrates with your engineers’ current workflows on GitHub.com. By better tracking the security of your software supply chain, you will keep your software secure, which outweighs any potential impact on engineering teams.</p>
+
+<p>When Dependabot raises pull requests, these pull requests could be for <code>security</code> or <code>version</code> updates:</p>
+
+<ul>
+<li><strong>Dependabot security updates</strong> are automated pull requests that help you update dependencies with known vulnerabilities. </li>
+<li><strong>Dependabot version updates</strong> are automated pull requests that keep your dependencies updated, even when they don’t have any vulnerabilities. To check the status of version updates, navigate to the Insights tab of your repository, then Dependency Graph, and Dependabot.</li>
+<li>Dependabot security updates may include <strong>compatibility scores</strong> to let you know whether updating a dependency could cause breaking changes to your project.</li>
+</ul>
+
+<h3 id="caveats">Caveats</h3>
+
+<ul>
+<li><strong>Dependabot alerts</strong> - Owners of private repositories, or people with admin access, can enable Dependabot alerts by enabling the dependency graph and Dependabot alerts for your repositories. </li>
+<li><strong>Secrets</strong> - When a Dependabot event triggers a workflow, the only secrets available to the workflow are Dependabot secrets. The simplest solution is to store the token with the permissions required in an action and in a Dependabot secret with <em>identical names</em>.</li>
+<li><strong><a href="https://semver.org/">Semantic versioning</a></strong> – don’t trust that every third party dependency aligns with this!</li>
+<li><strong>Vulnerability database</strong> -  GitHub's security features do not claim to catch all vulnerabilities and malware. They actively maintain <em>GitHub Advisory Database</em> and generate alerts with the most up-to-date information. However, they <em>cannot catch everything</em> or tell you about known vulnerabilities within a guaranteed time frame. These features are not substitutes for a human review of each dependency for potential vulnerabilities or any other issues, and they recommend consulting with a security service or conducting a thorough dependency review when necessary.</li>
+</ul>
+
+<h3 id="bewareofdependencyfatigue">Beware of dependency fatigue</h3>
+
+<p>You may have heard of <a href="https://www.pagerduty.com/blog/cutting-alert-fatigue-modern-ops/">alert fatigue</a> before when you are on a support roster. Well, the same can be said for dependency management: I call it <mark>dependency fatigue</mark>! The last thing you want is for teams to not configure dependabot properly and start to ignore the PRs and alerts created or turn them off completely. So what can we do to help alleviate this? Below I provide some tips and tricks I have used in the past and some sample configs.</p>
+
+<h3 id="tips">Tips</h3>
+
+<ul>
+<li>Design config with your team - Get the team to review the configuration and agree on the setup.</li>
+<li>Understand what <code>package-ecosystem(s)</code> to enable (docker, maven, actions, terraform etc)</li>
+<li>Add <code>labels</code> to your PRs to allow easier filtering</li>
+<li>Prioritise the order and schedule</li>
+<li>Assign ownership to who is on call</li>
+<li>If your dependencies are very outdated, you might want to start with a daily schedule until the dependencies are up-to-date, and then drop back to a weekly schedule.</li>
+<li>Review the changelog (look for any breaking changes announced) and make sure checks pass on your branch</li>
+<li>It's good practice to have automated tests and acceptance processes in place so that checks are carried out before the pull request is merged.</li>
+<li>Test and learn! 😅</li>
+</ul>
+
+<h3 id="sampleconfig">Sample config</h3>
+
+<p>You can place this file <code>dependabot.yml</code> under your <code>.github</code> directory in your repo.</p>
+
+<p>This example below showcases a repo that is interested in two eco-systems: <code>docker</code> and <code>actions</code>. I have added in a schedule for docker updates in my local timezone of Melbourne. And I have added some labels. This helps to filter your PRs if you want to focus on specific updates. The <code>open-pull-requests-limit</code> default is 5, so in this instance, I have reduced it to 2. </p>
+
+<p><img src="../../../../content/images/2023/02/code.png" alt=""></p>
+
+<p>The next example showcases a sample NodeJS project. Again you are interested in updates from two ecosystems: <code>npm</code> and <code>actions</code>. What this config is also showcasing is how you can ignore certain dependencies. You can see that it ignores packages that start with <code>aws</code>, ignores updates to <code>express</code> and patch updates for <code>all</code> dependencies. </p>
+
+<p><img src="../../../../content/images/2023/02/code1.png" alt=""></p>
+
+<p>Lastly, is a sample config for a JVM-based project. Here we are covering three package ecosystems as it's a cloud-native microservice. It covers updates to <code>maven</code>, <code>docker</code> and <code>actions</code>. </p>
+
+<p><img src="../../../../content/images/2023/02/code3.png" alt=""></p>
+
+<p>Below is a sample PR that was created by dependabot based on the config above. You can see it has added the labels of <code>dependencies</code> and <code>maven</code>. It provides the release notes and changelog for you to review. </p>
+
+<p><img src="../../../../content/images/2023/03/Screen-Shot-2023-03-02-at-10-06-07-am.png" alt=""></p>
+
+<p>If you want to know more about the configuration options for dependabot, check out the doc <a href="https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file">here</a></p>
+
+<h2 id="rollout">Rollout</h2>
+
+<p>Dependabot, like other GitHub Advanced Security features, can be enabled for all repositories within an organization from the organization’s administration page. Depending on how you create new GitHub repositories (infra as code anyone??), you can also enable upon creation by <a href="https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/managing-security-and-analysis-settings-for-your-organization#enabling-or-disabling-a-feature-automatically-when-new-repositories-are-added">default</a>. That way there is no major impact on teams and a staged rollout is not needed. Frequent company-wide comms are recommended.</p>
+
+<p>The aim is to answer, clearly and succinctly, the most important questions in your communications: <code>What are we doing? Why are we doing this? When are we doing this? Lastly, what do I need to do?</code> The last question was key. Make it clear that you are rolling out Dependabot organization-wide to understand your current risk and that, while we encourage service owners to upgrade dependencies, you are not expecting every Dependabot alert to be fixed right away.</p>
+
+<p>Running an engineering workshop on dependency management and dependabot can help educate teams on the importance of this initiative and shifting security left. Showcasing how to manage security and version updates for your services via dependabot will set the foundations and kick-start the conversation. Like any change management framework, it is important to <code>communicate/educate</code>, <code>build the capability</code> and <code>change the mindsets</code>.</p>
+
+<h2 id="remediation">Remediation</h2>
+
+<p>Once you had Dependabot enabled for all your GitHub repositories, you could measure the general trend of Dependabot alerts across the company. At an org level under the <code>insights</code> tab, you have a bird's eye view of dependencies and open security advisories. You can filter by most critical and then switch your focus from measuring the current state to working with repository owners to upgrade their dependencies.  By leveraging insights, you can ensure that you focus your remediation efforts on repositories that are running in production, where a vulnerable dependency could present a risk to your company and your users. As I mentioned earlier, <strong>"management buy-in"</strong> is extremely important in incorporating dependency management into your security program. Otherwise, you will end up competing with feature delivery and it will fall further down the pecking order. Security trumps customer centricity.</p>
+
+<p><img src="../../../../content/images/2023/03/Screenshot-2023-02-28-at-3-33-51-pm.png" alt=""></p>
+
+<p>If you have a platform engineering team you could go even further and build or use a nice internal service catalog tool like <a href="https://backstage.spotify.com/">backstage</a> and hook into GitHub graphQL API to track this. As part of measuring system health and running an internal security program, you can work with your stream-aligned teams to define <em>SLOs</em> and <em>SLIs</em> regarding timeframes to resolve. An example could be: <br>
+<strong>"Critical and high severity vulnerable dependencies are fixed within 30 days"</strong>.</p>
+
+<p><img src="../../../../content/images/2023/02/Screenshot-2023-02-28-at-11-42-52-am.png" alt=""></p>
+
+<p>It is important to acknowledge that <code>not all Dependabot alerts</code> can be actioned immediately. Instead, assign a realistic grace period for service owners to remediate Dependabot alerts before marking a metric as failing.</p>
+
+<h2 id="outcomes">Outcomes</h2>
+
+<p>The goal here is to reduce the no. of Dependabot alerts over time for your services. But do not regard this as a <strong>once-off task</strong>. Rather, you need to follow the dependabot alert metrics continuously over time and intervene if you see them trending in the wrong direction. This will help you have a better picture of your system health across the company and prioritise work.</p>
+
+<p>Happy updating! 😀</p>
+        </section>
+
+        <!-- disqus code snippet -->
+        <div id="disqus_thread"></div>
+        <script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+this.page.url = 'https://blog.shanelee.name/2023/02/28/dependency-management-with-dependabot/'; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'ghost-30'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//shavo007.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        <script id="dsq-count-scr" src="http://shavo007.disqus.com/count.js" async></script>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../../../../author/shane/" style="background-image: url(../../../../content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../../../../author/shane/">Shane Lee</a></h4>
+
+                    <p>Read <a href="../../../../author/shane/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    <span class="author-location icon-location">Melbourne</span>
+                    <span class="author-link icon-link"><a href="https://about.me/shane-lee">https://about.me/shane-lee</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Dependency%20management%20with%20dependabot&amp;url=https://blog.shanelee.name/2023/02/28/dependency-management-with-dependabot/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.shanelee.name/2023/02/28/dependency-management-with-dependabot/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://blog.shanelee.name/2023/02/28/dependency-management-with-dependabot/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+
+    </article>
+</main>
+
+
+
+<aside class="read-next">
+    <a class="read-next-story prev " style="background-image: url(../../../../content/images/2022/11/matthew-henry-fPxOowbR6ls-unsplash.jpg)" href="../../../../2022/11/04/shifting-security-left/">
+        <section class="post">
+            <h2>Shifting security left</h2>
+            <p>As part of adopting CD (Continuous Delivery) and embracing a DevOps culture, shifting security left is one of the…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2023</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-coy.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-graphql.min.js"></script>
+<!-- Add additional languages here -->
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/prism.js"></script>
+
+
+
+</body>

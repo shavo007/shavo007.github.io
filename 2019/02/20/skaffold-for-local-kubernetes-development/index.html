@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
     <link rel="canonical" href="https://blog.shanelee.name/2019/02/20/skaffold-for-local-kubernetes-development/">
     <meta name="referrer" content="origin">
-    
+
     <meta property="og:site_name" content="Tech Blog (mainly!)">
     <meta property="og:type" content="article">
     <meta property="og:title" content="Skaffold for local development">
@@ -30,7 +30,7 @@
     <meta property="article:tag" content="node">
     <meta property="article:tag" content="skaffold">
     <meta property="article:tag" content="graphql">
-    
+
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Skaffold for local development">
     <meta name="twitter:description" content="skaffold for local kubernetes development">
@@ -40,7 +40,7 @@
     <meta name="twitter:data1" content="Shane Lee">
     <meta name="twitter:label2" content="Filed under">
     <meta name="twitter:data2" content="kubernetes, docker, node, skaffold, graphql">
-    
+
     <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -109,12 +109,12 @@
 
     <div class="site-wrapper">
 
-        
+
 
 
 <header class="main-header post-head " style="background-image: url(../../../../content/images/2019/02/jacek-dylag-680347-unsplash-1.jpg)">
     <nav class="main-nav overlay clearfix">
-        
+
             <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
     </nav>
 </header>
@@ -188,7 +188,7 @@
 
 <p>On mac, you can install skaffold using brew</p>
 
-<pre><code class="language-bash">brew install skaffold  
+<pre><code class="language-bash">brew install skaffold
 </code></pre>
 
 <h3 id="localdevelopment">Local development</h3>
@@ -199,18 +199,18 @@
 
 <p>Sample skaffold yaml file</p>
 
-<pre><code class="language-yaml">apiVersion: skaffold/v1beta5  
-kind: Config  
-build:  
+<pre><code class="language-yaml">apiVersion: skaffold/v1beta5
+kind: Config
+build:
   artifacts:
   - image: shanelee007/graphql
-deploy:  
+deploy:
   kubectl:
     manifests:
     - kubernetes/config.yaml
     - kubernetes/deployment.yaml
     - kubernetes/secret.yaml
-profiles:  
+profiles:
 - name: dev
   build:
     artifacts:
@@ -243,7 +243,7 @@ profiles:
 
 <p>There was an issue with publishing docker image for local development every time I ran skaffold. To prevent this from happening there is global config to disable this.</p>
 
-<pre><code class="language-bash">skaffold config set --global local-cluster true #do not push images after building  
+<pre><code class="language-bash">skaffold config set --global local-cluster true #do not push images after building
 </code></pre>
 
 <h4 id="noteondockerfile">Note on Dockerfile</h4>
@@ -262,12 +262,12 @@ profiles:
 
 <p>Now we can run skaffold!</p>
 
-<pre><code class="language-bash">skaffold dev -p dev -v=info #run locally/watching changes dev mode  
+<pre><code class="language-bash">skaffold dev -p dev -v=info #run locally/watching changes dev mode
 </code></pre>
 
 <p>If you want to try out the new experimental gui run instead </p>
 
-<pre><code class="language-bash">skaffold dev -p dev -v=info --experimental-gui  
+<pre><code class="language-bash">skaffold dev -p dev -v=info --experimental-gui
 </code></pre>
 
 <p>Console output will look like so:</p>
@@ -282,8 +282,8 @@ profiles:
 
 <p>As of <strong>20/02/2019</strong> the latest version is <code>v1beta5</code>. To upgrade just run </p>
 
-<pre><code class="language-bash">brew upgrade skaffold  
-skaffold fix --overwrite  
+<pre><code class="language-bash">brew upgrade skaffold
+skaffold fix --overwrite
 </code></pre>
 
 <p>Thats all for now. In my next post, I will discuss deploying remotely using skaffold.😃</p>
@@ -379,7 +379,7 @@ s.setAttribute('data-timestamp', +new Date());
 
 
         <footer class="site-footer clearfix">
-            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2022</section>
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2023</section>
             <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
         </footer>
 
