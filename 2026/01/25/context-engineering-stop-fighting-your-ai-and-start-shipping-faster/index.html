@@ -1,0 +1,728 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt1</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
+    <link rel="canonical" href="https://blog.shanelee.name/2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="Tech Blog (mainly!)">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt1">
+    <meta property="og:description" content="How I went from repeating instructions every conversation to having AI that actually understands my codebase Let me ask you a few questions:      😤 Are you frustrated with AI giving inconsistent results?   🔁 Do you find yourself repeating the same instructions over and over?   🤔 Do you wish AI just knew your project">
+    <meta property="og:url" content="https://blog.shanelee.name/2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/">
+    <meta property="og:image" content="https://blog.shanelee.name/content/images/2026/01/hero-image.png">
+    <meta property="article:published_time" content="2026-01-25T13:17:23.405Z">
+    <meta property="article:modified_time" content="2026-01-25T17:48:16.062Z">
+    <meta property="article:tag" content="ai">
+    <meta property="article:tag" content="copilot">
+    <meta property="article:tag" content="agentic">
+    <meta property="article:tag" content="claude">
+    <meta property="article:tag" content="context">
+    <meta property="article:tag" content="mcp">
+    <meta property="article:tag" content="llm">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt1">
+    <meta name="twitter:description" content="How I went from repeating instructions every conversation to having AI that actually understands my codebase Let me ask you a few questions:      😤 Are you frustrated with AI giving inconsistent results?   🔁 Do you find yourself repeating the same instructions over and over?   🤔 Do you wish AI just knew your project">
+    <meta name="twitter:url" content="https://blog.shanelee.name/2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/">
+    <meta name="twitter:image:src" content="https://blog.shanelee.name/content/images/2026/01/hero-image.png">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shane Lee">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="ai, copilot, agentic, claude, context, mcp, llm">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Tech Blog (mainly!)",
+        "logo": "https://blog.shanelee.name/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shane Lee",
+        "image": "https://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg",
+        "url": "https://blog.shanelee.name/author/shane/",
+        "sameAs": [
+            "https://about.me/shane-lee"
+        ]
+    },
+    "headline": "Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt1",
+    "url": "https://blog.shanelee.name/2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/",
+    "datePublished": "2026-01-25T13:17:23.405Z",
+    "dateModified": "2026-01-25T17:48:16.062Z",
+    "image": "https://blog.shanelee.name/content/images/2026/01/hero-image.png",
+    "keywords": "ai, copilot, agentic, claude, context, mcp, llm",
+    "description": "How I went from repeating instructions every conversation to having AI that actually understands my codebase Let me ask you a few questions:      😤 Are you frustrated with AI giving inconsistent results?   🔁 Do you find yourself repeating the same instructions over and over?   🤔 Do you wish AI just knew your project"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.8">
+    <link rel="alternate" type="application/rss+xml" title="Tech Blog (mainly!)" href="https://blog.shanelee.name/rss/">
+    <meta name="google-site-verification" content="dzkjZUDovRImqR_2oGUlteWT1zcgw-r6cqBYef9qiWw">
+<meta name="google-site-verification" content="lojSObDdEFLBM0ok1Yiqy7rqgbc8yAUTyqF5iYszvWA">
+<link rel="preconnect" href="http://shavo007.disqus.com">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128189527-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-128189527-1');
+</script>
+<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2007283184718574",
+    enable_page_level_ads: true
+  });
+</script>
+</head>
+<body class="post-template tag-ai tag-copilot tag-agentic tag-claude tag-context tag-mcp tag-llm nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="https://blog.shanelee.name/">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="https://blog.shanelee.name/rss/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head " style="background-image: url(../../../../content/images/2026/01/hero-image.png)">
+    <nav class="main-nav overlay clearfix">
+        
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post tag-ai tag-copilot tag-agentic tag-claude tag-context tag-mcp tag-llm">
+
+        <header class="post-header">
+            <h1 class="post-title">Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt1</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2026-01-25">25 January 2026</time>
+                 on <a href="../../../../tag/ai/">ai</a>, <a href="../../../../tag/copilot/">copilot</a>, <a href="../../../../tag/agentic/">agentic</a>, <a href="../../../../tag/claude/">claude</a>, <a href="../../../../tag/context/">context</a>, <a href="../../../../tag/mcp/">mcp</a>, <a href="../../../../tag/llm/">llm</a>
+                ,
+
+                <!--<li class="post-meta-item">-->
+                    <a href="index.html#disqus_thread"></a>
+                <!--</li>-->
+                <!--<a href="#disqus_thread"/>-->
+            </section>
+        </header>
+
+        <section class="post-content">
+
+            <p><strong>How I went from repeating instructions every conversation to having AI that actually understands my codebase</strong></p>
+
+<hr>
+
+<p>Let me ask you a few questions:</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">😤 Are you frustrated with AI giving inconsistent results?</li>
+  <li style="padding: 8px 0;">🔁 Do you find yourself repeating the same instructions over and over?</li>
+  <li style="padding: 8px 0;">🤔 Do you wish AI just <em>knew</em> your project better?</li>
+</ul>
+
+<p>If you answered yes to any of these, you're not alone. And here's the thing—it's not the AI's fault. It's how we're feeding it information.</p>
+
+<p>I spent months fighting with AI assistants, carefully crafting prompts, only to get generic code that didn't follow our architecture. Then I discovered context engineering, and everything changed.</p>
+
+<hr>
+
+<h2 id="thefundamentaldistinctionpromptengineeringvscontextengineering">🎯 The Fundamental Distinction: Prompt Engineering vs. Context Engineering</h2>
+
+<p>Most developers focus on <strong>prompt engineering</strong>—crafting the perfect question to get the right answer. But there's a more powerful approach.</p>
+
+<p><img src="../../../../content/images/2026/01/promptvscontext.png" alt=""></p>
+
+<table style="width:100%; border-collapse: collapse; margin: 1.5em 0;">  
+  <thead>
+    <tr style="background-color: #f4f4f4;">
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;"></th>
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Prompt Engineering</th>
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Context Engineering</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">🔍 <strong>Focus</strong></td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Individual queries</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Information environment</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">📋 <strong>Scope</strong></td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">One-off instructions</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Persistent knowledge base</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">⚡ <strong>Effort</strong></td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Manual and repetitive</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Automated and consistent</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">📖 <strong>Analogy</strong></td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Telling a story each time</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Building a library</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px;">📈 <strong>Impact</strong></td>
+      <td style="padding: 12px;">Short-term results</td>
+      <td style="padding: 12px;">Long-term productivity</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Here's the key insight:</p>
+
+<blockquote>
+  <p>💡 <strong>Prompt engineering is fighting the AI each time. Context engineering is teaching the AI once.</strong></p>
+</blockquote>
+
+<p>Think about onboarding a new developer. You don't explain your coding standards every time they write a function. You point them to documentation, show them examples, and let them absorb the patterns. Context engineering does the same thing for AI.</p>
+
+<hr>
+
+<h2 id="understandingcontextwindowsthehybridmodel">🧠 Understanding Context Windows: The Hybrid Model</h2>
+
+<p>Every AI has a <strong>context window</strong>—its working memory. Claude 3.5 Sonnet has 200,000 tokens (roughly 150,000 words). That sounds like a lot, but it's finite and precious, like RAM in a computer.</p>
+
+<p>The challenge: you can't include everything. So you need to be strategic.</p>
+
+<p>The solution is a <strong>hybrid approach</strong>:</p>
+
+<pre><code>┌──────────────────────────────┐
+│  ⬆️  UPFRONT CONTEXT         │
+│  • Standards &amp; conventions   │
+│  • Architecture patterns     │
+│  • Team workflows            │
+├──────────────────────────────┤
+│  ⚡ JUST-IN-TIME             │
+│  • File contents (tools)     │
+│  • External docs (MCPs)      │
+│  • Real-time data (APIs)     │
+└──────────────────────────────┘
+</code></pre>
+
+<blockquote>
+  <p>🎯 <strong>The principle is simple:</strong> Give agents the RIGHT information at the RIGHT time, not ALL information ALL the time.</p>
+</blockquote>
+
+<p>Your project structure itself becomes a signal. Folder hierarchy teaches purpose. Naming conventions show role. Even timestamps signal patterns. A well-organized codebase is already teaching the AI.</p>
+
+<hr>
+
+<h2 id="thepowerofcontextarealexample">✨ The Power of Context: A Real Example</h2>
+
+<p>Let me show you what this looks like in practice.</p>
+
+<h3 id="withoutcontextengineering">❌ Without Context Engineering</h3>
+
+<p>Request: <em>"Create a new user management API endpoint"</em></p>
+
+<p>Result:  </p>
+
+<pre><code class="language-python">from flask import jsonify  
+from models import User
+
+@app.route('/api/users', methods=['GET'])
+def get_users():  
+    users = User.query.all()
+    return jsonify([u.__dict__ for u in users])
+</code></pre>
+
+<p><strong>The problems?</strong> Direct database access in the route, no service layer, no validation, exposes ORM objects directly, no error handling, no tests. It's generic code that doesn't follow your architecture.</p>
+
+<h3 id="withcontextengineering">✅ With Context Engineering</h3>
+
+<p>Same request: <em>"Create a new user management API endpoint"</em></p>
+
+<p>Result:  </p>
+
+<pre><code class="language-python"># src/api/routes/users.py
+from fastapi import APIRouter, Depends  
+from src.application.users.queries import GetUsersQuery  
+from src.application.users.schemas import UserListResponse
+
+router = APIRouter(prefix="/api/users", tags=["users"])
+
+@router.get("/", response_model=UserListResponse)
+async def get_users(query: GetUsersQuery = Depends()):  
+    return await query.execute()
+
+# src/application/users/queries.py
+class GetUsersQuery:  
+    def __init__(self, user_service: UserService = Depends()):
+        self.user_service = user_service
+
+    async def execute(self) -&gt; UserListResponse:
+        users = await self.user_service.get_all()
+        return UserListResponse(users=[UserDTO.from_entity(u) for u in users])
+</code></pre>
+
+<blockquote>
+  <p>⏱️ <strong>Time saved: 30-60 minutes per feature.</strong></p>
+</blockquote>
+
+<p>The AI didn't get smarter. It just had the right context.</p>
+
+<hr>
+
+<h2 id="thefourpillarsofcontextengineering">🏛️ The Four Pillars of Context Engineering</h2>
+
+<p>I've distilled context engineering into four pillars. Each serves a distinct purpose, and together they create an environment where AI becomes a true collaborator.</p>
+
+<p><img src="../../../../content/images/2026/01/four-pillars-diagram.png" alt=""></p>
+
+<h3 id="pillar1instructions">📜 Pillar 1: Instructions</h3>
+
+<p><strong>Purpose:</strong> Project-wide persistent rules that the AI should always know.</p>
+
+<pre><code>.github/
+  copilot-instructions.md
+  instructions/
+    typescript.instructions.md
+    react.instructions.md
+    testing.instructions.md
+</code></pre>
+
+<p>This is where you document:</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">✅ Coding standards and conventions</li>
+  <li style="padding: 8px 0;">✅ Architecture patterns your team follows</li>
+  <li style="padding: 8px 0;">✅ Testing requirements</li>
+  <li style="padding: 8px 0;">✅ Common pitfalls to avoid</li>
+</ul>
+
+<blockquote>
+  <p>📚 Think of instructions as the "employee handbook" for your AI assistant.</p>
+</blockquote>
+
+<hr>
+
+<h3 id="pillar2chatmodespersonas">🎭 Pillar 2: Chatmodes (Personas)</h3>
+
+<p><strong>Purpose:</strong> Role-based AI behavior for different tasks.</p>
+
+<pre><code>.github/chatmodes/
+  principal-engineer.chatmode.md
+  code-reviewer.chatmode.md
+  test-engineer.chatmode.md
+</code></pre>
+
+<p>Example chatmode:  </p>
+
+<pre><code class="language-markdown">---
+description: 'Thorough code reviewer'  
+tools: ['editFiles', 'search']  
+---
+# Code Reviewer Mode
+
+## Review Criteria
+- Code quality and readability
+- Performance implications
+- Security vulnerabilities
+- Test coverage
+</code></pre>
+
+<p>Different tasks need different mindsets. A code reviewer thinks differently than someone implementing a feature. Chatmodes let you switch the AI's perspective.</p>
+
+<hr>
+
+<h3 id="pillar3prompts">📝 Pillar 3: Prompts</h3>
+
+<p><strong>Purpose:</strong> Standardize common tasks into reusable templates.</p>
+
+<pre><code>.github/prompts/
+  create-api-endpoint.prompt.md
+  write-unit-tests.prompt.md
+  refactor-component.prompt.md
+</code></pre>
+
+<p>Example prompt:  </p>
+
+<pre><code class="language-markdown">---
+mode: 'agent'  
+description: 'Create REST API endpoint'  
+---
+# Create API Endpoint
+1. Route handler in src/routes/  
+2. Service layer in src/services/  
+3. Add types in src/types/  
+4. Unit + integration tests  
+5. Update API docs  
+</code></pre>
+
+<p>Prompts ensure consistency. Every API endpoint follows the same structure. Every test file uses the same patterns. No more variation based on how you phrase the request.</p>
+
+<hr>
+
+<h3 id="pillar4mcpsmodelcontextprotocol">🔌 Pillar 4: MCPs (Model Context Protocol)</h3>
+
+<p><strong>Purpose:</strong> Connect AI to external tools and authoritative sources.</p>
+
+<p>Popular MCPs include:</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">🐙 <strong>GitHub</strong> → Repository data, PRs, issues</li>
+  <li style="padding: 8px 0;">☁️ <strong>AWS</strong> → Well-Architected Framework, best practices</li>
+  <li style="padding: 8px 0;">📋 <strong>Atlassian</strong> → Jira tickets, Confluence documentation</li>
+  <li style="padding: 8px 0;">🐘 <strong>PostgreSQL</strong> → Direct database queries</li>
+  <li style="padding: 8px 0;">📚 <strong>Context7</strong> → Up-to-date library documentation</li>
+</ul>
+
+<blockquote>
+  <p>🔑 <strong>The key advantage:</strong> Instead of copying documentation into your prompt (which gets stale), MCPs give AI direct access to authoritative, always-current sources.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="arealworldstorythedockerchallenge">📖 A Real-World Story: The Docker Challenge</h2>
+
+<p>Let me share how these four pillars came together for a real task.</p>
+
+<h3 id="thechallenge">🎯 The Challenge</h3>
+
+<p>I needed to document a business case for Docker hardened images across our infrastructure. The requirements:</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">🔧 Technical depth for engineers</li>
+  <li style="padding: 8px 0;">💼 Business justification for leadership</li>
+  <li style="padding: 8px 0;">☁️ Alignment with AWS Well-Architected Framework</li>
+  <li style="padding: 8px 0;">📄 Delivered in Confluence</li>
+  <li style="padding: 8px 0;">⏰ Timeline: 2-3 days</li>
+</ul>
+
+<h3 id="thetraditionalapproach">😓 The Traditional Approach</h3>
+
+<pre><code>Day 1: Research (6-8 hours)  
+Day 2: Draft document (6-8 hours)  
+Day 3: Format and publish (4-6 hours)  
+────────────────────────────────
+Total: 16-22 hours 😱  
+</code></pre>
+
+<p>Plus 15-20 context switches, manual copy-paste between tools, and the inevitable documentation drift.</p>
+
+<h3 id="thecontextengineeringapproach">🚀 The Context Engineering Approach</h3>
+
+<p><strong>My setup:</strong></p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">🎭 <strong>Chatmode:</strong> Principal Engineer (strategic thinking, architectural focus)</li>
+  <li style="padding: 8px 0;">📜 <strong>Instructions:</strong> Business case template with our standard structure</li>
+  <li style="padding: 8px 0;">🔌 <strong>MCPs:</strong> AWS Knowledge Base, Atlassian integration</li>
+</ul>
+
+<p><strong>My single request:</strong></p>
+
+<blockquote>
+  <p>"Create business case for Docker hardened images using AWS Well-Architected Framework. Publish to Confluence."</p>
+</blockquote>
+
+<p><strong>What happened:</strong></p>
+
+<ol style="padding-left: 1.5em; margin: 1em 0;">  
+  <li style="padding: 8px 0;">🔍 Agent queried AWS MCP for framework requirements</li>
+  <li style="padding: 8px 0;">📋 Structured content using my business case template</li>
+  <li style="padding: 8px 0;">✍️ Generated comprehensive documentation</li>
+  <li style="padding: 8px 0;">📤 Published directly to Confluence via Atlassian MCP</li>
+</ol>
+
+<blockquote>
+  <p>✨ <strong>Result: 2 days of work compressed into 4 hours of focused execution.</strong></p>
+</blockquote>
+
+<p>No context switching. No manual copy-paste. No gaps in framework coverage. Flow state maintained throughout.</p>
+
+<hr>
+
+<h2 id="keyprinciplesforeffectivecontextengineering">🎓 Key Principles for Effective Context Engineering</h2>
+
+<p>Through trial and error, I've identified six principles that make context engineering work:</p>
+
+<h3 id="1designfordiscoverability">1️⃣ Design for Discoverability</h3>
+
+<p>Structure your project so both humans AND agents can navigate intuitively.</p>
+
+<pre><code>src/features/auth/  
+  components/  ← Purpose is clear
+  services/    ← Logic lives here
+  types/       ← Definitions grouped
+</code></pre>
+
+<blockquote>
+  <p>💡 Good structure is good context.</p>
+</blockquote>
+
+<h3 id="2separatepersistentfromdynamic">2️⃣ Separate Persistent from Dynamic</h3>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;"><strong>Persistent (upfront):</strong> Standards, patterns, workflows—things that rarely change</li>
+  <li style="padding: 8px 0;"><strong>Dynamic (just-in-time):</strong> File contents, external docs, real-time data—things that change frequently</li>
+</ul>
+
+<p>Don't bloat your context window with information that should be fetched on demand.</p>
+
+<h3 id="3leveragespecializedtools">3️⃣ Leverage Specialized Tools</h3>
+
+<p>Don't make AI memorize documentation. Connect it to the source.</p>
+
+<table style="width:100%; border-collapse: collapse; margin: 1.5em 0;">  
+  <thead>
+    <tr style="background-color: #f4f4f4;">
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Before</th>
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">With MCP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">📋 Paste 10,000 words of AWS docs</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">🔌 "Use AWS Container Lens best practices"</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">❌ Gets stale</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">✅ Always current</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px;">❌ Eats context window</td>
+      <td style="padding: 12px;">✅ Fetched on demand</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="4iterateandmeasure">4️⃣ Iterate and Measure</h3>
+
+<p>Track what matters:</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">⏱️ Time saved per task</li>
+  <li style="padding: 8px 0;">⭐ Quality improvements</li>
+  <li style="padding: 8px 0;">🔄 Number of iterations needed</li>
+  <li style="padding: 8px 0;">😊 Developer satisfaction</li>
+</ul>
+
+<blockquote>
+  <p>📊 What gets measured gets improved.</p>
+</blockquote>
+
+<h3 id="5showdontjusttell">5️⃣ Show, Don't Just Tell</h3>
+
+<p>Few-shot prompting works. Instead of writing a laundry list of rules, provide 3-5 high-quality examples showing expected behavior.</p>
+
+<blockquote>
+  <p>🖼️ For AI, examples are worth a thousand words.</p>
+</blockquote>
+
+<h3 id="6contextcompounds">6️⃣ Context Compounds</h3>
+
+<p>Better context leads to better results. Better results help you refine context. The cycle accelerates.</p>
+
+<pre><code>     ┌─────────────┐
+     │   Better    │
+     │   Context   │
+     └──────┬──────┘
+            │
+            ▼
+     ┌─────────────┐
+     │   Better    │
+     │   Results   │
+     └──────┬──────┘
+            │
+            ▼
+     ┌─────────────┐
+     │  Refined    │
+     │   Context   │◄──── 🔄 The cycle continues!
+     └─────────────┘
+</code></pre>
+
+<p>This is why the initial investment pays dividends over time.</p>
+
+<hr>
+
+<h2 id="theroiwhythismatters">💰 The ROI: Why This Matters</h2>
+
+<p>Let's talk numbers:</p>
+
+<pre><code>⏱️ Time Investment:
+├─ Initial setup: 2-3 hours
+├─ Weekly maintenance: 30 minutes
+└─ Quarterly review: 1 hour
+
+💵 Weekly Savings: 8-17 hours recovered
+
+🎉 Annual ROI: 400-800 hours saved
+</code></pre>
+
+<blockquote>
+  <p>🚀 That's <strong>10-20 weeks of productive time</strong> returned to you every year!</p>
+</blockquote>
+
+<p>But it's not just about time. It's about:</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">🎯 <strong>Consistency:</strong> Every feature follows your patterns</li>
+  <li style="padding: 8px 0;">⭐ <strong>Quality:</strong> Production-ready code from the start</li>
+  <li style="padding: 8px 0;">🧘 <strong>Flow:</strong> No more context switching between docs and tools</li>
+  <li style="padding: 8px 0;">👥 <strong>Onboarding:</strong> New team members (human and AI) ramp up faster</li>
+</ul>
+
+<hr>
+
+<h2 id="theparadigmshift">🌟 The Paradigm Shift</h2>
+
+<p>Here's what I've come to believe:</p>
+
+<blockquote>
+  <p><em>"Context engineering represents a fundamental shift in how we build with LLMs. As models become more capable, the challenge isn't just crafting the perfect prompt—it's thoughtfully curating what information enters the model's limited attention budget at each step."</em></p>
+</blockquote>
+
+<p>This isn't about more prompting. It's about <strong>better context</strong>.</p>
+
+<p>This isn't about AI as a tool. It's about <strong>AI as an informed collaborator</strong>.</p>
+
+<p>The developers who master context engineering won't just be more productive—they'll be working in a fundamentally different way. One where AI doesn't fight them, but works alongside them with full understanding of the codebase, the patterns, and the goals.</p>
+
+<hr>
+
+<h2 id="yournextstep">🎬 Your Next Step</h2>
+
+<p>Start with one instruction file. Document your coding standards. Watch how the AI's output improves.</p>
+
+<p>Then iterate.</p>
+
+<blockquote>
+  <p>✨ <strong>The best context is the one that evolves with your team.</strong></p>
+</blockquote>
+        </section>
+
+        <!-- disqus code snippet -->
+        <div id="disqus_thread"></div>
+        <script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+this.page.url = 'https://blog.shanelee.name/2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/'; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'ghost-32'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//shavo007.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        <script id="dsq-count-scr" src="http://shavo007.disqus.com/count.js" async></script>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../../../../author/shane/" style="background-image: url(../../../../content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../../../../author/shane/">Shane Lee</a></h4>
+
+                    <p>Read <a href="../../../../author/shane/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    <span class="author-location icon-location">Melbourne</span>
+                    <span class="author-link icon-link"><a href="https://about.me/shane-lee">https://about.me/shane-lee</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Context%20Engineering%3A%20Stop%20Fighting%20Your%20AI%20and%20Start%20Shipping%20Faster%20Pt1&amp;url=https://blog.shanelee.name/2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.shanelee.name/2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://blog.shanelee.name/2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+
+    </article>
+</main>
+
+
+
+<aside class="read-next">
+    <a class="read-next-story prev " style="background-image: url(../../../../content/images/2023/02/guerrillabuzz-blockchain-pr-agency-SYofhg_IX3A-unsplash.jpg)" href="../../../../2023/02/28/dependency-management-with-dependabot/">
+        <section class="post">
+            <h2>Dependency management with dependabot</h2>
+            <p>We all know how vital shifting security left is and how engineering needs to work more closely with security.…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2026</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-coy.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-graphql.min.js"></script>
+<!-- Add additional languages here -->
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/prism.js"></script>
+
+
+
+</body>

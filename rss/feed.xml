@@ -1,4 +1,495 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog (mainly!)]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>https://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Sat, 24 Jan 2026 20:34:06 GMT</lastBuildDate><atom:link href="https://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Dependency management with dependabot]]></title><description><![CDATA[How to shift security left and manage dependencies via dependabot and reduce the no. of security vulnerabilities.]]></description><link>https://blog.shanelee.name/2023/02/28/dependency-management-with-dependabot/</link><guid isPermaLink="false">d169802e-3e11-47a5-81ad-73cfcd7c3ff0</guid><category><![CDATA[github]]></category><category><![CDATA[devsecops]]></category><category><![CDATA[dependabot]]></category><category><![CDATA[owasp]]></category><category><![CDATA[security]]></category><category><![CDATA[culture]]></category><category><![CDATA[leadership]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 28 Feb 2023 03:30:31 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2023/02/guerrillabuzz-blockchain-pr-agency-SYofhg_IX3A-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="https://blog.shanelee.name/content/images/2023/02/guerrillabuzz-blockchain-pr-agency-SYofhg_IX3A-unsplash.jpg" alt="Dependency management with dependabot"><p>We all know how vital shifting security left is and how engineering needs to work more closely with security. According to the Cloud Security Alliance (CSA), 70% of <a href="https://cloudsecurityalliance.org/artifacts/secure-devops-and-misconfigurations-survey-report/">security professionals and engineering teams</a> struggle to <strong>“shift left,”</strong> with many unable to recognize the formation of anti-patterns and understand/appreciate the wider impact to development, cost, governance, culture, etc.</p>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog (mainly!)]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>https://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Sun, 25 Jan 2026 17:49:07 GMT</lastBuildDate><atom:link href="https://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt1]]></title><description><![CDATA[<p><strong>How I went from repeating instructions every conversation to having AI that actually understands my codebase</strong></p>
+
+<hr>
+
+<p>Let me ask you a few questions:</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">😤 Are you frustrated with AI giving inconsistent results?</li>
+  <li style="padding: 8px 0;">🔁 Do you find yourself repeating the same instructions over and over?</li>
+  <li style="padding: 8px 0;">🤔 Do you wish AI just <em>knew</em> your project</li></ul>]]></description><link>https://blog.shanelee.name/2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/</link><guid isPermaLink="false">c58e4df0-a274-429f-a9de-98057cbe0f77</guid><category><![CDATA[ai]]></category><category><![CDATA[copilot]]></category><category><![CDATA[agentic]]></category><category><![CDATA[claude]]></category><category><![CDATA[context]]></category><category><![CDATA[mcp]]></category><category><![CDATA[llm]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 25 Jan 2026 13:17:23 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2026/01/hero-image.png" medium="image"/><content:encoded><![CDATA[<img src="https://blog.shanelee.name/content/images/2026/01/hero-image.png" alt="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt1"><p><strong>How I went from repeating instructions every conversation to having AI that actually understands my codebase</strong></p>
+
+<hr>
+
+<p>Let me ask you a few questions:</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">😤 Are you frustrated with AI giving inconsistent results?</li>
+  <li style="padding: 8px 0;">🔁 Do you find yourself repeating the same instructions over and over?</li>
+  <li style="padding: 8px 0;">🤔 Do you wish AI just <em>knew</em> your project better?</li>
+</ul>
+
+<p>If you answered yes to any of these, you're not alone. And here's the thing—it's not the AI's fault. It's how we're feeding it information.</p>
+
+<p>I spent months fighting with AI assistants, carefully crafting prompts, only to get generic code that didn't follow our architecture. Then I discovered context engineering, and everything changed.</p>
+
+<hr>
+
+<h2 id="thefundamentaldistinctionpromptengineeringvscontextengineering">🎯 The Fundamental Distinction: Prompt Engineering vs. Context Engineering</h2>
+
+<p>Most developers focus on <strong>prompt engineering</strong>—crafting the perfect question to get the right answer. But there's a more powerful approach.</p>
+
+<p><img src="https://blog.shanelee.name/content/images/2026/01/promptvscontext.png" alt="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt1"></p>
+
+<table style="width:100%; border-collapse: collapse; margin: 1.5em 0;">  
+  <thead>
+    <tr style="background-color: #f4f4f4;">
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;"></th>
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Prompt Engineering</th>
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Context Engineering</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">🔍 <strong>Focus</strong></td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Individual queries</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Information environment</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">📋 <strong>Scope</strong></td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">One-off instructions</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Persistent knowledge base</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">⚡ <strong>Effort</strong></td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Manual and repetitive</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Automated and consistent</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">📖 <strong>Analogy</strong></td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Telling a story each time</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Building a library</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px;">📈 <strong>Impact</strong></td>
+      <td style="padding: 12px;">Short-term results</td>
+      <td style="padding: 12px;">Long-term productivity</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Here's the key insight:</p>
+
+<blockquote>
+  <p>💡 <strong>Prompt engineering is fighting the AI each time. Context engineering is teaching the AI once.</strong></p>
+</blockquote>
+
+<p>Think about onboarding a new developer. You don't explain your coding standards every time they write a function. You point them to documentation, show them examples, and let them absorb the patterns. Context engineering does the same thing for AI.</p>
+
+<hr>
+
+<h2 id="understandingcontextwindowsthehybridmodel">🧠 Understanding Context Windows: The Hybrid Model</h2>
+
+<p>Every AI has a <strong>context window</strong>—its working memory. Claude 3.5 Sonnet has 200,000 tokens (roughly 150,000 words). That sounds like a lot, but it's finite and precious, like RAM in a computer.</p>
+
+<p>The challenge: you can't include everything. So you need to be strategic.</p>
+
+<p>The solution is a <strong>hybrid approach</strong>:</p>
+
+<pre><code>┌──────────────────────────────┐
+│  ⬆️  UPFRONT CONTEXT         │
+│  • Standards &amp; conventions   │
+│  • Architecture patterns     │
+│  • Team workflows            │
+├──────────────────────────────┤
+│  ⚡ JUST-IN-TIME             │
+│  • File contents (tools)     │
+│  • External docs (MCPs)      │
+│  • Real-time data (APIs)     │
+└──────────────────────────────┘
+</code></pre>
+
+<blockquote>
+  <p>🎯 <strong>The principle is simple:</strong> Give agents the RIGHT information at the RIGHT time, not ALL information ALL the time.</p>
+</blockquote>
+
+<p>Your project structure itself becomes a signal. Folder hierarchy teaches purpose. Naming conventions show role. Even timestamps signal patterns. A well-organized codebase is already teaching the AI.</p>
+
+<hr>
+
+<h2 id="thepowerofcontextarealexample">✨ The Power of Context: A Real Example</h2>
+
+<p>Let me show you what this looks like in practice.</p>
+
+<h3 id="withoutcontextengineering">❌ Without Context Engineering</h3>
+
+<p>Request: <em>"Create a new user management API endpoint"</em></p>
+
+<p>Result:  </p>
+
+<pre><code class="language-python">from flask import jsonify  
+from models import User
+
+@app.route('/api/users', methods=['GET'])
+def get_users():  
+    users = User.query.all()
+    return jsonify([u.__dict__ for u in users])
+</code></pre>
+
+<p><strong>The problems?</strong> Direct database access in the route, no service layer, no validation, exposes ORM objects directly, no error handling, no tests. It's generic code that doesn't follow your architecture.</p>
+
+<h3 id="withcontextengineering">✅ With Context Engineering</h3>
+
+<p>Same request: <em>"Create a new user management API endpoint"</em></p>
+
+<p>Result:  </p>
+
+<pre><code class="language-python"># src/api/routes/users.py
+from fastapi import APIRouter, Depends  
+from src.application.users.queries import GetUsersQuery  
+from src.application.users.schemas import UserListResponse
+
+router = APIRouter(prefix="/api/users", tags=["users"])
+
+@router.get("/", response_model=UserListResponse)
+async def get_users(query: GetUsersQuery = Depends()):  
+    return await query.execute()
+
+# src/application/users/queries.py
+class GetUsersQuery:  
+    def __init__(self, user_service: UserService = Depends()):
+        self.user_service = user_service
+
+    async def execute(self) -&gt; UserListResponse:
+        users = await self.user_service.get_all()
+        return UserListResponse(users=[UserDTO.from_entity(u) for u in users])
+</code></pre>
+
+<blockquote>
+  <p>⏱️ <strong>Time saved: 30-60 minutes per feature.</strong></p>
+</blockquote>
+
+<p>The AI didn't get smarter. It just had the right context.</p>
+
+<hr>
+
+<h2 id="thefourpillarsofcontextengineering">🏛️ The Four Pillars of Context Engineering</h2>
+
+<p>I've distilled context engineering into four pillars. Each serves a distinct purpose, and together they create an environment where AI becomes a true collaborator.</p>
+
+<p><img src="https://blog.shanelee.name/content/images/2026/01/four-pillars-diagram.png" alt="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt1"></p>
+
+<h3 id="pillar1instructions">📜 Pillar 1: Instructions</h3>
+
+<p><strong>Purpose:</strong> Project-wide persistent rules that the AI should always know.</p>
+
+<pre><code>.github/
+  copilot-instructions.md
+  instructions/
+    typescript.instructions.md
+    react.instructions.md
+    testing.instructions.md
+</code></pre>
+
+<p>This is where you document:</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">✅ Coding standards and conventions</li>
+  <li style="padding: 8px 0;">✅ Architecture patterns your team follows</li>
+  <li style="padding: 8px 0;">✅ Testing requirements</li>
+  <li style="padding: 8px 0;">✅ Common pitfalls to avoid</li>
+</ul>
+
+<blockquote>
+  <p>📚 Think of instructions as the "employee handbook" for your AI assistant.</p>
+</blockquote>
+
+<hr>
+
+<h3 id="pillar2chatmodespersonas">🎭 Pillar 2: Chatmodes (Personas)</h3>
+
+<p><strong>Purpose:</strong> Role-based AI behavior for different tasks.</p>
+
+<pre><code>.github/chatmodes/
+  principal-engineer.chatmode.md
+  code-reviewer.chatmode.md
+  test-engineer.chatmode.md
+</code></pre>
+
+<p>Example chatmode:  </p>
+
+<pre><code class="language-markdown">---
+description: 'Thorough code reviewer'  
+tools: ['editFiles', 'search']  
+---
+# Code Reviewer Mode
+
+## Review Criteria
+- Code quality and readability
+- Performance implications
+- Security vulnerabilities
+- Test coverage
+</code></pre>
+
+<p>Different tasks need different mindsets. A code reviewer thinks differently than someone implementing a feature. Chatmodes let you switch the AI's perspective.</p>
+
+<hr>
+
+<h3 id="pillar3prompts">📝 Pillar 3: Prompts</h3>
+
+<p><strong>Purpose:</strong> Standardize common tasks into reusable templates.</p>
+
+<pre><code>.github/prompts/
+  create-api-endpoint.prompt.md
+  write-unit-tests.prompt.md
+  refactor-component.prompt.md
+</code></pre>
+
+<p>Example prompt:  </p>
+
+<pre><code class="language-markdown">---
+mode: 'agent'  
+description: 'Create REST API endpoint'  
+---
+# Create API Endpoint
+1. Route handler in src/routes/  
+2. Service layer in src/services/  
+3. Add types in src/types/  
+4. Unit + integration tests  
+5. Update API docs  
+</code></pre>
+
+<p>Prompts ensure consistency. Every API endpoint follows the same structure. Every test file uses the same patterns. No more variation based on how you phrase the request.</p>
+
+<hr>
+
+<h3 id="pillar4mcpsmodelcontextprotocol">🔌 Pillar 4: MCPs (Model Context Protocol)</h3>
+
+<p><strong>Purpose:</strong> Connect AI to external tools and authoritative sources.</p>
+
+<p>Popular MCPs include:</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">🐙 <strong>GitHub</strong> → Repository data, PRs, issues</li>
+  <li style="padding: 8px 0;">☁️ <strong>AWS</strong> → Well-Architected Framework, best practices</li>
+  <li style="padding: 8px 0;">📋 <strong>Atlassian</strong> → Jira tickets, Confluence documentation</li>
+  <li style="padding: 8px 0;">🐘 <strong>PostgreSQL</strong> → Direct database queries</li>
+  <li style="padding: 8px 0;">📚 <strong>Context7</strong> → Up-to-date library documentation</li>
+</ul>
+
+<blockquote>
+  <p>🔑 <strong>The key advantage:</strong> Instead of copying documentation into your prompt (which gets stale), MCPs give AI direct access to authoritative, always-current sources.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="arealworldstorythedockerchallenge">📖 A Real-World Story: The Docker Challenge</h2>
+
+<p>Let me share how these four pillars came together for a real task.</p>
+
+<h3 id="thechallenge">🎯 The Challenge</h3>
+
+<p>I needed to document a business case for Docker hardened images across our infrastructure. The requirements:</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">🔧 Technical depth for engineers</li>
+  <li style="padding: 8px 0;">💼 Business justification for leadership</li>
+  <li style="padding: 8px 0;">☁️ Alignment with AWS Well-Architected Framework</li>
+  <li style="padding: 8px 0;">📄 Delivered in Confluence</li>
+  <li style="padding: 8px 0;">⏰ Timeline: 2-3 days</li>
+</ul>
+
+<h3 id="thetraditionalapproach">😓 The Traditional Approach</h3>
+
+<pre><code>Day 1: Research (6-8 hours)  
+Day 2: Draft document (6-8 hours)  
+Day 3: Format and publish (4-6 hours)  
+────────────────────────────────
+Total: 16-22 hours 😱  
+</code></pre>
+
+<p>Plus 15-20 context switches, manual copy-paste between tools, and the inevitable documentation drift.</p>
+
+<h3 id="thecontextengineeringapproach">🚀 The Context Engineering Approach</h3>
+
+<p><strong>My setup:</strong></p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">🎭 <strong>Chatmode:</strong> Principal Engineer (strategic thinking, architectural focus)</li>
+  <li style="padding: 8px 0;">📜 <strong>Instructions:</strong> Business case template with our standard structure</li>
+  <li style="padding: 8px 0;">🔌 <strong>MCPs:</strong> AWS Knowledge Base, Atlassian integration</li>
+</ul>
+
+<p><strong>My single request:</strong></p>
+
+<blockquote>
+  <p>"Create business case for Docker hardened images using AWS Well-Architected Framework. Publish to Confluence."</p>
+</blockquote>
+
+<p><strong>What happened:</strong></p>
+
+<ol style="padding-left: 1.5em; margin: 1em 0;">  
+  <li style="padding: 8px 0;">🔍 Agent queried AWS MCP for framework requirements</li>
+  <li style="padding: 8px 0;">📋 Structured content using my business case template</li>
+  <li style="padding: 8px 0;">✍️ Generated comprehensive documentation</li>
+  <li style="padding: 8px 0;">📤 Published directly to Confluence via Atlassian MCP</li>
+</ol>
+
+<blockquote>
+  <p>✨ <strong>Result: 2 days of work compressed into 4 hours of focused execution.</strong></p>
+</blockquote>
+
+<p>No context switching. No manual copy-paste. No gaps in framework coverage. Flow state maintained throughout.</p>
+
+<hr>
+
+<h2 id="keyprinciplesforeffectivecontextengineering">🎓 Key Principles for Effective Context Engineering</h2>
+
+<p>Through trial and error, I've identified six principles that make context engineering work:</p>
+
+<h3 id="1designfordiscoverability">1️⃣ Design for Discoverability</h3>
+
+<p>Structure your project so both humans AND agents can navigate intuitively.</p>
+
+<pre><code>src/features/auth/  
+  components/  ← Purpose is clear
+  services/    ← Logic lives here
+  types/       ← Definitions grouped
+</code></pre>
+
+<blockquote>
+  <p>💡 Good structure is good context.</p>
+</blockquote>
+
+<h3 id="2separatepersistentfromdynamic">2️⃣ Separate Persistent from Dynamic</h3>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;"><strong>Persistent (upfront):</strong> Standards, patterns, workflows—things that rarely change</li>
+  <li style="padding: 8px 0;"><strong>Dynamic (just-in-time):</strong> File contents, external docs, real-time data—things that change frequently</li>
+</ul>
+
+<p>Don't bloat your context window with information that should be fetched on demand.</p>
+
+<h3 id="3leveragespecializedtools">3️⃣ Leverage Specialized Tools</h3>
+
+<p>Don't make AI memorize documentation. Connect it to the source.</p>
+
+<table style="width:100%; border-collapse: collapse; margin: 1.5em 0;">  
+  <thead>
+    <tr style="background-color: #f4f4f4;">
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Before</th>
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">With MCP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">📋 Paste 10,000 words of AWS docs</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">🔌 "Use AWS Container Lens best practices"</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">❌ Gets stale</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">✅ Always current</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px;">❌ Eats context window</td>
+      <td style="padding: 12px;">✅ Fetched on demand</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="4iterateandmeasure">4️⃣ Iterate and Measure</h3>
+
+<p>Track what matters:</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">⏱️ Time saved per task</li>
+  <li style="padding: 8px 0;">⭐ Quality improvements</li>
+  <li style="padding: 8px 0;">🔄 Number of iterations needed</li>
+  <li style="padding: 8px 0;">😊 Developer satisfaction</li>
+</ul>
+
+<blockquote>
+  <p>📊 What gets measured gets improved.</p>
+</blockquote>
+
+<h3 id="5showdontjusttell">5️⃣ Show, Don't Just Tell</h3>
+
+<p>Few-shot prompting works. Instead of writing a laundry list of rules, provide 3-5 high-quality examples showing expected behavior.</p>
+
+<blockquote>
+  <p>🖼️ For AI, examples are worth a thousand words.</p>
+</blockquote>
+
+<h3 id="6contextcompounds">6️⃣ Context Compounds</h3>
+
+<p>Better context leads to better results. Better results help you refine context. The cycle accelerates.</p>
+
+<pre><code>     ┌─────────────┐
+     │   Better    │
+     │   Context   │
+     └──────┬──────┘
+            │
+            ▼
+     ┌─────────────┐
+     │   Better    │
+     │   Results   │
+     └──────┬──────┘
+            │
+            ▼
+     ┌─────────────┐
+     │  Refined    │
+     │   Context   │◄──── 🔄 The cycle continues!
+     └─────────────┘
+</code></pre>
+
+<p>This is why the initial investment pays dividends over time.</p>
+
+<hr>
+
+<h2 id="theroiwhythismatters">💰 The ROI: Why This Matters</h2>
+
+<p>Let's talk numbers:</p>
+
+<pre><code>⏱️ Time Investment:
+├─ Initial setup: 2-3 hours
+├─ Weekly maintenance: 30 minutes
+└─ Quarterly review: 1 hour
+
+💵 Weekly Savings: 8-17 hours recovered
+
+🎉 Annual ROI: 400-800 hours saved
+</code></pre>
+
+<blockquote>
+  <p>🚀 That's <strong>10-20 weeks of productive time</strong> returned to you every year!</p>
+</blockquote>
+
+<p>But it's not just about time. It's about:</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">🎯 <strong>Consistency:</strong> Every feature follows your patterns</li>
+  <li style="padding: 8px 0;">⭐ <strong>Quality:</strong> Production-ready code from the start</li>
+  <li style="padding: 8px 0;">🧘 <strong>Flow:</strong> No more context switching between docs and tools</li>
+  <li style="padding: 8px 0;">👥 <strong>Onboarding:</strong> New team members (human and AI) ramp up faster</li>
+</ul>
+
+<hr>
+
+<h2 id="theparadigmshift">🌟 The Paradigm Shift</h2>
+
+<p>Here's what I've come to believe:</p>
+
+<blockquote>
+  <p><em>"Context engineering represents a fundamental shift in how we build with LLMs. As models become more capable, the challenge isn't just crafting the perfect prompt—it's thoughtfully curating what information enters the model's limited attention budget at each step."</em></p>
+</blockquote>
+
+<p>This isn't about more prompting. It's about <strong>better context</strong>.</p>
+
+<p>This isn't about AI as a tool. It's about <strong>AI as an informed collaborator</strong>.</p>
+
+<p>The developers who master context engineering won't just be more productive—they'll be working in a fundamentally different way. One where AI doesn't fight them, but works alongside them with full understanding of the codebase, the patterns, and the goals.</p>
+
+<hr>
+
+<h2 id="yournextstep">🎬 Your Next Step</h2>
+
+<p>Start with one instruction file. Document your coding standards. Watch how the AI's output improves.</p>
+
+<p>Then iterate.</p>
+
+<blockquote>
+  <p>✨ <strong>The best context is the one that evolves with your team.</strong></p>
+</blockquote>]]></content:encoded></item><item><title><![CDATA[Dependency management with dependabot]]></title><description><![CDATA[How to shift security left and manage dependencies via dependabot and reduce the no. of security vulnerabilities.]]></description><link>https://blog.shanelee.name/2023/02/28/dependency-management-with-dependabot/</link><guid isPermaLink="false">d169802e-3e11-47a5-81ad-73cfcd7c3ff0</guid><category><![CDATA[github]]></category><category><![CDATA[devsecops]]></category><category><![CDATA[dependabot]]></category><category><![CDATA[owasp]]></category><category><![CDATA[security]]></category><category><![CDATA[culture]]></category><category><![CDATA[leadership]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 28 Feb 2023 03:30:31 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2023/02/guerrillabuzz-blockchain-pr-agency-SYofhg_IX3A-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="https://blog.shanelee.name/content/images/2023/02/guerrillabuzz-blockchain-pr-agency-SYofhg_IX3A-unsplash.jpg" alt="Dependency management with dependabot"><p>We all know how vital shifting security left is and how engineering needs to work more closely with security. According to the Cloud Security Alliance (CSA), 70% of <a href="https://cloudsecurityalliance.org/artifacts/secure-devops-and-misconfigurations-survey-report/">security professionals and engineering teams</a> struggle to <strong>“shift left,”</strong> with many unable to recognize the formation of anti-patterns and understand/appreciate the wider impact to development, cost, governance, culture, etc.</p>
 
 <h2 id="recognizingtheparadigmshift">Recognizing the Paradigm Shift</h2>
 
@@ -2585,239 +3076,4 @@ data:
 
 <p>You can easily schedule the lambda function to cleanup log indices greater than x no. of days.</p>
 
-<p>And thats it! Stay tuned for more posts on <strong>kubernetes</strong>. </p>]]></content:encoded></item><item><title><![CDATA[Kubernetes ingress and sticky sessions]]></title><description><![CDATA[<h1 id="tldr">TL;DR</h1>
-
-<p>Recently I had to look at horizontally scaling a traditional web-app on kubernetes. Here i will explain how I achieved it and what ingress controller is and why to use it.</p>
-
-<p>I  assume you know what pods are so I will quickly breakdown service and ingress resources.</p>
-
-<h2 id="service">Service</h2>]]></description><link>https://blog.shanelee.name/2017/10/15/kubernetes-ingress-and-sticky-sessions/</link><guid isPermaLink="false">52c2d7b6-231c-4d3b-8fcd-7f4fa090d576</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[ingress]]></category><category><![CDATA[sticky]]></category><category><![CDATA[elb]]></category><category><![CDATA[nginx]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 15 Oct 2017 14:21:48 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
-
-<p>Recently I had to look at horizontally scaling a traditional web-app on kubernetes. Here i will explain how I achieved it and what ingress controller is and why to use it.</p>
-
-<p>I  assume you know what pods are so I will quickly breakdown service and ingress resources.</p>
-
-<h2 id="service">Service</h2>
-
-<blockquote>
-  <p>Service is a logical abstraction communication layer to pods. During normal operations pods get’s created, destroyed, scaled out, etc.</p>
-</blockquote>
-
-<p>A Service make’s it easy to always connect to the pods by connecting to their service which stays stable during the pod life cycle. A important thing about services are what their type is, it determines how the service expose itself to the cluster or the internet. Some of the service types are :</p>
-
-<ul>
-<li><p>ClusterIP Your service is only expose internally to the cluster on the internal cluster IP. A example would be to deploy Hasicorp’s vault and expose it only internally.</p></li>
-<li><p>NodePort Expose the service on the EC2 Instance on the specified port. This will be exposed to the internet. Off course it this all depends on your AWS Security group / VPN rules.</p></li>
-<li><p>LoadBalancer Supported on Amazon and Google cloud, this creates the cloud providers your using load balancer. So on Amazon it creates a ELB that points to your service on your cluster.</p></li>
-<li><p>ExternalName Create a CNAME dns record to a external domain.</p></li>
-</ul>
-
-<p>For more information about Services look at <a href="https://kubernetes.io/docs/concepts/services-networking/service/">https://kubernetes.io/docs/concepts/services-networking/service/</a></p>
-
-<h2 id="ingress">Ingress</h2>
-
-<blockquote>
-  <p>An Ingress is a collection of rules that allow inbound connections to reach the cluster services</p>
-</blockquote>
-
-<p>You define a number of <strong>rules</strong> to access a <strong>service</strong></p>
-
-<h2 id="scenario">Scenario</h2>
-
-<p>Imagine this scenario, you have a cluster running, on Amazon, you have multiple applications deployed to it, some are jvm microservices (spring boot) running inside embedded tomcat, and to add to the mix, you have a couple of SPA sitting in a Apache web server that serves static content. </p>
-
-<p>All applications needs to have TLS, some of the api’s endpoints have changed, but you still have to serve the old endpoint path, so you need to do some sort of path rewrite. How do you expose everything to the internet? The obvious answer is create a type <strong>LoadBalancer</strong> service for each, but, then multiple ELB’s will be created, you have to deal with TLS termination at each ELB, you have to CNAME your applications/api’s domain names to the right ELB’s, and in general just have very little control over the ELB.</p>
-
-<p>Enter Ingress Controllers. 👍</p>
-
-<h3 id="whatisaningresscontroller">What is an ingress controller?</h3>
-
-<blockquote>
-  <p>An Ingress Controller is a daemon, deployed as a Kubernetes Pod, that watches the apiserver's /ingresses endpoint for updates to the Ingress resource. Its job is to satisfy requests for Ingresses.</p>
-</blockquote>
-
-<p>You deploy a ingress controller, create a type LoadBalancer service for it, and it sits and monitors Kubernetes api server’s <strong>/ingresses</strong> endpoint and acts as a reverse proxy for the ingress rules it found there. </p>
-
-<p>You then deploy your application and expose it’s service as a type NodePort, and create ingress rules for it. The ingress controller then picks up the new deployed service and proxy traffic to it from outside.</p>
-
-<p>Following this setup, you only have one ELB then on Amazon, and a central place at the ingress controller to manage the traffic coming into your cluster to your applications.</p>
-
-<p>To visualise how this works, check out this little guy! Traefik is one implementation you can use as an ingress.</p>
-
-<p><img src="https://blog.shanelee.name/content/images/2017/10/architecture.png" alt=""></p>
-
-<p>But I have chosen nginx ingress controller instead as it supports sticky sessions and as a reverse proxy is extremely popular solution.</p>
-
-<p>So lets get to the interesting part; <strong>coding</strong>!!!</p>
-
-<h2 id="demo">Demo</h2>
-
-<p>I am going to setup a kubernetes gossip cluster on AWS using kops. Then create nginx ingress controller and reverse proxy to a sample app called echoheader. </p>
-
-<p>To setup a k8s cluster on AWS, follow the guide at <a href="https://github.com/shavo007/k8s-ingress">https://github.com/shavo007/k8s-ingress</a></p>
-
-<p>If you do not want to install kops and the other tools needed, I have built a simple docker image that you can use instead. </p>
-
-<p><a href="https://store.docker.com/community/images/shanelee007/alpine-kops">https://store.docker.com/community/images/shanelee007/alpine-kops</a></p>
-
-<p>This includes:</p>
-
-<ul>
-<li>Kops</li>
-<li>Kubectl</li>
-<li>AWS CLI</li>
-<li>Terraform</li>
-</ul>
-
-<p>Once you have the cluster what we need to do is setup a default backend service for nginx.</p>
-
-<p>The default backend is the default service that nginx falls backs to if if cannot route a request successfully. The default backend needs to satisfy the following two requirements :</p>
-
-<p>serves a 404 page at / <br>
-serves 200 on a /healthz</p>
-
-<p>See more at <a href="https://github.com/kubernetes/ingress-nginx/tree/master/deploy">https://github.com/kubernetes/ingress-nginx/tree/master/deploy</a></p>
-
-<p>Run the mandatory commands and install without RBAC roles.</p>
-
-<p>Then install layer 7 service on AWS <br>
-<a href="https://github.com/kubernetes/ingress-nginx/tree/master/deploy#aws">https://github.com/kubernetes/ingress-nginx/tree/master/deploy#aws</a> or install the service defined in my repo</p>
-
-<pre><code class="language-bash">kubectl apply -f ingress-nginx-svc.yaml  
-</code></pre>
-
-<p>When you run these commands, it created a deployment with one replica of the nginx-ingress-controller and a service for it of type LoadBalancer which created a ELB for us on AWS. Let’s confirm that. Get the service :</p>
-
-<pre><code class="language-bash">kubectl get services -n ingress-nginx  -o wide | grep nginx  
-</code></pre>
-
-<p>We can now test the default back-end</p>
-
-<pre><code class="language-bash">ELB=$(kubectl get svc ingress-nginx -n ingress-nginx  -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
-
-curl $ELB  
-</code></pre>
-
-<p>You should see the following:  </p>
-
-<pre><code class="language-bash">default backend - 404  
-</code></pre>
-
-<p>All good so far.. </p>
-
-<p>This means everything is working correctly and the ELB forwarded traffic to our nginx-ingress-controller and the nginx-ingress-controller passed it along to the default-backend-service that we deployed.</p>
-
-<h4 id="deployourapplication">Deploy our application</h4>
-
-<p>Now run</p>
-
-<pre><code class="language-bash">kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/images/echoheaders/echo-app.yaml
-
-kubectl apply -f ingress.yaml  
-</code></pre>
-
-<p>This will create deployment and service for echo-header app. This app simply returns information about the http request as output.</p>
-
-<p>If you look at the ingress resource, you will see annotations defined. </p>
-
-<p><code>ingress.kubernetes.io/ssl-redirect: "true"</code>  will redirect http to https.</p>
-
-<p>To view all annotations check out <a href="https://github.com/kubernetes/ingress-nginx/blob/master/docs/annotations.md">https://github.com/kubernetes/ingress-nginx/blob/master/docs/annotations.md</a></p>
-
-<p>One ingress rule is to route all requests for virtual host foo.bar.com to service  <strong>echoheaders</strong> on path /backend. So lets test it out!</p>
-
-<pre><code class="language-bash">curl $ELB/backend -H 'Host: foo.bar.com'
-</code></pre>
-
-<p>You should get 200 response back with request headers and other info.</p>
-
-<h3 id="stickysessions">Sticky sessions</h3>
-
-<p>Now to one of the main features that nginx provides.  nginx-ingress-controller can handle sticky sessions as it bypass the service level and route directly the pods. More info can be found here <br>
-<a href="https://github.com/kubernetes/ingress-nginx/tree/master/docs/examples/affinity/cookie">https://github.com/kubernetes/ingress-nginx/tree/master/docs/examples/affinity/cookie</a></p>
-
-<p><mark>Update (17/10/2017) examples have been removed from repo! To find out more on the annotations related to sticky session go to <a href="https://github.com/kubernetes/ingress-nginx/blob/master/docs/annotations.md#miscellaneous</mark>">https://github.com/kubernetes/ingress-nginx/blob/master/docs/annotations.md#miscellaneous==</a></mark></p>
-
-<p>To test it out we need to first scale our app echo-headers: Lets scale echo-headers deployment to three pods</p>
-
-<pre><code class="language-bash"> kubectl scale --replicas=3 deployment/echoheaders
-</code></pre>
-
-<p>Now lets create the sticky ingress</p>
-
-<pre><code class="language-bash">apiVersion: extensions/v1beta1  
-kind: Ingress  
-metadata:  
-  name: nginx-test-sticky
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
-    ingress.kubernetes.io/affinity: "cookie"
-    ingress.kubernetes.io/session-cookie-name: "route"
-    ingress.kubernetes.io/session-cookie-hash: "sha1"
-
-spec:  
-  rules:
-  - host: stickyingress.example.com
-    http:
-      paths:
-      - backend:
-          serviceName: echoheaders
-          servicePort: 80
-        path: /foo
-</code></pre>
-
-<p>What this setting does it, instruct nginx to use the nginx-sticky-module-ng module (<a href="https://bitbucket.org/nginx-goodies/nginx-sticky-module-ng">https://bitbucket.org/nginx-goodies/nginx-sticky-module-ng</a>) that’s bundled with the controller to handle all sticky sessions for us.</p>
-
-<pre><code class="language-bash">kubectl apply -f sticky-ingress.yaml  
-</code></pre>
-
-<p>There is a very useful tool called kubetail that you can use to tail the logs of a pod and verify the  sticky session behaviour. To install kubetail check out <a href="https://github.com/johanhaleby/kubetail">https://github.com/johanhaleby/kubetail</a></p>
-
-<p>Now in one terminal window, we can tail the logs </p>
-
-<pre><code class="language-bash">kubetail -l app=echoheaders  
-</code></pre>
-
-<p>and in another send in multiple requests to the virtual host stickyingress.example.com</p>
-
-<pre><code class="language-bash">curl -D cookies.txt $ELB/foo -H 'Host: stickyingress.example.com'
-
-
-while true; do sleep 1;curl -b cookies.txt $ELB/foo -H 'Host: stickyingress.example.com';done
-</code></pre>
-
-<p>When the backend server is removed, the requests are then re-routed to another upstream server and NGINX creates a new cookie, as the previous hash became invalid.</p>
-
-<p>As, you can see, requests are sent to the same pod for every subsequent request.</p>
-
-<p><img src="https://blog.shanelee.name/content/images/2017/10/stickySession.gif" alt=""></p>
-
-<h3 id="proxyprotocol">Proxy protocol</h3>
-
-<p>Lots of times you need to pass a user’s IP address / hostname through to your application. A example would be, to have the hostname of the user in your application logs.</p>
-
-<p>To enable passing along the hostname, enable the below annotation</p>
-
-<pre><code class="language-bash"> service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: '*'
-</code></pre>
-
-<p><strong>Update 1(7/10/2017) It looks like this is not needed anymore</strong></p>
-
-<p>For more see <a href="https://github.com/kubernetes/ingress-nginx#source-ip-address">https://github.com/kubernetes/ingress-nginx#source-ip-address</a></p>
-
-<p>To conclude, i have showcased above a subset of features for ingress. Others include path-rewrite, TLS termination, path routing, scaling, rbac, auth and prometheus metrics. For more info check out resources below.</p>
-
-<h2 id="resources">Resources</h2>
-
-<p>For more information visit:</p>
-
-<p>Github project : <a href="https://github.com/shavo007/k8s-ingress">https://github.com/shavo007/k8s-ingress</a></p>
-
-<p>Kubernetes nginx ingress: <a href="https://github.com/kubernetes/ingress-nginx">https://github.com/kubernetes/ingress-nginx</a></p>
-
-<p>External DNS: <a href="https://github.com/kubernetes-incubator/external-dns/blob/master/docs/tutorials/nginx-ingress.md">https://github.com/kubernetes-incubator/external-dns/blob/master/docs/tutorials/nginx-ingress.md</a></p>
-
-<p>Kubernetes faqs: <br>
-<a href="https://github.com/hubt/kubernetes-faq/blob/master/README.md#kubernetes-faq">https://github.com/hubt/kubernetes-faq/blob/master/README.md#kubernetes-faq</a></p>
-
-<p>Alpine-kops: <a href="https://store.docker.com/community/images/shanelee007/alpine-kops">https://store.docker.com/community/images/shanelee007/alpine-kops</a></p>]]></content:encoded></item></channel></rss>
+<p>And thats it! Stay tuned for more posts on <strong>kubernetes</strong>. </p>]]></content:encoded></item></channel></rss>
