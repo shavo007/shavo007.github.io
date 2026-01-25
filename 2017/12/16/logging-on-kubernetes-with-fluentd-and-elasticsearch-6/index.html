@@ -1,0 +1,456 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Logging on kubernetes cluster with fluentd and elasticsearch 6</title>
+    <meta name="description" content="How to configure EFK (Elastic-Fluentd-Kibana) stack on kubernetes for logging">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
+    <link rel="canonical" href="https://blog.shanelee.name/2017/12/16/logging-on-kubernetes-with-fluentd-and-elasticsearch-6/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="Tech Blog (mainly!)">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Logging on kubernetes cluster with fluentd and elasticsearch 6">
+    <meta property="og:description" content="How to configure EFK (Elastic-Fluentd-Kibana) stack on kubernetes for logging">
+    <meta property="og:url" content="https://blog.shanelee.name/2017/12/16/logging-on-kubernetes-with-fluentd-and-elasticsearch-6/">
+    <meta property="og:image" content="https://blog.shanelee.name/content/images/2018/01/robert-larsson-64547-1.jpg">
+    <meta property="article:published_time" content="2017-12-16T13:06:59.427Z">
+    <meta property="article:modified_time" content="2018-08-14T08:56:49.574Z">
+    <meta property="article:tag" content="elasticsearch">
+    <meta property="article:tag" content="kubernetes">
+    <meta property="article:tag" content="docker">
+    <meta property="article:tag" content="ingress">
+    <meta property="article:tag" content="nginx">
+    <meta property="article:tag" content="lambda">
+    <meta property="article:tag" content="aws">
+    <meta property="article:tag" content="curator">
+    <meta property="article:tag" content="fluentd">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Logging on kubernetes cluster with fluentd and elasticsearch 6">
+    <meta name="twitter:description" content="How to configure EFK (Elastic-Fluentd-Kibana) stack on kubernetes for logging">
+    <meta name="twitter:url" content="https://blog.shanelee.name/2017/12/16/logging-on-kubernetes-with-fluentd-and-elasticsearch-6/">
+    <meta name="twitter:image:src" content="https://blog.shanelee.name/content/images/2018/01/robert-larsson-64547-1.jpg">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shane Lee">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="elasticsearch, kubernetes, docker, ingress, nginx, lambda, aws, curator, fluentd">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Tech Blog (mainly!)",
+        "logo": "https://blog.shanelee.name/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shane Lee",
+        "image": "https://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg",
+        "url": "https://blog.shanelee.name/author/shane/",
+        "sameAs": [
+            "https://about.me/shane-lee"
+        ]
+    },
+    "headline": "Logging on kubernetes cluster with fluentd and elasticsearch 6",
+    "url": "https://blog.shanelee.name/2017/12/16/logging-on-kubernetes-with-fluentd-and-elasticsearch-6/",
+    "datePublished": "2017-12-16T13:06:59.427Z",
+    "dateModified": "2018-08-14T08:56:49.574Z",
+    "image": "https://blog.shanelee.name/content/images/2018/01/robert-larsson-64547-1.jpg",
+    "keywords": "elasticsearch, kubernetes, docker, ingress, nginx, lambda, aws, curator, fluentd",
+    "description": "How to configure EFK (Elastic-Fluentd-Kibana) stack on kubernetes for logging"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.8">
+    <link rel="alternate" type="application/rss+xml" title="Tech Blog (mainly!)" href="https://blog.shanelee.name/rss/">
+    <meta name="google-site-verification" content="dzkjZUDovRImqR_2oGUlteWT1zcgw-r6cqBYef9qiWw">
+<meta name="google-site-verification" content="lojSObDdEFLBM0ok1Yiqy7rqgbc8yAUTyqF5iYszvWA">
+<link rel="preconnect" href="http://shavo007.disqus.com">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128189527-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-128189527-1');
+</script>
+<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2007283184718574",
+    enable_page_level_ads: true
+  });
+</script>
+</head>
+<body class="post-template tag-elasticsearch tag-kubernetes tag-docker tag-ingress tag-nginx tag-lambda tag-aws tag-curator tag-fluentd nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="https://blog.shanelee.name/">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="https://blog.shanelee.name/rss/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head " style="background-image: url(../../../../content/images/2018/01/robert-larsson-64547-1.jpg)">
+    <nav class="main-nav overlay clearfix">
+        
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post tag-elasticsearch tag-kubernetes tag-docker tag-ingress tag-nginx tag-lambda tag-aws tag-curator tag-fluentd featured">
+
+        <header class="post-header">
+            <h1 class="post-title">Logging on kubernetes with fluentd and elasticsearch 6</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2017-12-16">16 December 2017</time>
+                 on <a href="../../../../tag/elasticsearch/">elasticsearch</a>, <a href="../../../../tag/kubernetes/">kubernetes</a>, <a href="../../../../tag/docker/">docker</a>, <a href="../../../../tag/ingress/">ingress</a>, <a href="../../../../tag/nginx/">nginx</a>, <a href="../../../../tag/lambda/">lambda</a>, <a href="../../../../tag/aws/">aws</a>, <a href="../../../../tag/curator/">curator</a>, <a href="../../../../tag/fluentd/">fluentd</a>
+                ,
+
+                <!--<li class="post-meta-item">-->
+                    <a href="index.html#disqus_thread"></a>
+                <!--</li>-->
+                <!--<a href="#disqus_thread"/>-->
+            </section>
+        </header>
+
+        <section class="post-content">
+
+            <h1 id="tldr">TLDR</h1>
+
+<p>The solution I have used in the past for logging in kubernetes clusters is EFK (Elastic-Fluentd-Kibana). Alot of you have probably heard of ELK stack but I find that logstash is more heavyweight and does not provide the same output plugins as fluentd.</p>
+
+<p><img alt="Elasticsearch" src="../../../../content/images/2017/12/icon-elasticsearch-bb-1.svg" style="width: 300px; height:300px"></p>
+
+<h2 id="elasticsearch">Elasticsearch</h2>
+
+<p>Elasticsearch 6 has just been <a href="https://www.elastic.co/blog/elasticsearch-6-0-0-released">announced</a> with some major performance improvements.</p>
+
+<p>You have a few options to deploy elasticsearch - elastic cloud or spin up your own ES cluster in kubernetes. But I have decided to go with the AWS managed service. It now has <a href="https://aws.amazon.com/blogs/aws/amazon-elasticsearch-service-now-supports-vpc/">VPC support</a> and the new release 6.0. </p>
+
+<p>The reason being that administrating Elasticsearch can be a lot of work, as many people experienced with the system will tell you it can be tricky to keep running smoothly and that it’s a task better outsourced to an external service.</p>
+
+<p>I recently read dubsmash story <a href="https://stackshare.io/dubsmash/dubsmash-scaling-to-200-million-users-with-3-engineers">https://stackshare.io/dubsmash/dubsmash-scaling-to-200-million-users-with-3-engineers</a> and how they focus on the product deliverables and not infrastructure. If you have a small team or not in the business of managing services such as ES, i find its best to outsource..</p>
+
+<p>Following the 12 factor principles for logging <a href="https://12factor.net/logs">https://12factor.net/logs</a> all applications that are containerised (using docker) should log to STDOUT.</p>
+
+<blockquote>
+  <p>A twelve-factor app never concerns itself with routing or storage of its output stream. It should not attempt to write to or manage logfiles. Instead, each running process writes its event stream, unbuffered, to stdout.</p>
+</blockquote>
+
+<p>Whether your using winston for nodeJS or console appender for spring boot, this is the recommended way. </p>
+
+<p>Every pod in a <strong>K8S</strong> cluster has its standard output and standard error captured and stored in the /var/log/containers/ node directory. </p>
+
+<p>Now you need a logging agent ( or logging shipper) to ingest these logs and output to a target. </p>
+
+<h2 id="fluentd">FluentD</h2>
+
+<p><img src="../../../../content/images/2017/12/container_logging-1024x536.png" alt=""></p>
+
+<p>Fluentd is an open-source framework for data collection that unifies the collection and consumption of data in a pluggable manner. There are several producer and consumer loggers for various kinds of applications. It has a huge suite of <a href="https://www.fluentd.org/plugins">plugins</a> to choose from. </p>
+
+<p>Fluentd will be deployed as a <strong>daemonset</strong> on the kubernetes cluster.</p>
+
+<p>Kubernetes logs the content of the stdout and stderr streams of a pod to a file. It creates one file for each container in a pod. The default location for these files is /var/log/containers . The filename contains the pod name, the namespace of the pod, the container name, and the container id. The file contains one JSON object per line of the two streams stdout and stderr. </p>
+
+<p>A DaemonSet ensures that a certain pod is scheduled to each kubelet exactly once. The fluentd pod mounts the <strong>/var/lib/containers/</strong> host volume to access the logs of all pods scheduled to that kubelet.</p>
+
+<h2 id="whatsmissinggeo">Whats missing - Geo</h2>
+
+<p><img src="../../../../content/images/2017/12/joao-silas-72562.jpg" alt=""></p>
+
+<p>I found with the examples online for fluentd daesmonset there was none that supported <strong>geoip</strong>. Coreos offering and fluentd official kubernetes daemonset do not provide this feature. </p>
+
+<p>Geoip is a very useful tool when inspecting access logs through kibana. I use nginx  ingress controller in kubernetes and I wanted to see where incoming requests arose geographically. </p>
+
+<p>Knowing from where in the world people are accessing your website is important not only for troubleshooting and operational intelligence but also for other use cases such as business intelligence</p>
+
+<h3 id="ingressandnginx">Ingress and Nginx</h3>
+
+<p>I use nginx as a reverse proxy behind AWS ELB to manage my routing. By default, nginx does not output to json. And instead of figuring out the fluentd nginx parser I decided to configure nginx to enable json logging. </p>
+
+<p>Sample conf can be seen below:</p>
+
+<pre><code class="language-yaml">kind: ConfigMap  
+apiVersion: v1  
+metadata:  
+  name: nginx-configuration
+  namespace: ingress-nginx
+  labels:
+    app: ingress-nginx
+data:  
+  use-proxy-protocol: "false"
+  log-format-escape-json: "true"
+  log-format-upstream: '{"proxy_protocol_addr": "$proxy_protocol_addr","remote_addr": "$remote_addr", "proxy_add_x_forwarded_for": "$proxy_add_x_forwarded_for",
+   "request_id": "$request_id","remote_user": "$remote_user", "time_local": "$time_local", "request" : "$request", "status": "$status", "vhost": "$host","body_bytes_sent": "$body_bytes_sent",
+   "http_referer":  "$http_referer", "http_user_agent": "$http_user_agent", "request_length" : "$request_length", "request_time" : "$request_time",
+    "proxy_upstream_name": "$proxy_upstream_name", "upstream_addr": "$upstream_addr",  "upstream_response_length": "$upstream_response_length",
+    "upstream_response_time": "$upstream_response_time", "upstream_status": "$upstream_status"}'
+</code></pre>
+
+<h3 id="fluentddockerimage">Fluentd docker image</h3>
+
+<p>I then extended the fluentd debian elasticsearch docker image to install the geo-ip plugin and also update the max mind database.</p>
+
+<p>Docker Image can be found <a href="https://hub.docker.com/r/shanelee007/fluentd-kubernetes/">here</a> on docker hub. Tag is <strong>v0.12-debian-elasticsearch-geo</strong></p>
+
+<pre><code class="language-bash">docker pull shanelee007/fluentd-kubernetes:v0.12-debian-elasticsearch-geo  
+</code></pre>
+
+<p>Now I needed to amend the fluentd config to filter my nginx access logs and translate ip address to geo co-ordinates. </p>
+
+<p>Sample config in the yaml file for daemonset with updated database is</p>
+
+<pre><code class="language-yaml">  geoip-filter.conf: |
+    &lt;filter kube.ingress-nginx.nginx-ingress-controller&gt;
+        type geoip
+
+        # Specify one or more geoip lookup field which has ip address (default: host)
+        # in the case of accessing nested value, delimit keys by dot like 'host.ip'.
+        geoip_lookup_key  remote_addr
+
+        # Specify optional geoip database (using bundled GeoLiteCity databse by default)
+        geoip_database    "/home/fluent/GeoLiteCity.dat"
+
+        # Set adding field with placeholder (more than one settings are required.)
+        &lt;record&gt;
+          city            ${city["remote_addr"]}
+          lat             ${latitude["remote_addr"]}
+          lon             ${longitude["remote_addr"]}
+          country_code3   ${country_code3["remote_addr"]}
+          country         ${country_code["remote_addr"]}
+          country_name    ${country_name["remote_addr"]}
+          dma             ${dma_code["remote_addr"]}
+          area            ${area_code["remote_addr"]}
+          region          ${region["remote_addr"]}
+          geoip           '{"location":[${longitude["remote_addr"]},${latitude["remote_addr"]}]}'
+        &lt;/record&gt;
+
+        # To avoid get stacktrace error with `[null, null]` array for elasticsearch.
+        skip_adding_null_record  true
+
+        # Set log_level for fluentd-v0.10.43 or earlier (default: warn)
+        log_level         info
+
+        # Set buffering time (default: 0s)
+        flush_interval    1s
+    &lt;/filter&gt;
+</code></pre>
+
+<p>I also updated the elasticsearch template to version 6 as there was issues with version 5.</p>
+
+<p>Now to the fun part... testing it out!</p>
+
+<h2 id="tryityourself">Try it yourself</h2>
+
+<p>This tutorial can be executed in less than 15 minutes, as log as you already have:</p>
+
+<ul>
+<li><p>Kubernetes cluster up</p></li>
+<li><p>Nginx ingress installed</p></li>
+</ul>
+
+<h3 id="installing">Installing</h3>
+
+<p>Github project for creating all resources in kubernetes can be found at <a href="https://github.com/shavo007/k8s-ingress-letsencrypt/tree/master">https://github.com/shavo007/k8s-ingress-letsencrypt/tree/master</a></p>
+
+<p>To create the namespace and manifests for logging, the only change you need is to update the elasticsearch endpoint in the configmap.</p>
+
+<p>File is located at <a href="https://github.com/shavo007/k8s-ingress-letsencrypt/blob/master/resources/logging/fluentd-configmap.yaml#L291">https://github.com/shavo007/k8s-ingress-letsencrypt/blob/master/resources/logging/fluentd-configmap.yaml#L291</a></p>
+
+<p>Then you can create the resources. </p>
+
+<h4 id="kubectlaliases">Kubectl aliases</h4>
+
+<p>For the commands below I am using bash aliases. Aliases save me alot of time when I am querying a cluster. You can find the github project <a href="https://github.com/ahmetb/kubectl-aliases">here</a></p>
+
+<pre><code class="language-bash">ka resources/logging --record  
+</code></pre>
+
+<p>Verify the pods are created</p>
+
+<pre><code class="language-bash">kgpon logging  
+</code></pre>
+
+<p>If you have the dashboard installed you can inspect the logs there or you can tail the logs from the command line using <a href="https://github.com/johanhaleby/kubetail">kubetail</a></p>
+
+<pre><code class="language-bash">kubetail fluentd -n logging  
+</code></pre>
+
+<h2 id="kibana">Kibana</h2>
+
+<p><img alt="Kibana" src="../../../../content/images/2017/12/icon-kibana-bb.svg" style="width: 300px; height:300px"></p>
+
+<p>Now access kibana - GUI for elasticsearch</p>
+
+<p>You should now see your logs ingested in elasticsearch. </p>
+
+<p><img src="../../../../content/images/2017/12/Screen-Shot-2017-12-26-at-3-10-18-pm.png" alt=""></p>
+
+<h3 id="tilemapvisualization">Tile map visualization</h3>
+
+<p>There is a limitation with managed service and tile map view. I customized the settings to use WMS compliant map server. See below:</p>
+
+<p><img src="../../../../content/images/2017/12/Screen-Shot-2017-12-26-at-3-14-43-pm.png" alt=""></p>
+
+<p>Once you pick the pattern, and assuming your geopoints are correctly mapped, Kibana will automatically populate the visualisation settings such as which field to aggregate on, and display the map almost instantly.</p>
+
+<p>I have defined a visualisation for heatmap. This helps in visualizing geospatial data. You can go to management and import the json file from here  <a href="https://github.com/shavo007/k8s-ingress-letsencrypt/blob/master/resources/assets/export.json">https://github.com/shavo007/k8s-ingress-letsencrypt/blob/master/resources/assets/export.json</a></p>
+
+<p>This includes multiple visualizations and a dashboard.</p>
+
+<p><img src="../../../../content/images/2017/12/Screen-Shot-2017-12-17-at-11-47-26-am.png" alt=""></p>
+
+<h4 id="inaccurategeolocation">Inaccurate Geolocation</h4>
+
+<p>You may find the IP is matched to an inaccurate location. Be aware that the free Maxmind database that is used is “comparable to, but less accurate than, MaxMind’s GeoIP2 databases”, and, “IP geolocation is inherently imprecise. Locations are often near the center of the population.” See the MaxMind site for further details.</p>
+
+<h4 id="widgets">Widgets</h4>
+
+<p>You can build up more widgets, such as url count or count by country.</p>
+
+<p><img src="../../../../content/images/2017/12/Screen-Shot-2017-12-26-at-3-43-45-pm.png" alt=""></p>
+
+<h2 id="cleanupoflogindices">Cleanup of log indices</h2>
+
+<p>For cleanup of old log indices there is a tool called <a href="https://github.com/elastic/curator">curator</a>. I found a serverless option <a href="https://github.com/cloudreach/aws-lambda-es-cleanup">https://github.com/cloudreach/aws-lambda-es-cleanup</a> and created the lambda function via <strong>terraform</strong>.</p>
+
+<p>You can easily schedule the lambda function to cleanup log indices greater than x no. of days.</p>
+
+<p>And thats it! Stay tuned for more posts on <strong>kubernetes</strong>. </p>
+        </section>
+
+        <!-- disqus code snippet -->
+        <div id="disqus_thread"></div>
+        <script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+this.page.url = 'https://blog.shanelee.name/2017/12/16/logging-on-kubernetes-with-fluentd-and-elasticsearch-6/'; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'ghost-17'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//shavo007.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        <script id="dsq-count-scr" src="http://shavo007.disqus.com/count.js" async></script>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../../../../author/shane/" style="background-image: url(../../../../content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../../../../author/shane/">Shane Lee</a></h4>
+
+                    <p>Read <a href="../../../../author/shane/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    <span class="author-location icon-location">Melbourne</span>
+                    <span class="author-link icon-link"><a href="https://about.me/shane-lee">https://about.me/shane-lee</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Logging%20on%20kubernetes%20with%20fluentd%20and%20elasticsearch%206&amp;url=https://blog.shanelee.name/2017/12/16/logging-on-kubernetes-with-fluentd-and-elasticsearch-6/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.shanelee.name/2017/12/16/logging-on-kubernetes-with-fluentd-and-elasticsearch-6/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://blog.shanelee.name/2017/12/16/logging-on-kubernetes-with-fluentd-and-elasticsearch-6/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+
+    </article>
+</main>
+
+
+
+<aside class="read-next">
+    <a class="read-next-story " style="background-image: url(../../../../content/images/2018/08/joseph-barrientos-93565.jpg)" href="../../../../2018/02/03/test-drive-heptio-sonobuoy-diagnostic-kubernetes-tool/">
+        <section class="post">
+            <h2>Test drive heptio sonobuoy diagnostic kubernetes tool</h2>
+            <p>Heptio Sonobuoy is a diagnostic tool that makes it easier to understand the state of a Kubernetes cluster by…</p>
+        </section>
+    </a>
+    <a class="read-next-story prev no-cover" href="../../../10/15/kubernetes-ingress-and-sticky-sessions/">
+        <section class="post">
+            <h2>Kubernetes ingress and sticky sessions</h2>
+            <p>TL;DR Recently I had to look at horizontally scaling a traditional web-app on kubernetes. Here i will explain…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2026</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-coy.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-graphql.min.js"></script>
+<!-- Add additional languages here -->
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/prism.js"></script>
+
+
+
+</body>

@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
     <link rel="canonical" href="https://blog.shanelee.name/2021/08/29/mocking-a-rest-api-the-api-first-way-with-mockoon/">
     <meta name="referrer" content="origin">
-
+    
     <meta property="og:site_name" content="Tech Blog (mainly!)">
     <meta property="og:type" content="article">
     <meta property="og:title" content='Mocking a REST API the "API first" approach with Mockoon'>
@@ -36,7 +36,7 @@
     <meta property="article:tag" content="stub">
     <meta property="article:tag" content="mockoon">
     <meta property="article:tag" content="insomnia">
-
+    
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content='Mocking a REST API the "API first" approach with Mockoon'>
     <meta name="twitter:description" content="How to mock an API with mockoon. Showcase using open API spec and mockoon to mock an API and run with docker.">
@@ -46,7 +46,7 @@
     <meta name="twitter:data1" content="Shane Lee">
     <meta name="twitter:label2" content="Filed under">
     <meta name="twitter:data2" content="swagger, docker, openapi, oas, github, api, rest, mock, stub, mockoon, insomnia">
-
+    
     <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -115,12 +115,12 @@
 
     <div class="site-wrapper">
 
-
+        
 
 
 <header class="main-header post-head " style="background-image: url(../../../../content/images/2021/08/chris-ensminger-gWo-hfRotrI-unsplash.jpg)">
     <nav class="main-nav overlay clearfix">
-
+        
             <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
     </nav>
 </header>
@@ -230,7 +230,7 @@ You can install the native app <a href="https://mockoon.com/download/">here</a>.
 
 <p><img src="../../../../content/images/2021/08/Screen-Shot-2021-08-27-at-11-59-39-am-3.png" alt=""></p>
 
-<pre><code class="language-bash">curl --request POST \
+<pre><code class="language-bash">curl --request POST \  
   --url http://localhost:3001/tutorials
 </code></pre>
 
@@ -305,7 +305,7 @@ You can install the native app <a href="https://mockoon.com/download/">here</a>.
 
 <p>After running one or more API server mock, you might want to check their health and statuses. To do so you can type <code>mockoon-cli list</code>:</p>
 
-<pre><code class="language-bash">shanelee at shanes-MacBook-Air in ~/projects/mockoon-demo on main [?]
+<pre><code class="language-bash">shanelee at shanes-MacBook-Air in ~/projects/mockoon-demo on main [?]  
 $ mockoon-cli list
  Name                 Id   Status    Cpu    Memory    Hostname       Port
  ──────────────────── ──── ───────── ────── ───────── ────────────── ──────
@@ -349,7 +349,7 @@ $ mockoon-cli list
 
 on: [push]
 
-jobs:
+jobs:  
   run_integ_tests:
     name: Run integ tests
     runs-on: ubuntu-latest
@@ -507,7 +507,7 @@ jobs:
 
 <p>After a call to this endpoint with the following body:</p>
 
-<pre><code class="language-bash">POST /greetings
+<pre><code class="language-bash">POST /greetings  
 Content-Type: application/json
 
 {
@@ -619,7 +619,7 @@ s.setAttribute('data-timestamp', +new Date());
 
 
         <footer class="site-footer clearfix">
-            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2023</section>
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2026</section>
             <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
         </footer>
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog (mainly!)]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>https://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Thu, 02 Mar 2023 22:55:52 GMT</lastBuildDate><atom:link href="https://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Dependency management with dependabot]]></title><description><![CDATA[How to shift security left and manage dependencies via dependabot and reduce the no. of security vulnerabilities.]]></description><link>https://blog.shanelee.name/2023/02/28/dependency-management-with-dependabot/</link><guid isPermaLink="false">d169802e-3e11-47a5-81ad-73cfcd7c3ff0</guid><category><![CDATA[github]]></category><category><![CDATA[devsecops]]></category><category><![CDATA[dependabot]]></category><category><![CDATA[owasp]]></category><category><![CDATA[security]]></category><category><![CDATA[culture]]></category><category><![CDATA[leadership]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 28 Feb 2023 03:30:31 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2023/02/guerrillabuzz-blockchain-pr-agency-SYofhg_IX3A-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="https://blog.shanelee.name/content/images/2023/02/guerrillabuzz-blockchain-pr-agency-SYofhg_IX3A-unsplash.jpg" alt="Dependency management with dependabot"><p>We all know how vital shifting security left is and how engineering needs to work more closely with security. According to the Cloud Security Alliance (CSA), 70% of <a href="https://cloudsecurityalliance.org/artifacts/secure-devops-and-misconfigurations-survey-report/">security professionals and engineering teams</a> struggle to <strong>“shift left,”</strong> with many unable to recognize the formation of anti-patterns and understand/appreciate the wider impact to development, cost, governance, culture, etc.</p>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog (mainly!)]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>https://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Sat, 24 Jan 2026 20:34:06 GMT</lastBuildDate><atom:link href="https://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Dependency management with dependabot]]></title><description><![CDATA[How to shift security left and manage dependencies via dependabot and reduce the no. of security vulnerabilities.]]></description><link>https://blog.shanelee.name/2023/02/28/dependency-management-with-dependabot/</link><guid isPermaLink="false">d169802e-3e11-47a5-81ad-73cfcd7c3ff0</guid><category><![CDATA[github]]></category><category><![CDATA[devsecops]]></category><category><![CDATA[dependabot]]></category><category><![CDATA[owasp]]></category><category><![CDATA[security]]></category><category><![CDATA[culture]]></category><category><![CDATA[leadership]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 28 Feb 2023 03:30:31 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2023/02/guerrillabuzz-blockchain-pr-agency-SYofhg_IX3A-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="https://blog.shanelee.name/content/images/2023/02/guerrillabuzz-blockchain-pr-agency-SYofhg_IX3A-unsplash.jpg" alt="Dependency management with dependabot"><p>We all know how vital shifting security left is and how engineering needs to work more closely with security. According to the Cloud Security Alliance (CSA), 70% of <a href="https://cloudsecurityalliance.org/artifacts/secure-devops-and-misconfigurations-survey-report/">security professionals and engineering teams</a> struggle to <strong>“shift left,”</strong> with many unable to recognize the formation of anti-patterns and understand/appreciate the wider impact to development, cost, governance, culture, etc.</p>
 
 <h2 id="recognizingtheparadigmshift">Recognizing the Paradigm Shift</h2>
 
@@ -508,7 +508,7 @@ Maturity models focus on helping an org <code>"arrive"</code> at a mature state 
 
 <p>or via docker</p>
 
-<pre><code class="language-bash">docker pull loadimpact/k6
+<pre><code class="language-bash">docker pull loadimpact/k6  
 </code></pre>
 
 <p>You can find the full explanation here <a href="https://k6.io/docs/getting-started/installation/">https://k6.io/docs/getting-started/installation/</a></p>
@@ -555,11 +555,11 @@ Maturity models focus on helping an org <code>"arrive"</code> at a mature state 
 
 <h3 id="basicexample">Basic example</h3>
 
-<pre><code class="language-javascript">import { sleep, check } from "k6";
-import { Options } from "k6/options";
-import http, { Response } from "k6/http";
-import { padStart } from "lodash";
-import { textSummary } from "./helper";
+<pre><code class="language-javascript">import { sleep, check } from "k6";  
+import { Options } from "k6/options";  
+import http, { Response } from "k6/http";  
+import { padStart } from "lodash";  
+import { textSummary } from "./helper";  
 import { Trend } from "k6/metrics";
 
 // 1. init code
@@ -569,7 +569,7 @@ console.log(padStart("Hello TypeScript!", 20, " "));
 //custom define metric
 const durationInSeconds = new Trend("duration_in_seconds");
 
-export let options: Options = {
+export let options: Options = {  
   vus: 5, //no. of concurrent virtual users
   duration: "5s",
   discardResponseBodies: true, //discard response bodies to improve perf
@@ -582,12 +582,12 @@ export let options: Options = {
   userAgent: "K6GreetingsDemo/1.0",
 };
 
-export function setup() {
+export function setup() {  
   //setup is called once off
   // 2. setup code
 }
 
-export default () =&gt; {
+export default () =&gt; {  
   // 3. VU code
 
   let baseUrl = __ENV.BASE_URL ?? "http://localhost:8090";
@@ -604,7 +604,7 @@ export default () =&gt; {
   sleep(1);
 };
 
-export function handleSummary(data: any) {
+export function handleSummary(data: any) {  
   console.log("Preparing the end-of-test summary...");
 
   // Send the results to some remote server or trigger a hook
@@ -626,7 +626,7 @@ export function handleSummary(data: any) {
 <p>To run this we can run the script <code>yarn bundle</code>. This will transpile to JS using babel and bundled with webpack. The outputted file will be located in the <code>dist</code> dir. <br>
 Now run locally:</p>
 
-<pre><code class="language-bash">k6 run dist/greetings.js
+<pre><code class="language-bash">k6 run dist/greetings.js  
 </code></pre>
 
 <p>You’ll see the result of the test right away on the terminal. Something similar to this.</p>
@@ -649,7 +649,7 @@ Now run locally:</p>
 
 <pre><code class="language-bash">docker pull openapitools/openapi-generator-cli
 
-docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate \
+docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate \  
     -i /local/oas3.yaml \
     -g k6 \
     -o /local/k6-oas3/ \
@@ -672,36 +672,36 @@ docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate \
 
 <p>To generate the types:</p>
 
-<pre><code class="language-bash">npx openapi-typescript bpay/oas3.yaml --output src/bpay/schema.ts
+<pre><code class="language-bash">npx openapi-typescript bpay/oas3.yaml --output src/bpay/schema.ts  
 </code></pre>
 
 <p>This generates the types in the <code>bpay</code> dir.</p>
 
 <p>Now let's have a look at the test script for bpay API.</p>
 
-<pre><code class="language-javascript">import http from "k6/http";
-import { group, check, sleep } from "k6";
-import { PaymentPaymentMethodEnum } from "./bpay";
-import { Options } from "k6/options";
-import { getToken, Options as BpayOptions } from "./helper";
+<pre><code class="language-javascript">import http from "k6/http";  
+import { group, check, sleep } from "k6";  
+import { PaymentPaymentMethodEnum } from "./bpay";  
+import { Options } from "k6/options";  
+import { getToken, Options as BpayOptions } from "./helper";  
 import { components } from "./bpay";
 
-type Payment = components["schemas"]["Payment"];
+type Payment = components["schemas"]["Payment"];  
 type PaymentItem = components["schemas"]["PaymentItem"];
 
-const BASE_URL = "https://sandbox.api.bpaygroup.com.au/payments/v1";
+const BASE_URL = "https://sandbox.api.bpaygroup.com.au/payments/v1";  
 // Sleep duration between successive requests.
 // You might want to edit the value of this variable or remove calls to the sleep function on the script.
-const SLEEP_DURATION = 0.1;
+const SLEEP_DURATION = 0.1;  
 // Global variables should be initialized.
 
-export let options: Options = {
+export let options: Options = {  
   vus: 1, //no. of concurrent visual users
   duration: "1s",
   httpDebug: "true",
 };
 
-export function setup() {
+export function setup() {  
   const options: BpayOptions = {
     clientId: `${__ENV.CLIENT_ID}`,
     clientSecret: `${__ENV.CLIENT_SECRET}`,
@@ -715,7 +715,7 @@ export function setup() {
 }
 
 //desctructing assigment here and explicit type annotation
-export default function ({ access_token = "" }: { access_token: string }) {
+export default function ({ access_token = "" }: { access_token: string }) {  
   group("/validatepayments", () =&gt; {
     let url = BASE_URL + `/validatepayments`;
 
@@ -977,7 +977,7 @@ You can install the native app <a href="https://mockoon.com/download/">here</a>.
 
 <p><img src="https://blog.shanelee.name/content/images/2021/08/Screen-Shot-2021-08-27-at-11-59-39-am-3.png" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
 
-<pre><code class="language-bash">curl --request POST \
+<pre><code class="language-bash">curl --request POST \  
   --url http://localhost:3001/tutorials
 </code></pre>
 
@@ -1052,7 +1052,7 @@ You can install the native app <a href="https://mockoon.com/download/">here</a>.
 
 <p>After running one or more API server mock, you might want to check their health and statuses. To do so you can type <code>mockoon-cli list</code>:</p>
 
-<pre><code class="language-bash">shanelee at shanes-MacBook-Air in ~/projects/mockoon-demo on main [?]
+<pre><code class="language-bash">shanelee at shanes-MacBook-Air in ~/projects/mockoon-demo on main [?]  
 $ mockoon-cli list
  Name                 Id   Status    Cpu    Memory    Hostname       Port
  ──────────────────── ──── ───────── ────── ───────── ────────────── ──────
@@ -1096,7 +1096,7 @@ $ mockoon-cli list
 
 on: [push]
 
-jobs:
+jobs:  
   run_integ_tests:
     name: Run integ tests
     runs-on: ubuntu-latest
@@ -1254,7 +1254,7 @@ jobs:
 
 <p>After a call to this endpoint with the following body:</p>
 
-<pre><code class="language-bash">POST /greetings
+<pre><code class="language-bash">POST /greetings  
 Content-Type: application/json
 
 {
@@ -1323,7 +1323,7 @@ Content-Type: application/json
 <p>I used Spring Initializr to create a simple project in vs code. <br>
 It'll expose a simple <strong>GET</strong> endpoint:</p>
 
-<pre><code class="language-bash">http://localhost:8080/greeting
+<pre><code class="language-bash">http://localhost:8080/greeting  
 </code></pre>
 
 <h3 id="deployment">Deployment</h3>
@@ -1377,10 +1377,10 @@ It'll expose a simple <strong>GET</strong> endpoint:</p>
 
 <p>To deploy, I built redoc on GCR and deployed to cloud run. You can run this in cloud shell if you like</p>
 
-<pre><code class="language-bash">export PROJECT_ID=$(gcloud config list --format 'value(core.project)')
+<pre><code class="language-bash">export PROJECT_ID=$(gcloud config list --format 'value(core.project)')  
 #change CLOUD_RUN_SPRING_BOOT_BASE_URI to the location of your API deployed on cloud run
 
-gcloud run deploy redoc-greetings-api --project $PROJECT_ID --image gcr.io/$PROJECT_ID/redoc --platform managed --region us-central1 --port 80 --cpu 1 --memory 256Mi --concurrency 80 --timeout 300 --update-env-vars SPEC_URL=https://&lt;CLOUD_RUN_SPRING_BOOT_BASE_URI&gt;/swagger.yaml
+gcloud run deploy redoc-greetings-api --project $PROJECT_ID --image gcr.io/$PROJECT_ID/redoc --platform managed --region us-central1 --port 80 --cpu 1 --memory 256Mi --concurrency 80 --timeout 300 --update-env-vars SPEC_URL=https://&lt;CLOUD_RUN_SPRING_BOOT_BASE_URI&gt;/swagger.yaml  
 </code></pre>
 
 <p><img src="https://blog.shanelee.name/content/images/2020/08/Redoc.png" alt="Jibbing with spring boot and google cloud run"></p>
@@ -1703,22 +1703,22 @@ gcloud run deploy redoc-greetings-api --project $PROJECT_ID --image gcr.io/$PROJ
 
 <p>Create your new google cloud project first and then run the following commands</p>
 
-<pre><code class="language-bash">gcloud components install beta #install beta components
-gcloud components update #update components
-gcloud config set run/region us-central1 #set cloud run region
-gcloud services enable container.googleapis.com containerregistry.googleapis.com cloudbuild.googleapis.com
-gcloud config set project [PROJECT_ID] #set project id
-gcloud beta auth login
+<pre><code class="language-bash">gcloud components install beta #install beta components  
+gcloud components update #update components  
+gcloud config set run/region us-central1 #set cloud run region  
+gcloud services enable container.googleapis.com containerregistry.googleapis.com cloudbuild.googleapis.com  
+gcloud config set project [PROJECT_ID] #set project id  
+gcloud beta auth login  
 </code></pre>
 
 <h4 id="step1createcloudsqlforpostgres">Step 1: create cloud sql for postgres</h4>
 
 <p>GraphQL APIs datasource is a postgres database. Cloud run supports <a href="https://cloud.google.com/run/docs/configuring/connect-cloudsql">cloud sql</a> service.</p>
 
-<pre><code class="language-bash">gcloud sql instances create [INSTANCE_NAME]  --database-version=POSTGRES_9_6 \
-       --tier db-f1-micro --region us-central1
-#save on costs by using a shared-core instance
-gcloud sql users set-password postgres no-host --instance=[INSTANCE_NAME] \
+<pre><code class="language-bash">gcloud sql instances create [INSTANCE_NAME]  --database-version=POSTGRES_9_6 \  
+       --tier db-f1-micro --region us-central1 
+#save on costs by using a shared-core instance 
+gcloud sql users set-password postgres no-host --instance=[INSTANCE_NAME] \  
        --password=[PASSWORD]
 </code></pre>
 
@@ -1735,25 +1735,25 @@ gcloud sql users set-password postgres no-host --instance=[INSTANCE_NAME] \
 
 <p>We will build the Docker image remotely and push it to Google Container Registry (GCR)</p>
 
-<pre><code class="language-bash">gcloud builds submit --tag gcr.io/[PROJECT-ID]/graphql #build container image
+<pre><code class="language-bash">gcloud builds submit --tag gcr.io/[PROJECT-ID]/graphql #build container image  
 </code></pre>
 
 <p>Verify the image exists in GCR</p>
 
-<pre><code class="language-bash">gcloud container images list
+<pre><code class="language-bash">gcloud container images list  
 </code></pre>
 
 <p>Deploy the container using cloud run and overwrite env vars to connect to the DB</p>
 
 <pre><code class="language-bash">#overwrite the host to connect over a unix domain socket and db password
-gcloud beta run deploy --image gcr.io/[PROJECT-ID]/graphql --add-cloudsql-instances [INSTANCE-NAME] --update-env-vars DB_HOST=/cloudsql/[CONNECTION NAME],name=graphql,DATABASE_PASSWORD=[PASSWORD] #respond y to allow unauthenticated invocations.
+gcloud beta run deploy --image gcr.io/[PROJECT-ID]/graphql --add-cloudsql-instances [INSTANCE-NAME] --update-env-vars DB_HOST=/cloudsql/[CONNECTION NAME],name=graphql,DATABASE_PASSWORD=[PASSWORD] #respond y to allow unauthenticated invocations.  
 </code></pre>
 
 <p>The switch, <mark>–allow-unauthenticated</mark>, will let the service accept the traffic from the public internet. Notice that we are passing the Postgres connection string generated by cloudSQL as an environment variable. The code expects the connection string from the <mark>DBHOST</mark> environment variable.</p>
 
 <p>See details of the running service by running the command below</p>
 
-<pre><code class="language-bash">gcloud beta run services list
+<pre><code class="language-bash">gcloud beta run services list  
 </code></pre>
 
 <p>Or you can view the UI console</p>
@@ -1837,7 +1837,7 @@ gcloud beta run deploy --image gcr.io/[PROJECT-ID]/graphql --add-cloudsql-instan
 
 <p>On mac, you can install skaffold using brew</p>
 
-<pre><code class="language-bash">brew install skaffold
+<pre><code class="language-bash">brew install skaffold  
 </code></pre>
 
 <h3 id="localdevelopment">Local development</h3>
@@ -1848,18 +1848,18 @@ gcloud beta run deploy --image gcr.io/[PROJECT-ID]/graphql --add-cloudsql-instan
 
 <p>Sample skaffold yaml file</p>
 
-<pre><code class="language-yaml">apiVersion: skaffold/v1beta5
-kind: Config
-build:
+<pre><code class="language-yaml">apiVersion: skaffold/v1beta5  
+kind: Config  
+build:  
   artifacts:
   - image: shanelee007/graphql
-deploy:
+deploy:  
   kubectl:
     manifests:
     - kubernetes/config.yaml
     - kubernetes/deployment.yaml
     - kubernetes/secret.yaml
-profiles:
+profiles:  
 - name: dev
   build:
     artifacts:
@@ -1892,7 +1892,7 @@ profiles:
 
 <p>There was an issue with publishing docker image for local development every time I ran skaffold. To prevent this from happening there is global config to disable this.</p>
 
-<pre><code class="language-bash">skaffold config set --global local-cluster true #do not push images after building
+<pre><code class="language-bash">skaffold config set --global local-cluster true #do not push images after building  
 </code></pre>
 
 <h4 id="noteondockerfile">Note on Dockerfile</h4>
@@ -1911,12 +1911,12 @@ profiles:
 
 <p>Now we can run skaffold!</p>
 
-<pre><code class="language-bash">skaffold dev -p dev -v=info #run locally/watching changes dev mode
+<pre><code class="language-bash">skaffold dev -p dev -v=info #run locally/watching changes dev mode  
 </code></pre>
 
 <p>If you want to try out the new experimental gui run instead </p>
 
-<pre><code class="language-bash">skaffold dev -p dev -v=info --experimental-gui
+<pre><code class="language-bash">skaffold dev -p dev -v=info --experimental-gui  
 </code></pre>
 
 <p>Console output will look like so:</p>
@@ -1931,8 +1931,8 @@ profiles:
 
 <p>As of <strong>20/02/2019</strong> the latest version is <code>v1beta5</code>. To upgrade just run </p>
 
-<pre><code class="language-bash">brew upgrade skaffold
-skaffold fix --overwrite
+<pre><code class="language-bash">brew upgrade skaffold  
+skaffold fix --overwrite  
 </code></pre>
 
 <p>Thats all for now. In my next post, I will discuss deploying remotely using skaffold.😃</p>
@@ -1978,13 +1978,13 @@ skaffold fix --overwrite
 <p>The format I used:</p>
 
 <pre><code class="language-vim"># - scoring - total
-1 4 4
-2 5 9
-3 3 12
-4
-5
+1 4 4  
+2 5 9  
+3 3 12  
+4  
+5  
 ...
-24
+24  
 </code></pre>
 
 <p>The first column is just the number of question (24 in total). The second column — scoring, is how much the problem worth and you will get that from the problem description. The third column is “total”, where you put the total scoring as you go and it will let you know what problems are already completed and how many points you already have. This little bureaucracy will help you to understand how well you are doing and come back to some problems if you decided to skip them before. </p>
@@ -1998,7 +1998,7 @@ I used the <a href="https://kubernetes.io/docs/reference/kubectl/cheatsheet/">ch
 
 <pre><code class="language-bash">cat &lt;&lt;EOF | kubectl create -f -
 
-EOF
+EOF  
 </code></pre>
 
 <blockquote>
@@ -2037,7 +2037,7 @@ EOF
 
 <pre><code class="language-bash">    az provider list --query "[?namespace=='Microsoft.ContainerService'].resourceTypes[] | [?resourceType=='managedClusters'].locations[]" -o tsv
 
-    az aks get-versions --location "Australia East" --query "orchestrators[].orchestratorVersion"
+    az aks get-versions --location "Australia East" --query "orchestrators[].orchestratorVersion" 
 
     az group create --name myResourceGroup1 --location "Australia East"
 
@@ -2057,8 +2057,8 @@ EOF
 
 <p>Istio is installed in two parts. The first part involves the CLI tooling that will be used to deploy and manage Istio backed services. The second part configures the Kubernetes cluster to support Istio.</p>
 
-<pre><code>curl -L https://git.io/getLatestIstio | sh -
-cd istio-1.0.0
+<pre><code>curl -L https://git.io/getLatestIstio | sh -  
+cd istio-1.0.0  
 export PATH=$PWD/bin:$PATH
 </code></pre>
 
@@ -2119,9 +2119,9 @@ export PATH=$PWD/bin:$PATH
 </code>
 Set the ingress ip and port</p>
 
-<pre><code class="language-bash">export INGRESS_HOST=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
-export INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].port}')
-export SECURE_INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="https")].port}')
+<pre><code class="language-bash">export INGRESS_HOST=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')  
+export INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].port}')  
+export SECURE_INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="https")].port}')  
 </code></pre>
 
 <p>Set the <code>gateway url</code></p>
@@ -2185,9 +2185,9 @@ export SECURE_INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressga
 <h5 id="listallroutes">List all routes</h5>
 
 <pre><code class="language-bash">$ istioctl get virtualservices
-VIRTUAL-SERVICE NAME   GATEWAYS           HOSTS     #HTTP     #TCP      NAMESPACE   AGE
-bookinfo               bookinfo-gateway   *             1        0      default     20m
-reviews                                   reviews       1        0      default     5m
+VIRTUAL-SERVICE NAME   GATEWAYS           HOSTS     #HTTP     #TCP      NAMESPACE   AGE  
+bookinfo               bookinfo-gateway   *             1        0      default     20m  
+reviews                                   reviews       1        0      default     5m  
 </code></pre>
 
 <h5 id="accessmetrics">Access Metrics</h5>
@@ -2198,16 +2198,16 @@ reviews                                   reviews       1        0      default 
 
 <p>Send traffic to the application</p>
 
-<pre><code class="language-bash">while true; do
+<pre><code class="language-bash">while true; do  
   curl -s http://$GATEWAY_URL/productpage &gt; /dev/null
   echo -n .;
   sleep 0.2
-done
+done  
 </code></pre>
 
 <p>Setup port forwarding  </p>
 
-<pre><code class="language-bash">kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=prometheus -o jsonpath='{.items[0].metadata.name}') 9090:9090 &amp;
+<pre><code class="language-bash">kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=prometheus -o jsonpath='{.items[0].metadata.name}') 9090:9090 &amp;  
 </code></pre>
 
 <p>View metrics in <a href="http://localhost:9090/graph#%5B%7B%22range_input%22%3A%221h%22%2C%22expr%22%3A%22istio_double_request_count%22%2C%22tab%22%3A1%7D%5D">Prometheus UI</a></p>
@@ -2222,7 +2222,7 @@ done
 
 <p>Verify the services are up  </p>
 
-<pre><code>kubectl -n istio-system get svc grafana prometheus
+<pre><code>kubectl -n istio-system get svc grafana prometheus  
 </code></pre>
 
 <p>Open the Istio Dashboard via the Grafana UI.</p>
@@ -2289,7 +2289,7 @@ done
 
 <p>Run the container  </p>
 
-<pre><code class="language-bash">docker run --rm -it \
+<pre><code class="language-bash">docker run --rm -it \  
   -v "$HOME"/.ssh:/root/.ssh:ro \
   -v "$HOME"/.aws:/root/.aws:ro \
   -v "$HOME"/.kube:/root/.kube:rw \
@@ -2324,7 +2324,7 @@ done
 
 <h3 id="installation">Installation</h3>
 
-<pre><code class="language-bash">sudo curl -L https://github.com/kubeapps/installer/releases/download/v0.2.0/kubeapps-linux-amd64 -o /usr/local/bin/kubeapps &amp;&amp; sudo chmod +x /usr/local/bin/kubeapps
+<pre><code class="language-bash">sudo curl -L https://github.com/kubeapps/installer/releases/download/v0.2.0/kubeapps-linux-amd64 -o /usr/local/bin/kubeapps &amp;&amp; sudo chmod +x /usr/local/bin/kubeapps  
 </code></pre>
 
 <p>To see what it installs, run dry run first</p>
@@ -2341,7 +2341,7 @@ done
 
 <p>Once Kubeapps is installed, securely access the Kubeapps Dashboard from your system by running:</p>
 
-<pre><code class="language-bash">kubeapps dashboard
+<pre><code class="language-bash">kubeapps dashboard  
 </code></pre>
 
 <p>This will start an HTTP proxy for secure access to the Kubeapps Dashboard and launch your default browser to access it. </p>
@@ -2362,16 +2362,16 @@ done
 
 <p>You will see two pods running in the namespace heptio-sonobuoy</p>
 
-<pre><code class="language-bash">NAME                                READY     STATUS    RESTARTS   AGE
-sonobuoy                            3/3       Running   0          5m
-sonobuoy-e2e-job-bf586487f2f64f0b   2/2       Running   0          4m
+<pre><code class="language-bash">NAME                                READY     STATUS    RESTARTS   AGE  
+sonobuoy                            3/3       Running   0          5m  
+sonobuoy-e2e-job-bf586487f2f64f0b   2/2       Running   0          4m  
 </code></pre>
 
 <p>It may take up to 60 mins to run the tests. So sit back and relax... 😉</p>
 
 <p>To see what is happening you can use kubetail to tail the logs</p>
 
-<pre><code class="language-bash">kubetail sonobuoy -n heptio-sonobuoy
+<pre><code class="language-bash">kubetail sonobuoy -n heptio-sonobuoy  
 kubetail sonobuoy-e2e-job-bf586487f2f64f0b -n heptio-sonobuoy
 </code></pre>
 
@@ -2383,7 +2383,7 @@ kubetail sonobuoy-e2e-job-bf586487f2f64f0b -n heptio-sonobuoy
 
 <p>All tests passed. There you have it!</p>
 
-<p>Stay tuned for more kubernetes goodness.. ⚓️</p>]]></content:encoded></item><item><title><![CDATA[Logging on kubernetes with fluentd and elasticsearch 6]]></title><description><![CDATA[How to configure EFK (Elastic-Fluentd-Kibana) stack on kubernetes for logging]]></description><link>https://blog.shanelee.name/2017/12/17/logging-on-kubernetes-with-fluentd-and-elasticsearch-6/</link><guid isPermaLink="false">cac30a75-368d-462f-aee8-9c510bfd9de1</guid><category><![CDATA[elasticsearch]]></category><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[ingress]]></category><category><![CDATA[nginx]]></category><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[curator]]></category><category><![CDATA[fluentd]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 16 Dec 2017 13:06:59 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2018/01/robert-larsson-64547-1.jpg" medium="image"/><content:encoded><![CDATA[<h1 id="tldr">TLDR</h1>
+<p>Stay tuned for more kubernetes goodness.. ⚓️</p>]]></content:encoded></item><item><title><![CDATA[Logging on kubernetes with fluentd and elasticsearch 6]]></title><description><![CDATA[How to configure EFK (Elastic-Fluentd-Kibana) stack on kubernetes for logging]]></description><link>https://blog.shanelee.name/2017/12/16/logging-on-kubernetes-with-fluentd-and-elasticsearch-6/</link><guid isPermaLink="false">cac30a75-368d-462f-aee8-9c510bfd9de1</guid><category><![CDATA[elasticsearch]]></category><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[ingress]]></category><category><![CDATA[nginx]]></category><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[curator]]></category><category><![CDATA[fluentd]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 16 Dec 2017 13:06:59 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2018/01/robert-larsson-64547-1.jpg" medium="image"/><content:encoded><![CDATA[<h1 id="tldr">TLDR</h1>
 
 <img src="https://blog.shanelee.name/content/images/2018/01/robert-larsson-64547-1.jpg" alt="Logging on kubernetes with fluentd and elasticsearch 6"><p>The solution I have used in the past for logging in kubernetes clusters is EFK (Elastic-Fluentd-Kibana). Alot of you have probably heard of ELK stack but I find that logstash is more heavyweight and does not provide the same output plugins as fluentd.</p>
 
@@ -2439,14 +2439,14 @@ kubetail sonobuoy-e2e-job-bf586487f2f64f0b -n heptio-sonobuoy
 
 <p>Sample conf can be seen below:</p>
 
-<pre><code class="language-yaml">kind: ConfigMap
-apiVersion: v1
-metadata:
+<pre><code class="language-yaml">kind: ConfigMap  
+apiVersion: v1  
+metadata:  
   name: nginx-configuration
   namespace: ingress-nginx
   labels:
     app: ingress-nginx
-data:
+data:  
   use-proxy-protocol: "false"
   log-format-escape-json: "true"
   log-format-upstream: '{"proxy_protocol_addr": "$proxy_protocol_addr","remote_addr": "$remote_addr", "proxy_add_x_forwarded_for": "$proxy_add_x_forwarded_for",
@@ -2462,7 +2462,7 @@ data:
 
 <p>Docker Image can be found <a href="https://hub.docker.com/r/shanelee007/fluentd-kubernetes/">here</a> on docker hub. Tag is <strong>v0.12-debian-elasticsearch-geo</strong></p>
 
-<pre><code class="language-bash">docker pull shanelee007/fluentd-kubernetes:v0.12-debian-elasticsearch-geo
+<pre><code class="language-bash">docker pull shanelee007/fluentd-kubernetes:v0.12-debian-elasticsearch-geo  
 </code></pre>
 
 <p>Now I needed to amend the fluentd config to filter my nginx access logs and translate ip address to geo co-ordinates. </p>
@@ -2532,17 +2532,17 @@ data:
 
 <p>For the commands below I am using bash aliases. Aliases save me alot of time when I am querying a cluster. You can find the github project <a href="https://github.com/ahmetb/kubectl-aliases">here</a></p>
 
-<pre><code class="language-bash">ka resources/logging --record
+<pre><code class="language-bash">ka resources/logging --record  
 </code></pre>
 
 <p>Verify the pods are created</p>
 
-<pre><code class="language-bash">kgpon logging
+<pre><code class="language-bash">kgpon logging  
 </code></pre>
 
 <p>If you have the dashboard installed you can inspect the logs there or you can tail the logs from the command line using <a href="https://github.com/johanhaleby/kubetail">kubetail</a></p>
 
-<pre><code class="language-bash">kubetail fluentd -n logging
+<pre><code class="language-bash">kubetail fluentd -n logging  
 </code></pre>
 
 <h2 id="kibana">Kibana</h2>
@@ -2591,7 +2591,7 @@ data:
 
 <p>I  assume you know what pods are so I will quickly breakdown service and ingress resources.</p>
 
-<h2 id="service">Service</h2>]]></description><link>https://blog.shanelee.name/2017/10/16/kubernetes-ingress-and-sticky-sessions/</link><guid isPermaLink="false">52c2d7b6-231c-4d3b-8fcd-7f4fa090d576</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[ingress]]></category><category><![CDATA[sticky]]></category><category><![CDATA[elb]]></category><category><![CDATA[nginx]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 15 Oct 2017 14:21:48 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
+<h2 id="service">Service</h2>]]></description><link>https://blog.shanelee.name/2017/10/15/kubernetes-ingress-and-sticky-sessions/</link><guid isPermaLink="false">52c2d7b6-231c-4d3b-8fcd-7f4fa090d576</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[ingress]]></category><category><![CDATA[sticky]]></category><category><![CDATA[elb]]></category><category><![CDATA[nginx]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 15 Oct 2017 14:21:48 GMT</pubDate><content:encoded><![CDATA[<h1 id="tldr">TL;DR</h1>
 
 <p>Recently I had to look at horizontally scaling a traditional web-app on kubernetes. Here i will explain how I achieved it and what ingress controller is and why to use it.</p>
 
@@ -2683,24 +2683,24 @@ serves 200 on a /healthz</p>
 <p>Then install layer 7 service on AWS <br>
 <a href="https://github.com/kubernetes/ingress-nginx/tree/master/deploy#aws">https://github.com/kubernetes/ingress-nginx/tree/master/deploy#aws</a> or install the service defined in my repo</p>
 
-<pre><code class="language-bash">kubectl apply -f ingress-nginx-svc.yaml
+<pre><code class="language-bash">kubectl apply -f ingress-nginx-svc.yaml  
 </code></pre>
 
 <p>When you run these commands, it created a deployment with one replica of the nginx-ingress-controller and a service for it of type LoadBalancer which created a ELB for us on AWS. Let’s confirm that. Get the service :</p>
 
-<pre><code class="language-bash">kubectl get services -n ingress-nginx  -o wide | grep nginx
+<pre><code class="language-bash">kubectl get services -n ingress-nginx  -o wide | grep nginx  
 </code></pre>
 
 <p>We can now test the default back-end</p>
 
 <pre><code class="language-bash">ELB=$(kubectl get svc ingress-nginx -n ingress-nginx  -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
 
-curl $ELB
+curl $ELB  
 </code></pre>
 
 <p>You should see the following:  </p>
 
-<pre><code class="language-bash">default backend - 404
+<pre><code class="language-bash">default backend - 404  
 </code></pre>
 
 <p>All good so far.. </p>
@@ -2713,7 +2713,7 @@ curl $ELB
 
 <pre><code class="language-bash">kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/images/echoheaders/echo-app.yaml
 
-kubectl apply -f ingress.yaml
+kubectl apply -f ingress.yaml  
 </code></pre>
 
 <p>This will create deployment and service for echo-header app. This app simply returns information about the http request as output.</p>
@@ -2745,9 +2745,9 @@ kubectl apply -f ingress.yaml
 
 <p>Now lets create the sticky ingress</p>
 
-<pre><code class="language-bash">apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
+<pre><code class="language-bash">apiVersion: extensions/v1beta1  
+kind: Ingress  
+metadata:  
   name: nginx-test-sticky
   annotations:
     kubernetes.io/ingress.class: "nginx"
@@ -2755,7 +2755,7 @@ metadata:
     ingress.kubernetes.io/session-cookie-name: "route"
     ingress.kubernetes.io/session-cookie-hash: "sha1"
 
-spec:
+spec:  
   rules:
   - host: stickyingress.example.com
     http:
@@ -2768,14 +2768,14 @@ spec:
 
 <p>What this setting does it, instruct nginx to use the nginx-sticky-module-ng module (<a href="https://bitbucket.org/nginx-goodies/nginx-sticky-module-ng">https://bitbucket.org/nginx-goodies/nginx-sticky-module-ng</a>) that’s bundled with the controller to handle all sticky sessions for us.</p>
 
-<pre><code class="language-bash">kubectl apply -f sticky-ingress.yaml
+<pre><code class="language-bash">kubectl apply -f sticky-ingress.yaml  
 </code></pre>
 
 <p>There is a very useful tool called kubetail that you can use to tail the logs of a pod and verify the  sticky session behaviour. To install kubetail check out <a href="https://github.com/johanhaleby/kubetail">https://github.com/johanhaleby/kubetail</a></p>
 
 <p>Now in one terminal window, we can tail the logs </p>
 
-<pre><code class="language-bash">kubetail -l app=echoheaders
+<pre><code class="language-bash">kubetail -l app=echoheaders  
 </code></pre>
 
 <p>and in another send in multiple requests to the virtual host stickyingress.example.com</p>

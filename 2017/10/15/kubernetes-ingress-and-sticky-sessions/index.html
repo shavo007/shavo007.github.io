@@ -1,0 +1,477 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Kubernetes ingress</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
+    <link rel="canonical" href="https://blog.shanelee.name/2017/10/15/kubernetes-ingress-and-sticky-sessions/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="Tech Blog (mainly!)">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Kubernetes ingress">
+    <meta property="og:description" content="TL;DR Recently I had to look at horizontally scaling a traditional web-app on kubernetes. Here i will explain how I achieved it and what ingress controller is and why to use it. I  assume you know what pods are so I will quickly breakdown service and ingress resources. Service">
+    <meta property="og:url" content="https://blog.shanelee.name/2017/10/15/kubernetes-ingress-and-sticky-sessions/">
+    <meta property="article:published_time" content="2017-10-15T14:21:48.944Z">
+    <meta property="article:modified_time" content="2017-10-17T11:22:01.354Z">
+    <meta property="article:tag" content="kubernetes">
+    <meta property="article:tag" content="docker">
+    <meta property="article:tag" content="ingress">
+    <meta property="article:tag" content="sticky">
+    <meta property="article:tag" content="elb">
+    <meta property="article:tag" content="nginx">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Kubernetes ingress">
+    <meta name="twitter:description" content="TL;DR Recently I had to look at horizontally scaling a traditional web-app on kubernetes. Here i will explain how I achieved it and what ingress controller is and why to use it. I  assume you know what pods are so I will quickly breakdown service and ingress resources. Service">
+    <meta name="twitter:url" content="https://blog.shanelee.name/2017/10/15/kubernetes-ingress-and-sticky-sessions/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shane Lee">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="kubernetes, docker, ingress, sticky, elb, nginx">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Tech Blog (mainly!)",
+        "logo": "https://blog.shanelee.name/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shane Lee",
+        "image": "https://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg",
+        "url": "https://blog.shanelee.name/author/shane/",
+        "sameAs": [
+            "https://about.me/shane-lee"
+        ]
+    },
+    "headline": "Kubernetes ingress",
+    "url": "https://blog.shanelee.name/2017/10/15/kubernetes-ingress-and-sticky-sessions/",
+    "datePublished": "2017-10-15T14:21:48.944Z",
+    "dateModified": "2017-10-17T11:22:01.354Z",
+    "keywords": "kubernetes, docker, ingress, sticky, elb, nginx",
+    "description": "TL;DR Recently I had to look at horizontally scaling a traditional web-app on kubernetes. Here i will explain how I achieved it and what ingress controller is and why to use it. I  assume you know what pods are so I will quickly breakdown service and ingress resources. Service"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.8">
+    <link rel="alternate" type="application/rss+xml" title="Tech Blog (mainly!)" href="https://blog.shanelee.name/rss/">
+    <meta name="google-site-verification" content="dzkjZUDovRImqR_2oGUlteWT1zcgw-r6cqBYef9qiWw">
+<meta name="google-site-verification" content="lojSObDdEFLBM0ok1Yiqy7rqgbc8yAUTyqF5iYszvWA">
+<link rel="preconnect" href="http://shavo007.disqus.com">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128189527-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-128189527-1');
+</script>
+<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2007283184718574",
+    enable_page_level_ads: true
+  });
+</script>
+</head>
+<body class="post-template tag-kubernetes tag-docker tag-ingress tag-sticky tag-elb tag-nginx nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="https://blog.shanelee.name/">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="https://blog.shanelee.name/rss/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post tag-kubernetes tag-docker tag-ingress tag-sticky tag-elb tag-nginx featured">
+
+        <header class="post-header">
+            <h1 class="post-title">Kubernetes ingress and sticky sessions</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2017-10-15">15 October 2017</time>
+                 on <a href="../../../../tag/kubernetes/">kubernetes</a>, <a href="../../../../tag/docker/">docker</a>, <a href="../../../../tag/ingress/">ingress</a>, <a href="../../../../tag/sticky/">sticky</a>, <a href="../../../../tag/elb/">elb</a>, <a href="../../../../tag/nginx/">nginx</a>
+                ,
+
+                <!--<li class="post-meta-item">-->
+                    <a href="index.html#disqus_thread"></a>
+                <!--</li>-->
+                <!--<a href="#disqus_thread"/>-->
+            </section>
+        </header>
+
+        <section class="post-content">
+
+            <h1 id="tldr">TL;DR</h1>
+
+<p>Recently I had to look at horizontally scaling a traditional web-app on kubernetes. Here i will explain how I achieved it and what ingress controller is and why to use it.</p>
+
+<p>I  assume you know what pods are so I will quickly breakdown service and ingress resources.</p>
+
+<h2 id="service">Service</h2>
+
+<blockquote>
+  <p>Service is a logical abstraction communication layer to pods. During normal operations pods get’s created, destroyed, scaled out, etc.</p>
+</blockquote>
+
+<p>A Service make’s it easy to always connect to the pods by connecting to their service which stays stable during the pod life cycle. A important thing about services are what their type is, it determines how the service expose itself to the cluster or the internet. Some of the service types are :</p>
+
+<ul>
+<li><p>ClusterIP Your service is only expose internally to the cluster on the internal cluster IP. A example would be to deploy Hasicorp’s vault and expose it only internally.</p></li>
+<li><p>NodePort Expose the service on the EC2 Instance on the specified port. This will be exposed to the internet. Off course it this all depends on your AWS Security group / VPN rules.</p></li>
+<li><p>LoadBalancer Supported on Amazon and Google cloud, this creates the cloud providers your using load balancer. So on Amazon it creates a ELB that points to your service on your cluster.</p></li>
+<li><p>ExternalName Create a CNAME dns record to a external domain.</p></li>
+</ul>
+
+<p>For more information about Services look at <a href="https://kubernetes.io/docs/concepts/services-networking/service/">https://kubernetes.io/docs/concepts/services-networking/service/</a></p>
+
+<h2 id="ingress">Ingress</h2>
+
+<blockquote>
+  <p>An Ingress is a collection of rules that allow inbound connections to reach the cluster services</p>
+</blockquote>
+
+<p>You define a number of <strong>rules</strong> to access a <strong>service</strong></p>
+
+<h2 id="scenario">Scenario</h2>
+
+<p>Imagine this scenario, you have a cluster running, on Amazon, you have multiple applications deployed to it, some are jvm microservices (spring boot) running inside embedded tomcat, and to add to the mix, you have a couple of SPA sitting in a Apache web server that serves static content. </p>
+
+<p>All applications needs to have TLS, some of the api’s endpoints have changed, but you still have to serve the old endpoint path, so you need to do some sort of path rewrite. How do you expose everything to the internet? The obvious answer is create a type <strong>LoadBalancer</strong> service for each, but, then multiple ELB’s will be created, you have to deal with TLS termination at each ELB, you have to CNAME your applications/api’s domain names to the right ELB’s, and in general just have very little control over the ELB.</p>
+
+<p>Enter Ingress Controllers. 👍</p>
+
+<h3 id="whatisaningresscontroller">What is an ingress controller?</h3>
+
+<blockquote>
+  <p>An Ingress Controller is a daemon, deployed as a Kubernetes Pod, that watches the apiserver's /ingresses endpoint for updates to the Ingress resource. Its job is to satisfy requests for Ingresses.</p>
+</blockquote>
+
+<p>You deploy a ingress controller, create a type LoadBalancer service for it, and it sits and monitors Kubernetes api server’s <strong>/ingresses</strong> endpoint and acts as a reverse proxy for the ingress rules it found there. </p>
+
+<p>You then deploy your application and expose it’s service as a type NodePort, and create ingress rules for it. The ingress controller then picks up the new deployed service and proxy traffic to it from outside.</p>
+
+<p>Following this setup, you only have one ELB then on Amazon, and a central place at the ingress controller to manage the traffic coming into your cluster to your applications.</p>
+
+<p>To visualise how this works, check out this little guy! Traefik is one implementation you can use as an ingress.</p>
+
+<p><img src="../../../../content/images/2017/10/architecture.png" alt=""></p>
+
+<p>But I have chosen nginx ingress controller instead as it supports sticky sessions and as a reverse proxy is extremely popular solution.</p>
+
+<p>So lets get to the interesting part; <strong>coding</strong>!!!</p>
+
+<h2 id="demo">Demo</h2>
+
+<p>I am going to setup a kubernetes gossip cluster on AWS using kops. Then create nginx ingress controller and reverse proxy to a sample app called echoheader. </p>
+
+<p>To setup a k8s cluster on AWS, follow the guide at <a href="https://github.com/shavo007/k8s-ingress">https://github.com/shavo007/k8s-ingress</a></p>
+
+<p>If you do not want to install kops and the other tools needed, I have built a simple docker image that you can use instead. </p>
+
+<p><a href="https://store.docker.com/community/images/shanelee007/alpine-kops">https://store.docker.com/community/images/shanelee007/alpine-kops</a></p>
+
+<p>This includes:</p>
+
+<ul>
+<li>Kops</li>
+<li>Kubectl</li>
+<li>AWS CLI</li>
+<li>Terraform</li>
+</ul>
+
+<p>Once you have the cluster what we need to do is setup a default backend service for nginx.</p>
+
+<p>The default backend is the default service that nginx falls backs to if if cannot route a request successfully. The default backend needs to satisfy the following two requirements :</p>
+
+<p>serves a 404 page at / <br>
+serves 200 on a /healthz</p>
+
+<p>See more at <a href="https://github.com/kubernetes/ingress-nginx/tree/master/deploy">https://github.com/kubernetes/ingress-nginx/tree/master/deploy</a></p>
+
+<p>Run the mandatory commands and install without RBAC roles.</p>
+
+<p>Then install layer 7 service on AWS <br>
+<a href="https://github.com/kubernetes/ingress-nginx/tree/master/deploy#aws">https://github.com/kubernetes/ingress-nginx/tree/master/deploy#aws</a> or install the service defined in my repo</p>
+
+<pre><code class="language-bash">kubectl apply -f ingress-nginx-svc.yaml  
+</code></pre>
+
+<p>When you run these commands, it created a deployment with one replica of the nginx-ingress-controller and a service for it of type LoadBalancer which created a ELB for us on AWS. Let’s confirm that. Get the service :</p>
+
+<pre><code class="language-bash">kubectl get services -n ingress-nginx  -o wide | grep nginx  
+</code></pre>
+
+<p>We can now test the default back-end</p>
+
+<pre><code class="language-bash">ELB=$(kubectl get svc ingress-nginx -n ingress-nginx  -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+
+curl $ELB  
+</code></pre>
+
+<p>You should see the following:  </p>
+
+<pre><code class="language-bash">default backend - 404  
+</code></pre>
+
+<p>All good so far.. </p>
+
+<p>This means everything is working correctly and the ELB forwarded traffic to our nginx-ingress-controller and the nginx-ingress-controller passed it along to the default-backend-service that we deployed.</p>
+
+<h4 id="deployourapplication">Deploy our application</h4>
+
+<p>Now run</p>
+
+<pre><code class="language-bash">kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/images/echoheaders/echo-app.yaml
+
+kubectl apply -f ingress.yaml  
+</code></pre>
+
+<p>This will create deployment and service for echo-header app. This app simply returns information about the http request as output.</p>
+
+<p>If you look at the ingress resource, you will see annotations defined. </p>
+
+<p><code>ingress.kubernetes.io/ssl-redirect: "true"</code>  will redirect http to https.</p>
+
+<p>To view all annotations check out <a href="https://github.com/kubernetes/ingress-nginx/blob/master/docs/annotations.md">https://github.com/kubernetes/ingress-nginx/blob/master/docs/annotations.md</a></p>
+
+<p>One ingress rule is to route all requests for virtual host foo.bar.com to service  <strong>echoheaders</strong> on path /backend. So lets test it out!</p>
+
+<pre><code class="language-bash">curl $ELB/backend -H 'Host: foo.bar.com'
+</code></pre>
+
+<p>You should get 200 response back with request headers and other info.</p>
+
+<h3 id="stickysessions">Sticky sessions</h3>
+
+<p>Now to one of the main features that nginx provides.  nginx-ingress-controller can handle sticky sessions as it bypass the service level and route directly the pods. More info can be found here <br>
+<a href="https://github.com/kubernetes/ingress-nginx/tree/master/docs/examples/affinity/cookie">https://github.com/kubernetes/ingress-nginx/tree/master/docs/examples/affinity/cookie</a></p>
+
+<p><mark>Update (17/10/2017) examples have been removed from repo! To find out more on the annotations related to sticky session go to <a href="https://github.com/kubernetes/ingress-nginx/blob/master/docs/annotations.md#miscellaneous&lt;/mark&gt;">https://github.com/kubernetes/ingress-nginx/blob/master/docs/annotations.md#miscellaneous==</a></mark></p>
+
+<p>To test it out we need to first scale our app echo-headers: Lets scale echo-headers deployment to three pods</p>
+
+<pre><code class="language-bash"> kubectl scale --replicas=3 deployment/echoheaders
+</code></pre>
+
+<p>Now lets create the sticky ingress</p>
+
+<pre><code class="language-bash">apiVersion: extensions/v1beta1  
+kind: Ingress  
+metadata:  
+  name: nginx-test-sticky
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    ingress.kubernetes.io/affinity: "cookie"
+    ingress.kubernetes.io/session-cookie-name: "route"
+    ingress.kubernetes.io/session-cookie-hash: "sha1"
+
+spec:  
+  rules:
+  - host: stickyingress.example.com
+    http:
+      paths:
+      - backend:
+          serviceName: echoheaders
+          servicePort: 80
+        path: /foo
+</code></pre>
+
+<p>What this setting does it, instruct nginx to use the nginx-sticky-module-ng module (<a href="https://bitbucket.org/nginx-goodies/nginx-sticky-module-ng">https://bitbucket.org/nginx-goodies/nginx-sticky-module-ng</a>) that’s bundled with the controller to handle all sticky sessions for us.</p>
+
+<pre><code class="language-bash">kubectl apply -f sticky-ingress.yaml  
+</code></pre>
+
+<p>There is a very useful tool called kubetail that you can use to tail the logs of a pod and verify the  sticky session behaviour. To install kubetail check out <a href="https://github.com/johanhaleby/kubetail">https://github.com/johanhaleby/kubetail</a></p>
+
+<p>Now in one terminal window, we can tail the logs </p>
+
+<pre><code class="language-bash">kubetail -l app=echoheaders  
+</code></pre>
+
+<p>and in another send in multiple requests to the virtual host stickyingress.example.com</p>
+
+<pre><code class="language-bash">curl -D cookies.txt $ELB/foo -H 'Host: stickyingress.example.com'
+
+
+while true; do sleep 1;curl -b cookies.txt $ELB/foo -H 'Host: stickyingress.example.com';done
+</code></pre>
+
+<p>When the backend server is removed, the requests are then re-routed to another upstream server and NGINX creates a new cookie, as the previous hash became invalid.</p>
+
+<p>As, you can see, requests are sent to the same pod for every subsequent request.</p>
+
+<p><img src="../../../../content/images/2017/10/stickySession.gif" alt=""></p>
+
+<h3 id="proxyprotocol">Proxy protocol</h3>
+
+<p>Lots of times you need to pass a user’s IP address / hostname through to your application. A example would be, to have the hostname of the user in your application logs.</p>
+
+<p>To enable passing along the hostname, enable the below annotation</p>
+
+<pre><code class="language-bash"> service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: '*'
+</code></pre>
+
+<p><strong>Update 1(7/10/2017) It looks like this is not needed anymore</strong></p>
+
+<p>For more see <a href="https://github.com/kubernetes/ingress-nginx#source-ip-address">https://github.com/kubernetes/ingress-nginx#source-ip-address</a></p>
+
+<p>To conclude, i have showcased above a subset of features for ingress. Others include path-rewrite, TLS termination, path routing, scaling, rbac, auth and prometheus metrics. For more info check out resources below.</p>
+
+<h2 id="resources">Resources</h2>
+
+<p>For more information visit:</p>
+
+<p>Github project : <a href="https://github.com/shavo007/k8s-ingress">https://github.com/shavo007/k8s-ingress</a></p>
+
+<p>Kubernetes nginx ingress: <a href="https://github.com/kubernetes/ingress-nginx">https://github.com/kubernetes/ingress-nginx</a></p>
+
+<p>External DNS: <a href="https://github.com/kubernetes-incubator/external-dns/blob/master/docs/tutorials/nginx-ingress.md">https://github.com/kubernetes-incubator/external-dns/blob/master/docs/tutorials/nginx-ingress.md</a></p>
+
+<p>Kubernetes faqs: <br>
+<a href="https://github.com/hubt/kubernetes-faq/blob/master/README.md#kubernetes-faq">https://github.com/hubt/kubernetes-faq/blob/master/README.md#kubernetes-faq</a></p>
+
+<p>Alpine-kops: <a href="https://store.docker.com/community/images/shanelee007/alpine-kops">https://store.docker.com/community/images/shanelee007/alpine-kops</a></p>
+        </section>
+
+        <!-- disqus code snippet -->
+        <div id="disqus_thread"></div>
+        <script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+this.page.url = 'https://blog.shanelee.name/2017/10/15/kubernetes-ingress-and-sticky-sessions/'; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'ghost-16'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//shavo007.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        <script id="dsq-count-scr" src="http://shavo007.disqus.com/count.js" async></script>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../../../../author/shane/" style="background-image: url(../../../../content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../../../../author/shane/">Shane Lee</a></h4>
+
+                    <p>Read <a href="../../../../author/shane/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    <span class="author-location icon-location">Melbourne</span>
+                    <span class="author-link icon-link"><a href="https://about.me/shane-lee">https://about.me/shane-lee</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Kubernetes%20ingress%20and%20sticky%20sessions&amp;url=https://blog.shanelee.name/2017/10/15/kubernetes-ingress-and-sticky-sessions/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.shanelee.name/2017/10/15/kubernetes-ingress-and-sticky-sessions/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://blog.shanelee.name/2017/10/15/kubernetes-ingress-and-sticky-sessions/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+
+    </article>
+</main>
+
+
+
+<aside class="read-next">
+    <a class="read-next-story " style="background-image: url(../../../../content/images/2018/01/robert-larsson-64547-1.jpg)" href="../../../12/16/logging-on-kubernetes-with-fluentd-and-elasticsearch-6/">
+        <section class="post">
+            <h2>Logging on kubernetes with fluentd and elasticsearch 6</h2>
+            <p>TLDR The solution I have used in the past for logging in kubernetes clusters is EFK (Elastic-Fluentd-Kibana). Alot of…</p>
+        </section>
+    </a>
+    <a class="read-next-story prev no-cover" href="../../../07/28/how-to-save-costs-with-serverless-and-aws-lambda/">
+        <section class="post">
+            <h2>How to save costs with serverless and AWS Lambda</h2>
+            <p>TL;DR Recently AWS announced new feature to stop/start your RDS instances. This is something I have been…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2026</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-coy.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-graphql.min.js"></script>
+<!-- Add additional languages here -->
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/prism.js"></script>
+
+
+
+</body>

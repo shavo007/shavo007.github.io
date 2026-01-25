@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
     <link rel="canonical" href="https://blog.shanelee.name/2018/02/03/test-drive-heptio-sonobuoy-diagnostic-kubernetes-tool/">
     <meta name="referrer" content="origin">
-
+    
     <meta property="og:site_name" content="Tech Blog (mainly!)">
     <meta property="og:type" content="article">
     <meta property="og:title" content="Test drive heptio sonobuoy tool on kuberentes">
@@ -29,7 +29,7 @@
     <meta property="article:tag" content="docker">
     <meta property="article:tag" content="aws">
     <meta property="article:tag" content="heptio">
-
+    
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Test drive heptio sonobuoy tool on kuberentes">
     <meta name="twitter:description" content="Heptio Sonobuoy is a diagnostic tool that makes it easier to understand the state of a Kubernetes cluster by running a set of Kubernetes conformance tests in an accessible and non-destructive manner.  Heptio have come out with some useful kubernetes tools; sonobuoy being one.  In this post, I will spin">
@@ -39,7 +39,7 @@
     <meta name="twitter:data1" content="Shane Lee">
     <meta name="twitter:label2" content="Filed under">
     <meta name="twitter:data2" content="kubernetes, docker, aws, heptio">
-
+    
     <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -108,12 +108,12 @@
 
     <div class="site-wrapper">
 
-
+        
 
 
 <header class="main-header post-head " style="background-image: url(../../../../content/images/2018/08/joseph-barrientos-93565.jpg)">
     <nav class="main-nav overlay clearfix">
-
+        
             <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
     </nav>
 </header>
@@ -153,7 +153,7 @@
 
 <p>Run the container  </p>
 
-<pre><code class="language-bash">docker run --rm -it \
+<pre><code class="language-bash">docker run --rm -it \  
   -v "$HOME"/.ssh:/root/.ssh:ro \
   -v "$HOME"/.aws:/root/.aws:ro \
   -v "$HOME"/.kube:/root/.kube:rw \
@@ -188,7 +188,7 @@
 
 <h3 id="installation">Installation</h3>
 
-<pre><code class="language-bash">sudo curl -L https://github.com/kubeapps/installer/releases/download/v0.2.0/kubeapps-linux-amd64 -o /usr/local/bin/kubeapps &amp;&amp; sudo chmod +x /usr/local/bin/kubeapps
+<pre><code class="language-bash">sudo curl -L https://github.com/kubeapps/installer/releases/download/v0.2.0/kubeapps-linux-amd64 -o /usr/local/bin/kubeapps &amp;&amp; sudo chmod +x /usr/local/bin/kubeapps  
 </code></pre>
 
 <p>To see what it installs, run dry run first</p>
@@ -205,7 +205,7 @@
 
 <p>Once Kubeapps is installed, securely access the Kubeapps Dashboard from your system by running:</p>
 
-<pre><code class="language-bash">kubeapps dashboard
+<pre><code class="language-bash">kubeapps dashboard  
 </code></pre>
 
 <p>This will start an HTTP proxy for secure access to the Kubeapps Dashboard and launch your default browser to access it. </p>
@@ -226,16 +226,16 @@
 
 <p>You will see two pods running in the namespace heptio-sonobuoy</p>
 
-<pre><code class="language-bash">NAME                                READY     STATUS    RESTARTS   AGE
-sonobuoy                            3/3       Running   0          5m
-sonobuoy-e2e-job-bf586487f2f64f0b   2/2       Running   0          4m
+<pre><code class="language-bash">NAME                                READY     STATUS    RESTARTS   AGE  
+sonobuoy                            3/3       Running   0          5m  
+sonobuoy-e2e-job-bf586487f2f64f0b   2/2       Running   0          4m  
 </code></pre>
 
 <p>It may take up to 60 mins to run the tests. So sit back and relax... 😉</p>
 
 <p>To see what is happening you can use kubetail to tail the logs</p>
 
-<pre><code class="language-bash">kubetail sonobuoy -n heptio-sonobuoy
+<pre><code class="language-bash">kubetail sonobuoy -n heptio-sonobuoy  
 kubetail sonobuoy-e2e-job-bf586487f2f64f0b -n heptio-sonobuoy
 </code></pre>
 
@@ -321,7 +321,7 @@ s.setAttribute('data-timestamp', +new Date());
             <p>Istio recently announced that they are production ready. Service meshes are becoming an important level of abstraction for a…</p>
         </section>
     </a>
-    <a class="read-next-story prev " style="background-image: url(../../../../content/images/2018/01/robert-larsson-64547-1.jpg)" href="../../../../2017/12/17/logging-on-kubernetes-with-fluentd-and-elasticsearch-6/">
+    <a class="read-next-story prev " style="background-image: url(../../../../content/images/2018/01/robert-larsson-64547-1.jpg)" href="../../../../2017/12/16/logging-on-kubernetes-with-fluentd-and-elasticsearch-6/">
         <section class="post">
             <h2>Logging on kubernetes with fluentd and elasticsearch 6</h2>
             <p>TLDR The solution I have used in the past for logging in kubernetes clusters is EFK (Elastic-Fluentd-Kibana). Alot of…</p>
@@ -332,7 +332,7 @@ s.setAttribute('data-timestamp', +new Date());
 
 
         <footer class="site-footer clearfix">
-            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2023</section>
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2026</section>
             <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
         </footer>
 

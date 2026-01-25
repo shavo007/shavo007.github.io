@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
     <link rel="canonical" href="https://blog.shanelee.name/2016/12/13/alexa-ask-australia-calendar-for-next-public-holiday-in-state-victoria/">
     <meta name="referrer" content="origin">
-
+    
     <meta property="og:site_name" content="Tech Blog (mainly!)">
     <meta property="og:type" content="article">
     <meta property="og:title" content="Alexa, ask australia calendar for next public holiday in state Victoria">
@@ -31,7 +31,7 @@
     <meta property="article:tag" content="australia">
     <meta property="article:tag" content="calendar">
     <meta property="article:tag" content="dot">
-
+    
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Alexa, ask australia calendar for next public holiday in state Victoria">
     <meta name="twitter:description" content="Alexa skill to find next public holiday by state in Australia.">
@@ -40,7 +40,7 @@
     <meta name="twitter:data1" content="Shane Lee">
     <meta name="twitter:label2" content="Filed under">
     <meta name="twitter:data2" content="alexa, node, lambda, aws, australia, calendar, dot">
-
+    
     <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -108,12 +108,12 @@
 
     <div class="site-wrapper">
 
-
+        
 
 
 <header class="main-header post-head no-cover">
     <nav class="main-nav  clearfix">
-
+        
             <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
     </nav>
 </header>
@@ -199,18 +199,18 @@ This structure is outlined by the developer as part of writing a custom skill, a
 
 <p>The code is organized into a series of functions that are invoked based on the intent. Here are sample mappings from utterances to intent for this skill.</p>
 
-<pre><code class="language-javascript">GetNextHolidayIntent what is the next holiday for {State}
-GetNextHolidayIntent what is the next holiday for state {State}
-GetNextHolidayIntent what is the next public holiday for {State}
-GetNextHolidayIntent what is the next public holiday for state {State}
-GetNextHolidayIntent find next public holiday in state {State}
-GetNextHolidayIntent find next public holiday by state {State}
+<pre><code class="language-javascript">GetNextHolidayIntent what is the next holiday for {State}  
+GetNextHolidayIntent what is the next holiday for state {State}  
+GetNextHolidayIntent what is the next public holiday for {State}  
+GetNextHolidayIntent what is the next public holiday for state {State}  
+GetNextHolidayIntent find next public holiday in state {State}  
+GetNextHolidayIntent find next public holiday by state {State}  
 GetNextHolidayIntent find next public holiday by state
 </code></pre>
 
 <p>Each of the intents have their own functions, and then gather the data for the response by leveraging cached data in the local memory of the skill, or by calling out to a S3 bucket. Here's a mapping of where the data is retrieved from:</p>
 
-<table>
+<table>  
   <tr>
     <th>Intent</th>
     <th>Function</th>
@@ -316,7 +316,7 @@ s.setAttribute('data-timestamp', +new Date());
 
 
         <footer class="site-footer clearfix">
-            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2023</section>
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2026</section>
             <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
         </footer>
 

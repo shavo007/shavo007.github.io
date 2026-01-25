@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
     <link rel="canonical" href="https://blog.shanelee.name/2020/08/29/jibbing-with-spring-boot-and-google-cloud-run/">
     <meta name="referrer" content="origin">
-
+    
     <meta property="og:site_name" content="Tech Blog (mainly!)">
     <meta property="og:type" content="article">
     <meta property="og:title" content="Jibbing with spring boot and google cloud run">
@@ -37,7 +37,7 @@
     <meta property="article:tag" content="redoc">
     <meta property="article:tag" content="swagger">
     <meta property="article:tag" content="openapi">
-
+    
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Jibbing with spring boot and google cloud run">
     <meta name="twitter:description" content="I said jibbing not jiving! 😆 Cloud native architecture When it comes to microservices and cloud native architecture you first think about containers. Now you can of course compose your own docker file. But with jvm based microservices there is a tool from google called jib that can simplify containerization. We'll">
@@ -47,7 +47,7 @@
     <meta name="twitter:data1" content="Shane Lee">
     <meta name="twitter:label2" content="Filed under">
     <meta name="twitter:data2" content="gcp, cloudrun, spring-boot, spring, docker, microservice, cloud, google, jib, redoc, swagger, openapi">
-
+    
     <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -116,12 +116,12 @@
 
     <div class="site-wrapper">
 
-
+        
 
 
 <header class="main-header post-head " style="background-image: url(../../../../content/images/2020/08/ardian-lumi-6Woj_wozqmA-unsplash.jpg)">
     <nav class="main-nav overlay clearfix">
-
+        
             <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
     </nav>
 </header>
@@ -181,7 +181,7 @@
 <p>I used Spring Initializr to create a simple project in vs code. <br>
 It'll expose a simple <strong>GET</strong> endpoint:</p>
 
-<pre><code class="language-bash">http://localhost:8080/greeting
+<pre><code class="language-bash">http://localhost:8080/greeting  
 </code></pre>
 
 <h3 id="deployment">Deployment</h3>
@@ -235,10 +235,10 @@ It'll expose a simple <strong>GET</strong> endpoint:</p>
 
 <p>To deploy, I built redoc on GCR and deployed to cloud run. You can run this in cloud shell if you like</p>
 
-<pre><code class="language-bash">export PROJECT_ID=$(gcloud config list --format 'value(core.project)')
+<pre><code class="language-bash">export PROJECT_ID=$(gcloud config list --format 'value(core.project)')  
 #change CLOUD_RUN_SPRING_BOOT_BASE_URI to the location of your API deployed on cloud run
 
-gcloud run deploy redoc-greetings-api --project $PROJECT_ID --image gcr.io/$PROJECT_ID/redoc --platform managed --region us-central1 --port 80 --cpu 1 --memory 256Mi --concurrency 80 --timeout 300 --update-env-vars SPEC_URL=https://&lt;CLOUD_RUN_SPRING_BOOT_BASE_URI&gt;/swagger.yaml
+gcloud run deploy redoc-greetings-api --project $PROJECT_ID --image gcr.io/$PROJECT_ID/redoc --platform managed --region us-central1 --port 80 --cpu 1 --memory 256Mi --concurrency 80 --timeout 300 --update-env-vars SPEC_URL=https://&lt;CLOUD_RUN_SPRING_BOOT_BASE_URI&gt;/swagger.yaml  
 </code></pre>
 
 <p><img src="../../../../content/images/2020/08/Redoc.png" alt=""></p>
@@ -330,7 +330,7 @@ s.setAttribute('data-timestamp', +new Date());
 
 
         <footer class="site-footer clearfix">
-            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2023</section>
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2026</section>
             <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
         </footer>
 

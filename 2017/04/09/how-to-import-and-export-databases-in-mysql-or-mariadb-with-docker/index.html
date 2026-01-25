@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
     <link rel="canonical" href="https://blog.shanelee.name/2017/04/09/how-to-import-and-export-databases-in-mysql-or-mariadb-with-docker/">
     <meta name="referrer" content="origin">
-
+    
     <meta property="og:site_name" content="Tech Blog (mainly!)">
     <meta property="og:type" content="article">
     <meta property="og:title" content="mariadb sqldump with docker">
@@ -29,7 +29,7 @@
     <meta property="article:tag" content="mysql">
     <meta property="article:tag" content="sql">
     <meta property="article:tag" content="dump">
-
+    
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="mariadb sqldump with docker">
     <meta name="twitter:description" content="Introduction You can use data dumps for backup and restoration purposes, or you can use them to migrate data to a new server or development environment. Working with database dumps in MySQL and MariaDB is straightforward. This tutorial will cover how to export the database as well as import it">
@@ -38,7 +38,7 @@
     <meta name="twitter:data1" content="Shane Lee">
     <meta name="twitter:label2" content="Filed under">
     <meta name="twitter:data2" content="mariadb, docker, mysql, sql, dump">
-
+    
     <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -106,12 +106,12 @@
 
     <div class="site-wrapper">
 
-
+        
 
 
 <header class="main-header post-head no-cover">
     <nav class="main-nav  clearfix">
-
+        
             <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
     </nav>
 </header>
@@ -158,7 +158,7 @@
 
 <p>Export your database using the following command.</p>
 
-<pre><code class="language-bash">mysqldump -u username -p database_name &gt; dump.sql
+<pre><code class="language-bash">mysqldump -u username -p database_name &gt; dump.sql  
 </code></pre>
 
 <ul>
@@ -169,7 +169,7 @@
 
 <p>The command will produce no visual output, but you can inspect the contents of sql file to check if it's a legitimate SQL dump file by using:</p>
 
-<pre><code class="language-bash">head -n 5 dump.sql
+<pre><code class="language-bash">head -n 5 dump.sql  
 </code></pre>
 
 <p>The top of the file should look similar to this, mentioning that it's a mariadb dump for a database named database_name.</p>
@@ -191,38 +191,38 @@
 
 <p>I have an existing mariadb docker container running already locally.</p>
 
-<pre><code class="language-bash">docker run --name mariadb -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password1 -e MYSQL_DATABASE=db -d mariadb:latest
+<pre><code class="language-bash">docker run --name mariadb -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password1 -e MYSQL_DATABASE=db -d mariadb:latest  
 </code></pre>
 
 <p>Now verify it is running</p>
 
-<pre><code class="language-bash">docker ps
+<pre><code class="language-bash">docker ps  
 </code></pre>
 
 <p>You will see output similar to below:</p>
 
-<pre><code class="language-bash">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                            NAMES
-7cfaabda3346        mariadb:latest      "docker-entrypoint..."   5 days ago          Up 5 days           0.0.0.0:3306-&gt;3306/tcp                           mariadb
+<pre><code class="language-bash">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                            NAMES  
+7cfaabda3346        mariadb:latest      "docker-entrypoint..."   5 days ago          Up 5 days           0.0.0.0:3306-&gt;3306/tcp                           mariadb  
 </code></pre>
 
 <p>First, start a bash session inside container.</p>
 
-<pre><code class="language-bash">docker exec -it mariadb bash
+<pre><code class="language-bash">docker exec -it mariadb bash  
 </code></pre>
 
 <p>Second, log in to the database as root or another user with sufficient privileges to create new databases.</p>
 
-<pre><code class="language-bash">mysql -u root -ppassword1
+<pre><code class="language-bash">mysql -u root -ppassword1  
 </code></pre>
 
 <p>This will bring you into the mariadb shell prompt. Next, create a new database called new_database.</p>
 
-<pre><code class="language-sql">CREATE DATABASE new_database;
+<pre><code class="language-sql">CREATE DATABASE new_database;  
 </code></pre>
 
 <p>Now exit the MySQL shell by pressing CTRL+D. Exit the docker container also.On the normal command line, you can import the dump file with the following command:</p>
 
-<pre><code class="language-bash">docker exec -i mariadb mysql -uroot -ppassword1 --database=new_database &lt; dump.sql
+<pre><code class="language-bash">docker exec -i mariadb mysql -uroot -ppassword1 --database=new_database &lt; dump.sql  
 </code></pre>
 
 <ul>
@@ -322,7 +322,7 @@ s.setAttribute('data-timestamp', +new Date());
 
 
         <footer class="site-footer clearfix">
-            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2023</section>
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2026</section>
             <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
         </footer>
 

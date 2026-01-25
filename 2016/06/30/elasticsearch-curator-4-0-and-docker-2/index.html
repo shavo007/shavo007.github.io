@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
     <link rel="canonical" href="https://blog.shanelee.name/2016/06/30/elasticsearch-curator-4-0-and-docker-2/">
     <meta name="referrer" content="origin">
-
+    
     <meta property="og:site_name" content="Tech Blog (mainly!)">
     <meta property="og:type" content="article">
     <meta property="og:title" content="curator 4 and  docker">
@@ -27,7 +27,7 @@
     <meta property="article:tag" content="docker">
     <meta property="article:tag" content="elasticsearch">
     <meta property="article:tag" content="curator">
-
+    
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="curator 4 and  docker">
     <meta name="twitter:description" content="elasticsearch curator 4.0 and docker">
@@ -36,7 +36,7 @@
     <meta name="twitter:data1" content="Shane Lee">
     <meta name="twitter:label2" content="Filed under">
     <meta name="twitter:data2" content="docker, elasticsearch, curator">
-
+    
     <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -104,12 +104,12 @@
 
     <div class="site-wrapper">
 
-
+        
 
 
 <header class="main-header post-head no-cover">
     <nav class="main-nav  clearfix">
-
+        
             <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
     </nav>
 </header>
@@ -153,7 +153,7 @@
 
 <h3 id="tryitout">Try it out</h3>
 
-<pre><code class="language-bash">docker run shanelee007/docker-es-curator-cron
+<pre><code class="language-bash">docker run shanelee007/docker-es-curator-cron  
 </code></pre>
 
 <p>You can mount your own configuration files if you want:  </p>
@@ -166,21 +166,21 @@
 <pre><code class="language-Docker">FROM alpine:latest
 
 
-RUN apk --update add python py-pip &amp;&amp; \
+RUN apk --update add python py-pip &amp;&amp; \  
     pip install elasticsearch-curator &amp;&amp; \
      rm -rf /var/cache/apk/*
 
 ADD entrypoint.sh /entrypoint.sh
 
-WORKDIR /usr/share/curator
+WORKDIR /usr/share/curator  
 COPY config ./config
 
 RUN chmod +x /entrypoint.sh
 
 #run every minute
-ENV CRON */1  *  *  * *
-ENV ES_HOST 127.0.0.1
-ENV CONFIG_FILE /usr/share/curator/config/curator.yml
+ENV CRON */1  *  *  * *  
+ENV ES_HOST 127.0.0.1  
+ENV CONFIG_FILE /usr/share/curator/config/curator.yml  
 ENV COMMAND /usr/share/curator/config/delete_log_files_curator.yml
 
 ENTRYPOINT ["/entrypoint.sh"]
@@ -271,7 +271,7 @@ s.setAttribute('data-timestamp', +new Date());
 
 
         <footer class="site-footer clearfix">
-            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2023</section>
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2026</section>
             <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
         </footer>
 
