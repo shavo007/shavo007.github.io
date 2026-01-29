@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt2</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
+    <link rel="canonical" href="https://blog.shanelee.name/2026/01/26/context-engineering-stop-fighting-your-ai-and-start-shipping-faster-pt2/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="Tech Blog (mainly!)">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt2">
+    <meta property="og:description" content="From Theory to Practice: How the industry is converging on context engineering standards In Part 1, we explored the fundamentals of context engineering—the four pillars, the hybrid model, and why teaching AI once beats fighting it every time. Now let's get practical. In this post, I'll show you:      🏛️ How">
+    <meta property="og:url" content="https://blog.shanelee.name/2026/01/26/context-engineering-stop-fighting-your-ai-and-start-shipping-faster-pt2/">
+    <meta property="og:image" content="https://blog.shanelee.name/content/images/2026/01/context-engineering-part2-hero-2.svg">
+    <meta property="article:published_time" content="2026-01-26T17:47:19.790Z">
+    <meta property="article:modified_time" content="2026-01-29T20:49:22.799Z">
+    <meta property="article:tag" content="ai">
+    <meta property="article:tag" content="copilot">
+    <meta property="article:tag" content="context">
+    <meta property="article:tag" content="agentic">
+    <meta property="article:tag" content="claude">
+    <meta property="article:tag" content="github">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt2">
+    <meta name="twitter:description" content="From Theory to Practice: How the industry is converging on context engineering standards In Part 1, we explored the fundamentals of context engineering—the four pillars, the hybrid model, and why teaching AI once beats fighting it every time. Now let's get practical. In this post, I'll show you:      🏛️ How">
+    <meta name="twitter:url" content="https://blog.shanelee.name/2026/01/26/context-engineering-stop-fighting-your-ai-and-start-shipping-faster-pt2/">
+    <meta name="twitter:image:src" content="https://blog.shanelee.name/content/images/2026/01/context-engineering-part2-hero-2.svg">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shane Lee">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="ai, copilot, context, agentic, claude, github">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Tech Blog (mainly!)",
+        "logo": "https://blog.shanelee.name/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shane Lee",
+        "image": "https://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg",
+        "url": "https://blog.shanelee.name/author/shane/",
+        "sameAs": [
+            "https://about.me/shane-lee"
+        ]
+    },
+    "headline": "Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt2",
+    "url": "https://blog.shanelee.name/2026/01/26/context-engineering-stop-fighting-your-ai-and-start-shipping-faster-pt2/",
+    "datePublished": "2026-01-26T17:47:19.790Z",
+    "dateModified": "2026-01-29T20:49:22.799Z",
+    "image": "https://blog.shanelee.name/content/images/2026/01/context-engineering-part2-hero-2.svg",
+    "keywords": "ai, copilot, context, agentic, claude, github",
+    "description": "From Theory to Practice: How the industry is converging on context engineering standards In Part 1, we explored the fundamentals of context engineering—the four pillars, the hybrid model, and why teaching AI once beats fighting it every time. Now let&#x27;s get practical. In this post, I&#x27;ll show you:      🏛️ How"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.8">
+    <link rel="alternate" type="application/rss+xml" title="Tech Blog (mainly!)" href="https://blog.shanelee.name/rss/">
+    <meta name="google-site-verification" content="dzkjZUDovRImqR_2oGUlteWT1zcgw-r6cqBYef9qiWw">
+<meta name="google-site-verification" content="lojSObDdEFLBM0ok1Yiqy7rqgbc8yAUTyqF5iYszvWA">
+<link rel="preconnect" href="http://shavo007.disqus.com">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128189527-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-128189527-1');
+</script>
+<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2007283184718574",
+    enable_page_level_ads: true
+  });
+</script>
+</head>
+<body class="post-template tag-ai tag-copilot tag-context tag-agentic tag-claude tag-github nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="https://blog.shanelee.name/">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="https://blog.shanelee.name/rss/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head " style="background-image: url(../../../../content/images/2026/01/context-engineering-part2-hero-2.svg)">
+    <nav class="main-nav overlay clearfix">
+        
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post tag-ai tag-copilot tag-context tag-agentic tag-claude tag-github">
+
+        <header class="post-header">
+            <h1 class="post-title">Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt2</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2026-01-26">26 January 2026</time>
+                 on <a href="../../../../tag/ai/">ai</a>, <a href="../../../../tag/copilot/">copilot</a>, <a href="../../../../tag/context/">context</a>, <a href="../../../../tag/agentic/">agentic</a>, <a href="../../../../tag/claude/">claude</a>, <a href="../../../../tag/github/">github</a>
+                ,
+
+                <!--<li class="post-meta-item">-->
+                    <a href="index.html#disqus_thread"></a>
+                <!--</li>-->
+                <!--<a href="#disqus_thread"/>-->
+            </section>
+        </header>
+
+        <section class="post-content">
+
+            <p><strong>From Theory to Practice: How the industry is converging on context engineering standards</strong></p>
+
+<hr>
+
+<p>In <a href="../../25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/">Part 1</a>, we explored the fundamentals of context engineering—the four pillars, the hybrid model, and why teaching AI once beats fighting it every time.</p>
+
+<p>Now let's get practical. In this post, I'll show you:</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">🏛️ How the <strong>Agentic AI Foundation</strong> validates this approach</li>
+  <li style="padding: 8px 0;">📋 Why <strong>AGENTS.md</strong> is becoming the new standard</li>
+  <li style="padding: 8px 0;">🚀 A real case study: <strong>98% cost reduction</strong> on Spring Boot 4.0 migrations</li>
+</ul>
+
+<hr>
+
+<h2 id="theagenticaifoundationindustryconvergence">🏛️ The Agentic AI Foundation: Industry Convergence</h2>
+
+<p>Something significant happened in December 2025. The <strong>Agentic AI Foundation</strong> was announced—a directed fund under the Linux Foundation ensuring agentic AI evolves transparently and collaboratively.</p>
+
+<p>The founding members might surprise you:</p>
+
+<table style="width:100%; border-collapse: collapse; margin: 1.5em 0;">  
+  <thead>
+    <tr style="background-color: #f4f4f4;">
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Company</th>
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Contribution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Anthropic</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Model Context Protocol (MCP)</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">OpenAI</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">AGENTS.md specification</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px;">Block</td>
+      <td style="padding: 12px;">Goose autonomous agent</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Supporting members include <strong>Google</strong>, <strong>Microsoft</strong>, <strong>AWS</strong>, <strong>Cloudflare</strong>, and <strong>Bloomberg</strong>.</p>
+
+<blockquote>
+  <p>💡 <strong>The key insight:</strong> The industry is converging on the same patterns I covered in Part 1. AAIF formalises what forward-thinking teams have already been doing.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="thethreecorecontributions">📋 The Three Core Contributions</h2>
+
+<h3 id="agentsmdfromopenai">AGENTS.md (from OpenAI)</h3>
+
+<p>A standardised format for AI agent instructions—think of it as a <strong>"README for AI agents"</strong>.</p>
+
+<pre><code class="language-markdown"># AGENTS.md
+
+## Dev environment tips
+- Use `pnpm install` for dependencies
+- Run `pnpm dev` for local development
+
+## Testing instructions
+- Run `pnpm test` before committing
+- Ensure 80% coverage minimum
+
+## PR instructions
+- Title format: [JIRA-123] Description
+- Always run linting before push
+</code></pre>
+
+<p>This maps directly to the <strong>Instructions pillar</strong> from Part 1. The difference? Now it's an open standard adopted across the industry.</p>
+
+<hr>
+
+<h3 id="mcpfromanthropic">MCP (from Anthropic)</h3>
+
+<p>The Model Context Protocol is the <strong>"USB-C for AI tools"</strong>—an open standard for connecting AI to external systems.</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">📊 <strong>10,000+</strong> active MCP servers</li>
+  <li style="padding: 8px 0;">📦 <strong>97M+</strong> monthly SDK downloads</li>
+  <li style="padding: 8px 0;">🔧 Adopted by VS Code, Cursor, ChatGPT, Gemini</li>
+</ul>
+
+<p>This is the <strong>MCPs pillar</strong> formalised. Instead of copying documentation into prompts (which gets stale), MCP gives AI direct access to authoritative, always-current sources.</p>
+
+<hr>
+
+<h3 id="goosefromblock">Goose (from Block)</h3>
+
+<p>An open-source autonomous AI agent that <strong>"actually does the work"</strong>.</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">🏗️ Builds entire projects</li>
+  <li style="padding: 8px 0;">🐛 Executes and debugs code</li>
+  <li style="padding: 8px 0;">🔌 Native MCP integration</li>
+  <li style="padding: 8px 0;">⭐ <strong>24.8k+</strong> GitHub stars</li>
+</ul>
+
+<p>This maps to the <strong>Custom Agents pillar</strong>—role-based AI behaviour for different tasks.</p>
+
+<hr>
+
+<h2 id="mappingaaiftothefourpillars">🗺️ Mapping AAIF to the Four Pillars</h2>
+
+<p>Here's how the Agentic AI Foundation contributions extend the framework from Part 1:</p>
+
+<table style="width:100%; border-collapse: collapse; margin: 1.5em 0;">  
+  <thead>
+    <tr style="background-color: #f4f4f4;">
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Pillar</th>
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Implementation</th>
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">AAIF Contribution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">📜 Instructions</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">.github/instructions/*.md</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">AGENTS.md - Standardised format</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">🎭 Custom Agents</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">.github/agents/*.agent.md</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Goose profiles &amp; extensions</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">📝 Prompts</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">.github/prompts/*.md</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">AGENTS.md task guidance</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px;">🔌 MCPs</td>
+      <td style="padding: 12px;">mcp.json configuration</td>
+      <td style="padding: 12px;">MCP - Official protocol</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2 id="agentskillsportablecapabilities">🛠️ Agent Skills: Portable Capabilities</h2>
+
+<p>In December 2025, Anthropic published <strong>Agent Skills</strong> as an open standard—folders of instructions, scripts, and resources that agents can discover and use.</p>
+
+<pre><code class="language-yaml">---
+name: spring-boot-migration  
+description: Migrates Spring Boot 3.x apps  
+  to 4.0 with dependency modularisation,
+  Jackson 3 updates, and Jakarta EE 11.
+license: Apache-2.0  
+metadata:  
+  author: your-name
+  version: "1.0"
+---
+
+## Instructions
+1. Analyze current dependencies...  
+2. Update starter modules...
+
+## References
+See [migration guide](references/GUIDE.md)  
+</code></pre>
+
+<p>Skills enable:</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">🧠 <strong>Domain Expertise</strong> - Package specialized knowledge into reusable instructions</li>
+  <li style="padding: 8px 0;">🔄 <strong>Interoperability</strong> - Reuse the same skill across different agent products</li>
+  <li style="padding: 8px 0;">⚡ <strong>New Capabilities</strong> - Give agents abilities like creating presentations or analysing datasets</li>
+  <li style="padding: 8px 0;">✅ <strong>Repeatable Workflows</strong> - Turn multi-step tasks into consistent, auditable workflows</li>
+</ul>
+
+<p>Adopted by: <strong>Cursor</strong>, <strong>VS Code</strong>, <strong>GitHub</strong>, <strong>Claude Code</strong>, <strong>Goose</strong>, <strong>OpenAI Codex</strong>, and <strong>Factory</strong>.</p>
+
+<hr>
+
+<h2 id="casestudyspringboot40migration">📖 Case Study: Spring Boot 4.0 Migration</h2>
+
+<p>Let me show you context engineering in action with a real migration project.</p>
+
+<p><img src="../../../../content/images/2026/01/migration-approach-comparison-1.svg" alt="Migration Approach Comparison"></p>
+
+<h3 id="themetainstructionpattern">The Meta-Instruction Pattern</h3>
+
+<p>I used a <strong>meta-instruction pattern</strong>—having AI generate the migration instructions, then use those same instructions to execute the migration.</p>
+
+<p>The secret weapon? The <a href="https://github.com/github/awesome-copilot/blob/main/instructions/instructions.instructions.md">instructions.instructions.md</a> file from the <strong>awesome-copilot</strong> repository—a meta-instruction that teaches AI how to write high-quality instructions.</p>
+
+<p><strong>Phase 1: Generate Migration Instructions (5 minutes)</strong></p>
+
+<pre><code>Using #file:instructions.instructions.md  
+and examples like  
+#file:java-21-to-java-25-upgrade.instructions.md
+
+I want to define new instructions for  
+Spring Boot 4 migration guide.
+
+You can find the guide here:  
+https://github.com/spring-projects/  
+spring-boot/wiki/  
+Spring-Boot-4.0-Migration-Guide
+
+User Feedback:  
+"Can focus on gradle and kotlin
+as that is what we mostly use"  
+</code></pre>
+
+<p>What the AI does: <br>
+1. Fetches official Spring Boot 4.0 guide <br>
+2. Analyzes existing instruction patterns <br>
+3. Extracts key migration themes <br>
+4. Incorporates project preferences (Gradle/Kotlin) <br>
+5. Generates <code>springboot-4-migration.instructions.md</code></p>
+
+<p><strong>Result:</strong> 1,400+ line comprehensive migration guide created in 3 minutes.</p>
+
+<hr>
+
+<p><strong>Phase 2: Execute Migration (10 minutes)</strong></p>
+
+<pre><code>Migrate this project to Spring Boot 4.0  
+using the generated instructions in  
+#file:springboot-4-migration.instructions.md
+</code></pre>
+
+<p>What Plan Agent Mode does:</p>
+
+<pre><code>✅ Read migration instructions
+✅ Analyze current pom.xml
+✅ Update dependencies:
+   spring-boot-starter-web →
+   spring-boot-starter-webmvc
+✅ Add spring-boot-starter-webmvc-test
+✅ Verify Jackson property paths
+✅ Run: ./mvnw clean compile
+✅ BUILD SUCCESS
+</code></pre>
+
+<blockquote>
+  <p>🎯 <strong>The key innovation:</strong> AI generates the migration guide... then AI uses that guide to execute the migration.</p>
+</blockquote>
+
+<hr>
+
+<h3 id="givingbacktoopensource">Giving Back to Open Source</h3>
+
+<p><img src="../../../../content/images/2026/01/open-source-contribution-banner-1.svg" alt="Open Source Contribution - Spring Boot 4 Migration Guide merged to awesome-copilot"></p>
+
+<p>The Spring Boot 4.0 migration instructions I generated have been <strong>contributed back to the community</strong>. You can use them right now in your own projects—no need to recreate the wheel.</p>
+
+<hr>
+
+<h3 id="theroi98costreduction">The ROI: 98% Cost Reduction</h3>
+
+<p><img src="../../../../content/images/2026/01/roi-cost-reduction.svg" alt="ROI Comparison - 98% Cost Reduction from Traditional to Agentic Approach"></p>
+
+<p>The numbers speak for themselves. What used to cost $20,000 across 10 applications now costs $350—and you get better quality with zero errors.</p>
+
+<hr>
+
+<h2 id="thedevelopersroleevolves">👨‍💻 The Developer's Role Evolves</h2>
+
+<p>This isn't about replacing developers. It's about changing what we do.</p>
+
+<p><img src="../../../../content/images/2026/01/developer-role-evolution.svg" alt="The Developer's Role Evolves - From Manual Executor to Strategic Orchestrator"></p>
+
+<p>The shift is clear: fewer repetitive tasks, more strategic thinking. AI handles the implementation grind while you focus on what matters—architecture, requirements, and business value.</p>
+
+<hr>
+
+<h2 id="validationfromthesource">🎓 Validation from the Source</h2>
+
+<p>Here's something that caught my attention. Boris Cherny, the creator of Claude Code at Anthropic, shared his actual workflow on X:</p>
+
+<p><img src="../../../../content/images/2026/01/boris-cherny-tweet-1.png" alt="Boris Cherny tweet about Claude Code - " there is no one correct way to use claude code: we intentionally build it in a that you can customize and hack however like.></p>
+
+<p>What's fascinating is how his practices map directly to the context engineering pillars:</p>
+
+<table style="width:100%; border-collapse: collapse; margin: 1.5em 0;">  
+  <thead>
+    <tr style="background-color: #f4f4f4;">
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">His Practice</th>
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Context Engineering</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">CLAUDE.md</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">AGENTS.md</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Subagents</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Chatmodes / Agents</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Slash commands</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Prompts</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px;">Verification loops</td>
+      <td style="padding: 12px;">Shift-left testing</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>💡 <strong>"Every mistake becomes a rule."</strong> — Boris Cherny</p>
+  
+  <p>💰 On using Opus (the best model): <strong>"Paying the 'compute tax' upfront eliminates the 'correction tax' later."</strong></p>
+</blockquote>
+
+<p>The exact same patterns work in production at one of the world's leading AI companies. Independent validation that this approach works at scale.</p>
+
+<hr>
+
+<h2 id="gettingstarted">🚀 Getting Started</h2>
+
+<h3 id="essentialmcpconfiguration">Essential MCP Configuration</h3>
+
+<p>Here's a practical MCP setup for local development:</p>
+
+<pre><code class="language-json">{
+  "servers": {
+    "atlassian/atlassian-mcp-server": {
+      "type": "stdio",
+      "command": "pnpm",
+      "args": ["dlx", "mcp-remote",
+        "https://mcp.atlassian.com/v1/sse"]
+    },
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/"
+    },
+    "context7": {
+      "type": "stdio",
+      "command": "pnpm",
+      "args": ["dlx", "@upstash/context7-mcp@latest"]
+    }
+  }
+}
+</code></pre>
+
+<p><strong>What this enables:</strong></p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">📋 <strong>Atlassian MCP</strong> - Query Jira issues, search Confluence, create tickets from chat</li>
+  <li style="padding: 8px 0;">🐙 <strong>GitHub MCP</strong> - Search repositories, read files, create pull requests</li>
+  <li style="padding: 8px 0;">📚 <strong>Context7 MCP</strong> - Fetch latest library documentation, always up-to-date API references</li>
+</ul>
+
+<hr>
+
+<h3 id="theawesomecopilotrepository">The Awesome Co-Pilot Repository</h3>
+
+<p>The <a href="https://github.com/github/awesome-copilot">awesome-copilot</a> repository is <mark>a goldmine for context engineering</mark>. It's a community-driven collection of <strong>163+ instruction files</strong> covering virtually every technology stack you might work with.</p>
+
+<p><strong>What's inside:</strong></p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">💻 <strong>Programming languages</strong> - Python, Java, TypeScript, Go, Rust, and more</li>
+  <li style="padding: 8px 0;">🔧 <strong>Frameworks</strong> - React, Vue, Spring Boot, Django, FastAPI</li>
+  <li style="padding: 8px 0;">☁️ <strong>Infrastructure</strong> - Terraform, Docker, Kubernetes, GitHub Actions</li>
+  <li style="padding: 8px 0;">🔒 <strong>Security</strong> - OWASP standards, secure coding practices</li>
+</ul>
+
+<p><strong>The meta-instruction magic:</strong></p>
+
+<p>The real power comes from <a href="https://github.com/github/awesome-copilot/blob/main/instructions/instructions.instructions.md">instructions.instructions.md</a>—<mark>a meta-instruction that teaches AI how to write high-quality instructions</mark>. It defines:</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">📋 <strong>Required frontmatter structure</strong> - Description and file pattern matching</li>
+  <li style="padding: 8px 0;">📝 <strong>Organized content sections</strong> - Guidelines, best practices, code standards</li>
+  <li style="padding: 8px 0;">✅ <strong>Concrete examples</strong> - Both recommended and discouraged approaches</li>
+  <li style="padding: 8px 0;">🧪 <strong>Validation requirements</strong> - Build commands, linting, testing steps</li>
+</ul>
+
+<p><mark>This is the bootstrap for context engineering</mark>—use it to generate domain-specific instructions for your own projects, then use those instructions to guide AI through complex tasks.</p>
+
+<hr>
+
+<h2 id="resources">🔗 Resources</h2>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">🛠️ <strong>awesome-copilot MCP Server</strong> - <a href="https://github.com/github/awesome-copilot">github.com/github/awesome-copilot</a></li>
+  <li style="padding: 8px 0;">🍃 <strong>Agent Skills Specification</strong> - <a href="https://github.com/anthropics/agent-skills">github.com/anthropics/agent-skills</a></li>
+  <li style="padding: 8px 0;">📖 <strong>Official Spring Boot 4.0 Migration Guide</strong> - <a href="https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-4.0-Migration-Guide">Spring Boot Wiki</a></li>
+  <li style="padding: 8px 0;">🏛️ <strong>Agentic AI Foundation</strong> - <a href="https://agenticaifoundation.org">agenticaifoundation.org</a></li>
+</ul>
+
+<hr>
+
+<h2 id="keytakeaways">🎯 Key Takeaways</h2>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">1️⃣ <strong>AAIF validates the approach</strong> - The industry is standardising on context engineering</li>
+  <li style="padding: 8px 0;">2️⃣ <strong>AGENTS.md standardises instructions</strong> - One format, every agent</li>
+  <li style="padding: 8px 0;">3️⃣ <strong>Meta-instructions accelerate adoption</strong> - Have AI generate the guides, then use them</li>
+  <li style="padding: 8px 0;">4️⃣ <strong>98% cost reduction is achievable</strong> - This isn't theoretical, it's measured</li>
+</ul>
+
+<blockquote>
+  <p>✨ <strong>The future isn't about better prompts. It's about better context.</strong></p>
+</blockquote>
+        </section>
+
+        <!-- disqus code snippet -->
+        <div id="disqus_thread"></div>
+        <script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+this.page.url = 'https://blog.shanelee.name/2026/01/26/context-engineering-stop-fighting-your-ai-and-start-shipping-faster-pt2/'; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'ghost-33'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//shavo007.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        <script id="dsq-count-scr" src="http://shavo007.disqus.com/count.js" async></script>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../../../../author/shane/" style="background-image: url(http://127.0.0.1:2368/content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../../../../author/shane/">Shane Lee</a></h4>
+
+                    <p>Read <a href="../../../../author/shane/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    <span class="author-location icon-location">Melbourne</span>
+                    <span class="author-link icon-link"><a href="https://about.me/shane-lee">https://about.me/shane-lee</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Context%20Engineering%3A%20Stop%20Fighting%20Your%20AI%20and%20Start%20Shipping%20Faster%20Pt2&amp;url=https://blog.shanelee.name/2026/01/26/context-engineering-stop-fighting-your-ai-and-start-shipping-faster-pt2/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.shanelee.name/2026/01/26/context-engineering-stop-fighting-your-ai-and-start-shipping-faster-pt2/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://blog.shanelee.name/2026/01/26/context-engineering-stop-fighting-your-ai-and-start-shipping-faster-pt2/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+
+    </article>
+</main>
+
+
+
+<aside class="read-next">
+    <a class="read-next-story prev " style="background-image: url(http://127.0.0.1:2368/content/images/2026/01/hero-image.png)" href="../../25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/">
+        <section class="post">
+            <h2>Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt1</h2>
+            <p>How I went from repeating instructions every conversation to having AI that actually understands my codebase Let me ask…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2026</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-coy.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-graphql.min.js"></script>
+<!-- Add additional languages here -->
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/prism.js"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1f35;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2d1f47;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1f35;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#fcd34d;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fbbf24;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#34d399;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="200" fill="url(#bgGrad)" rx="12"/>
+
+  <!-- Decorative stars/sparkles -->
+  <g fill="#fbbf24" opacity="0.6">
+    <polygon points="50,30 52,36 58,36 53,40 55,46 50,42 45,46 47,40 42,36 48,36" transform="scale(0.8)"/>
+    <polygon points="750,25 752,31 758,31 753,35 755,41 750,37 745,41 747,35 742,31 748,31" transform="scale(0.7)"/>
+    <polygon points="100,160 102,166 108,166 103,170 105,176 100,172 95,176 97,170 92,166 98,166" transform="scale(0.6)"/>
+    <polygon points="700,150 702,156 708,156 703,160 705,166 700,162 695,166 697,160 692,156 698,156" transform="scale(0.7)"/>
+    <polygon points="180,50 182,56 188,56 183,60 185,66 180,62 175,66 177,60 172,56 178,56" transform="scale(0.5)"/>
+    <polygon points="620,45 622,51 628,51 623,55 625,61 620,57 615,61 617,55 612,51 618,51" transform="scale(0.5)"/>
+  </g>
+
+  <!-- Celebration emoji/icon area -->
+  <text x="80" y="110" font-size="50" text-anchor="middle">🎉</text>
+
+  <!-- Main content -->
+  <g font-family="system-ui, -apple-system, sans-serif">
+    <!-- Title -->
+    <text x="400" y="55" font-size="24" font-weight="bold" text-anchor="middle" fill="url(#goldGrad)" filter="url(#glow)">Open Source Contribution</text>
+
+    <!-- Merged badge -->
+    <rect x="320" y="68" width="160" height="26" rx="13" fill="#8b5cf6"/>
+    <text x="400" y="86" font-size="13" font-weight="bold" text-anchor="middle" fill="white">✓ MERGED</text>
+
+    <!-- Description -->
+    <text x="400" y="125" font-size="16" text-anchor="middle" fill="#e2e8f0">These migration instructions are now available to everyone!</text>
+
+    <!-- Link -->
+    <rect x="225" y="140" width="350" height="36" rx="8" fill="#1e293b" stroke="#6366f1" stroke-width="2"/>
+    <text x="255" y="163" font-size="13" fill="#a5b4fc">github.com/github/awesome-copilot/pull/435</text>
+
+    <!-- GitHub icon (simplified) -->
+    <circle cx="720" cy="100" r="35" fill="#1e293b" stroke="#4b5563" stroke-width="2"/>
+    <text x="720" y="115" font-size="40" text-anchor="middle">🐙</text>
+  </g>
+
+  <!-- Subtle confetti dots -->
+  <g opacity="0.4">
+    <circle cx="150" cy="40" r="4" fill="#ec4899"/>
+    <circle cx="650" cy="35" r="3" fill="#10b981"/>
+    <circle cx="200" cy="170" r="3" fill="#6366f1"/>
+    <circle cx="600" cy="165" r="4" fill="#f59e0b"/>
+    <circle cx="250" cy="60" r="2" fill="#3b82f6"/>
+    <circle cx="550" cy="55" r="3" fill="#ec4899"/>
+  </g>
+</svg>

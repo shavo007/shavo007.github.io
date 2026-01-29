@@ -118,7 +118,7 @@
         
 
 
-<header class="main-header post-head " style="background-image: url(../../../../content/images/2018/01/robert-larsson-64547-1.jpg)">
+<header class="main-header post-head " style="background-image: url(http://127.0.0.1:2368/content/images/2018/01/robert-larsson-64547-1.jpg)">
     <nav class="main-nav overlay clearfix">
         
             <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
@@ -148,7 +148,7 @@
 
 <p>The solution I have used in the past for logging in kubernetes clusters is EFK (Elastic-Fluentd-Kibana). Alot of you have probably heard of ELK stack but I find that logstash is more heavyweight and does not provide the same output plugins as fluentd.</p>
 
-<p><img alt="Elasticsearch" src="../../../../content/images/2017/12/icon-elasticsearch-bb-1.svg" style="width: 300px; height:300px"></p>
+<p><img alt="Elasticsearch" src="http://127.0.0.1:2368/content/images/2017/12/icon-elasticsearch-bb-1.svg" style="width: 300px; height:300px"></p>
 
 <h2 id="elasticsearch">Elasticsearch</h2>
 
@@ -174,7 +174,7 @@
 
 <h2 id="fluentd">FluentD</h2>
 
-<p><img src="../../../../content/images/2017/12/container_logging-1024x536.png" alt=""></p>
+<p><img src="http://127.0.0.1:2368/content/images/2017/12/container_logging-1024x536.png" alt=""></p>
 
 <p>Fluentd is an open-source framework for data collection that unifies the collection and consumption of data in a pluggable manner. There are several producer and consumer loggers for various kinds of applications. It has a huge suite of <a href="https://www.fluentd.org/plugins">plugins</a> to choose from. </p>
 
@@ -186,7 +186,7 @@
 
 <h2 id="whatsmissinggeo">Whats missing - Geo</h2>
 
-<p><img src="../../../../content/images/2017/12/joao-silas-72562.jpg" alt=""></p>
+<p><img src="http://127.0.0.1:2368/content/images/2017/12/joao-silas-72562.jpg" alt=""></p>
 
 <p>I found with the examples online for fluentd daesmonset there was none that supported <strong>geoip</strong>. Coreos offering and fluentd official kubernetes daemonset do not provide this feature. </p>
 
@@ -308,19 +308,19 @@ data:
 
 <h2 id="kibana">Kibana</h2>
 
-<p><img alt="Kibana" src="../../../../content/images/2017/12/icon-kibana-bb.svg" style="width: 300px; height:300px"></p>
+<p><img alt="Kibana" src="http://127.0.0.1:2368/content/images/2017/12/icon-kibana-bb.svg" style="width: 300px; height:300px"></p>
 
 <p>Now access kibana - GUI for elasticsearch</p>
 
 <p>You should now see your logs ingested in elasticsearch. </p>
 
-<p><img src="../../../../content/images/2017/12/Screen-Shot-2017-12-26-at-3-10-18-pm.png" alt=""></p>
+<p><img src="http://127.0.0.1:2368/content/images/2017/12/Screen-Shot-2017-12-26-at-3-10-18-pm.png" alt=""></p>
 
 <h3 id="tilemapvisualization">Tile map visualization</h3>
 
 <p>There is a limitation with managed service and tile map view. I customized the settings to use WMS compliant map server. See below:</p>
 
-<p><img src="../../../../content/images/2017/12/Screen-Shot-2017-12-26-at-3-14-43-pm.png" alt=""></p>
+<p><img src="http://127.0.0.1:2368/content/images/2017/12/Screen-Shot-2017-12-26-at-3-14-43-pm.png" alt=""></p>
 
 <p>Once you pick the pattern, and assuming your geopoints are correctly mapped, Kibana will automatically populate the visualisation settings such as which field to aggregate on, and display the map almost instantly.</p>
 
@@ -328,7 +328,7 @@ data:
 
 <p>This includes multiple visualizations and a dashboard.</p>
 
-<p><img src="../../../../content/images/2017/12/Screen-Shot-2017-12-17-at-11-47-26-am.png" alt=""></p>
+<p><img src="http://127.0.0.1:2368/content/images/2017/12/Screen-Shot-2017-12-17-at-11-47-26-am.png" alt=""></p>
 
 <h4 id="inaccurategeolocation">Inaccurate Geolocation</h4>
 
@@ -338,7 +338,7 @@ data:
 
 <p>You can build up more widgets, such as url count or count by country.</p>
 
-<p><img src="../../../../content/images/2017/12/Screen-Shot-2017-12-26-at-3-43-45-pm.png" alt=""></p>
+<p><img src="http://127.0.0.1:2368/content/images/2017/12/Screen-Shot-2017-12-26-at-3-43-45-pm.png" alt=""></p>
 
 <h2 id="cleanupoflogindices">Cleanup of log indices</h2>
 
@@ -378,7 +378,7 @@ s.setAttribute('data-timestamp', +new Date());
 
 
             <figure class="author-image">
-                <a class="img" href="../../../../author/shane/" style="background-image: url(../../../../content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
+                <a class="img" href="../../../../author/shane/" style="background-image: url(http://127.0.0.1:2368/content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
             </figure>
 
             <section class="author">
@@ -414,7 +414,7 @@ s.setAttribute('data-timestamp', +new Date());
 
 
 <aside class="read-next">
-    <a class="read-next-story " style="background-image: url(../../../../content/images/2018/08/joseph-barrientos-93565.jpg)" href="../../../../2018/02/03/test-drive-heptio-sonobuoy-diagnostic-kubernetes-tool/">
+    <a class="read-next-story " style="background-image: url(http://127.0.0.1:2368/content/images/2018/08/joseph-barrientos-93565.jpg)" href="../../../../2018/02/03/test-drive-heptio-sonobuoy-diagnostic-kubernetes-tool/">
         <section class="post">
             <h2>Test drive heptio sonobuoy diagnostic kubernetes tool</h2>
             <p>Heptio Sonobuoy is a diagnostic tool that makes it easier to understand the state of a Kubernetes cluster by…</p>

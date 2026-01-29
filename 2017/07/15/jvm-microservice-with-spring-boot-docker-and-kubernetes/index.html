@@ -141,7 +141,7 @@
 
 <p>Over the last two weeks I have been playing with kubernetes. I have extensive experience building microservices and below I will demonstrate how to build a microservice, contain it using docker and deploy on kubernetes.</p>
 
-<p><img src="../../../../content/images/2017/07/kubernetes.png" alt="Kubernetes"></p>
+<p><img src="http://127.0.0.1:2368/content/images/2017/07/kubernetes.png" alt="Kubernetes"></p>
 
 <h2 id="creatingamicroserviceprojectusingspringboot">Creating a microservice project using spring boot</h2>
 
@@ -157,7 +157,7 @@
 We define <strong>name.shanelee</strong> as Group (if applicable) and define the artifact name. From here you can choose whatever dependencies you need for your microservice. We use <strong>Web</strong> for supporting tomcat and restful API. <br>
  <strong>Actuator</strong> dependency which implements some production-grade features useful for monitoring and managing our application like health-checks and HTTP requests traces.</p>
 
-<p><img src="../../../../content/images/2017/07/Screen-Shot-2017-07-15-at-2-25-28-pm.png" alt="Spring boot"></p>
+<p><img src="http://127.0.0.1:2368/content/images/2017/07/Screen-Shot-2017-07-15-at-2-25-28-pm.png" alt="Spring boot"></p>
 
 <p>Spring Initializr has already created everything for us. We just need to have a Java JDK 1.8 or later installed on our machine and the JAVA_HOME environment variable set accordingly.</p>
 
@@ -210,7 +210,7 @@ As I will be using <strong>kubernetes</strong>, I will define a daemonset loggin
 
 <h3 id="daemonsetandfluentd">Daemonset and Fluentd</h3>
 
-<p><img src="../../../../content/images/2017/07/kubernetes-elastic-fluentd.png" alt="FluentD"></p>
+<p><img src="http://127.0.0.1:2368/content/images/2017/07/kubernetes-elastic-fluentd.png" alt="FluentD"></p>
 
 <p>A <strong>DaemonSet</strong> ensures that a certain pod is scheduled to each kubelet exactly once. The <strong>fluentd</strong> pod mounts the <code>/var/lib/containers/</code> host volume to access the logs of all pods scheduled to that <strong>kubelet</strong></p>
 
@@ -503,7 +503,7 @@ s.setAttribute('data-timestamp', +new Date());
 
 
             <figure class="author-image">
-                <a class="img" href="../../../../author/shane/" style="background-image: url(../../../../content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
+                <a class="img" href="../../../../author/shane/" style="background-image: url(http://127.0.0.1:2368/content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
             </figure>
 
             <section class="author">

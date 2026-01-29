@@ -1,4 +1,420 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog (mainly!)]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>https://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Sun, 25 Jan 2026 17:49:07 GMT</lastBuildDate><atom:link href="https://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt1]]></title><description><![CDATA[<p><strong>How I went from repeating instructions every conversation to having AI that actually understands my codebase</strong></p>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog (mainly!)]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>https://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Thu, 29 Jan 2026 20:50:18 GMT</lastBuildDate><atom:link href="https://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt2]]></title><description><![CDATA[<p><strong>From Theory to Practice: How the industry is converging on context engineering standards</strong></p>
+
+<hr>
+
+<p>In <a href="https://blog.shanelee.name/2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/">Part 1</a>, we explored the fundamentals of context engineering—the four pillars, the hybrid model, and why teaching AI once beats fighting it every time.</p>
+
+<p>Now let's get practical. In this post, I'll show you:</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">🏛️ How</li></ul>]]></description><link>https://blog.shanelee.name/2026/01/26/context-engineering-stop-fighting-your-ai-and-start-shipping-faster-pt2/</link><guid isPermaLink="false">a1534f8b-650d-4928-86e2-dbcab2a19dec</guid><category><![CDATA[ai]]></category><category><![CDATA[copilot]]></category><category><![CDATA[context]]></category><category><![CDATA[agentic]]></category><category><![CDATA[claude]]></category><category><![CDATA[github]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Mon, 26 Jan 2026 17:47:19 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2026/01/context-engineering-part2-hero-2.svg" medium="image"/><content:encoded><![CDATA[<img src="https://blog.shanelee.name/content/images/2026/01/context-engineering-part2-hero-2.svg" alt="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt2"><p><strong>From Theory to Practice: How the industry is converging on context engineering standards</strong></p>
+
+<hr>
+
+<p>In <a href="https://blog.shanelee.name/2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/">Part 1</a>, we explored the fundamentals of context engineering—the four pillars, the hybrid model, and why teaching AI once beats fighting it every time.</p>
+
+<p>Now let's get practical. In this post, I'll show you:</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">🏛️ How the <strong>Agentic AI Foundation</strong> validates this approach</li>
+  <li style="padding: 8px 0;">📋 Why <strong>AGENTS.md</strong> is becoming the new standard</li>
+  <li style="padding: 8px 0;">🚀 A real case study: <strong>98% cost reduction</strong> on Spring Boot 4.0 migrations</li>
+</ul>
+
+<hr>
+
+<h2 id="theagenticaifoundationindustryconvergence">🏛️ The Agentic AI Foundation: Industry Convergence</h2>
+
+<p>Something significant happened in December 2025. The <strong>Agentic AI Foundation</strong> was announced—a directed fund under the Linux Foundation ensuring agentic AI evolves transparently and collaboratively.</p>
+
+<p>The founding members might surprise you:</p>
+
+<table style="width:100%; border-collapse: collapse; margin: 1.5em 0;">  
+  <thead>
+    <tr style="background-color: #f4f4f4;">
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Company</th>
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Contribution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Anthropic</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Model Context Protocol (MCP)</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">OpenAI</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">AGENTS.md specification</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px;">Block</td>
+      <td style="padding: 12px;">Goose autonomous agent</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Supporting members include <strong>Google</strong>, <strong>Microsoft</strong>, <strong>AWS</strong>, <strong>Cloudflare</strong>, and <strong>Bloomberg</strong>.</p>
+
+<blockquote>
+  <p>💡 <strong>The key insight:</strong> The industry is converging on the same patterns I covered in Part 1. AAIF formalises what forward-thinking teams have already been doing.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="thethreecorecontributions">📋 The Three Core Contributions</h2>
+
+<h3 id="agentsmdfromopenai">AGENTS.md (from OpenAI)</h3>
+
+<p>A standardised format for AI agent instructions—think of it as a <strong>"README for AI agents"</strong>.</p>
+
+<pre><code class="language-markdown"># AGENTS.md
+
+## Dev environment tips
+- Use `pnpm install` for dependencies
+- Run `pnpm dev` for local development
+
+## Testing instructions
+- Run `pnpm test` before committing
+- Ensure 80% coverage minimum
+
+## PR instructions
+- Title format: [JIRA-123] Description
+- Always run linting before push
+</code></pre>
+
+<p>This maps directly to the <strong>Instructions pillar</strong> from Part 1. The difference? Now it's an open standard adopted across the industry.</p>
+
+<hr>
+
+<h3 id="mcpfromanthropic">MCP (from Anthropic)</h3>
+
+<p>The Model Context Protocol is the <strong>"USB-C for AI tools"</strong>—an open standard for connecting AI to external systems.</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">📊 <strong>10,000+</strong> active MCP servers</li>
+  <li style="padding: 8px 0;">📦 <strong>97M+</strong> monthly SDK downloads</li>
+  <li style="padding: 8px 0;">🔧 Adopted by VS Code, Cursor, ChatGPT, Gemini</li>
+</ul>
+
+<p>This is the <strong>MCPs pillar</strong> formalised. Instead of copying documentation into prompts (which gets stale), MCP gives AI direct access to authoritative, always-current sources.</p>
+
+<hr>
+
+<h3 id="goosefromblock">Goose (from Block)</h3>
+
+<p>An open-source autonomous AI agent that <strong>"actually does the work"</strong>.</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">🏗️ Builds entire projects</li>
+  <li style="padding: 8px 0;">🐛 Executes and debugs code</li>
+  <li style="padding: 8px 0;">🔌 Native MCP integration</li>
+  <li style="padding: 8px 0;">⭐ <strong>24.8k+</strong> GitHub stars</li>
+</ul>
+
+<p>This maps to the <strong>Custom Agents pillar</strong>—role-based AI behaviour for different tasks.</p>
+
+<hr>
+
+<h2 id="mappingaaiftothefourpillars">🗺️ Mapping AAIF to the Four Pillars</h2>
+
+<p>Here's how the Agentic AI Foundation contributions extend the framework from Part 1:</p>
+
+<table style="width:100%; border-collapse: collapse; margin: 1.5em 0;">  
+  <thead>
+    <tr style="background-color: #f4f4f4;">
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Pillar</th>
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Implementation</th>
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">AAIF Contribution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">📜 Instructions</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">.github/instructions/*.md</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">AGENTS.md - Standardised format</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">🎭 Custom Agents</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">.github/agents/*.agent.md</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Goose profiles & extensions</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">📝 Prompts</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">.github/prompts/*.md</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">AGENTS.md task guidance</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px;">🔌 MCPs</td>
+      <td style="padding: 12px;">mcp.json configuration</td>
+      <td style="padding: 12px;">MCP - Official protocol</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2 id="agentskillsportablecapabilities">🛠️ Agent Skills: Portable Capabilities</h2>
+
+<p>In December 2025, Anthropic published <strong>Agent Skills</strong> as an open standard—folders of instructions, scripts, and resources that agents can discover and use.</p>
+
+<pre><code class="language-yaml">---
+name: spring-boot-migration  
+description: Migrates Spring Boot 3.x apps  
+  to 4.0 with dependency modularisation,
+  Jackson 3 updates, and Jakarta EE 11.
+license: Apache-2.0  
+metadata:  
+  author: your-name
+  version: "1.0"
+---
+
+## Instructions
+1. Analyze current dependencies...  
+2. Update starter modules...
+
+## References
+See [migration guide](references/GUIDE.md)  
+</code></pre>
+
+<p>Skills enable:</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">🧠 <strong>Domain Expertise</strong> - Package specialized knowledge into reusable instructions</li>
+  <li style="padding: 8px 0;">🔄 <strong>Interoperability</strong> - Reuse the same skill across different agent products</li>
+  <li style="padding: 8px 0;">⚡ <strong>New Capabilities</strong> - Give agents abilities like creating presentations or analysing datasets</li>
+  <li style="padding: 8px 0;">✅ <strong>Repeatable Workflows</strong> - Turn multi-step tasks into consistent, auditable workflows</li>
+</ul>
+
+<p>Adopted by: <strong>Cursor</strong>, <strong>VS Code</strong>, <strong>GitHub</strong>, <strong>Claude Code</strong>, <strong>Goose</strong>, <strong>OpenAI Codex</strong>, and <strong>Factory</strong>.</p>
+
+<hr>
+
+<h2 id="casestudyspringboot40migration">📖 Case Study: Spring Boot 4.0 Migration</h2>
+
+<p>Let me show you context engineering in action with a real migration project.</p>
+
+<p><img src="https://blog.shanelee.name/content/images/2026/01/migration-approach-comparison-1.svg" alt="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt2"></p>
+
+<h3 id="themetainstructionpattern">The Meta-Instruction Pattern</h3>
+
+<p>I used a <strong>meta-instruction pattern</strong>—having AI generate the migration instructions, then use those same instructions to execute the migration.</p>
+
+<p>The secret weapon? The <a href="https://github.com/github/awesome-copilot/blob/main/instructions/instructions.instructions.md">instructions.instructions.md</a> file from the <strong>awesome-copilot</strong> repository—a meta-instruction that teaches AI how to write high-quality instructions.</p>
+
+<p><strong>Phase 1: Generate Migration Instructions (5 minutes)</strong></p>
+
+<pre><code>Using #file:instructions.instructions.md  
+and examples like  
+#file:java-21-to-java-25-upgrade.instructions.md
+
+I want to define new instructions for  
+Spring Boot 4 migration guide.
+
+You can find the guide here:  
+https://github.com/spring-projects/  
+spring-boot/wiki/  
+Spring-Boot-4.0-Migration-Guide
+
+User Feedback:  
+"Can focus on gradle and kotlin
+as that is what we mostly use"  
+</code></pre>
+
+<p>What the AI does: <br>
+1. Fetches official Spring Boot 4.0 guide <br>
+2. Analyzes existing instruction patterns <br>
+3. Extracts key migration themes <br>
+4. Incorporates project preferences (Gradle/Kotlin) <br>
+5. Generates <code>springboot-4-migration.instructions.md</code></p>
+
+<p><strong>Result:</strong> 1,400+ line comprehensive migration guide created in 3 minutes.</p>
+
+<hr>
+
+<p><strong>Phase 2: Execute Migration (10 minutes)</strong></p>
+
+<pre><code>Migrate this project to Spring Boot 4.0  
+using the generated instructions in  
+#file:springboot-4-migration.instructions.md
+</code></pre>
+
+<p>What Plan Agent Mode does:</p>
+
+<pre><code>✅ Read migration instructions
+✅ Analyze current pom.xml
+✅ Update dependencies:
+   spring-boot-starter-web →
+   spring-boot-starter-webmvc
+✅ Add spring-boot-starter-webmvc-test
+✅ Verify Jackson property paths
+✅ Run: ./mvnw clean compile
+✅ BUILD SUCCESS
+</code></pre>
+
+<blockquote>
+  <p>🎯 <strong>The key innovation:</strong> AI generates the migration guide... then AI uses that guide to execute the migration.</p>
+</blockquote>
+
+<hr>
+
+<h3 id="givingbacktoopensource">Giving Back to Open Source</h3>
+
+<p><img src="https://blog.shanelee.name/content/images/2026/01/open-source-contribution-banner-1.svg" alt="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt2"></p>
+
+<p>The Spring Boot 4.0 migration instructions I generated have been <strong>contributed back to the community</strong>. You can use them right now in your own projects—no need to recreate the wheel.</p>
+
+<hr>
+
+<h3 id="theroi98costreduction">The ROI: 98% Cost Reduction</h3>
+
+<p><img src="https://blog.shanelee.name/content/images/2026/01/roi-cost-reduction.svg" alt="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt2"></p>
+
+<p>The numbers speak for themselves. What used to cost $20,000 across 10 applications now costs $350—and you get better quality with zero errors.</p>
+
+<hr>
+
+<h2 id="thedevelopersroleevolves">👨‍💻 The Developer's Role Evolves</h2>
+
+<p>This isn't about replacing developers. It's about changing what we do.</p>
+
+<p><img src="https://blog.shanelee.name/content/images/2026/01/developer-role-evolution.svg" alt="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt2"></p>
+
+<p>The shift is clear: fewer repetitive tasks, more strategic thinking. AI handles the implementation grind while you focus on what matters—architecture, requirements, and business value.</p>
+
+<hr>
+
+<h2 id="validationfromthesource">🎓 Validation from the Source</h2>
+
+<p>Here's something that caught my attention. Boris Cherny, the creator of Claude Code at Anthropic, shared his actual workflow on X:</p>
+
+<p><img src="https://blog.shanelee.name/content/images/2026/01/boris-cherny-tweet-1.png" alt="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt2" there="" is="" no="" one="" correct="" way="" to="" use="" claude="" code:="" we="" intentionally="" build="" it="" in="" a="" that="" you="" can="" it,="" customize="" and="" hack="" however="" like.""=""></p>
+
+<p>What's fascinating is how his practices map directly to the context engineering pillars:</p>
+
+<table style="width:100%; border-collapse: collapse; margin: 1.5em 0;">  
+  <thead>
+    <tr style="background-color: #f4f4f4;">
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">His Practice</th>
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Context Engineering</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">CLAUDE.md</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">AGENTS.md</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Subagents</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Chatmodes / Agents</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Slash commands</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Prompts</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px;">Verification loops</td>
+      <td style="padding: 12px;">Shift-left testing</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>💡 <strong>"Every mistake becomes a rule."</strong> — Boris Cherny</p>
+  
+  <p>💰 On using Opus (the best model): <strong>"Paying the 'compute tax' upfront eliminates the 'correction tax' later."</strong></p>
+</blockquote>
+
+<p>The exact same patterns work in production at one of the world's leading AI companies. Independent validation that this approach works at scale.</p>
+
+<hr>
+
+<h2 id="gettingstarted">🚀 Getting Started</h2>
+
+<h3 id="essentialmcpconfiguration">Essential MCP Configuration</h3>
+
+<p>Here's a practical MCP setup for local development:</p>
+
+<pre><code class="language-json">{
+  "servers": {
+    "atlassian/atlassian-mcp-server": {
+      "type": "stdio",
+      "command": "pnpm",
+      "args": ["dlx", "mcp-remote",
+        "https://mcp.atlassian.com/v1/sse"]
+    },
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/"
+    },
+    "context7": {
+      "type": "stdio",
+      "command": "pnpm",
+      "args": ["dlx", "@upstash/context7-mcp@latest"]
+    }
+  }
+}
+</code></pre>
+
+<p><strong>What this enables:</strong></p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">📋 <strong>Atlassian MCP</strong> - Query Jira issues, search Confluence, create tickets from chat</li>
+  <li style="padding: 8px 0;">🐙 <strong>GitHub MCP</strong> - Search repositories, read files, create pull requests</li>
+  <li style="padding: 8px 0;">📚 <strong>Context7 MCP</strong> - Fetch latest library documentation, always up-to-date API references</li>
+</ul>
+
+<hr>
+
+<h3 id="theawesomecopilotrepository">The Awesome Co-Pilot Repository</h3>
+
+<p>The <a href="https://github.com/github/awesome-copilot">awesome-copilot</a> repository is <mark>a goldmine for context engineering</mark>. It's a community-driven collection of <strong>163+ instruction files</strong> covering virtually every technology stack you might work with.</p>
+
+<p><strong>What's inside:</strong></p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">💻 <strong>Programming languages</strong> - Python, Java, TypeScript, Go, Rust, and more</li>
+  <li style="padding: 8px 0;">🔧 <strong>Frameworks</strong> - React, Vue, Spring Boot, Django, FastAPI</li>
+  <li style="padding: 8px 0;">☁️ <strong>Infrastructure</strong> - Terraform, Docker, Kubernetes, GitHub Actions</li>
+  <li style="padding: 8px 0;">🔒 <strong>Security</strong> - OWASP standards, secure coding practices</li>
+</ul>
+
+<p><strong>The meta-instruction magic:</strong></p>
+
+<p>The real power comes from <a href="https://github.com/github/awesome-copilot/blob/main/instructions/instructions.instructions.md">instructions.instructions.md</a>—<mark>a meta-instruction that teaches AI how to write high-quality instructions</mark>. It defines:</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">📋 <strong>Required frontmatter structure</strong> - Description and file pattern matching</li>
+  <li style="padding: 8px 0;">📝 <strong>Organized content sections</strong> - Guidelines, best practices, code standards</li>
+  <li style="padding: 8px 0;">✅ <strong>Concrete examples</strong> - Both recommended and discouraged approaches</li>
+  <li style="padding: 8px 0;">🧪 <strong>Validation requirements</strong> - Build commands, linting, testing steps</li>
+</ul>
+
+<p><mark>This is the bootstrap for context engineering</mark>—use it to generate domain-specific instructions for your own projects, then use those instructions to guide AI through complex tasks.</p>
+
+<hr>
+
+<h2 id="resources">🔗 Resources</h2>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">🛠️ <strong>awesome-copilot MCP Server</strong> - <a href="https://github.com/github/awesome-copilot">github.com/github/awesome-copilot</a></li>
+  <li style="padding: 8px 0;">🍃 <strong>Agent Skills Specification</strong> - <a href="https://github.com/anthropics/agent-skills">github.com/anthropics/agent-skills</a></li>
+  <li style="padding: 8px 0;">📖 <strong>Official Spring Boot 4.0 Migration Guide</strong> - <a href="https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-4.0-Migration-Guide">Spring Boot Wiki</a></li>
+  <li style="padding: 8px 0;">🏛️ <strong>Agentic AI Foundation</strong> - <a href="https://agenticaifoundation.org">agenticaifoundation.org</a></li>
+</ul>
+
+<hr>
+
+<h2 id="keytakeaways">🎯 Key Takeaways</h2>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">1️⃣ <strong>AAIF validates the approach</strong> - The industry is standardising on context engineering</li>
+  <li style="padding: 8px 0;">2️⃣ <strong>AGENTS.md standardises instructions</strong> - One format, every agent</li>
+  <li style="padding: 8px 0;">3️⃣ <strong>Meta-instructions accelerate adoption</strong> - Have AI generate the guides, then use them</li>
+  <li style="padding: 8px 0;">4️⃣ <strong>98% cost reduction is achievable</strong> - This isn't theoretical, it's measured</li>
+</ul>
+
+<blockquote>
+  <p>✨ <strong>The future isn't about better prompts. It's about better context.</strong></p>
+</blockquote>]]></content:encoded></item><item><title><![CDATA[Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt1]]></title><description><![CDATA[<p><strong>How I went from repeating instructions every conversation to having AI that actually understands my codebase</strong></p>
 
 <hr>
 
@@ -2874,206 +3290,4 @@ kubetail sonobuoy-e2e-job-bf586487f2f64f0b -n heptio-sonobuoy
 
 <p>All tests passed. There you have it!</p>
 
-<p>Stay tuned for more kubernetes goodness.. ⚓️</p>]]></content:encoded></item><item><title><![CDATA[Logging on kubernetes with fluentd and elasticsearch 6]]></title><description><![CDATA[How to configure EFK (Elastic-Fluentd-Kibana) stack on kubernetes for logging]]></description><link>https://blog.shanelee.name/2017/12/16/logging-on-kubernetes-with-fluentd-and-elasticsearch-6/</link><guid isPermaLink="false">cac30a75-368d-462f-aee8-9c510bfd9de1</guid><category><![CDATA[elasticsearch]]></category><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[ingress]]></category><category><![CDATA[nginx]]></category><category><![CDATA[lambda]]></category><category><![CDATA[aws]]></category><category><![CDATA[curator]]></category><category><![CDATA[fluentd]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 16 Dec 2017 13:06:59 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2018/01/robert-larsson-64547-1.jpg" medium="image"/><content:encoded><![CDATA[<h1 id="tldr">TLDR</h1>
-
-<img src="https://blog.shanelee.name/content/images/2018/01/robert-larsson-64547-1.jpg" alt="Logging on kubernetes with fluentd and elasticsearch 6"><p>The solution I have used in the past for logging in kubernetes clusters is EFK (Elastic-Fluentd-Kibana). Alot of you have probably heard of ELK stack but I find that logstash is more heavyweight and does not provide the same output plugins as fluentd.</p>
-
-<p><img alt="Logging on kubernetes with fluentd and elasticsearch 6" src="https://blog.shanelee.name/content/images/2017/12/icon-elasticsearch-bb-1.svg" style="width: 300px; height:300px"></p>
-
-<h2 id="elasticsearch">Elasticsearch</h2>
-
-<p>Elasticsearch 6 has just been <a href="https://www.elastic.co/blog/elasticsearch-6-0-0-released">announced</a> with some major performance improvements.</p>
-
-<p>You have a few options to deploy elasticsearch - elastic cloud or spin up your own ES cluster in kubernetes. But I have decided to go with the AWS managed service. It now has <a href="https://aws.amazon.com/blogs/aws/amazon-elasticsearch-service-now-supports-vpc/">VPC support</a> and the new release 6.0. </p>
-
-<p>The reason being that administrating Elasticsearch can be a lot of work, as many people experienced with the system will tell you it can be tricky to keep running smoothly and that it’s a task better outsourced to an external service.</p>
-
-<p>I recently read dubsmash story <a href="https://stackshare.io/dubsmash/dubsmash-scaling-to-200-million-users-with-3-engineers">https://stackshare.io/dubsmash/dubsmash-scaling-to-200-million-users-with-3-engineers</a> and how they focus on the product deliverables and not infrastructure. If you have a small team or not in the business of managing services such as ES, i find its best to outsource..</p>
-
-<p>Following the 12 factor principles for logging <a href="https://12factor.net/logs">https://12factor.net/logs</a> all applications that are containerised (using docker) should log to STDOUT.</p>
-
-<blockquote>
-  <p>A twelve-factor app never concerns itself with routing or storage of its output stream. It should not attempt to write to or manage logfiles. Instead, each running process writes its event stream, unbuffered, to stdout.</p>
-</blockquote>
-
-<p>Whether your using winston for nodeJS or console appender for spring boot, this is the recommended way. </p>
-
-<p>Every pod in a <strong>K8S</strong> cluster has its standard output and standard error captured and stored in the /var/log/containers/ node directory. </p>
-
-<p>Now you need a logging agent ( or logging shipper) to ingest these logs and output to a target. </p>
-
-<h2 id="fluentd">FluentD</h2>
-
-<p><img src="https://blog.shanelee.name/content/images/2017/12/container_logging-1024x536.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
-
-<p>Fluentd is an open-source framework for data collection that unifies the collection and consumption of data in a pluggable manner. There are several producer and consumer loggers for various kinds of applications. It has a huge suite of <a href="https://www.fluentd.org/plugins">plugins</a> to choose from. </p>
-
-<p>Fluentd will be deployed as a <strong>daemonset</strong> on the kubernetes cluster.</p>
-
-<p>Kubernetes logs the content of the stdout and stderr streams of a pod to a file. It creates one file for each container in a pod. The default location for these files is /var/log/containers . The filename contains the pod name, the namespace of the pod, the container name, and the container id. The file contains one JSON object per line of the two streams stdout and stderr. </p>
-
-<p>A DaemonSet ensures that a certain pod is scheduled to each kubelet exactly once. The fluentd pod mounts the <strong>/var/lib/containers/</strong> host volume to access the logs of all pods scheduled to that kubelet.</p>
-
-<h2 id="whatsmissinggeo">Whats missing - Geo</h2>
-
-<p><img src="https://blog.shanelee.name/content/images/2017/12/joao-silas-72562.jpg" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
-
-<p>I found with the examples online for fluentd daesmonset there was none that supported <strong>geoip</strong>. Coreos offering and fluentd official kubernetes daemonset do not provide this feature. </p>
-
-<p>Geoip is a very useful tool when inspecting access logs through kibana. I use nginx  ingress controller in kubernetes and I wanted to see where incoming requests arose geographically. </p>
-
-<p>Knowing from where in the world people are accessing your website is important not only for troubleshooting and operational intelligence but also for other use cases such as business intelligence</p>
-
-<h3 id="ingressandnginx">Ingress and Nginx</h3>
-
-<p>I use nginx as a reverse proxy behind AWS ELB to manage my routing. By default, nginx does not output to json. And instead of figuring out the fluentd nginx parser I decided to configure nginx to enable json logging. </p>
-
-<p>Sample conf can be seen below:</p>
-
-<pre><code class="language-yaml">kind: ConfigMap  
-apiVersion: v1  
-metadata:  
-  name: nginx-configuration
-  namespace: ingress-nginx
-  labels:
-    app: ingress-nginx
-data:  
-  use-proxy-protocol: "false"
-  log-format-escape-json: "true"
-  log-format-upstream: '{"proxy_protocol_addr": "$proxy_protocol_addr","remote_addr": "$remote_addr", "proxy_add_x_forwarded_for": "$proxy_add_x_forwarded_for",
-   "request_id": "$request_id","remote_user": "$remote_user", "time_local": "$time_local", "request" : "$request", "status": "$status", "vhost": "$host","body_bytes_sent": "$body_bytes_sent",
-   "http_referer":  "$http_referer", "http_user_agent": "$http_user_agent", "request_length" : "$request_length", "request_time" : "$request_time",
-    "proxy_upstream_name": "$proxy_upstream_name", "upstream_addr": "$upstream_addr",  "upstream_response_length": "$upstream_response_length",
-    "upstream_response_time": "$upstream_response_time", "upstream_status": "$upstream_status"}'
-</code></pre>
-
-<h3 id="fluentddockerimage">Fluentd docker image</h3>
-
-<p>I then extended the fluentd debian elasticsearch docker image to install the geo-ip plugin and also update the max mind database.</p>
-
-<p>Docker Image can be found <a href="https://hub.docker.com/r/shanelee007/fluentd-kubernetes/">here</a> on docker hub. Tag is <strong>v0.12-debian-elasticsearch-geo</strong></p>
-
-<pre><code class="language-bash">docker pull shanelee007/fluentd-kubernetes:v0.12-debian-elasticsearch-geo  
-</code></pre>
-
-<p>Now I needed to amend the fluentd config to filter my nginx access logs and translate ip address to geo co-ordinates. </p>
-
-<p>Sample config in the yaml file for daemonset with updated database is</p>
-
-<pre><code class="language-yaml">  geoip-filter.conf: |
-    &lt;filter kube.ingress-nginx.nginx-ingress-controller&gt;
-        type geoip
-
-        # Specify one or more geoip lookup field which has ip address (default: host)
-        # in the case of accessing nested value, delimit keys by dot like 'host.ip'.
-        geoip_lookup_key  remote_addr
-
-        # Specify optional geoip database (using bundled GeoLiteCity databse by default)
-        geoip_database    "/home/fluent/GeoLiteCity.dat"
-
-        # Set adding field with placeholder (more than one settings are required.)
-        &lt;record&gt;
-          city            ${city["remote_addr"]}
-          lat             ${latitude["remote_addr"]}
-          lon             ${longitude["remote_addr"]}
-          country_code3   ${country_code3["remote_addr"]}
-          country         ${country_code["remote_addr"]}
-          country_name    ${country_name["remote_addr"]}
-          dma             ${dma_code["remote_addr"]}
-          area            ${area_code["remote_addr"]}
-          region          ${region["remote_addr"]}
-          geoip           '{"location":[${longitude["remote_addr"]},${latitude["remote_addr"]}]}'
-        &lt;/record&gt;
-
-        # To avoid get stacktrace error with `[null, null]` array for elasticsearch.
-        skip_adding_null_record  true
-
-        # Set log_level for fluentd-v0.10.43 or earlier (default: warn)
-        log_level         info
-
-        # Set buffering time (default: 0s)
-        flush_interval    1s
-    &lt;/filter&gt;
-</code></pre>
-
-<p>I also updated the elasticsearch template to version 6 as there was issues with version 5.</p>
-
-<p>Now to the fun part... testing it out!</p>
-
-<h2 id="tryityourself">Try it yourself</h2>
-
-<p>This tutorial can be executed in less than 15 minutes, as log as you already have:</p>
-
-<ul>
-<li><p>Kubernetes cluster up</p></li>
-<li><p>Nginx ingress installed</p></li>
-</ul>
-
-<h3 id="installing">Installing</h3>
-
-<p>Github project for creating all resources in kubernetes can be found at <a href="https://github.com/shavo007/k8s-ingress-letsencrypt/tree/master">https://github.com/shavo007/k8s-ingress-letsencrypt/tree/master</a></p>
-
-<p>To create the namespace and manifests for logging, the only change you need is to update the elasticsearch endpoint in the configmap.</p>
-
-<p>File is located at <a href="https://github.com/shavo007/k8s-ingress-letsencrypt/blob/master/resources/logging/fluentd-configmap.yaml#L291">https://github.com/shavo007/k8s-ingress-letsencrypt/blob/master/resources/logging/fluentd-configmap.yaml#L291</a></p>
-
-<p>Then you can create the resources. </p>
-
-<h4 id="kubectlaliases">Kubectl aliases</h4>
-
-<p>For the commands below I am using bash aliases. Aliases save me alot of time when I am querying a cluster. You can find the github project <a href="https://github.com/ahmetb/kubectl-aliases">here</a></p>
-
-<pre><code class="language-bash">ka resources/logging --record  
-</code></pre>
-
-<p>Verify the pods are created</p>
-
-<pre><code class="language-bash">kgpon logging  
-</code></pre>
-
-<p>If you have the dashboard installed you can inspect the logs there or you can tail the logs from the command line using <a href="https://github.com/johanhaleby/kubetail">kubetail</a></p>
-
-<pre><code class="language-bash">kubetail fluentd -n logging  
-</code></pre>
-
-<h2 id="kibana">Kibana</h2>
-
-<p><img alt="Logging on kubernetes with fluentd and elasticsearch 6" src="https://blog.shanelee.name/content/images/2017/12/icon-kibana-bb.svg" style="width: 300px; height:300px"></p>
-
-<p>Now access kibana - GUI for elasticsearch</p>
-
-<p>You should now see your logs ingested in elasticsearch. </p>
-
-<p><img src="https://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-26-at-3-10-18-pm.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
-
-<h3 id="tilemapvisualization">Tile map visualization</h3>
-
-<p>There is a limitation with managed service and tile map view. I customized the settings to use WMS compliant map server. See below:</p>
-
-<p><img src="https://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-26-at-3-14-43-pm.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
-
-<p>Once you pick the pattern, and assuming your geopoints are correctly mapped, Kibana will automatically populate the visualisation settings such as which field to aggregate on, and display the map almost instantly.</p>
-
-<p>I have defined a visualisation for heatmap. This helps in visualizing geospatial data. You can go to management and import the json file from here  <a href="https://github.com/shavo007/k8s-ingress-letsencrypt/blob/master/resources/assets/export.json">https://github.com/shavo007/k8s-ingress-letsencrypt/blob/master/resources/assets/export.json</a></p>
-
-<p>This includes multiple visualizations and a dashboard.</p>
-
-<p><img src="https://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-17-at-11-47-26-am.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
-
-<h4 id="inaccurategeolocation">Inaccurate Geolocation</h4>
-
-<p>You may find the IP is matched to an inaccurate location. Be aware that the free Maxmind database that is used is “comparable to, but less accurate than, MaxMind’s GeoIP2 databases”, and, “IP geolocation is inherently imprecise. Locations are often near the center of the population.” See the MaxMind site for further details.</p>
-
-<h4 id="widgets">Widgets</h4>
-
-<p>You can build up more widgets, such as url count or count by country.</p>
-
-<p><img src="https://blog.shanelee.name/content/images/2017/12/Screen-Shot-2017-12-26-at-3-43-45-pm.png" alt="Logging on kubernetes with fluentd and elasticsearch 6"></p>
-
-<h2 id="cleanupoflogindices">Cleanup of log indices</h2>
-
-<p>For cleanup of old log indices there is a tool called <a href="https://github.com/elastic/curator">curator</a>. I found a serverless option <a href="https://github.com/cloudreach/aws-lambda-es-cleanup">https://github.com/cloudreach/aws-lambda-es-cleanup</a> and created the lambda function via <strong>terraform</strong>.</p>
-
-<p>You can easily schedule the lambda function to cleanup log indices greater than x no. of days.</p>
-
-<p>And thats it! Stay tuned for more posts on <strong>kubernetes</strong>. </p>]]></content:encoded></item></channel></rss>
+<p>Stay tuned for more kubernetes goodness.. ⚓️</p>]]></content:encoded></item></channel></rss>
