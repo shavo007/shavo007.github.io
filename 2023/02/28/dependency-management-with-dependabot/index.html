@@ -116,7 +116,7 @@
         
 
 
-<header class="main-header post-head " style="background-image: url(http://127.0.0.1:2368/content/images/2023/02/guerrillabuzz-blockchain-pr-agency-SYofhg_IX3A-unsplash.jpg)">
+<header class="main-header post-head " style="background-image: url(https://blog.shanelee.name/content/images/2023/02/guerrillabuzz-blockchain-pr-agency-SYofhg_IX3A-unsplash.jpg)">
     <nav class="main-nav overlay clearfix">
         
             <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
@@ -158,17 +158,17 @@
 
 <p>OWASP published last year their top ten, and vulnerable and outdated components moved up to <a href="https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/">sixth position</a>. Every organization must ensure an ongoing plan for monitoring, triaging, and applying updates or configuration changes for the lifetime of the application or portfolio. There are over 20,000 common vulnerabilities and exposures (CVEs) discovered per year in open-source and third-party code.</p>
 
-<p><img src="http://127.0.0.1:2368/content/images/2023/02/owasp.png" alt=""></p>
+<p><img src="https://blog.shanelee.name/content/images/2023/02/owasp.png" alt=""></p>
 
 <h2 id="empoweringdeveloperstobesecurityminded">Empowering developers to be security minded</h2>
 
 <p>According to the SANS 2022 DevSecOps Survey: <a href="https://www.deepfactor.io/sans-2022-devsecops-survey/">Creating a Culture to Significantly Improve Your Organization’s Security Posture</a>, “management buy-in” was the number one factor contributing to DevSecOps security programs’ success.</p>
 
-<p><img src="http://127.0.0.1:2368/content/images/2023/02/image2.png" alt=""></p>
+<p><img src="https://blog.shanelee.name/content/images/2023/02/image2.png" alt=""></p>
 
 <h2 id="whatisdependabot">What is Dependabot?</h2>
 
-<p><img src="http://127.0.0.1:2368/content/images/2023/02/depend.png" alt=""></p>
+<p><img src="https://blog.shanelee.name/content/images/2023/02/depend.png" alt=""></p>
 
 <p>There are a number of guiding principles when evaluating tools and designing a rollout plan. For example, Does the security benefit of this new process outweigh the impact on engineering teams? How do we roll this out incrementally and gather feedback? What are our expectations for engineers, and how do we clearly communicate these expectations?</p>
 
@@ -215,19 +215,19 @@
 
 <p>This example below showcases a repo that is interested in two eco-systems: <code>docker</code> and <code>actions</code>. I have added in a schedule for docker updates in my local timezone of Melbourne. And I have added some labels. This helps to filter your PRs if you want to focus on specific updates. The <code>open-pull-requests-limit</code> default is 5, so in this instance, I have reduced it to 2. </p>
 
-<p><img src="http://127.0.0.1:2368/content/images/2023/02/code.png" alt=""></p>
+<p><img src="https://blog.shanelee.name/content/images/2023/02/code.png" alt=""></p>
 
 <p>The next example showcases a sample NodeJS project. Again you are interested in updates from two ecosystems: <code>npm</code> and <code>actions</code>. What this config is also showcasing is how you can ignore certain dependencies. You can see that it ignores packages that start with <code>aws</code>, ignores updates to <code>express</code> and patch updates for <code>all</code> dependencies. </p>
 
-<p><img src="http://127.0.0.1:2368/content/images/2023/02/code1.png" alt=""></p>
+<p><img src="https://blog.shanelee.name/content/images/2023/02/code1.png" alt=""></p>
 
 <p>Lastly, is a sample config for a JVM-based project. Here we are covering three package ecosystems as it's a cloud-native microservice. It covers updates to <code>maven</code>, <code>docker</code> and <code>actions</code>. </p>
 
-<p><img src="http://127.0.0.1:2368/content/images/2023/02/code3.png" alt=""></p>
+<p><img src="https://blog.shanelee.name/content/images/2023/02/code3.png" alt=""></p>
 
 <p>Below is a sample PR that was created by dependabot based on the config above. You can see it has added the labels of <code>dependencies</code> and <code>maven</code>. It provides the release notes and changelog for you to review. </p>
 
-<p><img src="http://127.0.0.1:2368/content/images/2023/03/Screen-Shot-2023-03-02-at-10-06-07-am.png" alt=""></p>
+<p><img src="https://blog.shanelee.name/content/images/2023/03/Screen-Shot-2023-03-02-at-10-06-07-am.png" alt=""></p>
 
 <p>If you want to know more about the configuration options for dependabot, check out the doc <a href="https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file">here</a></p>
 
@@ -243,12 +243,12 @@
 
 <p>Once you had Dependabot enabled for all your GitHub repositories, you could measure the general trend of Dependabot alerts across the company. At an org level under the <code>insights</code> tab, you have a bird's eye view of dependencies and open security advisories. You can filter by most critical and then switch your focus from measuring the current state to working with repository owners to upgrade their dependencies.  By leveraging insights, you can ensure that you focus your remediation efforts on repositories that are running in production, where a vulnerable dependency could present a risk to your company and your users. As I mentioned earlier, <strong>"management buy-in"</strong> is extremely important in incorporating dependency management into your security program. Otherwise, you will end up competing with feature delivery and it will fall further down the pecking order. Security trumps customer centricity.</p>
 
-<p><img src="http://127.0.0.1:2368/content/images/2023/03/Screenshot-2023-02-28-at-3-33-51-pm.png" alt=""></p>
+<p><img src="https://blog.shanelee.name/content/images/2023/03/Screenshot-2023-02-28-at-3-33-51-pm.png" alt=""></p>
 
 <p>If you have a platform engineering team you could go even further and build or use a nice internal service catalog tool like <a href="https://backstage.spotify.com/">backstage</a> and hook into GitHub graphQL API to track this. As part of measuring system health and running an internal security program, you can work with your stream-aligned teams to define <em>SLOs</em> and <em>SLIs</em> regarding timeframes to resolve. An example could be: <br>
 <strong>"Critical and high severity vulnerable dependencies are fixed within 30 days"</strong>.</p>
 
-<p><img src="http://127.0.0.1:2368/content/images/2023/02/Screenshot-2023-02-28-at-11-42-52-am.png" alt=""></p>
+<p><img src="https://blog.shanelee.name/content/images/2023/02/Screenshot-2023-02-28-at-11-42-52-am.png" alt=""></p>
 
 <p>It is important to acknowledge that <code>not all Dependabot alerts</code> can be actioned immediately. Instead, assign a realistic grace period for service owners to remediate Dependabot alerts before marking a metric as failing.</p>
 
@@ -288,7 +288,7 @@ s.setAttribute('data-timestamp', +new Date());
 
 
             <figure class="author-image">
-                <a class="img" href="../../../../author/shane/" style="background-image: url(http://127.0.0.1:2368/content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
+                <a class="img" href="../../../../author/shane/" style="background-image: url(https://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
             </figure>
 
             <section class="author">
@@ -324,13 +324,13 @@ s.setAttribute('data-timestamp', +new Date());
 
 
 <aside class="read-next">
-    <a class="read-next-story " style="background-image: url(http://127.0.0.1:2368/content/images/2026/01/hero-image.png)" href="../../../../2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/">
+    <a class="read-next-story " style="background-image: url(https://blog.shanelee.name/content/images/2026/01/hero-image.png)" href="../../../../2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/">
         <section class="post">
             <h2>Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt1</h2>
             <p>How I went from repeating instructions every conversation to having AI that actually understands my codebase Let me ask…</p>
         </section>
     </a>
-    <a class="read-next-story prev " style="background-image: url(http://127.0.0.1:2368/content/images/2022/11/matthew-henry-fPxOowbR6ls-unsplash.jpg)" href="../../../../2022/11/04/shifting-security-left/">
+    <a class="read-next-story prev " style="background-image: url(https://blog.shanelee.name/content/images/2022/11/matthew-henry-fPxOowbR6ls-unsplash.jpg)" href="../../../../2022/11/04/shifting-security-left/">
         <section class="post">
             <h2>Shifting security left</h2>
             <p>As part of adopting CD (Continuous Delivery) and embracing a DevOps culture, shifting security left is one of the…</p>
