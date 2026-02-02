@@ -23,7 +23,7 @@
     <meta property="og:type" content="article">
     <meta property="og:title" content="Kubernetes ingress">
     <meta property="og:description" content="TL;DR Recently I had to look at horizontally scaling a traditional web-app on kubernetes. Here i will explain how I achieved it and what ingress controller is and why to use it. I  assume you know what pods are so I will quickly breakdown service and ingress resources. Service">
-    <meta property="og:url" content="https://blog.shanelee.name/2017/10/15/kubernetes-ingress-and-sticky-sessions/">
+    <meta property="og:url" content="http://blog.shanelee.name/2017/10/15/kubernetes-ingress-and-sticky-sessions/">
     <meta property="article:published_time" content="2017-10-15T14:21:48.944Z">
     <meta property="article:modified_time" content="2017-10-17T11:22:01.354Z">
     <meta property="article:tag" content="kubernetes">
@@ -36,7 +36,7 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Kubernetes ingress">
     <meta name="twitter:description" content="TL;DR Recently I had to look at horizontally scaling a traditional web-app on kubernetes. Here i will explain how I achieved it and what ingress controller is and why to use it. I  assume you know what pods are so I will quickly breakdown service and ingress resources. Service">
-    <meta name="twitter:url" content="https://blog.shanelee.name/2017/10/15/kubernetes-ingress-and-sticky-sessions/">
+    <meta name="twitter:url" content="http://blog.shanelee.name/2017/10/15/kubernetes-ingress-and-sticky-sessions/">
     <meta name="twitter:label1" content="Written by">
     <meta name="twitter:data1" content="Shane Lee">
     <meta name="twitter:label2" content="Filed under">
@@ -49,19 +49,19 @@
     "publisher": {
         "@type": "Organization",
         "name": "Tech Blog (mainly!)",
-        "logo": "https://blog.shanelee.name/ghost/img/ghosticon.jpg"
+        "logo": "http://blog.shanelee.name/ghost/img/ghosticon.jpg"
     },
     "author": {
         "@type": "Person",
         "name": "Shane Lee",
-        "image": "https://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg",
-        "url": "https://blog.shanelee.name/author/shane/",
+        "image": "http://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg",
+        "url": "http://blog.shanelee.name/author/shane/",
         "sameAs": [
             "https://about.me/shane-lee"
         ]
     },
     "headline": "Kubernetes ingress",
-    "url": "https://blog.shanelee.name/2017/10/15/kubernetes-ingress-and-sticky-sessions/",
+    "url": "http://blog.shanelee.name/2017/10/15/kubernetes-ingress-and-sticky-sessions/",
     "datePublished": "2017-10-15T14:21:48.944Z",
     "dateModified": "2017-10-17T11:22:01.354Z",
     "keywords": "kubernetes, docker, ingress, sticky, elb, nginx",
@@ -191,7 +191,7 @@
 
 <p>To visualise how this works, check out this little guy! Traefik is one implementation you can use as an ingress.</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2017/10/architecture.png" alt=""></p>
+<p><img src="http://127.0.0.1:2368/content/images/2017/10/architecture.png" alt=""></p>
 
 <p>But I have chosen nginx ingress controller instead as it supports sticky sessions and as a reverse proxy is extremely popular solution.</p>
 
@@ -337,7 +337,7 @@ while true; do sleep 1;curl -b cookies.txt $ELB/foo -H 'Host: stickyingress.exam
 
 <p>As, you can see, requests are sent to the same pod for every subsequent request.</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2017/10/stickySession.gif" alt=""></p>
+<p><img src="http://127.0.0.1:2368/content/images/2017/10/stickySession.gif" alt=""></p>
 
 <h3 id="proxyprotocol">Proxy protocol</h3>
 
@@ -379,7 +379,7 @@ while true; do sleep 1;curl -b cookies.txt $ELB/foo -H 'Host: stickyingress.exam
 */
 
 var disqus_config = function () {
-this.page.url = 'https://blog.shanelee.name/2017/10/15/kubernetes-ingress-and-sticky-sessions/'; // Replace PAGE_URL with your page's canonical URL variable
+this.page.url = 'http://blog.shanelee.name/2017/10/15/kubernetes-ingress-and-sticky-sessions/'; // Replace PAGE_URL with your page's canonical URL variable
 this.page.identifier = 'ghost-16'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
@@ -399,7 +399,7 @@ s.setAttribute('data-timestamp', +new Date());
 
 
             <figure class="author-image">
-                <a class="img" href="../../../../author/shane/" style="background-image: url(https://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
+                <a class="img" href="../../../../author/shane/" style="background-image: url(http://127.0.0.1:2368/content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
             </figure>
 
             <section class="author">
@@ -435,7 +435,7 @@ s.setAttribute('data-timestamp', +new Date());
 
 
 <aside class="read-next">
-    <a class="read-next-story " style="background-image: url(https://blog.shanelee.name/content/images/2018/01/robert-larsson-64547-1.jpg)" href="../../../12/16/logging-on-kubernetes-with-fluentd-and-elasticsearch-6/">
+    <a class="read-next-story " style="background-image: url(http://127.0.0.1:2368/content/images/2018/01/robert-larsson-64547-1.jpg)" href="../../../12/16/logging-on-kubernetes-with-fluentd-and-elasticsearch-6/">
         <section class="post">
             <h2>Logging on kubernetes with fluentd and elasticsearch 6</h2>
             <p>TLDR The solution I have used in the past for logging in kubernetes clusters is EFK (Elastic-Fluentd-Kibana). Alot of…</p>

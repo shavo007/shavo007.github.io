@@ -23,7 +23,7 @@
     <meta property="og:type" content="article">
     <meta property="og:title" content="Alexa, ask australia calendar for next public holiday in state Victoria">
     <meta property="og:description" content="Alexa skill to find next public holiday by state in Australia.">
-    <meta property="og:url" content="https://blog.shanelee.name/2016/12/13/alexa-ask-australia-calendar-for-next-public-holiday-in-state-victoria/">
+    <meta property="og:url" content="http://blog.shanelee.name/2016/12/13/alexa-ask-australia-calendar-for-next-public-holiday-in-state-victoria/">
     <meta property="article:published_time" content="2016-12-13T08:52:13.832Z">
     <meta property="article:modified_time" content="2016-12-13T10:14:01.336Z">
     <meta property="article:tag" content="alexa">
@@ -37,7 +37,7 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Alexa, ask australia calendar for next public holiday in state Victoria">
     <meta name="twitter:description" content="Alexa skill to find next public holiday by state in Australia.">
-    <meta name="twitter:url" content="https://blog.shanelee.name/2016/12/13/alexa-ask-australia-calendar-for-next-public-holiday-in-state-victoria/">
+    <meta name="twitter:url" content="http://blog.shanelee.name/2016/12/13/alexa-ask-australia-calendar-for-next-public-holiday-in-state-victoria/">
     <meta name="twitter:label1" content="Written by">
     <meta name="twitter:data1" content="Shane Lee">
     <meta name="twitter:label2" content="Filed under">
@@ -50,19 +50,19 @@
     "publisher": {
         "@type": "Organization",
         "name": "Tech Blog (mainly!)",
-        "logo": "https://blog.shanelee.name/ghost/img/ghosticon.jpg"
+        "logo": "http://blog.shanelee.name/ghost/img/ghosticon.jpg"
     },
     "author": {
         "@type": "Person",
         "name": "Shane Lee",
-        "image": "https://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg",
-        "url": "https://blog.shanelee.name/author/shane/",
+        "image": "http://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg",
+        "url": "http://blog.shanelee.name/author/shane/",
         "sameAs": [
             "https://about.me/shane-lee"
         ]
     },
     "headline": "Alexa, ask australia calendar for next public holiday in state Victoria",
-    "url": "https://blog.shanelee.name/2016/12/13/alexa-ask-australia-calendar-for-next-public-holiday-in-state-victoria/",
+    "url": "http://blog.shanelee.name/2016/12/13/alexa-ask-australia-calendar-for-next-public-holiday-in-state-victoria/",
     "datePublished": "2016-12-13T08:52:13.832Z",
     "dateModified": "2016-12-13T10:14:01.336Z",
     "keywords": "alexa, node, lambda, aws, australia, calendar, dot",
@@ -143,7 +143,7 @@
 
 <p>Voice interfaces are taking off, but how advanced are they becoming? Are we at a point where they can become an automated agent, allowing us to put down our keypads and have a dialog just as if they were a friend or trusted colleague? I’ve set out to test this using Alexa, and building a custom skill (that  recently got certified on amazon marketplace).</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2016/12/AustraliaCalendar.png" alt="Amazon Alexa"></p>
+<p><img src="../../../../content/images/2016/12/AustraliaCalendar.png" alt="Amazon Alexa"></p>
 
 <p>You can find the skill on the amazon marketplace <a href="https://www.amazon.com/shane-Australia-Public-Holiday-Calendar/dp/B01N0MY1B6/ref=cm_rdp_product">here</a></p>
 
@@ -193,7 +193,7 @@ This structure is outlined by the developer as part of writing a custom skill, a
 
 <p>In this use case, we can invoke the API ahead of an individual user request, and organize and cache the data in s3 bucket. This improves performance, and simplifies the runtime model. Here’s a view of how this looks using the websites calendar files and how the data is staged.</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2016/12/AustraliaCalendarFlow--1-.svg" alt=""></p>
+<p><img src="http://127.0.0.1:2368/content/images/2016/12/AustraliaCalendarFlow--1-.svg" alt=""></p>
 
 <p>An S3 bucket is used to store the data, and is persisted in a ical file object. Given the durability of S3, this ensures that the data is always accessible at runtime for the skill and we don't have to hammer the website again and again for what the types of calendar events are in each state.</p>
 
@@ -231,7 +231,7 @@ GetNextHolidayIntent find next public holiday by state
 
 <p>I have created a card for the returned holiday response for future reference. You can see an example below:</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2016/12/Screen-Shot-2016-12-13-at-6-09-21-pm.png" alt=""></p>
+<p><img src="http://127.0.0.1:2368/content/images/2016/12/Screen-Shot-2016-12-13-at-6-09-21-pm.png" alt=""></p>
 
 <p>Stay tuned for more skills!!</p>
         </section>
@@ -245,7 +245,7 @@ GetNextHolidayIntent find next public holiday by state
 */
 
 var disqus_config = function () {
-this.page.url = 'https://blog.shanelee.name/2016/12/13/alexa-ask-australia-calendar-for-next-public-holiday-in-state-victoria/'; // Replace PAGE_URL with your page's canonical URL variable
+this.page.url = 'http://blog.shanelee.name/2016/12/13/alexa-ask-australia-calendar-for-next-public-holiday-in-state-victoria/'; // Replace PAGE_URL with your page's canonical URL variable
 this.page.identifier = 'ghost-10'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
@@ -265,7 +265,7 @@ s.setAttribute('data-timestamp', +new Date());
 
 
             <figure class="author-image">
-                <a class="img" href="../../../../author/shane/" style="background-image: url(https://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
+                <a class="img" href="../../../../author/shane/" style="background-image: url(http://127.0.0.1:2368/content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
             </figure>
 
             <section class="author">

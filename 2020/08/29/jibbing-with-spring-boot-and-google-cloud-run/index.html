@@ -23,8 +23,8 @@
     <meta property="og:type" content="article">
     <meta property="og:title" content="Jibbing with spring boot and google cloud run">
     <meta property="og:description" content="I said jibbing not jiving! 😆 Cloud native architecture When it comes to microservices and cloud native architecture you first think about containers. Now you can of course compose your own docker file. But with jvm based microservices there is a tool from google called jib that can simplify containerization. We'll">
-    <meta property="og:url" content="https://blog.shanelee.name/2020/08/29/jibbing-with-spring-boot-and-google-cloud-run/">
-    <meta property="og:image" content="https://blog.shanelee.name/content/images/2020/08/ardian-lumi-6Woj_wozqmA-unsplash.jpg">
+    <meta property="og:url" content="http://blog.shanelee.name/2020/08/29/jibbing-with-spring-boot-and-google-cloud-run/">
+    <meta property="og:image" content="http://blog.shanelee.name/content/images/2020/08/ardian-lumi-6Woj_wozqmA-unsplash.jpg">
     <meta property="article:published_time" content="2020-08-29T08:08:34.002Z">
     <meta property="article:modified_time" content="2020-08-30T06:55:19.737Z">
     <meta property="article:tag" content="gcp">
@@ -43,8 +43,8 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Jibbing with spring boot and google cloud run">
     <meta name="twitter:description" content="I said jibbing not jiving! 😆 Cloud native architecture When it comes to microservices and cloud native architecture you first think about containers. Now you can of course compose your own docker file. But with jvm based microservices there is a tool from google called jib that can simplify containerization. We'll">
-    <meta name="twitter:url" content="https://blog.shanelee.name/2020/08/29/jibbing-with-spring-boot-and-google-cloud-run/">
-    <meta name="twitter:image:src" content="https://blog.shanelee.name/content/images/2020/08/ardian-lumi-6Woj_wozqmA-unsplash.jpg">
+    <meta name="twitter:url" content="http://blog.shanelee.name/2020/08/29/jibbing-with-spring-boot-and-google-cloud-run/">
+    <meta name="twitter:image:src" content="http://blog.shanelee.name/content/images/2020/08/ardian-lumi-6Woj_wozqmA-unsplash.jpg">
     <meta name="twitter:label1" content="Written by">
     <meta name="twitter:data1" content="Shane Lee">
     <meta name="twitter:label2" content="Filed under">
@@ -57,22 +57,22 @@
     "publisher": {
         "@type": "Organization",
         "name": "Tech Blog (mainly!)",
-        "logo": "https://blog.shanelee.name/ghost/img/ghosticon.jpg"
+        "logo": "http://blog.shanelee.name/ghost/img/ghosticon.jpg"
     },
     "author": {
         "@type": "Person",
         "name": "Shane Lee",
-        "image": "https://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg",
-        "url": "https://blog.shanelee.name/author/shane/",
+        "image": "http://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg",
+        "url": "http://blog.shanelee.name/author/shane/",
         "sameAs": [
             "https://about.me/shane-lee"
         ]
     },
     "headline": "Jibbing with spring boot and google cloud run",
-    "url": "https://blog.shanelee.name/2020/08/29/jibbing-with-spring-boot-and-google-cloud-run/",
+    "url": "http://blog.shanelee.name/2020/08/29/jibbing-with-spring-boot-and-google-cloud-run/",
     "datePublished": "2020-08-29T08:08:34.002Z",
     "dateModified": "2020-08-30T06:55:19.737Z",
-    "image": "https://blog.shanelee.name/content/images/2020/08/ardian-lumi-6Woj_wozqmA-unsplash.jpg",
+    "image": "http://blog.shanelee.name/content/images/2020/08/ardian-lumi-6Woj_wozqmA-unsplash.jpg",
     "keywords": "gcp, cloudrun, spring-boot, spring, docker, microservice, cloud, google, jib, redoc, swagger, openapi",
     "description": "I said jibbing not jiving! 😆 Cloud native architecture When it comes to microservices and cloud native architecture you first think about containers. Now you can of course compose your own docker file. But with jvm based microservices there is a tool from google called jib that can simplify containerization. We&#x27;ll"
 }
@@ -121,7 +121,7 @@
         
 
 
-<header class="main-header post-head " style="background-image: url(https://blog.shanelee.name/content/images/2020/08/ardian-lumi-6Woj_wozqmA-unsplash.jpg)">
+<header class="main-header post-head " style="background-image: url(http://127.0.0.1:2368/content/images/2020/08/ardian-lumi-6Woj_wozqmA-unsplash.jpg)">
     <nav class="main-nav overlay clearfix">
         
             <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
@@ -200,14 +200,14 @@ It'll expose a simple <strong>GET</strong> endpoint:</p>
 
 <p>There is a fantastic VSCode extension called <a href="https://cloud.google.com/code">cloud code</a> that can help you deploy to cloud run or GKE on google cloud. It can even pick up if you are using <a href="https://blog.shanelee.name/2019/02/20/skaffold-for-local-kubernetes-development/">skaffold</a> or jib under the hood.</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2020/08/cloudcode1.png" alt="">
-<img src="https://blog.shanelee.name/content/images/2020/08/cloudcode2.png" alt=""></p>
+<p><img src="http://127.0.0.1:2368/content/images/2020/08/cloudcode1.png" alt="">
+<img src="http://127.0.0.1:2368/content/images/2020/08/cloudcode2.png" alt=""></p>
 
 <p>This command will build, push your image to GCR and deploy to cloud run. And that's it!</p>
 
 <p>Now you can access the public url and test out the endpoint.</p>
 
-<p><img src="https://blog.shanelee.name/content/images/2020/08/Cloudcodeexp.png" alt=""></p>
+<p><img src="http://127.0.0.1:2368/content/images/2020/08/Cloudcodeexp.png" alt=""></p>
 
 <p>The source code for the example is over on <a href="https://github.com/shavo007/spring-boot-jib">github</a></p>
 
@@ -243,7 +243,7 @@ It'll expose a simple <strong>GET</strong> endpoint:</p>
 gcloud run deploy redoc-greetings-api --project $PROJECT_ID --image gcr.io/$PROJECT_ID/redoc --platform managed --region us-central1 --port 80 --cpu 1 --memory 256Mi --concurrency 80 --timeout 300 --update-env-vars SPEC_URL=https://&lt;CLOUD_RUN_SPRING_BOOT_BASE_URI&gt;/swagger.yaml  
 </code></pre>
 
-<p><img src="https://blog.shanelee.name/content/images/2020/08/Redoc.png" alt=""></p>
+<p><img src="http://127.0.0.1:2368/content/images/2020/08/Redoc.png" alt=""></p>
 
 <p>Again, the src code can be found on <a href="https://github.com/shavo007/greetings-doc">github</a></p>
 
@@ -259,7 +259,7 @@ gcloud run deploy redoc-greetings-api --project $PROJECT_ID --image gcr.io/$PROJ
 */
 
 var disqus_config = function () {
-this.page.url = 'https://blog.shanelee.name/2020/08/29/jibbing-with-spring-boot-and-google-cloud-run/'; // Replace PAGE_URL with your page's canonical URL variable
+this.page.url = 'http://blog.shanelee.name/2020/08/29/jibbing-with-spring-boot-and-google-cloud-run/'; // Replace PAGE_URL with your page's canonical URL variable
 this.page.identifier = 'ghost-25'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
@@ -279,7 +279,7 @@ s.setAttribute('data-timestamp', +new Date());
 
 
             <figure class="author-image">
-                <a class="img" href="../../../../author/shane/" style="background-image: url(https://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
+                <a class="img" href="../../../../author/shane/" style="background-image: url(http://127.0.0.1:2368/content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
             </figure>
 
             <section class="author">
@@ -315,13 +315,13 @@ s.setAttribute('data-timestamp', +new Date());
 
 
 <aside class="read-next">
-    <a class="read-next-story " style="background-image: url(https://blog.shanelee.name/content/images/2021/08/chris-ensminger-gWo-hfRotrI-unsplash.jpg)" href="../../../../2021/08/29/mocking-a-rest-api-the-api-first-way-with-mockoon/">
+    <a class="read-next-story " style="background-image: url(http://127.0.0.1:2368/content/images/2021/08/chris-ensminger-gWo-hfRotrI-unsplash.jpg)" href="../../../../2021/08/29/mocking-a-rest-api-the-api-first-way-with-mockoon/">
         <section class="post">
             <h2>Mocking a REST API the "API first" approach with Mockoon</h2>
             <p>Recently, I have spent considerable time researching and analyzing the tooling available for "API first". At the core of…</p>
         </section>
     </a>
-    <a class="read-next-story prev " style="background-image: url(https://blog.shanelee.name/content/images/2020/08/morning-brew-T0qYg2nPUWM-unsplash.jpg)" href="../../04/how-i-passed-the-professional-google-cloud-architect-exam/">
+    <a class="read-next-story prev " style="background-image: url(http://127.0.0.1:2368/content/images/2020/08/morning-brew-T0qYg2nPUWM-unsplash.jpg)" href="../../04/how-i-passed-the-professional-google-cloud-architect-exam/">
         <section class="post">
             <h2>How I passed the professional google cloud architect exam</h2>
             <p>So why Google cloud?? Well, the Google Cloud Platform (GCP) is behind the 8 ball for sure in comparison…</p>

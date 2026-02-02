@@ -23,7 +23,7 @@
     <meta property="og:type" content="article">
     <meta property="og:title" content="Alexa skill for plex media server">
     <meta property="og:description" content="Integrate alexa skill with plex media server using serverless technology aws lambda (FAAS)">
-    <meta property="og:url" content="https://blog.shanelee.name/2016/09/06/alexa-ask-home-theater-to-put-on-mr-robot/">
+    <meta property="og:url" content="http://blog.shanelee.name/2016/09/06/alexa-ask-home-theater-to-put-on-mr-robot/">
     <meta property="article:published_time" content="2016-09-06T10:45:03.694Z">
     <meta property="article:modified_time" content="2016-09-06T12:27:05.279Z">
     <meta property="article:tag" content="alexa">
@@ -39,7 +39,7 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Alexa skill for plex media server">
     <meta name="twitter:description" content="Integrate alexa skill with plex media server using serverless technology aws lambda (FAAS)">
-    <meta name="twitter:url" content="https://blog.shanelee.name/2016/09/06/alexa-ask-home-theater-to-put-on-mr-robot/">
+    <meta name="twitter:url" content="http://blog.shanelee.name/2016/09/06/alexa-ask-home-theater-to-put-on-mr-robot/">
     <meta name="twitter:label1" content="Written by">
     <meta name="twitter:data1" content="Shane Lee">
     <meta name="twitter:label2" content="Filed under">
@@ -52,19 +52,19 @@
     "publisher": {
         "@type": "Organization",
         "name": "Tech Blog (mainly!)",
-        "logo": "https://blog.shanelee.name/ghost/img/ghosticon.jpg"
+        "logo": "http://blog.shanelee.name/ghost/img/ghosticon.jpg"
     },
     "author": {
         "@type": "Person",
         "name": "Shane Lee",
-        "image": "https://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg",
-        "url": "https://blog.shanelee.name/author/shane/",
+        "image": "http://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg",
+        "url": "http://blog.shanelee.name/author/shane/",
         "sameAs": [
             "https://about.me/shane-lee"
         ]
     },
     "headline": "Alexa skill for plex media server",
-    "url": "https://blog.shanelee.name/2016/09/06/alexa-ask-home-theater-to-put-on-mr-robot/",
+    "url": "http://blog.shanelee.name/2016/09/06/alexa-ask-home-theater-to-put-on-mr-robot/",
     "datePublished": "2016-09-06T10:45:03.694Z",
     "dateModified": "2016-09-06T12:27:05.279Z",
     "keywords": "alexa, plex, lambda, aws, node, dynamodb, amazon, amazon echo, serverless",
@@ -143,7 +143,7 @@
 
             <h1 id="plexforalexa">Plex for Alexa</h1>
 
-<p><img src="https://blog.shanelee.name/content/images/2016/09/maxresdefault.jpg" alt=""></p>
+<p><img src="http://127.0.0.1:2368/content/images/2016/09/maxresdefault.jpg" alt=""></p>
 
 <p>Recently, I have started playing around with Alexa skill services. I currently use plex for my media content and found a project on github that has built an alexa skill already. (<strong>thanks to @overloadut</strong>)</p>
 
@@ -155,7 +155,7 @@
 
 <h1 id="process">Process</h1>
 
-<p><img src="https://blog.shanelee.name/content/images/2016/09/PlexToAlexa.png" alt="Alexa flow"></p>
+<p><img src="http://127.0.0.1:2368/content/images/2016/09/PlexToAlexa.png" alt="Alexa flow"></p>
 
 <h3 id="prerequisites">Prerequisites</h3>
 
@@ -195,7 +195,7 @@ AWS_SECRET_ACCESS_KEY=&lt;your own secret key&gt;
 
 <h3 id="awslambda">AWS Lambda</h3>
 
-<p><img src="https://blog.shanelee.name/content/images/2016/09/AWS_Simple_Icons_Compute_AWSLambda-svg--1-.png" alt=""></p>
+<p><img src="http://127.0.0.1:2368/content/images/2016/09/AWS_Simple_Icons_Compute_AWSLambda-svg--1-.png" alt=""></p>
 
 <p>Create IAM role that has access to lambda and to dynamodb. </p>
 
@@ -211,13 +211,13 @@ AWS_SECRET_ACCESS_KEY=&lt;your own secret key&gt;
 
 <h3 id="dynamodb">DynamoDB</h3>
 
-<p><img src="https://blog.shanelee.name/content/images/2016/09/AWS_Simple_Icons_Database_AmazonDynamoDB-svg.png" alt=""></p>
+<p><img src="http://127.0.0.1:2368/content/images/2016/09/AWS_Simple_Icons_Database_AmazonDynamoDB-svg.png" alt=""></p>
 
 <p>Create a table named <em>AlexaPlexUsers</em> with a primary string key of <em>userid</em>.</p>
 
 <h3 id="createalexaskill">Create alexa skill</h3>
 
-<p><img src="https://blog.shanelee.name/content/images/2016/09/icon_ask_120x120-_CB295607968_--1-.png" alt=""></p>
+<p><img src="http://127.0.0.1:2368/content/images/2016/09/icon_ask_120x120-_CB295607968_--1-.png" alt=""></p>
 
 <p>Navigate to <a href="https://developer.amazon.com/">Amazon Developer Portal</a> to begin the Alexa Skill process. </p>
 
@@ -289,7 +289,7 @@ Add in video showing how it plays</p>
 */
 
 var disqus_config = function () {
-this.page.url = 'https://blog.shanelee.name/2016/09/06/alexa-ask-home-theater-to-put-on-mr-robot/'; // Replace PAGE_URL with your page's canonical URL variable
+this.page.url = 'http://blog.shanelee.name/2016/09/06/alexa-ask-home-theater-to-put-on-mr-robot/'; // Replace PAGE_URL with your page's canonical URL variable
 this.page.identifier = 'ghost-8'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
@@ -309,7 +309,7 @@ s.setAttribute('data-timestamp', +new Date());
 
 
             <figure class="author-image">
-                <a class="img" href="../../../../author/shane/" style="background-image: url(https://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
+                <a class="img" href="../../../../author/shane/" style="background-image: url(http://127.0.0.1:2368/content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
             </figure>
 
             <section class="author">
