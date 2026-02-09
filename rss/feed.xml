@@ -1,4 +1,483 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog (mainly!)]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>http://localhost:2368/</link><generator>Ghost 0.8</generator><lastBuildDate>Mon, 02 Feb 2026 21:04:50 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Scrum is Dead]]></title><description><![CDATA[<p><strong>Why AI-powered teams need lean methodology, not ceremonies</strong></p>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog (mainly!)]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>https://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Mon, 09 Feb 2026 20:52:52 GMT</lastBuildDate><atom:link href="https://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Agentic Coding: Git Worktrees and Agent Skills for Parallel Workflows]]></title><description><![CDATA[<p><strong>From solo agent to parallel powerhouse: how Git worktrees and agent skills turn your agentic coding setup into a multi-tasking machine</strong></p>
+
+<hr>
+
+<p>When you're using agentic coding tools seriously, you've hit this wall:</p>
+
+<ul>
+<li>🤖 Agent working on Feature A in one terminal</li>
+<li>🤖 Need to start Feature B <em>right now</em></li>
+<li>💥 Can't — same working</li></ul>]]></description><link>https://blog.shanelee.name/2026/02/03/agentic-coding-git-worktrees-and-agent-skills-for-parallel-workflows/</link><guid isPermaLink="false">ffb51db0-c9ea-4620-9abc-53c3b73ebbf9</guid><category><![CDATA[ai]]></category><category><![CDATA[claude]]></category><category><![CDATA[copilot]]></category><category><![CDATA[agentic]]></category><category><![CDATA[context]]></category><category><![CDATA[github]]></category><category><![CDATA[git]]></category><category><![CDATA[worktree]]></category><category><![CDATA[skills]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 03 Feb 2026 17:09:04 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2026/02/git-worktrees-hero-3.png" medium="image"/><content:encoded><![CDATA[<img src="https://blog.shanelee.name/content/images/2026/02/git-worktrees-hero-3.png" alt="Agentic Coding: Git Worktrees and Agent Skills for Parallel Workflows"><p><strong>From solo agent to parallel powerhouse: how Git worktrees and agent skills turn your agentic coding setup into a multi-tasking machine</strong></p>
+
+<hr>
+
+<p>When you're using agentic coding tools seriously, you've hit this wall:</p>
+
+<ul>
+<li>🤖 Agent working on Feature A in one terminal</li>
+<li>🤖 Need to start Feature B <em>right now</em></li>
+<li>💥 Can't — same working directory, same files, chaos ensues</li>
+</ul>
+
+<p>Whether you're running Claude Code in the terminal, using Cursor's Composer, or GitHub Copilot's agent mode in VS Code, the problem is identical: <strong>one working directory, one set of files, one task at a time</strong>.</p>
+
+<p>That's frustrating when you're paying for AI horsepower and want to parallelise.</p>
+
+<p>In this post, I'll show you how <strong>Git worktrees</strong> solve the isolation problem, how <strong>agent skills</strong> teach your AI to manage worktrees autonomously, and how the entire workflow — from branch creation to PR — can be streamlined across multiple parallel sessions.</p>
+
+<blockquote>
+  <p>💡 This is <strong>Part 4</strong> in my Context Engineering series. In <a href="https://blog.shanelee.name/2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/">Part 1</a>, we covered the four pillars of context engineering. In <a href="https://blog.shanelee.name/2026/01/26/context-engineering-stop-fighting-your-ai-and-start-shipping-faster-pt2/">Part 2</a>, we introduced agent skills as portable capabilities. In <a href="https://blog.shanelee.name/2026/01/30/scrum-is-dead-why-ai-powered-teams-need-lean-methodology-not-ceremonies/">Part 3</a>, we argued why AI-powered teams need lean methodology over Scrum ceremonies. Now we put skills to work.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="gitworktreestheparallelsessionssolution">🌳 Git Worktrees: The Parallel Sessions Solution</h2>
+
+<p>Git worktrees let you check out multiple branches from the same repository into <strong>separate directories</strong>. Each worktree has its own working copy with isolated files while sharing the same Git history and <code>.git</code> directory. Unlike cloning the repo multiple times, worktrees are lightweight — they share the Git object store, refs, and hooks, so there's no duplicated history or divergent state to manage.</p>
+
+<pre><code class="language-bash"># Create a new worktree with a new branch
+git worktree add ../project-feature-auth -b feature/authentication
+
+# Create a worktree from an existing branch
+git worktree add ../project-hotfix-123 hotfix/critical-bug-123
+
+# List all your worktrees
+git worktree list
+
+# Remove when done
+git worktree remove ../project-feature-auth  
+</code></pre>
+
+<p>Why this matters for agentic coding:</p>
+
+<table style="width:100%; border-collapse: collapse; margin: 1.5em 0;">  
+  <thead>
+    <tr style="background-color: #f4f4f4;">
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Single Directory</th>
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Git Worktrees</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">One agent at a time</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Multiple agents in parallel</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Context switching = stash/commit/switch</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">No context switching required</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Agents can step on each other's changes</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Complete file isolation</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px;">Wait for task completion</td>
+      <td style="padding: 12px;">Work on urgent fix while feature progresses</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Each worktree is a fresh checkout. Depending on your stack, you'll need to install dependencies — <code>pnpm install</code>, <code>uv sync</code>, <code>bundle install</code>, etc. That's a small price for having three AI agents working simultaneously without stepping on each other.</p>
+
+<p>Claude Code's own documentation <a href="https://code.claude.com/docs/en/common-workflows#run-parallel-claude-code-sessions-with-git-worktrees">recommends exactly this pattern</a> for running parallel sessions. But the docs stop at the manual <code>git worktree</code> commands — what if we could teach the agent to handle worktree management for us?</p>
+
+<hr>
+
+<h2 id="agentskillsteachingyouraigitworktrees">🛠️ Agent Skills: Teaching Your AI Git Worktrees</h2>
+
+<p>In <a href="https://blog.shanelee.name/2026/01/26/context-engineering-stop-fighting-your-ai-and-start-shipping-faster-pt2/">Part 2</a> of this series, I introduced <strong>agent skills</strong> — folders of instructions, scripts, and resources that agents can discover and use. Skills are an emerging convention adopted by Claude Code, Cursor, VS Code, GitHub, Goose, and others. The idea is simple: you drop a skill folder into your project, and the agent automatically discovers it and knows when to use it — no manual configuration required.</p>
+
+<p>Here's the thing: you could teach your agent the <code>git worktree</code> commands every session. Or you could <strong>teach it once</strong> and have it just <em>know</em> how to manage worktrees.</p>
+
+<p>That's exactly what I built: a <a href="https://github.com/shavo007/langchain-anthropic-pdf-support/tree/main/.claude/skills/git-worktree">git-worktree skill</a> that gives Claude Code (or any skill-aware agent) full worktree management capabilities.</p>
+
+<h3 id="theskillstructure">The Skill Structure</h3>
+
+<pre><code>.claude/skills/git-worktree/
+├── SKILL.md          # Instructions the agent reads
+└── scripts/
+    └── worktree.py   # The actual tooling
+</code></pre>
+
+<p>The <code>SKILL.md</code> tells the agent what the skill does and — critically — <strong>when to activate</strong>. The <code>description</code> field acts as a trigger: when you ask something that matches, the agent discovers and loads the skill automatically:</p>
+
+<pre><code class="language-yaml">---
+name: git-worktree  
+description: Git worktree management for parallel development workflows.  
+  Use when the user wants to work on multiple branches simultaneously
+  without stashing, create isolated environments for features/bugfixes,
+  or manage worktrees (create, list, remove, prune). Triggers on
+  requests like "create a worktree", "work on branch X in parallel",
+  "set up a new feature branch environment".
+---
+</code></pre>
+
+<p>The Python script handles the heavy lifting — creating worktrees, auto-detecting package managers, installing dependencies, and even opening your preferred editor:</p>
+
+<pre><code class="language-python"># Auto-detects and installs dependencies for any stack
+def install_dependencies(path: Path) -&gt; None:  
+    if (path / "package-lock.json").exists():
+        subprocess.run(["npm", "ci"], cwd=path, check=False)
+    elif (path / "pnpm-lock.yaml").exists():
+        subprocess.run(["pnpm", "install", "--frozen-lockfile"], cwd=path, check=False)
+    elif (path / "uv.lock").exists():
+        subprocess.run(["uv", "sync"], cwd=path, check=False)
+    elif (path / "go.mod").exists():
+        subprocess.run(["go", "mod", "download"], cwd=path, check=False)
+    # ... also supports yarn, bun, poetry, pipenv, bundler, cargo
+</code></pre>
+
+<h3 id="quickreference">Quick Reference</h3>
+
+<p>These are the commands the agent runs under the hood. You don't need to type them — just describe what you want in natural language and the skill handles the rest.</p>
+
+<table style="width:100%; border-collapse: collapse; margin: 1.5em 0;">  
+  <thead>
+    <tr style="background-color: #f4f4f4;">
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Task</th>
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Command</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Create worktree</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;"><code>python scripts/worktree.py create &lt;branch&gt;</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Create + install deps</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;"><code>python scripts/worktree.py create &lt;branch&gt; -i</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Create + open editor</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;"><code>python scripts/worktree.py create &lt;branch&gt; -e code</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">List worktrees</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;"><code>python scripts/worktree.py list</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Remove worktree</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;"><code>python scripts/worktree.py remove &lt;path&gt;</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 12px;">Prune stale refs</td>
+      <td style="padding: 12px;"><code>python scripts/worktree.py prune</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Supported editors: VS Code, Cursor, IntelliJ IDEA, WebStorm, PyCharm, Zed, Sublime Text, Vim, Neovim.</p>
+
+<hr>
+
+<h2 id="theskillinaction">⚡ The Skill in Action</h2>
+
+<p>Here's what a parallel agentic workflow looks like with the skill installed.</p>
+
+<h3 id="scenariofeatureworkurgenthotfix">Scenario: Feature work + urgent hotfix</h3>
+
+<p>You're halfway through a feature when a critical bug lands. Instead of stashing or committing half-finished work:</p>
+
+<pre><code class="language-bash"># Terminal 1: You're working on the feature
+claude  
+&gt; "Create a worktree for fix/critical-bug-123 from main, install deps"
+
+# The agent recognises the request, activates the git-worktree skill,
+# and runs the script:
+# ✓ Created worktree at ../project-fix/critical-bug-123
+# ✓ New branch 'fix/critical-bug-123' from 'main'
+# ✓ Running pnpm install --frozen-lockfile...
+# ✓ Worktree ready: ../project-fix/critical-bug-123
+</code></pre>
+
+<pre><code class="language-bash"># Terminal 2: Open a new Claude Code session in the hotfix worktree
+cd ../project-fix/critical-bug-123  
+claude  
+&gt; "Fix the null pointer in the payment handler"
+# Agent works in complete isolation from your feature branch
+</code></pre>
+
+<pre><code class="language-bash"># Terminal 1: Meanwhile, your feature work continues uninterrupted
+&gt; "Continue implementing the user auth flow"
+</code></pre>
+
+<h3 id="scenarioreviewingaprwithoutcontextswitching">Scenario: Reviewing a PR without context switching</h3>
+
+<pre><code class="language-bash">&gt; "Create a worktree from origin/feat/someone-elses-work for code review"
+
+# Agent:
+# ✓ Created worktree at ../project-feat/someone-elses-work
+# ✓ Using existing branch 'feat/someone-elses-work'
+# ✓ Worktree ready
+</code></pre>
+
+<p>No stashing. No committing half-finished work. No branch juggling. Each agent gets its own isolated directory, its own dependencies, its own context.</p>
+
+<hr>
+
+<h2 id="thefullloopcommitcommandsplugin">🚀 The Full Loop: Commit Commands Plugin</h2>
+
+<p>Git worktrees handle the <em>beginning</em> of the workflow — creating isolated environments. But what about the <em>end</em>? Committing, pushing, and opening a PR.</p>
+
+<p>This is where Claude Code's <a href="https://github.com/anthropics/claude-code/tree/main/plugins/commit-commands">commit-commands plugin</a> completes the loop.</p>
+
+<p>A quick distinction: <strong>skills</strong> teach the agent domain knowledge (like worktree management) and are activated automatically when relevant, while <strong>plugins</strong> are installable packages that bundle slash commands, hooks, and other extensions. You install plugins from Claude Code's marketplace:</p>
+
+<pre><code class="language-bash"># Browse available plugins
+&gt; /plugin
+
+# Or install directly from the official marketplace
+&gt; /plugin install commit-commands@claude-plugins-official
+</code></pre>
+
+<p>Plugins are namespaced, so the commit-commands plugin provides commands like <code>/commit-commands:commit</code>. For details on the plugin system, see the <a href="https://code.claude.com/docs/en/discover-plugins">Claude Code plugins documentation</a>.</p>
+
+<p>The commit-commands plugin provides three slash commands that work beautifully in tandem with the worktree skill:</p>
+
+<h3 id="commitcommandscommitcontextawarecommits"><code>/commit-commands:commit</code> — Context-Aware Commits</h3>
+
+<pre><code class="language-bash">&gt; /commit-commands:commit
+
+# Claude will:
+# - Review staged and unstaged changes
+# - Match your repo's commit message style
+# - Draft an appropriate message
+# - Stage and commit
+</code></pre>
+
+<p>The AI reads your recent commit history and generates messages that match your team's conventions. No more generic "fix stuff" commits.</p>
+
+<h3 id="commitcommandscommitpushprbranchtoprinonestep"><code>/commit-commands:commit-push-pr</code> — Branch to PR in One Step</h3>
+
+<p>This is the real power move. After finishing work in your worktree:</p>
+
+<pre><code class="language-bash">&gt; /commit-commands:commit-push-pr
+
+# Claude will:
+# - Create a feature branch (if needed)
+# - Commit with a meaningful message
+# - Push to origin with tracking
+# - Create a PR via GitHub CLI with auto-generated description
+# - Return the PR URL
+</code></pre>
+
+<p>The PR description includes a summary of <em>all</em> commits in the branch (not just the latest), a test plan checklist, and proper attribution.</p>
+
+<h3 id="commitcommandsclean_goneworktreecleanup"><code>/commit-commands:clean_gone</code> — Worktree Cleanup</h3>
+
+<p>After your PRs are merged and remote branches deleted, cleanup is one command:</p>
+
+<pre><code class="language-bash">&gt; /commit-commands:clean_gone
+
+# Claude will:
+# - Find branches marked as [gone]
+# - Remove associated worktrees
+# - Delete stale local branches
+# - Report what was cleaned up
+</code></pre>
+
+<h3 id="thecompleteworkflow">The Complete Workflow</h3>
+
+<p>Here's the full loop in practice:</p>
+
+<pre><code class="language-bash"># 1. Create isolated worktree (git-worktree skill)
+&gt; "Create a worktree for feat/user-auth, install deps, open in VS Code"
+# ✓ Worktree ready: ../project-feat/user-auth
+
+# 2. Open a new Claude Code session in the worktree
+cd ../project-feat/user-auth  
+claude  
+&gt; "Implement OAuth2 integration"
+
+# 3. Work is done — commit and create PR (commit-commands plugin)
+&gt; /commit-commands:commit-push-pr
+# ✓ Committed: Add OAuth2 provider integration
+# ✓ Pushed to origin/feat/user-auth
+# ✓ PR #142 created: https://github.com/...
+
+# 4. PR is reviewed, approved, and merged on GitHub
+# Back in your main worktree, clean up stale branches:
+&gt; /commit-commands:clean_gone
+# ✓ Removed worktree: ../project-feat/user-auth
+# ✓ Deleted branch: feat/user-auth
+</code></pre>
+
+<p>From worktree creation to PR to cleanup — streamlined across your parallel sessions.</p>
+
+<hr>
+
+<h2 id="transferabletoothertools">🔄 Transferable to Other Tools</h2>
+
+<p>I'm showcasing this with Claude Code because it's my primary agentic tool, but the concept is <strong>transferable</strong>. The worktree workflow isn't tied to any single tool — it's a pattern you can bring to any agentic coding environment.</p>
+
+<p>If you're using GitHub Copilot's agent mode, you can achieve the same worktree workflow with a <strong>reusable prompt</strong>. Create a file at <code>.github/prompts/git-worktree.prompt.md</code>:</p>
+
+<pre><code class="language-yaml">---
+description: Create and manage Git worktrees for parallel development  
+tools: ['run_in_terminal', 'get_terminal_output']  
+---
+
+# Git Worktree Management
+
+When the user asks to create a worktree, work on a branch in parallel,  
+or set up an isolated environment:
+
+1. Determine the branch name and base branch (default: main)  
+2. Create a sibling directory: `git worktree add ../repo-name-branch -b &lt;branch&gt;`  
+3. Detect and install dependencies (check for package-lock.json, pnpm-lock.yaml,  
+   uv.lock, go.mod, etc.)
+4. Report the worktree path so the user can open a new agent session there  
+</code></pre>
+
+<p>Then invoke it in Copilot's agent mode with <code>/git-worktree</code>.</p>
+
+<p>The key difference is structural: Claude Code skills can bundle executable scripts alongside the instructions (like the <code>worktree.py</code> script), while Copilot reusable prompts rely on the agent generating and running commands from the prompt's instructions alone.</p>
+
+<p>The key insight from <a href="https://blog.shanelee.name/2026/01/26/context-engineering-stop-fighting-your-ai-and-start-shipping-faster-pt2/">Part 2</a> holds: <strong>agent skills and reusable prompts are two implementations of the same idea</strong> — teaching your AI once so you never repeat yourself.</p>
+
+<table style="width:100%; border-collapse: collapse; margin: 1.5em 0;">  
+  <thead>
+    <tr style="background-color: #f4f4f4;">
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Tool</th>
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Mechanism</th>
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Location</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Claude Code</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Agent Skills + Plugins</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;"><code>.claude/skills/</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">GitHub Copilot</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Reusable Prompts</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;"><code>.github/prompts/</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 12px;">Cursor</td>
+      <td style="padding: 12px;">Rules / Skills</td>
+      <td style="padding: 12px;"><code>.cursor/rules/</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2 id="whythismattersforagenticworkflows">📊 Why This Matters for Agentic Workflows</h2>
+
+<p>The combination of Git worktrees + agent skills + commit commands creates a workflow that's more than the sum of its parts:</p>
+
+<table style="width:100%; border-collapse: collapse; margin: 1.5em 0;">  
+  <thead>
+    <tr style="background-color: #f4f4f4;">
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Traditional</th>
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Agentic + Worktrees + Skills</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Work on one task at a time</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Parallel agents on multiple tasks</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Manual branch creation and naming</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">AI-managed with dependency installation</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Write commit messages manually</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Context-aware message generation</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Copy-paste PR descriptions</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Auto-generated from actual changes</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Manual worktree cleanup</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">One-command cleanup of merged branches</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px;">Teach the AI every session</td>
+      <td style="padding: 12px;">Teach once via skills, reuse forever</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>💡 <strong>The key insight</strong>: Git worktrees solve the parallelisation problem at the file system level. Agent skills solve the repetitive teaching problem at the cognitive level. Commit commands solve the Git ceremony problem at the workflow level. Together, they let you focus on <strong>directing the AI agents</strong>, not managing the infrastructure around them.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="gettingstarted">🎬 Getting Started</h2>
+
+<p><strong>Prerequisites</strong>: <a href="https://code.claude.com/docs/en/quickstart">Claude Code</a> installed and authenticated, Python 3.10+, and <a href="https://cli.github.com/">GitHub CLI</a> (<code>gh</code>) installed and authenticated (needed for PR creation).</p>
+
+<p><strong>1. Add the git-worktree skill to your project</strong></p>
+
+<p>Copy the skill into your project's <code>.claude/skills/</code> directory. You can grab it directly from the repository:</p>
+
+<pre><code class="language-bash"># From your project root
+mkdir -p .claude/skills/git-worktree/scripts
+
+# Download the skill files
+curl -sL https://raw.githubusercontent.com/shavo007/langchain-anthropic-pdf-support/main/.claude/skills/git-worktree/SKILL.md \  
+  -o .claude/skills/git-worktree/SKILL.md
+
+curl -sL https://raw.githubusercontent.com/shavo007/langchain-anthropic-pdf-support/main/.claude/skills/git-worktree/scripts/worktree.py \  
+  -o .claude/skills/git-worktree/scripts/worktree.py
+</code></pre>
+
+<p>Claude Code automatically discovers skills in <code>.claude/skills/</code> — no configuration needed.</p>
+
+<p>The full skill source is at: <a href="https://github.com/shavo007/langchain-anthropic-pdf-support/tree/main/.claude/skills/git-worktree">github.com/shavo007/langchain-anthropic-pdf-support/.claude/skills/git-worktree</a></p>
+
+<p><strong>2. Install the commit-commands plugin</strong></p>
+
+<p>Install it from Claude Code's official marketplace:</p>
+
+<pre><code class="language-bash">&gt; /plugin install commit-commands@claude-plugins-official
+</code></pre>
+
+<p>Once installed, <code>/commit-commands:commit</code>, <code>/commit-commands:commit-push-pr</code>, and <code>/commit-commands:clean_gone</code> are available in any session. See the <a href="https://github.com/anthropics/claude-code/tree/main/plugins/commit-commands">commit-commands README</a> for full details.</p>
+
+<p><strong>3. Create your first parallel worktree</strong></p>
+
+<pre><code class="language-bash">claude  
+&gt; "Create a worktree for feat/my-first-parallel-task, install deps"
+</code></pre>
+
+<p>The agent will activate the skill, create a sibling directory, set up the branch, and install your project's dependencies. Then open a new terminal, <code>cd</code> into the worktree path the agent reports, and run <code>claude</code> to start a parallel session.</p>
+
+<p><strong>4. For Copilot users</strong></p>
+
+<p>Create <code>.github/prompts/git-worktree.prompt.md</code> in your repository using the reusable prompt example from the Copilot section above. Then invoke it in agent mode with <code>/git-worktree</code>.</p>
+
+<hr>
+
+<h2 id="keytakeaways">🎯 Key Takeaways</h2>
+
+<ol>
+<li><strong>Git worktrees</strong> provide complete file isolation for running multiple agentic sessions in parallel  </li>
+<li><strong>Agent skills</strong> teach your AI worktree management once — no more repeating instructions  </li>
+<li><strong>The concept is transferable</strong> across tools: Claude Code skills, Copilot reusable prompts, Cursor rules  </li>
+<li><strong>Plugins like commit-commands</strong> complete the loop: from worktree creation through PR and cleanup  </li>
+<li><strong>Teach once, reuse forever</strong> — the core principle of context engineering applied to your Git workflow</li>
+</ol>
+
+<hr>
+
+<h2 id="resources">🔗 Resources</h2>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">🌳 <a href="https://github.com/shavo007/langchain-anthropic-pdf-support/tree/main/.claude/skills/git-worktree"><strong>Git Worktree Skill</strong></a> — The skill showcased in this post</li>
+  <li style="padding: 8px 0;">🚀 <a href="https://github.com/anthropics/claude-code/tree/main/plugins/commit-commands"><strong>Commit Commands Plugin</strong></a> — Claude Code's commit, push, and PR commands</li>
+  <li style="padding: 8px 0;">💻 <a href="https://code.claude.com/docs/en/common-workflows#run-parallel-claude-code-sessions-with-git-worktrees"><strong>Claude Code: Parallel Sessions with Git Worktrees</strong></a> — Official Claude Code docs on worktree workflows</li>
+  <li style="padding: 8px 0;">📖 <a href="https://git-scm.com/docs/git-worktree"><strong>Git Worktree Documentation</strong></a> — Official Git docs</li>
+  <li style="padding: 8px 0;">📝 <a href="https://blog.shanelee.name/2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/"><strong>Context Engineering Part 1</strong></a> — The four pillars</li>
+  <li style="padding: 8px 0;">🛠️ <a href="https://blog.shanelee.name/2026/01/26/context-engineering-stop-fighting-your-ai-and-start-shipping-faster-pt2/"><strong>Context Engineering Part 2</strong></a> — Agent skills and the Agentic AI Foundation</li>
+  <li style="padding: 8px 0;">⚡ <a href="https://blog.shanelee.name/2026/01/30/scrum-is-dead-why-ai-powered-teams-need-lean-methodology-not-ceremonies/"><strong>Context Engineering Part 3</strong></a> — Scrum is Dead: why AI-powered teams need lean methodology</li>
+</ul>]]></content:encoded></item><item><title><![CDATA[Scrum is Dead]]></title><description><![CDATA[<p><strong>Why AI-powered teams need lean methodology, not ceremonies</strong></p>
 
 <hr>
 
@@ -9,7 +488,7 @@
 <p>Now ask yourself: did any of those meetings help you ship faster?</p>
 
 <ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
-  <li style="padding: 8px 0;">🗓️ Are your sprints constantly disrupted by</li></ul>]]></description><link>http://localhost:2368/2026/01/30/scrum-is-dead-why-ai-powered-teams-need-lean-methodology-not-ceremonies/</link><guid isPermaLink="false">bf476f36-0aea-48be-a4ac-69ebb37346c3</guid><category><![CDATA[ai]]></category><category><![CDATA[agile]]></category><category><![CDATA[claude]]></category><category><![CDATA[github]]></category><category><![CDATA[agentic]]></category><category><![CDATA[accelerate]]></category><category><![CDATA[leadership]]></category><category><![CDATA[scrum]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Fri, 30 Jan 2026 14:45:48 GMT</pubDate><media:content url="http://localhost:2368/content/images/2026/01/scrum-is-dead-hero-3.png" medium="image"/><content:encoded><![CDATA[<img src="http://localhost:2368/content/images/2026/01/scrum-is-dead-hero-3.png" alt="Scrum is Dead"><p><strong>Why AI-powered teams need lean methodology, not ceremonies</strong></p>
+  <li style="padding: 8px 0;">🗓️ Are your sprints constantly disrupted by</li></ul>]]></description><link>https://blog.shanelee.name/2026/01/30/scrum-is-dead-why-ai-powered-teams-need-lean-methodology-not-ceremonies/</link><guid isPermaLink="false">bf476f36-0aea-48be-a4ac-69ebb37346c3</guid><category><![CDATA[ai]]></category><category><![CDATA[agile]]></category><category><![CDATA[claude]]></category><category><![CDATA[github]]></category><category><![CDATA[agentic]]></category><category><![CDATA[accelerate]]></category><category><![CDATA[leadership]]></category><category><![CDATA[scrum]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Fri, 30 Jan 2026 14:45:48 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2026/01/scrum-is-dead-hero-3.png" medium="image"/><content:encoded><![CDATA[<img src="https://blog.shanelee.name/content/images/2026/01/scrum-is-dead-hero-3.png" alt="Scrum is Dead"><p><strong>Why AI-powered teams need lean methodology, not ceremonies</strong></p>
 
 <hr>
 
@@ -386,16 +865,16 @@ Code → Agent validates locally → Commit → Push → CI passes first time
 
 <hr>
 
-<p>In <a href="http://localhost:2368/2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/">Part 1</a>, we explored the fundamentals of context engineering—the four pillars, the hybrid model, and why teaching AI once beats fighting it every time.</p>
+<p>In <a href="https://blog.shanelee.name/2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/">Part 1</a>, we explored the fundamentals of context engineering—the four pillars, the hybrid model, and why teaching AI once beats fighting it every time.</p>
 
 <p>Now let's get practical. In this post, I'll show you:</p>
 
 <ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
-  <li style="padding: 8px 0;">🏛️ How</li></ul>]]></description><link>http://localhost:2368/2026/01/26/context-engineering-stop-fighting-your-ai-and-start-shipping-faster-pt2/</link><guid isPermaLink="false">a1534f8b-650d-4928-86e2-dbcab2a19dec</guid><category><![CDATA[ai]]></category><category><![CDATA[copilot]]></category><category><![CDATA[context]]></category><category><![CDATA[agentic]]></category><category><![CDATA[claude]]></category><category><![CDATA[github]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Mon, 26 Jan 2026 17:47:19 GMT</pubDate><media:content url="http://localhost:2368/content/images/2026/01/context-engineering-part2-hero-3.png" medium="image"/><content:encoded><![CDATA[<img src="http://localhost:2368/content/images/2026/01/context-engineering-part2-hero-3.png" alt="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt2"><p><strong>From Theory to Practice: How the industry is converging on context engineering standards</strong></p>
+  <li style="padding: 8px 0;">🏛️ How</li></ul>]]></description><link>https://blog.shanelee.name/2026/01/26/context-engineering-stop-fighting-your-ai-and-start-shipping-faster-pt2/</link><guid isPermaLink="false">a1534f8b-650d-4928-86e2-dbcab2a19dec</guid><category><![CDATA[ai]]></category><category><![CDATA[copilot]]></category><category><![CDATA[context]]></category><category><![CDATA[agentic]]></category><category><![CDATA[claude]]></category><category><![CDATA[github]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Mon, 26 Jan 2026 17:47:19 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2026/01/context-engineering-part2-hero-3.png" medium="image"/><content:encoded><![CDATA[<img src="https://blog.shanelee.name/content/images/2026/01/context-engineering-part2-hero-3.png" alt="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt2"><p><strong>From Theory to Practice: How the industry is converging on context engineering standards</strong></p>
 
 <hr>
 
-<p>In <a href="http://localhost:2368/2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/">Part 1</a>, we explored the fundamentals of context engineering—the four pillars, the hybrid model, and why teaching AI once beats fighting it every time.</p>
+<p>In <a href="https://blog.shanelee.name/2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/">Part 1</a>, we explored the fundamentals of context engineering—the four pillars, the hybrid model, and why teaching AI once beats fighting it every time.</p>
 
 <p>Now let's get practical. In this post, I'll show you:</p>
 
@@ -576,7 +1055,7 @@ See [migration guide](references/GUIDE.md)
 
 <p>Let me show you context engineering in action with a real migration project.</p>
 
-<p><img src="http://localhost:2368/content/images/2026/01/migration-approach-comparison-1.svg" alt="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt2"></p>
+<p><img src="https://blog.shanelee.name/content/images/2026/01/migration-approach-comparison-1.svg" alt="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt2"></p>
 
 <h3 id="themetainstructionpattern">The Meta-Instruction Pattern</h3>
 
@@ -642,7 +1121,7 @@ using the generated instructions in
 
 <h3 id="givingbacktoopensource">Giving Back to Open Source</h3>
 
-<p><img src="http://localhost:2368/content/images/2026/01/open-source-contribution-banner-1.svg" alt="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt2"></p>
+<p><img src="https://blog.shanelee.name/content/images/2026/01/open-source-contribution-banner-1.svg" alt="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt2"></p>
 
 <p>The Spring Boot 4.0 migration instructions I generated have been <strong>contributed back to the community</strong>. You can use them right now in your own projects—no need to recreate the wheel.</p>
 
@@ -650,7 +1129,7 @@ using the generated instructions in
 
 <h3 id="theroi98costreduction">The ROI: 98% Cost Reduction</h3>
 
-<p><img src="http://localhost:2368/content/images/2026/01/roi-cost-reduction.svg" alt="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt2"></p>
+<p><img src="https://blog.shanelee.name/content/images/2026/01/roi-cost-reduction.svg" alt="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt2"></p>
 
 <p>The numbers speak for themselves. What used to cost $20,000 across 10 applications now costs $350—and you get better quality with zero errors.</p>
 
@@ -660,7 +1139,7 @@ using the generated instructions in
 
 <p>This isn't about replacing developers. It's about changing what we do.</p>
 
-<p><img src="http://localhost:2368/content/images/2026/01/developer-role-evolution.svg" alt="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt2"></p>
+<p><img src="https://blog.shanelee.name/content/images/2026/01/developer-role-evolution.svg" alt="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt2"></p>
 
 <p>The shift is clear: fewer repetitive tasks, more strategic thinking. AI handles the implementation grind while you focus on what matters—architecture, requirements, and business value.</p>
 
@@ -670,7 +1149,7 @@ using the generated instructions in
 
 <p>Here's something that caught my attention. Boris Cherny, the creator of Claude Code at Anthropic, shared his actual workflow on X:</p>
 
-<p><img src="http://localhost:2368/content/images/2026/01/boris-cherny-tweet-1.png" alt="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt2" there="" is="" no="" one="" correct="" way="" to="" use="" claude="" code:="" we="" intentionally="" build="" it="" in="" a="" that="" you="" can="" it,="" customize="" and="" hack="" however="" like.""=""></p>
+<p><img src="https://blog.shanelee.name/content/images/2026/01/boris-cherny-tweet-1.png" alt="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt2" there="" is="" no="" one="" correct="" way="" to="" use="" claude="" code:="" we="" intentionally="" build="" it="" in="" a="" that="" you="" can="" it,="" customize="" and="" hack="" however="" like.""=""></p>
 
 <p>What's fascinating is how his practices map directly to the context engineering pillars:</p>
 
@@ -807,7 +1286,7 @@ using the generated instructions in
 <ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
   <li style="padding: 8px 0;">😤 Are you frustrated with AI giving inconsistent results?</li>
   <li style="padding: 8px 0;">🔁 Do you find yourself repeating the same instructions over and over?</li>
-  <li style="padding: 8px 0;">🤔 Do you wish AI just <em>knew</em> your project</li></ul>]]></description><link>http://localhost:2368/2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/</link><guid isPermaLink="false">c58e4df0-a274-429f-a9de-98057cbe0f77</guid><category><![CDATA[ai]]></category><category><![CDATA[copilot]]></category><category><![CDATA[agentic]]></category><category><![CDATA[claude]]></category><category><![CDATA[context]]></category><category><![CDATA[mcp]]></category><category><![CDATA[llm]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 25 Jan 2026 13:17:23 GMT</pubDate><media:content url="http://localhost:2368/content/images/2026/01/hero-image.png" medium="image"/><content:encoded><![CDATA[<img src="http://localhost:2368/content/images/2026/01/hero-image.png" alt="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt1"><p><strong>How I went from repeating instructions every conversation to having AI that actually understands my codebase</strong></p>
+  <li style="padding: 8px 0;">🤔 Do you wish AI just <em>knew</em> your project</li></ul>]]></description><link>https://blog.shanelee.name/2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/</link><guid isPermaLink="false">c58e4df0-a274-429f-a9de-98057cbe0f77</guid><category><![CDATA[ai]]></category><category><![CDATA[copilot]]></category><category><![CDATA[agentic]]></category><category><![CDATA[claude]]></category><category><![CDATA[context]]></category><category><![CDATA[mcp]]></category><category><![CDATA[llm]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 25 Jan 2026 13:17:23 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2026/01/hero-image.png" medium="image"/><content:encoded><![CDATA[<img src="https://blog.shanelee.name/content/images/2026/01/hero-image.png" alt="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt1"><p><strong>How I went from repeating instructions every conversation to having AI that actually understands my codebase</strong></p>
 
 <hr>
 
@@ -829,7 +1308,7 @@ using the generated instructions in
 
 <p>Most developers focus on <strong>prompt engineering</strong>—crafting the perfect question to get the right answer. But there's a more powerful approach.</p>
 
-<p><img src="http://localhost:2368/content/images/2026/01/promptvscontext.png" alt="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt1"></p>
+<p><img src="https://blog.shanelee.name/content/images/2026/01/promptvscontext.png" alt="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt1"></p>
 
 <table style="width:100%; border-collapse: collapse; margin: 1.5em 0;">  
   <thead>
@@ -967,7 +1446,7 @@ class GetUsersQuery:
 
 <p>I've distilled context engineering into four pillars. Each serves a distinct purpose, and together they create an environment where AI becomes a true collaborator.</p>
 
-<p><img src="http://localhost:2368/content/images/2026/01/four-pillars-diagram.png" alt="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt1"></p>
+<p><img src="https://blog.shanelee.name/content/images/2026/01/four-pillars-diagram.png" alt="Context Engineering: Stop Fighting Your AI and Start Shipping Faster Pt1"></p>
 
 <h3 id="pillar1instructions">📜 Pillar 1: Instructions</h3>
 
@@ -1289,7 +1768,7 @@ Total: 16-22 hours 😱
 
 <blockquote>
   <p>✨ <strong>The best context is the one that evolves with your team.</strong></p>
-</blockquote>]]></content:encoded></item><item><title><![CDATA[Dependency management with dependabot]]></title><description><![CDATA[How to shift security left and manage dependencies via dependabot and reduce the no. of security vulnerabilities.]]></description><link>http://localhost:2368/2023/02/28/dependency-management-with-dependabot/</link><guid isPermaLink="false">d169802e-3e11-47a5-81ad-73cfcd7c3ff0</guid><category><![CDATA[github]]></category><category><![CDATA[devsecops]]></category><category><![CDATA[dependabot]]></category><category><![CDATA[owasp]]></category><category><![CDATA[security]]></category><category><![CDATA[culture]]></category><category><![CDATA[leadership]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 28 Feb 2023 03:30:31 GMT</pubDate><media:content url="http://localhost:2368/content/images/2023/02/guerrillabuzz-blockchain-pr-agency-SYofhg_IX3A-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="http://localhost:2368/content/images/2023/02/guerrillabuzz-blockchain-pr-agency-SYofhg_IX3A-unsplash.jpg" alt="Dependency management with dependabot"><p>We all know how vital shifting security left is and how engineering needs to work more closely with security. According to the Cloud Security Alliance (CSA), 70% of <a href="https://cloudsecurityalliance.org/artifacts/secure-devops-and-misconfigurations-survey-report/">security professionals and engineering teams</a> struggle to <strong>“shift left,”</strong> with many unable to recognize the formation of anti-patterns and understand/appreciate the wider impact to development, cost, governance, culture, etc.</p>
+</blockquote>]]></content:encoded></item><item><title><![CDATA[Dependency management with dependabot]]></title><description><![CDATA[How to shift security left and manage dependencies via dependabot and reduce the no. of security vulnerabilities.]]></description><link>https://blog.shanelee.name/2023/02/28/dependency-management-with-dependabot/</link><guid isPermaLink="false">d169802e-3e11-47a5-81ad-73cfcd7c3ff0</guid><category><![CDATA[github]]></category><category><![CDATA[devsecops]]></category><category><![CDATA[dependabot]]></category><category><![CDATA[owasp]]></category><category><![CDATA[security]]></category><category><![CDATA[culture]]></category><category><![CDATA[leadership]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 28 Feb 2023 03:30:31 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2023/02/guerrillabuzz-blockchain-pr-agency-SYofhg_IX3A-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="https://blog.shanelee.name/content/images/2023/02/guerrillabuzz-blockchain-pr-agency-SYofhg_IX3A-unsplash.jpg" alt="Dependency management with dependabot"><p>We all know how vital shifting security left is and how engineering needs to work more closely with security. According to the Cloud Security Alliance (CSA), 70% of <a href="https://cloudsecurityalliance.org/artifacts/secure-devops-and-misconfigurations-survey-report/">security professionals and engineering teams</a> struggle to <strong>“shift left,”</strong> with many unable to recognize the formation of anti-patterns and understand/appreciate the wider impact to development, cost, governance, culture, etc.</p>
 
 <h2 id="recognizingtheparadigmshift">Recognizing the Paradigm Shift</h2>
 
@@ -1305,17 +1784,17 @@ Total: 16-22 hours 😱
 
 <p>OWASP published last year their top ten, and vulnerable and outdated components moved up to <a href="https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/">sixth position</a>. Every organization must ensure an ongoing plan for monitoring, triaging, and applying updates or configuration changes for the lifetime of the application or portfolio. There are over 20,000 common vulnerabilities and exposures (CVEs) discovered per year in open-source and third-party code.</p>
 
-<p><img src="http://localhost:2368/content/images/2023/02/owasp.png" alt="Dependency management with dependabot"></p>
+<p><img src="https://blog.shanelee.name/content/images/2023/02/owasp.png" alt="Dependency management with dependabot"></p>
 
 <h2 id="empoweringdeveloperstobesecurityminded">Empowering developers to be security minded</h2>
 
 <p>According to the SANS 2022 DevSecOps Survey: <a href="https://www.deepfactor.io/sans-2022-devsecops-survey/">Creating a Culture to Significantly Improve Your Organization’s Security Posture</a>, “management buy-in” was the number one factor contributing to DevSecOps security programs’ success.</p>
 
-<p><img src="http://localhost:2368/content/images/2023/02/image2.png" alt="Dependency management with dependabot"></p>
+<p><img src="https://blog.shanelee.name/content/images/2023/02/image2.png" alt="Dependency management with dependabot"></p>
 
 <h2 id="whatisdependabot">What is Dependabot?</h2>
 
-<p><img src="http://localhost:2368/content/images/2023/02/depend.png" alt="Dependency management with dependabot"></p>
+<p><img src="https://blog.shanelee.name/content/images/2023/02/depend.png" alt="Dependency management with dependabot"></p>
 
 <p>There are a number of guiding principles when evaluating tools and designing a rollout plan. For example, Does the security benefit of this new process outweigh the impact on engineering teams? How do we roll this out incrementally and gather feedback? What are our expectations for engineers, and how do we clearly communicate these expectations?</p>
 
@@ -1362,19 +1841,19 @@ Total: 16-22 hours 😱
 
 <p>This example below showcases a repo that is interested in two eco-systems: <code>docker</code> and <code>actions</code>. I have added in a schedule for docker updates in my local timezone of Melbourne. And I have added some labels. This helps to filter your PRs if you want to focus on specific updates. The <code>open-pull-requests-limit</code> default is 5, so in this instance, I have reduced it to 2. </p>
 
-<p><img src="http://localhost:2368/content/images/2023/02/code.png" alt="Dependency management with dependabot"></p>
+<p><img src="https://blog.shanelee.name/content/images/2023/02/code.png" alt="Dependency management with dependabot"></p>
 
 <p>The next example showcases a sample NodeJS project. Again you are interested in updates from two ecosystems: <code>npm</code> and <code>actions</code>. What this config is also showcasing is how you can ignore certain dependencies. You can see that it ignores packages that start with <code>aws</code>, ignores updates to <code>express</code> and patch updates for <code>all</code> dependencies. </p>
 
-<p><img src="http://localhost:2368/content/images/2023/02/code1.png" alt="Dependency management with dependabot"></p>
+<p><img src="https://blog.shanelee.name/content/images/2023/02/code1.png" alt="Dependency management with dependabot"></p>
 
 <p>Lastly, is a sample config for a JVM-based project. Here we are covering three package ecosystems as it's a cloud-native microservice. It covers updates to <code>maven</code>, <code>docker</code> and <code>actions</code>. </p>
 
-<p><img src="http://localhost:2368/content/images/2023/02/code3.png" alt="Dependency management with dependabot"></p>
+<p><img src="https://blog.shanelee.name/content/images/2023/02/code3.png" alt="Dependency management with dependabot"></p>
 
 <p>Below is a sample PR that was created by dependabot based on the config above. You can see it has added the labels of <code>dependencies</code> and <code>maven</code>. It provides the release notes and changelog for you to review. </p>
 
-<p><img src="http://localhost:2368/content/images/2023/03/Screen-Shot-2023-03-02-at-10-06-07-am.png" alt="Dependency management with dependabot"></p>
+<p><img src="https://blog.shanelee.name/content/images/2023/03/Screen-Shot-2023-03-02-at-10-06-07-am.png" alt="Dependency management with dependabot"></p>
 
 <p>If you want to know more about the configuration options for dependabot, check out the doc <a href="https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file">here</a></p>
 
@@ -1390,12 +1869,12 @@ Total: 16-22 hours 😱
 
 <p>Once you had Dependabot enabled for all your GitHub repositories, you could measure the general trend of Dependabot alerts across the company. At an org level under the <code>insights</code> tab, you have a bird's eye view of dependencies and open security advisories. You can filter by most critical and then switch your focus from measuring the current state to working with repository owners to upgrade their dependencies.  By leveraging insights, you can ensure that you focus your remediation efforts on repositories that are running in production, where a vulnerable dependency could present a risk to your company and your users. As I mentioned earlier, <strong>"management buy-in"</strong> is extremely important in incorporating dependency management into your security program. Otherwise, you will end up competing with feature delivery and it will fall further down the pecking order. Security trumps customer centricity.</p>
 
-<p><img src="http://localhost:2368/content/images/2023/03/Screenshot-2023-02-28-at-3-33-51-pm.png" alt="Dependency management with dependabot"></p>
+<p><img src="https://blog.shanelee.name/content/images/2023/03/Screenshot-2023-02-28-at-3-33-51-pm.png" alt="Dependency management with dependabot"></p>
 
 <p>If you have a platform engineering team you could go even further and build or use a nice internal service catalog tool like <a href="https://backstage.spotify.com/">backstage</a> and hook into GitHub graphQL API to track this. As part of measuring system health and running an internal security program, you can work with your stream-aligned teams to define <em>SLOs</em> and <em>SLIs</em> regarding timeframes to resolve. An example could be: <br>
 <strong>"Critical and high severity vulnerable dependencies are fixed within 30 days"</strong>.</p>
 
-<p><img src="http://localhost:2368/content/images/2023/02/Screenshot-2023-02-28-at-11-42-52-am.png" alt="Dependency management with dependabot"></p>
+<p><img src="https://blog.shanelee.name/content/images/2023/02/Screenshot-2023-02-28-at-11-42-52-am.png" alt="Dependency management with dependabot"></p>
 
 <p>It is important to acknowledge that <code>not all Dependabot alerts</code> can be actioned immediately. Instead, assign a realistic grace period for service owners to remediate Dependabot alerts before marking a metric as failing.</p>
 
@@ -1405,7 +1884,7 @@ Total: 16-22 hours 😱
 
 <p>Happy updating! 😀</p>]]></content:encoded></item><item><title><![CDATA[Shifting security left]]></title><description><![CDATA[<p>As part of adopting CD (Continuous Delivery) and embracing a DevOps culture, shifting security left is one of the capabilities needed to drive high software delivery and organisational performance.</p>
 
-<p>Tech companies have identified that security is EVERYONE's responsibility. ie. Security is a distributed ownership model. What <strong>shifting left</strong> means is</p>]]></description><link>http://localhost:2368/2022/11/04/shifting-security-left/</link><guid isPermaLink="false">fedd7be5-31ee-4340-9199-bc0eb054c558</guid><category><![CDATA[github]]></category><category><![CDATA[culture]]></category><category><![CDATA[aws]]></category><category><![CDATA[devops]]></category><category><![CDATA[devsecops]]></category><category><![CDATA[security]]></category><category><![CDATA[owasp]]></category><category><![CDATA[dependabot]]></category><category><![CDATA[renovate]]></category><category><![CDATA[team-topologies]]></category><category><![CDATA[checkov]]></category><category><![CDATA[actions]]></category><category><![CDATA[tflint]]></category><category><![CDATA[terraform]]></category><category><![CDATA[tfsec]]></category><category><![CDATA[devX]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Fri, 04 Nov 2022 08:43:55 GMT</pubDate><media:content url="http://localhost:2368/content/images/2022/11/matthew-henry-fPxOowbR6ls-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="http://localhost:2368/content/images/2022/11/matthew-henry-fPxOowbR6ls-unsplash.jpg" alt="Shifting security left"><p>As part of adopting CD (Continuous Delivery) and embracing a DevOps culture, shifting security left is one of the capabilities needed to drive high software delivery and organisational performance.</p>
+<p>Tech companies have identified that security is EVERYONE's responsibility. ie. Security is a distributed ownership model. What <strong>shifting left</strong> means is</p>]]></description><link>https://blog.shanelee.name/2022/11/04/shifting-security-left/</link><guid isPermaLink="false">fedd7be5-31ee-4340-9199-bc0eb054c558</guid><category><![CDATA[github]]></category><category><![CDATA[culture]]></category><category><![CDATA[aws]]></category><category><![CDATA[devops]]></category><category><![CDATA[devsecops]]></category><category><![CDATA[security]]></category><category><![CDATA[owasp]]></category><category><![CDATA[dependabot]]></category><category><![CDATA[renovate]]></category><category><![CDATA[team-topologies]]></category><category><![CDATA[checkov]]></category><category><![CDATA[actions]]></category><category><![CDATA[tflint]]></category><category><![CDATA[terraform]]></category><category><![CDATA[tfsec]]></category><category><![CDATA[devX]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Fri, 04 Nov 2022 08:43:55 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2022/11/matthew-henry-fPxOowbR6ls-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="https://blog.shanelee.name/content/images/2022/11/matthew-henry-fPxOowbR6ls-unsplash.jpg" alt="Shifting security left"><p>As part of adopting CD (Continuous Delivery) and embracing a DevOps culture, shifting security left is one of the capabilities needed to drive high software delivery and organisational performance.</p>
 
 <p>Tech companies have identified that security is EVERYONE's responsibility. ie. Security is a distributed ownership model. What <strong>shifting left</strong> means is including concerns such as security earlier in the development lifecycle.</p>
 
@@ -1445,7 +1924,7 @@ Total: 16-22 hours 😱
 
 <h3 id="threatmodelling">Threat modelling</h3>
 
-<p><img src="http://localhost:2368/content/images/2022/11/cupcake-256x256.png" alt="Shifting security left"></p>
+<p><img src="https://blog.shanelee.name/content/images/2022/11/cupcake-256x256.png" alt="Shifting security left"></p>
 
 <p>I have observed companies adopting a threat modelling framework as part of the assessment. <a href="https://www.appsecengineer.com/blog/what-is-threat-modeling-how-do-you-learn-it">Frameworks</a> such as <code>STRIDE</code> and <code>PASTA</code> are quite popular. OWASP for example has a modelling tool called <a href="https://owasp.org/www-project-threat-dragon/">Threat Dragon</a> that supports frameworks like <code>STRIDE</code>.</p>
 
@@ -1457,7 +1936,7 @@ Total: 16-22 hours 😱
 
 <h3 id="bugbountyprograms">Bug bounty programs</h3>
 
-<p><img src="http://localhost:2368/content/images/2022/11/download.jpeg" alt="Shifting security left"></p>
+<p><img src="https://blog.shanelee.name/content/images/2022/11/download.jpeg" alt="Shifting security left"></p>
 
 <p>Many companies are now adopting and investing in bug bounty programs. Bug bounty programs give you continuous, real-time vulnerability insights across your expanding digital attack surface so you can eliminate critical threat “blind spots” and strengthen your security posture.</p>
 
@@ -1477,7 +1956,7 @@ Total: 16-22 hours 😱
 <li><a href="https://github.com/aquasecurity/tfsec">Tfsec</a> - Uses static analysis of your terraform code to spot potential misconfiguration. Can be easily incorporated into your CI pipeline.</li>
 </ul>
 
-<p><img src="http://localhost:2368/content/images/2022/11/example-github-pr-check.png" alt="Shifting security left"></p>
+<p><img src="https://blog.shanelee.name/content/images/2022/11/example-github-pr-check.png" alt="Shifting security left"></p>
 
 <ul>
 <li><a href="https://www.checkov.io/">Checkov by Bridgecrew</a> - Can scan results across platforms such as Terraform, CloudFormation, Kubernetes, Helm, ARM Templates and Serverless framework.</li>
@@ -1487,7 +1966,7 @@ Total: 16-22 hours 😱
 
 <h3 id="bots">Bots</h3>
 
-<p><img src="http://localhost:2368/content/images/2022/11/1_MARssNdoQ3kG1mdZEDV3iA.png" alt="Shifting security left"></p>
+<p><img src="https://blog.shanelee.name/content/images/2022/11/1_MARssNdoQ3kG1mdZEDV3iA.png" alt="Shifting security left"></p>
 
 <p>I am a big fan of chatbots! I watched a presentation from a company recently that built multiple chatbots on shifting security left and helping with remediation. </p>
 
@@ -1496,7 +1975,7 @@ Behind the scenes, they use Cloud conformity from Trend Micro. Now when an engin
 
 <h3 id="lintingcompliance">Linting (Compliance)</h3>
 
-<p><img src="http://localhost:2368/content/images/2022/11/icon-512.png" alt="Shifting security left"></p>
+<p><img src="https://blog.shanelee.name/content/images/2022/11/icon-512.png" alt="Shifting security left"></p>
 
 <p>Linters are tools used to flag programming errors, bugs, stylistic errors and suspicious constructs. Examples include:</p>
 
@@ -1512,7 +1991,7 @@ Behind the scenes, they use Cloud conformity from Trend Micro. Now when an engin
 
 <h3 id="securityversionupdates">Security &amp; Version updates</h3>
 
-<p><img src="http://localhost:2368/content/images/2022/11/dependabot.png" alt="Shifting security left"></p>
+<p><img src="https://blog.shanelee.name/content/images/2022/11/dependabot.png" alt="Shifting security left"></p>
 
 <p>OWASP published last year their top ten, and <strong>vulnerable and outdated components</strong> moved up to <a href="https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components">sixth position</a></p>
 
@@ -1526,7 +2005,7 @@ Behind the scenes, they use Cloud conformity from Trend Micro. Now when an engin
 
 <h3 id="codescanningsast">Code scanning (SAST)</h3>
 
-<p><img src="http://localhost:2368/content/images/2022/11/dev-cycle.png" alt="Shifting security left"></p>
+<p><img src="https://blog.shanelee.name/content/images/2022/11/dev-cycle.png" alt="Shifting security left"></p>
 
 <p><a href="https://www.sonarqube.org/">SonarQube</a> is a self-managed, automatic code review tool that systematically helps you deliver Clean Code. As a core element of their solution, SonarQube integrates into your existing workflow and detects issues in your code to help you perform continuous code inspections of your projects. The tool analyses <em>30+ different programming languages</em> and integrates into your CI pipeline and DevOps platform to ensure that your code meets high-quality standards.</p>
 
@@ -1539,9 +2018,9 @@ Behind the scenes, they use Cloud conformity from Trend Micro. Now when an engin
 
 <p>I hope you have found this list of security tools useful. Head over to <a href="https://landscape.cncf.io/card-mode?category=security-compliance,security">CNCF</a> to find more.</p>
 
-<p>Suffice it to say are we still shifting left? Is it realistic to expect developers to take on the burdens of security and infrastructure provisioning, as well as writing their applications? Is platform engineering the answer to saving the DevOps dream?? I will leave you with that thought! 😉</p>]]></content:encoded></item><item><title><![CDATA[Book review: Accelerate]]></title><description><![CDATA[Review of Accelerate, high performing organizations and the four key metrics of change lead time, deployment frequency, mean time to recover, and change failure rate.]]></description><link>http://localhost:2368/2022/05/15/book-review-accelerate-and-my-experience-in-high-performing-organisations/</link><guid isPermaLink="false">9d648e15-7d5f-473f-bc43-bcb2d8e354d8</guid><category><![CDATA[accelerate]]></category><category><![CDATA[devops]]></category><category><![CDATA[culture]]></category><category><![CDATA[leadership]]></category><category><![CDATA[CD]]></category><category><![CDATA[continuous delivery]]></category><category><![CDATA[high-performing]]></category><category><![CDATA[transformation]]></category><category><![CDATA[tracing]]></category><category><![CDATA[docker]]></category><category><![CDATA[github]]></category><category><![CDATA[aws]]></category><category><![CDATA[cloud]]></category><category><![CDATA[google]]></category><category><![CDATA[CI]]></category><category><![CDATA[fourkeymetrics]]></category><category><![CDATA[lean]]></category><category><![CDATA[agile]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 15 May 2022 07:27:53 GMT</pubDate><media:content url="http://localhost:2368/content/images/2022/05/jacek-dylag-fZglO1JkwoM-unsplash--1-.jpg" medium="image"/><content:encoded><![CDATA[<h1 id="overview">Overview</h1>
+<p>Suffice it to say are we still shifting left? Is it realistic to expect developers to take on the burdens of security and infrastructure provisioning, as well as writing their applications? Is platform engineering the answer to saving the DevOps dream?? I will leave you with that thought! 😉</p>]]></content:encoded></item><item><title><![CDATA[Book review: Accelerate]]></title><description><![CDATA[Review of Accelerate, high performing organizations and the four key metrics of change lead time, deployment frequency, mean time to recover, and change failure rate.]]></description><link>https://blog.shanelee.name/2022/05/15/book-review-accelerate-and-my-experience-in-high-performing-organisations/</link><guid isPermaLink="false">9d648e15-7d5f-473f-bc43-bcb2d8e354d8</guid><category><![CDATA[accelerate]]></category><category><![CDATA[devops]]></category><category><![CDATA[culture]]></category><category><![CDATA[leadership]]></category><category><![CDATA[CD]]></category><category><![CDATA[continuous delivery]]></category><category><![CDATA[high-performing]]></category><category><![CDATA[transformation]]></category><category><![CDATA[tracing]]></category><category><![CDATA[docker]]></category><category><![CDATA[github]]></category><category><![CDATA[aws]]></category><category><![CDATA[cloud]]></category><category><![CDATA[google]]></category><category><![CDATA[CI]]></category><category><![CDATA[fourkeymetrics]]></category><category><![CDATA[lean]]></category><category><![CDATA[agile]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 15 May 2022 07:27:53 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2022/05/jacek-dylag-fZglO1JkwoM-unsplash--1-.jpg" medium="image"/><content:encoded><![CDATA[<h1 id="overview">Overview</h1>
 
-<img src="http://localhost:2368/content/images/2022/05/jacek-dylag-fZglO1JkwoM-unsplash--1-.jpg" alt="Book review: Accelerate"><p>In the book, <em>Accelerate: The Science of Lean Software and DevOps: Building and Scaling High Performing Technology Organizations</em>, Dr. Nicole Forsgren, Jez Humble, and Gene Kim studied what made separated strong performing technology organizations from their less effective counterparts.</p>
+<img src="https://blog.shanelee.name/content/images/2022/05/jacek-dylag-fZglO1JkwoM-unsplash--1-.jpg" alt="Book review: Accelerate"><p>In the book, <em>Accelerate: The Science of Lean Software and DevOps: Building and Scaling High Performing Technology Organizations</em>, Dr. Nicole Forsgren, Jez Humble, and Gene Kim studied what made separated strong performing technology organizations from their less effective counterparts.</p>
 
 <p>The book summarises <strong>4 years</strong> of rigorous research from years of State of DevOps Reports, built upon <strong>23,000 datasets</strong> from over <strong>2,000 unique companies</strong> all around the world. The organizations studied included start-ups and enterprises, profit and not-for-profit organisations, and companies that were born digital alongside those that had to undergo digital transformation.</p>
 
@@ -1559,7 +2038,7 @@ These metrics aren’t “The Goal” of a business, but organisations that did 
 <li><mark>Mean Time to Recovery (MTTR)</mark> - Mean time it takes to restore service after production failure</li>
 </ul>
 
-<p><img src="http://localhost:2368/content/images/2022/05/Screen-Shot-2022-05-15-at-6-10-07-pm.png" alt="Book review: Accelerate"></p>
+<p><img src="https://blog.shanelee.name/content/images/2022/05/Screen-Shot-2022-05-15-at-6-10-07-pm.png" alt="Book review: Accelerate"></p>
 
 <h2 id="whythesemetrics">Why these metrics</h2>
 
@@ -1614,17 +2093,17 @@ These metrics aren’t “The Goal” of a business, but organisations that did 
 
 <p>Below you can see the different groupings of teams and how they perform. You can see the elite teams, they're able to deploy on-demand. Their Cycle Time is less than one day. Their MTTR, mean time to restore, is less than one hour. Change failure rate is in the zero to 15% range. You can really see how the Cycle Time, in particular, the lead time for changes, how varies throughout those four columns. It's less than one day for the elite teams. For the high-performance teams, it goes down to that one day and one week. Medium teams one week and one month and the low performing teams are really between that one month and six months mark.</p>
 
-<p><img src="http://localhost:2368/content/images/2022/05/Screen-Shot-2022-05-15-at-6-14-09-pm.png" alt="Book review: Accelerate"></p>
+<p><img src="https://blog.shanelee.name/content/images/2022/05/Screen-Shot-2022-05-15-at-6-14-09-pm.png" alt="Book review: Accelerate"></p>
 
-<p><img src="http://localhost:2368/content/images/2022/05/Screen-Shot-2022-05-15-at-6-08-18-pm.png" alt="Book review: Accelerate"></p>
+<p><img src="https://blog.shanelee.name/content/images/2022/05/Screen-Shot-2022-05-15-at-6-08-18-pm.png" alt="Book review: Accelerate"></p>
 
 <p>I will highlight next the main capabilities and provide real use-cases that I have observed in my experience:</p>
 
 <h3 id="capabilities">Capabilities</h3>
 
-<p><img src="http://localhost:2368/content/images/2022/05/Accelerate--1-.jpg" alt="Book review: Accelerate"></p>
+<p><img src="https://blog.shanelee.name/content/images/2022/05/Accelerate--1-.jpg" alt="Book review: Accelerate"></p>
 
-<p><img src="http://localhost:2368/content/images/2022/05/Screen-Shot-2022-05-15-at-6-23-34-pm.png" alt="Book review: Accelerate"></p>
+<p><img src="https://blog.shanelee.name/content/images/2022/05/Screen-Shot-2022-05-15-at-6-23-34-pm.png" alt="Book review: Accelerate"></p>
 
 <h2 id="thoughtsandfeedback">Thoughts and feedback</h2>
 
@@ -1632,11 +2111,11 @@ These metrics aren’t “The Goal” of a business, but organisations that did 
 
 <p>But regarding trust and a sense of purpose, there are numerous ways to achieve this within your team. Team topologies go in-depth into this discussion. They talk about <em>Dunbar's trust number</em> and having <em>two size pizza teams</em> (normally 5-8 depending on the complexity of the domain). </p>
 
-<p><img src="http://localhost:2368/content/images/2022/05/Screen-Shot-2022-05-18-at-11-48-54-am.png" alt="Book review: Accelerate"></p>
+<p><img src="https://blog.shanelee.name/content/images/2022/05/Screen-Shot-2022-05-18-at-11-48-54-am.png" alt="Book review: Accelerate"></p>
 
 <p>Then there is also <em>Tuckman's model approach</em> to team development: <strong>forming-storming-norming-performing</strong>. </p>
 
-<p><img src="http://localhost:2368/content/images/2022/05/Screen-Shot-2022-05-16-at-2-35-06-pm.png" alt="Book review: Accelerate"></p>
+<p><img src="https://blog.shanelee.name/content/images/2022/05/Screen-Shot-2022-05-16-at-2-35-06-pm.png" alt="Book review: Accelerate"></p>
 
 <p>Regular social events with your team and <a href="https://www.atlassian.com/team-playbook/plays">team playbooks</a> are a great way to break the ice and start to understand eachothers personalities. Especially when you work in a culturally diverse environment. Working in Europe and the Asia Pacific, I have worked with many nationalities and am always keen to understand more about their culture. </p>
 
@@ -1648,7 +2127,7 @@ These metrics aren’t “The Goal” of a business, but organisations that did 
   <p>Engineers love shipping software! 😛</p>
 </blockquote>
 
-<p><img src="http://localhost:2368/content/images/2022/05/Screen-Shot-2022-05-13-at-10-41-01-am.png" alt="Book review: Accelerate"></p>
+<p><img src="https://blog.shanelee.name/content/images/2022/05/Screen-Shot-2022-05-13-at-10-41-01-am.png" alt="Book review: Accelerate"></p>
 
 <p>I remember years ago working in London for a mobile apps company. There was an engineer who I worked with that hadn't shipped code in over six months! (due to indecisiveness on the client's part). I could see how demoralized she looked not able to see her hard work go live. So always remember, engineers, <strong>love to ship software</strong>. </p>
 
@@ -1670,7 +2149,7 @@ These metrics aren’t “The Goal” of a business, but organisations that did 
 
 <p>You cannot achieve CD by having a <strong>heavy</strong> layer of e-2-e tests. This will delay your change lead time and overtime those tests will become <a href="https://www.thoughtworks.com/en-au/insights/blog/transitioning-conventional-shift-left-testing">flaky</a> and less reliable. </p>
 
-<p><img src="http://localhost:2368/content/images/2022/05/ice_cream_cone.png" alt="Book review: Accelerate"></p>
+<p><img src="https://blog.shanelee.name/content/images/2022/05/ice_cream_cone.png" alt="Book review: Accelerate"></p>
 
 <p>Shifting left to integration tests (that can run on your local machine) is the key. QAs focus less on manual tests and free them up to look at exploratory testing or chaos engineering for example. But many high-performing teams these days hire more engineers to focus on test automation and shifting testing and performance left rather than hire QAs. Working with the teams to educate them on the benefits of shifting left and changing that mindset of how to test a feature is extremely valuable.</p>
 
@@ -1686,7 +2165,7 @@ These metrics aren’t “The Goal” of a business, but organisations that did 
 
 <p>Companies also these days are identifying areas of the platform to design and build to provide self-service capabilities to the delivery teams. I have worked with teams that treated the platform as a product and its internal customers as delivery teams and looked to streamline their development process by providing custom tooling with well-documented APIs and support. </p>
 
-<p><img src="http://localhost:2368/content/images/2022/05/Screen-Shot-2022-05-16-at-5-57-35-pm.png" alt="Book review: Accelerate"></p>
+<p><img src="https://blog.shanelee.name/content/images/2022/05/Screen-Shot-2022-05-16-at-5-57-35-pm.png" alt="Book review: Accelerate"></p>
 
 <p>Deploying static sites and deploying app workloads to Kubernetes are examples I have seen. The key is to balance <strong>autonomy with alignment</strong> and still allow teams to choose their own tooling when needed. They call it providing a "thinnable viable" platform.</p>
 
@@ -1756,9 +2235,9 @@ Maturity models focus on helping an org <code>"arrive"</code> at a mature state 
 
 <p>As my main man Kelsey said:</p>
 
-<p><img src="http://localhost:2368/content/images/2022/05/Screen-Shot-2022-05-15-at-5-38-24-pm.png" alt="Book review: Accelerate"></p>]]></content:encoded></item><item><title><![CDATA[Performance testing with k6]]></title><description><![CDATA[<p>I started looking into API performance testing again recently. As part of delivering an API to production, performance testing is crucial to see how your API performs under load ( more on that shortly)</p>
+<p><img src="https://blog.shanelee.name/content/images/2022/05/Screen-Shot-2022-05-15-at-5-38-24-pm.png" alt="Book review: Accelerate"></p>]]></content:encoded></item><item><title><![CDATA[Performance testing with k6]]></title><description><![CDATA[<p>I started looking into API performance testing again recently. As part of delivering an API to production, performance testing is crucial to see how your API performs under load ( more on that shortly)</p>
 
-<p>You might have heard of the ridiculous load that Shopify handled over <strong>BFCM</strong> (Black Friday/Cyber Monday)</p>]]></description><link>http://localhost:2368/2021/12/15/performance-testing-with-k6/</link><guid isPermaLink="false">35b5397d-d54f-4305-9f95-32975623f93f</guid><category><![CDATA[testing]]></category><category><![CDATA[oas]]></category><category><![CDATA[grafana]]></category><category><![CDATA[docker]]></category><category><![CDATA[api]]></category><category><![CDATA[k6]]></category><category><![CDATA[perf]]></category><category><![CDATA[apifirst]]></category><category><![CDATA[typescript]]></category><category><![CDATA[performance]]></category><category><![CDATA[api first]]></category><category><![CDATA[javascript]]></category><category><![CDATA[golang]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Wed, 15 Dec 2021 06:03:00 GMT</pubDate><media:content url="http://localhost:2368/content/images/2021/12/marc-olivier-jodoin-NqOInJ-ttqM-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="http://localhost:2368/content/images/2021/12/marc-olivier-jodoin-NqOInJ-ttqM-unsplash.jpg" alt="Performance testing with k6"><p>I started looking into API performance testing again recently. As part of delivering an API to production, performance testing is crucial to see how your API performs under load ( more on that shortly)</p>
+<p>You might have heard of the ridiculous load that Shopify handled over <strong>BFCM</strong> (Black Friday/Cyber Monday)</p>]]></description><link>https://blog.shanelee.name/2021/12/15/performance-testing-with-k6/</link><guid isPermaLink="false">35b5397d-d54f-4305-9f95-32975623f93f</guid><category><![CDATA[testing]]></category><category><![CDATA[oas]]></category><category><![CDATA[grafana]]></category><category><![CDATA[docker]]></category><category><![CDATA[api]]></category><category><![CDATA[k6]]></category><category><![CDATA[perf]]></category><category><![CDATA[apifirst]]></category><category><![CDATA[typescript]]></category><category><![CDATA[performance]]></category><category><![CDATA[api first]]></category><category><![CDATA[javascript]]></category><category><![CDATA[golang]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Wed, 15 Dec 2021 06:03:00 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2021/12/marc-olivier-jodoin-NqOInJ-ttqM-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="https://blog.shanelee.name/content/images/2021/12/marc-olivier-jodoin-NqOInJ-ttqM-unsplash.jpg" alt="Performance testing with k6"><p>I started looking into API performance testing again recently. As part of delivering an API to production, performance testing is crucial to see how your API performs under load ( more on that shortly)</p>
 
 <p>You might have heard of the ridiculous load that Shopify handled over <strong>BFCM</strong> (Black Friday/Cyber Monday) weekend. They executed and ran performance testing on their systems well in advance as far back as July to make sure they were well prepared for <code>"game-day"</code>.</p>
 
@@ -1808,7 +2287,7 @@ Maturity models focus on helping an org <code>"arrive"</code> at a mature state 
 
 <p>As I mentioned above, the test scripts can be defined in javascript. But I have decided from the beginning to use typescript instead for static type checking. I have created a typescript template on <a href="https://github.com/shavo007/k6-demo">Github</a> that can be easily re-used by anyone. It is built on the good work that k6 did with some enhancements.</p>
 
-<p><img src="http://localhost:2368/content/images/2021/12/Screen-Shot-2021-12-16-at-5-23-12-pm.png" alt="Performance testing with k6"></p>
+<p><img src="https://blog.shanelee.name/content/images/2021/12/Screen-Shot-2021-12-16-at-5-23-12-pm.png" alt="Performance testing with k6"></p>
 
 <h4 id="rationale">Rationale</h4>
 
@@ -2182,7 +2661,7 @@ executed.</li>
 
 <p>As I demoed earlier, if you adopt the "API first" approach there are tools you can use such as <code>open API generator</code> and <code>openapi-to-typescript</code> that can help improve the development experience.</p>
 
-<p>Happy testing! </p>]]></content:encoded></item><item><title><![CDATA[Mocking a REST API the "API first" approach with Mockoon]]></title><description><![CDATA[How to mock an API with mockoon. Showcase using open API spec and mockoon to mock an API and run with docker.]]></description><link>http://localhost:2368/2021/08/29/mocking-a-rest-api-the-api-first-way-with-mockoon/</link><guid isPermaLink="false">a64b3164-634b-4cd1-8761-2af6a3c1c2c1</guid><category><![CDATA[swagger]]></category><category><![CDATA[docker]]></category><category><![CDATA[openapi]]></category><category><![CDATA[oas]]></category><category><![CDATA[github]]></category><category><![CDATA[api]]></category><category><![CDATA[rest]]></category><category><![CDATA[mock]]></category><category><![CDATA[stub]]></category><category><![CDATA[mockoon]]></category><category><![CDATA[insomnia]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 29 Aug 2021 07:27:00 GMT</pubDate><media:content url="http://localhost:2368/content/images/2021/08/chris-ensminger-gWo-hfRotrI-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="http://localhost:2368/content/images/2021/08/chris-ensminger-gWo-hfRotrI-unsplash.jpg" alt="Mocking a REST API the "API first" approach with Mockoon"><p>Recently, I have spent considerable time researching and analyzing the tooling available for "API first". At the core of this eco-system is the OAS (Open API specification) or interface as we normally like to call it. </p>
+<p>Happy testing! </p>]]></content:encoded></item><item><title><![CDATA[Mocking a REST API the "API first" approach with Mockoon]]></title><description><![CDATA[How to mock an API with mockoon. Showcase using open API spec and mockoon to mock an API and run with docker.]]></description><link>https://blog.shanelee.name/2021/08/29/mocking-a-rest-api-the-api-first-way-with-mockoon/</link><guid isPermaLink="false">a64b3164-634b-4cd1-8761-2af6a3c1c2c1</guid><category><![CDATA[swagger]]></category><category><![CDATA[docker]]></category><category><![CDATA[openapi]]></category><category><![CDATA[oas]]></category><category><![CDATA[github]]></category><category><![CDATA[api]]></category><category><![CDATA[rest]]></category><category><![CDATA[mock]]></category><category><![CDATA[stub]]></category><category><![CDATA[mockoon]]></category><category><![CDATA[insomnia]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 29 Aug 2021 07:27:00 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2021/08/chris-ensminger-gWo-hfRotrI-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="https://blog.shanelee.name/content/images/2021/08/chris-ensminger-gWo-hfRotrI-unsplash.jpg" alt="Mocking a REST API the "API first" approach with Mockoon"><p>Recently, I have spent considerable time researching and analyzing the tooling available for "API first". At the core of this eco-system is the OAS (Open API specification) or interface as we normally like to call it. </p>
 
 <h2 id="oasopenapispecification">OAS (Open API Specification)</h2>
 
@@ -2215,7 +2694,7 @@ Both streams of work should occur in parallel, rather than sequentially. Less wa
 
 <h2 id="mockoon">Mockoon</h2>
 
-<p><img src="http://localhost:2368/content/images/2021/08/Mockoon.svg" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
+<p><img src="https://blog.shanelee.name/content/images/2021/08/Mockoon.svg" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
 
 <blockquote>
   <p>Mockoon lets you mock an API in seconds</p>
@@ -2244,7 +2723,7 @@ You can install the native app <a href="https://mockoon.com/download/">here</a>.
 
 <p>After launching the application for the first time, you will find a demo mock API, also called "environment" in Mockoon. You can keep it and build from here or create a new one. To create a new mock API, open the collapsible environments menu on the left and press the blue "plus" button:</p>
 
-<p><img src="http://localhost:2368/content/images/2021/08/Screen-Shot-2021-08-27-at-11-42-09-am.png" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
+<p><img src="https://blog.shanelee.name/content/images/2021/08/Screen-Shot-2021-08-27-at-11-42-09-am.png" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
 
 <h3 id="step3createyourfirstapiroute">Step 3. Create your first API route</h3>
 
@@ -2252,7 +2731,7 @@ You can install the native app <a href="https://mockoon.com/download/">here</a>.
 
 <p>You can also create a new endpoint by clicking on the blue "plus" button at the top of the endpoint list:</p>
 
-<p><img src="http://localhost:2368/content/images/2021/08/Screen-Shot-2021-08-27-at-11-55-50-am-5.png" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
+<p><img src="https://blog.shanelee.name/content/images/2021/08/Screen-Shot-2021-08-27-at-11-55-50-am-5.png" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
 
 <h3 id="step4apiendpointconfiguration">Step 4. API endpoint configuration</h3>
 
@@ -2266,7 +2745,7 @@ You can install the native app <a href="https://mockoon.com/download/">here</a>.
 
 <p>You can do a test call to the following URL <code>http://localhost:3001/tutorials</code> using your favorite tool (here using <a href="https://insomnia.rest/">Insomnia</a>) and see the returned response:</p>
 
-<p><img src="http://localhost:2368/content/images/2021/08/Screen-Shot-2021-08-27-at-11-59-39-am-3.png" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
+<p><img src="https://blog.shanelee.name/content/images/2021/08/Screen-Shot-2021-08-27-at-11-59-39-am-3.png" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
 
 <pre><code class="language-bash">curl --request POST \  
   --url http://localhost:3001/tutorials
@@ -2284,15 +2763,15 @@ You can install the native app <a href="https://mockoon.com/download/">here</a>.
 
 <p>I have defined a sample OAS file <a href="https://github.com/shavo007/mockoon-demo/blob/main/oas3.yaml">here</a> that you can use to follow along. Once you import, it now should look like this.</p>
 
-<p><img src="http://localhost:2368/content/images/2021/08/Screen-Shot-2021-08-27-at-12-22-57-pm.png" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
+<p><img src="https://blog.shanelee.name/content/images/2021/08/Screen-Shot-2021-08-27-at-12-22-57-pm.png" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
 
 <p>You can see that for each route, it has already been set up for you all the responses you have defined in the spec and the examples. You can easily toggle on random responses or sequential responses based on the route (<strong>NB: This will disable the rules tho</strong>)</p>
 
-<p><img src="http://localhost:2368/content/images/2021/08/Screen-Shot-2021-08-27-at-12-36-20-pm.png" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
+<p><img src="https://blog.shanelee.name/content/images/2021/08/Screen-Shot-2021-08-27-at-12-36-20-pm.png" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
 
 <p>It is even smart enough to convert certain fields <code>weatherType</code> and <code>status</code> to its templating language. How cool is that! And again, based on previous steps you can start the server and test it out via Insomnia.</p>
 
-<p><img src="http://localhost:2368/content/images/2021/08/Screen-Shot-2021-08-29-at-4-34-35-pm.png" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
+<p><img src="https://blog.shanelee.name/content/images/2021/08/Screen-Shot-2021-08-29-at-4-34-35-pm.png" alt="Mocking a REST API the "API first" approach with Mockoon"></p>
 
 <p>Insomnia is such a powerful app also as it supports the "API first" approach. I can import in the exact same OAS file and test the endpoints. (You will start to see a recurring trend here of "API first" tools 😅) </p>
 
@@ -2578,7 +3057,7 @@ Content-Type: application/json
 
 <p>When it comes to microservices and cloud native architecture you first think about containers. Now you can of course compose your own docker file. But with jvm based microservices there is a tool from google called jib that can simplify containerization.</p>
 
-<p>We'll</p>]]></description><link>http://localhost:2368/2020/08/29/jibbing-with-spring-boot-and-google-cloud-run/</link><guid isPermaLink="false">9dc3d48c-84cb-487a-b8ca-7d14229f1fe5</guid><category><![CDATA[gcp]]></category><category><![CDATA[cloudrun]]></category><category><![CDATA[spring-boot]]></category><category><![CDATA[spring]]></category><category><![CDATA[docker]]></category><category><![CDATA[microservice]]></category><category><![CDATA[cloud]]></category><category><![CDATA[google]]></category><category><![CDATA[jib]]></category><category><![CDATA[redoc]]></category><category><![CDATA[swagger]]></category><category><![CDATA[openapi]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 29 Aug 2020 08:08:34 GMT</pubDate><media:content url="http://localhost:2368/content/images/2020/08/ardian-lumi-6Woj_wozqmA-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="http://localhost:2368/content/images/2020/08/ardian-lumi-6Woj_wozqmA-unsplash.jpg" alt="Jibbing with spring boot and google cloud run"><p>I said jibbing not jiving! 😆</p>
+<p>We'll</p>]]></description><link>https://blog.shanelee.name/2020/08/29/jibbing-with-spring-boot-and-google-cloud-run/</link><guid isPermaLink="false">9dc3d48c-84cb-487a-b8ca-7d14229f1fe5</guid><category><![CDATA[gcp]]></category><category><![CDATA[cloudrun]]></category><category><![CDATA[spring-boot]]></category><category><![CDATA[spring]]></category><category><![CDATA[docker]]></category><category><![CDATA[microservice]]></category><category><![CDATA[cloud]]></category><category><![CDATA[google]]></category><category><![CDATA[jib]]></category><category><![CDATA[redoc]]></category><category><![CDATA[swagger]]></category><category><![CDATA[openapi]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sat, 29 Aug 2020 08:08:34 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2020/08/ardian-lumi-6Woj_wozqmA-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="https://blog.shanelee.name/content/images/2020/08/ardian-lumi-6Woj_wozqmA-unsplash.jpg" alt="Jibbing with spring boot and google cloud run"><p>I said jibbing not jiving! 😆</p>
 
 <h1 id="cloudnativearchitecture">Cloud native architecture</h1>
 
@@ -2631,14 +3110,14 @@ It'll expose a simple <strong>GET</strong> endpoint:</p>
 
 <p>There is a fantastic VSCode extension called <a href="https://cloud.google.com/code">cloud code</a> that can help you deploy to cloud run or GKE on google cloud. It can even pick up if you are using <a href="https://blog.shanelee.name/2019/02/20/skaffold-for-local-kubernetes-development/">skaffold</a> or jib under the hood.</p>
 
-<p><img src="http://localhost:2368/content/images/2020/08/cloudcode1.png" alt="Jibbing with spring boot and google cloud run">
-<img src="http://localhost:2368/content/images/2020/08/cloudcode2.png" alt="Jibbing with spring boot and google cloud run"></p>
+<p><img src="https://blog.shanelee.name/content/images/2020/08/cloudcode1.png" alt="Jibbing with spring boot and google cloud run">
+<img src="https://blog.shanelee.name/content/images/2020/08/cloudcode2.png" alt="Jibbing with spring boot and google cloud run"></p>
 
 <p>This command will build, push your image to GCR and deploy to cloud run. And that's it!</p>
 
 <p>Now you can access the public url and test out the endpoint.</p>
 
-<p><img src="http://localhost:2368/content/images/2020/08/Cloudcodeexp.png" alt="Jibbing with spring boot and google cloud run"></p>
+<p><img src="https://blog.shanelee.name/content/images/2020/08/Cloudcodeexp.png" alt="Jibbing with spring boot and google cloud run"></p>
 
 <p>The source code for the example is over on <a href="https://github.com/shavo007/spring-boot-jib">github</a></p>
 
@@ -2674,15 +3153,15 @@ It'll expose a simple <strong>GET</strong> endpoint:</p>
 gcloud run deploy redoc-greetings-api --project $PROJECT_ID --image gcr.io/$PROJECT_ID/redoc --platform managed --region us-central1 --port 80 --cpu 1 --memory 256Mi --concurrency 80 --timeout 300 --update-env-vars SPEC_URL=https://&lt;CLOUD_RUN_SPRING_BOOT_BASE_URI&gt;/swagger.yaml  
 </code></pre>
 
-<p><img src="http://localhost:2368/content/images/2020/08/Redoc.png" alt="Jibbing with spring boot and google cloud run"></p>
+<p><img src="https://blog.shanelee.name/content/images/2020/08/Redoc.png" alt="Jibbing with spring boot and google cloud run"></p>
 
 <p>Again, the src code can be found on <a href="https://github.com/shavo007/greetings-doc">github</a></p>
 
 <p>And thats it. Happy jibbing! 🕺🏻</p>]]></content:encoded></item><item><title><![CDATA[How I passed the professional google cloud architect exam]]></title><description><![CDATA[<h1 id="sowhygooglecloud">So why Google cloud??</h1>
 
-<p>Well, the Google Cloud Platform (GCP) is behind the 8 ball for sure in comparison to AWS. But with the huge spike in companies looking to reduce their Capex and move to the cloud, its offerings in the data analytics space for example is very enticing.</p>]]></description><link>http://localhost:2368/2020/08/04/how-i-passed-the-professional-google-cloud-architect-exam/</link><guid isPermaLink="false">f54e6eec-b076-47af-959c-23f838c318f6</guid><category><![CDATA[cloud]]></category><category><![CDATA[google]]></category><category><![CDATA[kubernetes]]></category><category><![CDATA[exam]]></category><category><![CDATA[gcp]]></category><category><![CDATA[google cloud]]></category><category><![CDATA[architect]]></category><category><![CDATA[bigquery]]></category><category><![CDATA[linux academy]]></category><category><![CDATA[cloud native]]></category><category><![CDATA[hybrid]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 04 Aug 2020 06:47:49 GMT</pubDate><media:content url="http://localhost:2368/content/images/2020/08/morning-brew-T0qYg2nPUWM-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<h1 id="sowhygooglecloud">So why Google cloud??</h1>
+<p>Well, the Google Cloud Platform (GCP) is behind the 8 ball for sure in comparison to AWS. But with the huge spike in companies looking to reduce their Capex and move to the cloud, its offerings in the data analytics space for example is very enticing.</p>]]></description><link>https://blog.shanelee.name/2020/08/04/how-i-passed-the-professional-google-cloud-architect-exam/</link><guid isPermaLink="false">f54e6eec-b076-47af-959c-23f838c318f6</guid><category><![CDATA[cloud]]></category><category><![CDATA[google]]></category><category><![CDATA[kubernetes]]></category><category><![CDATA[exam]]></category><category><![CDATA[gcp]]></category><category><![CDATA[google cloud]]></category><category><![CDATA[architect]]></category><category><![CDATA[bigquery]]></category><category><![CDATA[linux academy]]></category><category><![CDATA[cloud native]]></category><category><![CDATA[hybrid]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 04 Aug 2020 06:47:49 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2020/08/morning-brew-T0qYg2nPUWM-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<h1 id="sowhygooglecloud">So why Google cloud??</h1>
 
-<img src="http://localhost:2368/content/images/2020/08/morning-brew-T0qYg2nPUWM-unsplash.jpg" alt="How I passed the professional google cloud architect exam"><p>Well, the Google Cloud Platform (GCP) is behind the 8 ball for sure in comparison to AWS. But with the huge spike in companies looking to reduce their Capex and move to the cloud, its offerings in the data analytics space for example is very enticing. Also in my view, they have the best managed kubernetes service GKE. Which makes sense, when you understand that kubernetes originated from googles own internal cluster orcherstration service called <a href="https://research.google/pubs/pub43438/">borg</a>. </p>
+<img src="https://blog.shanelee.name/content/images/2020/08/morning-brew-T0qYg2nPUWM-unsplash.jpg" alt="How I passed the professional google cloud architect exam"><p>Well, the Google Cloud Platform (GCP) is behind the 8 ball for sure in comparison to AWS. But with the huge spike in companies looking to reduce their Capex and move to the cloud, its offerings in the data analytics space for example is very enticing. Also in my view, they have the best managed kubernetes service GKE. Which makes sense, when you understand that kubernetes originated from googles own internal cluster orcherstration service called <a href="https://research.google/pubs/pub43438/">borg</a>. </p>
 
 <p>I have worked with AWS for many years professionally. Gaining exposure to other cloud providers is important when you see companies adopting a  multi-cloud approach but fundamentally many of the underlying patterns and managed services commonly exist across the top 3 (AWS, GCP, Azure).</p>
 
@@ -2752,7 +3231,7 @@ gcloud run deploy redoc-greetings-api --project $PROJECT_ID --image gcr.io/$PROJ
 <li><p>Googles new <a href="https://cloud.google.com/architecture/framework">architecture framework</a> is a very useful resource too.</p></li>
 </ul>
 
-<p><img src="http://localhost:2368/content/images/2020/08/googlecert.jpg" alt="How I passed the professional google cloud architect exam"></p>
+<p><img src="https://blog.shanelee.name/content/images/2020/08/googlecert.jpg" alt="How I passed the professional google cloud architect exam"></p>
 
 <p>Still waiting on my bag!! Best of luck.</p>]]></content:encoded></item><item><title><![CDATA[Road to clean energy and sustainability]]></title><description><![CDATA[<blockquote>
   <p>This is an overview of my journey to reducing my carbon footprint and making my home as energy efficient as possible.</p>
@@ -2760,8 +3239,8 @@ gcloud run deploy redoc-greetings-api --project $PROJECT_ID --image gcr.io/$PROJ
 
 <h2 id="energyefficiency">Energy efficiency</h2>
 
-<p>WFH myself since March, I did not realise how cold and under insulated australian households can be! I'm european and I feel colder here than winter time</p>]]></description><link>http://localhost:2368/2019/11/28/road-to-clean-energy-and-sustainability/</link><guid isPermaLink="false">e710a094-36a0-417a-980d-ad93850aa892</guid><category><![CDATA[solar]]></category><category><![CDATA[clean energy]]></category><category><![CDATA[melbourne]]></category><category><![CDATA[sustainability]]></category><category><![CDATA[cycle]]></category><category><![CDATA[bicycle]]></category><category><![CDATA[climatechange]]></category><category><![CDATA[renewables]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Thu, 28 Nov 2019 03:20:01 GMT</pubDate><media:content url="http://localhost:2368/content/images/2019/11/matt-duncan-IUY_3DvM__w-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
-  <img src="http://localhost:2368/content/images/2019/11/matt-duncan-IUY_3DvM__w-unsplash.jpg" alt="Road to clean energy and sustainability"><p>This is an overview of my journey to reducing my carbon footprint and making my home as energy efficient as possible.</p>
+<p>WFH myself since March, I did not realise how cold and under insulated australian households can be! I'm european and I feel colder here than winter time</p>]]></description><link>https://blog.shanelee.name/2019/11/28/road-to-clean-energy-and-sustainability/</link><guid isPermaLink="false">e710a094-36a0-417a-980d-ad93850aa892</guid><category><![CDATA[solar]]></category><category><![CDATA[clean energy]]></category><category><![CDATA[melbourne]]></category><category><![CDATA[sustainability]]></category><category><![CDATA[cycle]]></category><category><![CDATA[bicycle]]></category><category><![CDATA[climatechange]]></category><category><![CDATA[renewables]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Thu, 28 Nov 2019 03:20:01 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2019/11/matt-duncan-IUY_3DvM__w-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
+  <img src="https://blog.shanelee.name/content/images/2019/11/matt-duncan-IUY_3DvM__w-unsplash.jpg" alt="Road to clean energy and sustainability"><p>This is an overview of my journey to reducing my carbon footprint and making my home as energy efficient as possible.</p>
 </blockquote>
 
 <h2 id="energyefficiency">Energy efficiency</h2>
@@ -2783,7 +3262,7 @@ gcloud run deploy redoc-greetings-api --project $PROJECT_ID --image gcr.io/$PROJ
 
 <h3 id="solar">Solar</h3>
 
-<p><img src="http://localhost:2368/content/images/2019/11/antonio-garcia-ndz_u1_tFZo-unsplash.jpg" alt="Road to clean energy and sustainability"></p>
+<p><img src="https://blog.shanelee.name/content/images/2019/11/antonio-garcia-ndz_u1_tFZo-unsplash.jpg" alt="Road to clean energy and sustainability"></p>
 
 <p>Before I chose a solar installer to go with, I researched online to understand the best solution for my home.</p>
 
@@ -2808,7 +3287,7 @@ gcloud run deploy redoc-greetings-api --project $PROJECT_ID --image gcr.io/$PROJ
 
 <p>All panels were installed west facing.</p>
 
-<p><img src="http://localhost:2368/content/images/2019/11/enphase.gif" alt="Road to clean energy and sustainability"></p>
+<p><img src="https://blog.shanelee.name/content/images/2019/11/enphase.gif" alt="Road to clean energy and sustainability"></p>
 
 <p><strong>Enphase Micro-Inverters</strong> make each panel run independently, which is a big advantage compared to a string inverter system where when one panel starts to act faulty, it shuts down the entire array of panels.</p>
 
@@ -2822,7 +3301,7 @@ gcloud run deploy redoc-greetings-api --project $PROJECT_ID --image gcr.io/$PROJ
 
 <p>Below is the energy produced for a typical summers day in Melbourne.</p>
 
-<p><img src="http://localhost:2368/content/images/2020/08/Screenshot_20200819-112109-1.png" alt="Road to clean energy and sustainability"></p>
+<p><img src="https://blog.shanelee.name/content/images/2020/08/Screenshot_20200819-112109-1.png" alt="Road to clean energy and sustainability"></p>
 
 <p>There is a great sense of satisfaction knowing I am using clean energy to power my house during the day.</p>
 
@@ -2900,7 +3379,7 @@ gcloud run deploy redoc-greetings-api --project $PROJECT_ID --image gcr.io/$PROJ
 
 <p>Anytime my wife and I go abroad, I always go check out a city's shared bicycle scheme if available and explore the city by bike. This to me is the best way to see a city. On a warm summer evening cycling down along the banks of the river seine in Paris listening to some jazz and watching the world go by is pure bliss. 🇫🇷</p>
 
-<p><img src="http://localhost:2368/content/images/2020/08/IMG-20180522-WA0000-1.jpg" alt="Road to clean energy and sustainability"></p>
+<p><img src="https://blog.shanelee.name/content/images/2020/08/IMG-20180522-WA0000-1.jpg" alt="Road to clean energy and sustainability"></p>
 
 <p>Since covid there has been a huge uptake in cycling. I notice it myself at the weekend and on the trails. Governments like <a href="https://ecf.com/news-and-events/news/ireland-will-invest-10-total-transport-capital-budget-cycling?s=09">ireland</a> and the <a href="https://www.forbes.com/sites/carltonreid/2020/07/27/well-build-thousands-of-miles-of-protected-cycleways-pledges-boris-johnson/">UK</a> have invested heavily in protected cycleways and pedestrian infrastructure. </p>
 
@@ -2932,8 +3411,8 @@ gcloud run deploy redoc-greetings-api --project $PROJECT_ID --image gcr.io/$PROJ
   <p>“In the middle of difficulty lies opportunity.” </p>
 </blockquote>
 
-<p>We <strong>all</strong> have an opportunity to make a difference and create a more sustainable future. </p>]]></content:encoded></item><item><title><![CDATA[GraphQL API on the new Google Cloud Run]]></title><description><![CDATA[ Cloud Run, a serverless environment based on containers and Kubernetes.]]></description><link>http://localhost:2368/2019/05/17/graphql-api-google-cloud-run/</link><guid isPermaLink="false">1dfdf148-8167-4016-8259-29cd1cd39f87</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[google]]></category><category><![CDATA[graphql]]></category><category><![CDATA[k8s]]></category><category><![CDATA[docker]]></category><category><![CDATA[gke]]></category><category><![CDATA[cloud]]></category><category><![CDATA[cloudrun]]></category><category><![CDATA[nodejs]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Fri, 17 May 2019 08:07:00 GMT</pubDate><media:content url="http://localhost:2368/content/images/2019/05/fabio-comparelli-696510-unsplash-1.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
-  <img src="http://localhost:2368/content/images/2019/05/fabio-comparelli-696510-unsplash-1.jpg" alt="GraphQL API on the new Google Cloud Run"><p>Cloud Run is a layer that Google built on top of Knative to simplify deploying serverless applications on the Google Cloud Platform.</p>
+<p>We <strong>all</strong> have an opportunity to make a difference and create a more sustainable future. </p>]]></content:encoded></item><item><title><![CDATA[GraphQL API on the new Google Cloud Run]]></title><description><![CDATA[ Cloud Run, a serverless environment based on containers and Kubernetes.]]></description><link>https://blog.shanelee.name/2019/05/17/graphql-api-google-cloud-run/</link><guid isPermaLink="false">1dfdf148-8167-4016-8259-29cd1cd39f87</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[google]]></category><category><![CDATA[graphql]]></category><category><![CDATA[k8s]]></category><category><![CDATA[docker]]></category><category><![CDATA[gke]]></category><category><![CDATA[cloud]]></category><category><![CDATA[cloudrun]]></category><category><![CDATA[nodejs]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Fri, 17 May 2019 08:07:00 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2019/05/fabio-comparelli-696510-unsplash-1.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
+  <img src="https://blog.shanelee.name/content/images/2019/05/fabio-comparelli-696510-unsplash-1.jpg" alt="GraphQL API on the new Google Cloud Run"><p>Cloud Run is a layer that Google built on top of Knative to simplify deploying serverless applications on the Google Cloud Platform.</p>
 </blockquote>
 
 <p>So whats <strong>Knative</strong>?? </p>
@@ -3018,7 +3497,7 @@ gcloud sql users set-password postgres no-host --instance=[INSTANCE_NAME] \
 <p><a href="https://cloud.google.com/sql/docs/postgres/create-instance">Refer to doc
 </a> for more info</p>
 
-<p><img src="http://localhost:2368/content/images/2019/05/CloudSQL.png" alt="GraphQL API on the new Google Cloud Run"></p>
+<p><img src="https://blog.shanelee.name/content/images/2019/05/CloudSQL.png" alt="GraphQL API on the new Google Cloud Run"></p>
 
 <h4 id="step2buildinganddeployingacloudrunservice">Step 2: Building and Deploying a Cloud Run Service</h4>
 
@@ -3049,11 +3528,11 @@ gcloud beta run deploy --image gcr.io/[PROJECT-ID]/graphql --add-cloudsql-instan
 
 <p>Or you can view the UI console</p>
 
-<p><img src="http://localhost:2368/content/images/2019/05/CloudRunServiceGraphql.png" alt="GraphQL API on the new Google Cloud Run"></p>
+<p><img src="https://blog.shanelee.name/content/images/2019/05/CloudRunServiceGraphql.png" alt="GraphQL API on the new Google Cloud Run"></p>
 
 <p>You can verify it works locally by using <a href="https://insomnia.rest/">Insomnia</a></p>
 
-<p><img src="http://localhost:2368/content/images/2019/05/insomnia.png" alt="GraphQL API on the new Google Cloud Run"></p>
+<p><img src="https://blog.shanelee.name/content/images/2019/05/insomnia.png" alt="GraphQL API on the new Google Cloud Run"></p>
 
 <p>Some sample queries can be seen below to sign in a user and get back their details</p>
 
@@ -3078,8 +3557,8 @@ gcloud beta run deploy --image gcr.io/[PROJECT-ID]/graphql --add-cloudsql-instan
 
 <p>Easiest way is to delete the test <a href="https://console.cloud.google.com/iam-admin/projects">project</a></p>
 
-<p>Any questions feel free to comment below. </p>]]></content:encoded></item><item><title><![CDATA[Skaffold for local kubernetes development]]></title><description><![CDATA[skaffold for local kubernetes development]]></description><link>http://localhost:2368/2019/02/20/skaffold-for-local-kubernetes-development/</link><guid isPermaLink="false">939f9b10-3288-4a62-83c4-8de5aa50b6f6</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[node]]></category><category><![CDATA[skaffold]]></category><category><![CDATA[graphql]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Wed, 20 Feb 2019 06:37:09 GMT</pubDate><media:content url="http://localhost:2368/content/images/2019/02/jacek-dylag-680347-unsplash-1.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
-  <img src="http://localhost:2368/content/images/2019/02/jacek-dylag-680347-unsplash-1.jpg" alt="Skaffold for local kubernetes development"><p>Easy and Repeatable Kubernetes Development</p>
+<p>Any questions feel free to comment below. </p>]]></content:encoded></item><item><title><![CDATA[Skaffold for local kubernetes development]]></title><description><![CDATA[skaffold for local kubernetes development]]></description><link>https://blog.shanelee.name/2019/02/20/skaffold-for-local-kubernetes-development/</link><guid isPermaLink="false">939f9b10-3288-4a62-83c4-8de5aa50b6f6</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[node]]></category><category><![CDATA[skaffold]]></category><category><![CDATA[graphql]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Wed, 20 Feb 2019 06:37:09 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2019/02/jacek-dylag-680347-unsplash-1.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
+  <img src="https://blog.shanelee.name/content/images/2019/02/jacek-dylag-680347-unsplash-1.jpg" alt="Skaffold for local kubernetes development"><p>Easy and Repeatable Kubernetes Development</p>
 </blockquote>
 
 <p><strong>TLDR</strong> Below, I will showcase how to install and use skaffold for local development with kubernetes.</p>
@@ -3098,7 +3577,7 @@ gcloud beta run deploy --image gcr.io/[PROJECT-ID]/graphql --add-cloudsql-instan
 
 <h3 id="skaffoldmodes">Skaffold modes</h3>
 
-<p><img src="http://localhost:2368/content/images/2019/02/skaffold-cmds.jpg" alt="Skaffold for local kubernetes development"></p>
+<p><img src="https://blog.shanelee.name/content/images/2019/02/skaffold-cmds.jpg" alt="Skaffold for local kubernetes development"></p>
 
 <p>In a single command, Skaffold can:</p>
 
@@ -3169,7 +3648,7 @@ profiles:
 
 <h3 id="localdevelopmentworkflow">Local development workflow</h3>
 
-<p><img src="http://localhost:2368/content/images/2019/02/skaffold_workflow_local.png" alt="Skaffold for local kubernetes development"></p>
+<p><img src="https://blog.shanelee.name/content/images/2019/02/skaffold_workflow_local.png" alt="Skaffold for local kubernetes development"></p>
 
 <h5 id="syncfilestoyourpodswithskaffold">Sync files to your pods with Skaffold</h5>
 
@@ -3198,7 +3677,7 @@ profiles:
 
 <p>It allows you to explore and optimise your docker image size.</p>
 
-<p><img src="http://localhost:2368/content/images/2019/02/Screen-Shot-2019-02-20-at-7-23-39-pm.png" alt="Skaffold for local kubernetes development"></p>
+<p><img src="https://blog.shanelee.name/content/images/2019/02/Screen-Shot-2019-02-20-at-7-23-39-pm.png" alt="Skaffold for local kubernetes development"></p>
 
 <p>Now we can run skaffold!</p>
 
@@ -3236,7 +3715,7 @@ skaffold fix --overwrite
 <li><p>My sample github <a href="https://github.com/shavo007/graphql-playground/tree/master/api">repo</a> showcasing graphql api with kubernetes</p></li>
 </ul>]]></content:encoded></item><item><title><![CDATA[How I aced the Certified Kubernetes Administrator (CKA) Exam]]></title><description><![CDATA[<p>I took the CKA exam recently and would like to share my own preparation and tips.</p>
 
-<p>The exam is intense as it requires 3 hours of concentrated effort during which you need to solve 24 problems. So timekeeping is very important.  If you are interested to take this exam and</p>]]></description><link>http://localhost:2368/2018/10/17/how-i-aced-the-certified-kubernetes-administrator-cka-exam/</link><guid isPermaLink="false">ab6a2a07-ad36-4be5-ae74-d629d25a25bb</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[cka]]></category><category><![CDATA[exam]]></category><category><![CDATA[kubectl]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Wed, 17 Oct 2018 07:29:30 GMT</pubDate><media:content url="http://localhost:2368/content/images/2018/10/clement-h-544786-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="http://localhost:2368/content/images/2018/10/clement-h-544786-unsplash.jpg" alt="How I aced the Certified Kubernetes Administrator (CKA) Exam"><p>I took the CKA exam recently and would like to share my own preparation and tips.</p>
+<p>The exam is intense as it requires 3 hours of concentrated effort during which you need to solve 24 problems. So timekeeping is very important.  If you are interested to take this exam and</p>]]></description><link>https://blog.shanelee.name/2018/10/17/how-i-aced-the-certified-kubernetes-administrator-cka-exam/</link><guid isPermaLink="false">ab6a2a07-ad36-4be5-ae74-d629d25a25bb</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[cka]]></category><category><![CDATA[exam]]></category><category><![CDATA[kubectl]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Wed, 17 Oct 2018 07:29:30 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2018/10/clement-h-544786-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="https://blog.shanelee.name/content/images/2018/10/clement-h-544786-unsplash.jpg" alt="How I aced the Certified Kubernetes Administrator (CKA) Exam"><p>I took the CKA exam recently and would like to share my own preparation and tips.</p>
 
 <p>The exam is intense as it requires 3 hours of concentrated effort during which you need to solve 24 problems. So timekeeping is very important.  If you are interested to take this exam and have second thought about it, my sincere advice is, just do it!</p>
 
@@ -3302,260 +3781,4 @@ EOF
 
 <p>Best of luck! Remember you have one free retake if needed.😃🚀⚓</p>
 
-<p><img src="http://localhost:2368/content/images/2018/10/CKAcertificate.png" alt="How I aced the Certified Kubernetes Administrator (CKA) Exam"></p>]]></content:encoded></item><item><title><![CDATA[Istio on Azure AKS]]></title><description><![CDATA[How to deploy istio service mesh on azure kubernetes service (AKS) and run bookinfo example application]]></description><link>http://localhost:2368/2018/08/12/istio-on-azure-aks/</link><guid isPermaLink="false">1300cd8a-88a9-43ef-a409-66a2b74c5ad0</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[azure]]></category><category><![CDATA[aks]]></category><category><![CDATA[istio]]></category><category><![CDATA[google]]></category><category><![CDATA[service-mesh]]></category><category><![CDATA[k8s]]></category><category><![CDATA[microservice]]></category><category><![CDATA[grafana]]></category><category><![CDATA[jaeger]]></category><category><![CDATA[tracing]]></category><category><![CDATA[metrics]]></category><category><![CDATA[prometheus]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 12 Aug 2018 04:20:09 GMT</pubDate><media:content url="http://localhost:2368/content/images/2018/08/peter-gonzalez-621059-unsplash-1.jpg" medium="image"/><content:encoded><![CDATA[<img src="http://localhost:2368/content/images/2018/08/peter-gonzalez-621059-unsplash-1.jpg" alt="Istio on Azure AKS"><p><img src="http://localhost:2368/content/images/2018/08/istio.png" alt="Istio on Azure AKS"></p>
-
-<p>Istio recently <a href="https://istio.io/about/notes/1.0">announced</a> that they are production ready. Service meshes are becoming an important level of abstraction for a developer using kubernetes. And <a href="https://www.envoyproxy.io/">Envoy</a> is the heartbeat of this service mesh and continues its impressive growth. </p>
-
-<blockquote>
-  <p>Istio reduces complexity of managing microservice deployments by providing a uniform way to secure, connect, and monitor microservices.</p>
-</blockquote>
-
-<p>Google have also released a managed istio <a href="https://cloudplatform.googleblog.com/2018/07/cloud-services-platform-bringing-the-best-of-the-cloud-to-you.html">service</a></p>
-
-<p>I have previously designed and built cloud native architectures (especially on AWS). But I found that AWS have <em>dropped the ball</em> in relation to kubernetes. Azure and Google managed kuberentes services are more mature and Azure kubernetes offering is even free! </p>
-
-<p><strong>TLDR:</strong> I particulary like Azure AKS and below I will showcase how easy it is to create a cluster and run istio.</p>
-
-<p>Brendan Burns (co-founder of kubernetes and leading the azure container team) and Microsoft have invested wisely I feel in the cloud and are kicking goals. Read the latest <a href="https://azure.microsoft.com/en-us/blog/azure-kubernetes-service-aks-ga-new-regions-new-features-new-productivity/">blog</a> from Brendan on the most recent releases and updates. </p>
-
-<h2 id="launchkubernetesclusteronazureaks">Launch kubernetes cluster on azure (AKS)</h2>
-
-<p>Below these commands assume you have azure cli installed. If not check out <a href="https://docs.microsoft.com/en-us/cli/azure/get-started-with-azure-cli?view=azure-cli-latest">azure cli setup</a></p>
-
-<p>Like previous posts, I also use bash aliases for kubectl. Github project exists <a href="https://github.com/ahmetb/kubectl-aliases">here</a></p>
-
-<p>Find the location you want to create the cluster and what version of kubernetes to run. Then create the cluster with three worker nodes.</p>
-
-<pre><code class="language-bash">    az provider list --query "[?namespace=='Microsoft.ContainerService'].resourceTypes[] | [?resourceType=='managedClusters'].locations[]" -o tsv
-
-    az aks get-versions --location "Australia East" --query "orchestrators[].orchestratorVersion" 
-
-    az group create --name myResourceGroup1 --location "Australia East"
-
-    az aks create --resource-group myResourceGroup1 --name myAKSCluster --node-count 3 --kubernetes-version 1.11.1 --generate-ssh-keys
-</code></pre>
-
-<p>It takes a few minutes to spin up the cluster. Once its up, download the kubeconfig to use kubectl locally </p>
-
-<pre><code class="language-bash">  az aks get-credentials --resource-group myResourceGroup1 --name myAKSCluster
-</code></pre>
-
-<p>Verify the nodes are running <code>kgnoowide</code></p>
-
-<p><img src="http://localhost:2368/content/images/2018/08/Screen-Shot-2018-08-12-at-2-28-58-pm.png" alt="Istio on Azure AKS"></p>
-
-<h2 id="deployistio">Deploy istio</h2>
-
-<p>Istio is installed in two parts. The first part involves the CLI tooling that will be used to deploy and manage Istio backed services. The second part configures the Kubernetes cluster to support Istio.</p>
-
-<pre><code>curl -L https://git.io/getLatestIstio | sh -  
-cd istio-1.0.0  
-export PATH=$PWD/bin:$PATH
-</code></pre>
-
-<h3 id="configureistiocrds">Configure Istio CRDs</h3>
-
-<p><code>kubectl apply -f install/kubernetes/helm/istio/templates/crds.yaml
-</code></p>
-
-<h3 id="installistiowithdefaultmutualtlsauthentication">Install Istio with default mutual TLS authentication</h3>
-
-<p><code>kubectl apply -f install/kubernetes/istio-demo-auth.yaml
-</code></p>
-
-<p>This will deploy Pilot, Mixer, Ingress-Controller, Egress-Controller and the Istio CA (Certificate Authority).</p>
-
-<p>Check the status of the pods <br>
-<code>kgpoowide -n istio-system</code></p>
-
-<p><img src="http://localhost:2368/content/images/2018/08/Screen-Shot-2018-08-12-at-2-44-04-pm.png" alt="Istio on Azure AKS"></p>
-
-<h3 id="istioarchitecture">Istio architecture</h3>
-
-<p><img src="http://localhost:2368/content/images/2018/08/istio-architecture.png" alt="Istio on Azure AKS"></p>
-
-<p>The previous step deployed the Istio Pilot, Mixer, Ingress-Controller, Egress-Controller and the Istio CA (Certificate Authority).</p>
-
-<ul>
-<li><p><strong>Pilot</strong> - Responsible for configuring the Envoy and Mixer at runtime.</p></li>
-<li><p><strong>Envoy</strong> - Sidecar proxies per microservice to handle ingress/egress traffic between services in the cluster and from a service to external services. The proxies form a secure microservice mesh providing a rich set of functions like discovery, rich layer-7 routing, circuit breakers, policy enforcement and telemetry recording/reporting functions.</p></li>
-<li><p><strong>Mixer</strong> - Create a portability layer on top of infrastructure backends. Enforce policies such as ACLs, rate limits, quotas, authentication, request tracing and telemetry collection at an infrastructure level.</p></li>
-<li><p><strong>Ingress/Egress</strong> - Configure path based routing.</p></li>
-<li><p><strong>Istio CA</strong> - Secures service to service communication over TLS. Providing a key management system to automate key and certificate generation, distribution, rotation, and revocation</p></li>
-</ul>
-
-<h3 id="deploybookinfoexampleapplication">Deploy BookInfo example application</h3>
-
-<p>This sample deploys a simple application composed of four separate microservices which will be used to demonstrate various features of the Istio service mesh.</p>
-
-<p>Enable default side-car injection <br>
-<code>kubectl label namespace default istio-injection=enabled
-</code></p>
-
-<p>Deploy the services <br>
-<code>kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
-</code></p>
-
-<p>Verify the pods and services are running <br>
-<code>kubectl get svc,pod</code></p>
-
-<p>Deploy the ingress <a href="https://istio.io/docs/concepts/traffic-management/#gateways">gateway</a></p>
-
-<p><code>kubectl apply -f samples/bookinfo/networking/bookinfo-gateway.yaml
-</code></p>
-
-<p>Now determine the ingress ip and port</p>
-
-<p><code>kubectl get svc istio-ingressgateway -n istio-system
-</code>
-Set the ingress ip and port</p>
-
-<pre><code class="language-bash">export INGRESS_HOST=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')  
-export INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].port}')  
-export SECURE_INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="https")].port}')  
-</code></pre>
-
-<p>Set the <code>gateway url</code></p>
-
-<p><code>export GATEWAY_URL=$INGRESS_HOST:$INGRESS_PORT
-</code></p>
-
-<p>Verify the app is up and running <br>
-<code>curl -o /dev/null -s -w "%{http_code}\n" http://${GATEWAY_URL}/productpage
-</code></p>
-
-<h5 id="applydefaultdestinationrules">Apply default destination rules</h5>
-
-<p>Before you can use Istio to control the Bookinfo version routing, you need to define the available versions, called subsets, in destination rules.</p>
-
-<p><code>kubectl apply -f samples/bookinfo/networking/destination-rule-all-mtls.yaml
-</code></p>
-
-<blockquote>
-  <p>Deploying a microservice-based application in an Istio service mesh allows one to externally control service monitoring and tracing, request (version) routing, resiliency testing, security and policy enforcement, etc., in a consistent way across the services, for the application as a whole.</p>
-</blockquote>
-
-<p>Werner Vogels (CTO of AWS) quoted at AWS Re:Invent  </p>
-
-<blockquote>
-  <p>"In the future, all the code you ever write will be business logic." </p>
-</blockquote>
-
-<p>Service mesh goes along way in helping you succeed that statement.</p>
-
-<h5 id="controlrouting">Control Routing</h5>
-
-<p>One of the main features of Istio is its traffic management. As a Microservice architectures scale, there is a requirement for more advanced service-to-service communication control.</p>
-
-<h6 id="userbasedtestingrequestrouting">User Based Testing / Request Routing</h6>
-
-<p>One aspect of traffic management is controlling traffic routing based on the HTTP request, such as user agent strings, IP address or cookies.</p>
-
-<p>The example below will send all traffic for the user "jason" to the reviews:v2, meaning they'll only see the black stars.</p>
-
-<p><code>kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml</code></p>
-
-<p>Visit the product page and signin as a user jason (password jason)</p>
-
-<h6 id="trafficshapingforcanaryreleases">Traffic Shaping for Canary Releases</h6>
-
-<p>The ability to split traffic for testing and rolling out changes is important. This allows for A/B variation testing or deploying canary releases.</p>
-
-<p>The rule below ensures that 50% of the traffic goes to reviews:v1 (no stars), or reviews:v3 (red stars).</p>
-
-<p><code>kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-50-v3.yaml</code></p>
-
-<p><img src="http://localhost:2368/content/images/2018/08/Screen-Shot-2018-08-12-at-3-10-00-pm.png" alt="Istio on Azure AKS"></p>
-
-<h4 id="newreleases">New Releases</h4>
-
-<p>Given the above approach, if the canary release were successful then we'd want to move 100% of the traffic to reviews:v3.</p>
-
-<p><code>kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-v3.yaml</code></p>
-
-<h5 id="listallroutes">List all routes</h5>
-
-<pre><code class="language-bash">$ istioctl get virtualservices
-VIRTUAL-SERVICE NAME   GATEWAYS           HOSTS     #HTTP     #TCP      NAMESPACE   AGE  
-bookinfo               bookinfo-gateway   *             1        0      default     20m  
-reviews                                   reviews       1        0      default     5m  
-</code></pre>
-
-<h5 id="accessmetrics">Access Metrics</h5>
-
-<p><img alt="Istio on Azure AKS" src="http://localhost:2368/content/images/2018/08/prometheus-icon-color-1.png" style="width: 250px; height:250px"></p>
-
-<p>With Istio's insight into how applications communicate, it can generate profound insights into how applications are working and performance metrics.</p>
-
-<p>Send traffic to the application</p>
-
-<pre><code class="language-bash">while true; do  
-  curl -s http://$GATEWAY_URL/productpage &gt; /dev/null
-  echo -n .;
-  sleep 0.2
-done  
-</code></pre>
-
-<p>Setup port forwarding  </p>
-
-<pre><code class="language-bash">kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=prometheus -o jsonpath='{.items[0].metadata.name}') 9090:9090 &amp;  
-</code></pre>
-
-<p>View metrics in <a href="http://localhost:9090/graph#%5B%7B%22range_input%22%3A%221h%22%2C%22expr%22%3A%22istio_double_request_count%22%2C%22tab%22%3A1%7D%5D">Prometheus UI</a></p>
-
-<p>The provided link opens the Prometheus UI and executes a query for values of the <code>istio_double_request_count</code> metric.</p>
-
-<p><img src="http://localhost:2368/content/images/2018/08/Screen-Shot-2018-08-12-at-3-26-44-pm.png" alt="Istio on Azure AKS"></p>
-
-<p>Prometheus was recently <a href="https://www.cncf.io/announcement/2018/08/09/prometheus-graduates/">promoted</a> from CNCF as a graduate project, following kubernetes.</p>
-
-<h5 id="grafana">Grafana</h5>
-
-<p>Verify the services are up  </p>
-
-<pre><code>kubectl -n istio-system get svc grafana prometheus  
-</code></pre>
-
-<p>Open the Istio Dashboard via the Grafana UI.</p>
-
-<p>In Kubernetes environments, execute the following command:</p>
-
-<pre><code>$ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') 3000:3000 &amp;
-</code></pre>
-
-<p>Visit <code>http://localhost:3000/dashboard/db/istio-mesh-dashboard</code> in your web browser.</p>
-
-<p><img src="http://localhost:2368/content/images/2018/08/Screen-Shot-2018-08-12-at-3-35-45-pm.png" alt="Istio on Azure AKS"></p>
-
-<p>This gives the global view of the Mesh along with services and workloads in the mesh. </p>
-
-<p>For more info checkout <a href="https://istio.io/docs/tasks/telemetry/using-istio-dashboard/">https://istio.io/docs/tasks/telemetry/using-istio-dashboard/</a></p>
-
-<h5 id="distributedtracing">Distributed Tracing</h5>
-
-<p><img alt="Istio on Azure AKS" src="http://localhost:2368/content/images/2018/08/jaeger-icon-color.png" style="width: 250px; height:250px"></p>
-
-<p>This task shows you how Istio-enabled applications can be configured to collect trace spans. After completing this task, you should understand all of the assumptions about your application and how to have it participate in tracing, regardless of what language/framework/platform you use to build your application.</p>
-
-<h6 id="accessingthedashboard">Accessing the dashboard</h6>
-
-<p>Setup access to the Jaeger dashboard by using port-forwarding:</p>
-
-<pre><code>$ kubectl port-forward -n istio-system $(kubectl get pod -n istio-system -l app=jaeger -o jsonpath='{.items[0].metadata.name}') 16686:16686 &amp;
-</code></pre>
-
-<p>Access the Jaeger dashboard by opening your browser to <code>http://localhost:16686</code>.</p>
-
-<p>From the left-hand pane of the Jaeger dashboard, select <code>productpage</code> from the Service drop-down list and click Find Traces. You should see something similar to the following:</p>
-
-<p><img src="http://localhost:2368/content/images/2018/08/Screen-Shot-2018-08-12-at-3-43-04-pm.png" alt="Istio on Azure AKS"></p>
-
-<p>If you click on the top (most recent) trace, you should see the details corresponding to your latest refresh of the /productpage. The page should look something like this:</p>
-
-<p><img src="http://localhost:2368/content/images/2018/08/Screen-Shot-2018-08-12-at-3-43-16-pm.png" alt="Istio on Azure AKS"></p>
-
-<p>And there you have it. For more information on istio check out <a href="https://istio.io/">https://istio.io/</a></p>
-
-<p>Dont forget to delete your cluster after your finished!</p>
-
-<p>Stay tuned for more posts on <strong>kubernetes</strong>.</p>]]></content:encoded></item></channel></rss>
+<p><img src="https://blog.shanelee.name/content/images/2018/10/CKAcertificate.png" alt="How I aced the Certified Kubernetes Administrator (CKA) Exam"></p>]]></content:encoded></item></channel></rss>

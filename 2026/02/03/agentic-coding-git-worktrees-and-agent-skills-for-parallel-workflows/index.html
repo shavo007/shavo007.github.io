@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Agentic Coding: Git Worktrees and Agent Skills for Parallel Workflows</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
+    <link rel="canonical" href="https://blog.shanelee.name/2026/02/03/agentic-coding-git-worktrees-and-agent-skills-for-parallel-workflows/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="Tech Blog (mainly!)">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Agentic Coding: Git Worktrees and Agent Skills for Parallel Workflows">
+    <meta property="og:description" content="From solo agent to parallel powerhouse: how Git worktrees and agent skills turn your agentic coding setup into a multi-tasking machine When you're using agentic coding tools seriously, you've hit this wall: 🤖 Agent working on Feature A in one terminal 🤖 Need to start Feature B right now 💥 Can't — same working">
+    <meta property="og:url" content="http://blog.shanelee.name/2026/02/03/agentic-coding-git-worktrees-and-agent-skills-for-parallel-workflows/">
+    <meta property="og:image" content="http://blog.shanelee.name/content/images/2026/02/git-worktrees-hero-3.png">
+    <meta property="article:published_time" content="2026-02-03T17:09:04.294Z">
+    <meta property="article:modified_time" content="2026-02-09T20:51:27.342Z">
+    <meta property="article:tag" content="ai">
+    <meta property="article:tag" content="claude">
+    <meta property="article:tag" content="copilot">
+    <meta property="article:tag" content="agentic">
+    <meta property="article:tag" content="context">
+    <meta property="article:tag" content="github">
+    <meta property="article:tag" content="git">
+    <meta property="article:tag" content="worktree">
+    <meta property="article:tag" content="skills">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Agentic Coding: Git Worktrees and Agent Skills for Parallel Workflows">
+    <meta name="twitter:description" content="From solo agent to parallel powerhouse: how Git worktrees and agent skills turn your agentic coding setup into a multi-tasking machine When you're using agentic coding tools seriously, you've hit this wall: 🤖 Agent working on Feature A in one terminal 🤖 Need to start Feature B right now 💥 Can't — same working">
+    <meta name="twitter:url" content="http://blog.shanelee.name/2026/02/03/agentic-coding-git-worktrees-and-agent-skills-for-parallel-workflows/">
+    <meta name="twitter:image:src" content="http://blog.shanelee.name/content/images/2026/02/git-worktrees-hero-3.png">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shane Lee">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="ai, claude, copilot, agentic, context, github, git, worktree, skills">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Tech Blog (mainly!)",
+        "logo": "http://blog.shanelee.name/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shane Lee",
+        "image": "http://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg",
+        "url": "http://blog.shanelee.name/author/shane/",
+        "sameAs": [
+            "https://about.me/shane-lee"
+        ]
+    },
+    "headline": "Agentic Coding: Git Worktrees and Agent Skills for Parallel Workflows",
+    "url": "http://blog.shanelee.name/2026/02/03/agentic-coding-git-worktrees-and-agent-skills-for-parallel-workflows/",
+    "datePublished": "2026-02-03T17:09:04.294Z",
+    "dateModified": "2026-02-09T20:51:27.342Z",
+    "image": "http://blog.shanelee.name/content/images/2026/02/git-worktrees-hero-3.png",
+    "keywords": "ai, claude, copilot, agentic, context, github, git, worktree, skills",
+    "description": "From solo agent to parallel powerhouse: how Git worktrees and agent skills turn your agentic coding setup into a multi-tasking machine When you&#x27;re using agentic coding tools seriously, you&#x27;ve hit this wall: 🤖 Agent working on Feature A in one terminal 🤖 Need to start Feature B right now 💥 Can&#x27;t — same working"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.8">
+    <link rel="alternate" type="application/rss+xml" title="Tech Blog (mainly!)" href="https://blog.shanelee.name/rss/">
+    <meta name="google-site-verification" content="dzkjZUDovRImqR_2oGUlteWT1zcgw-r6cqBYef9qiWw">
+<meta name="google-site-verification" content="lojSObDdEFLBM0ok1Yiqy7rqgbc8yAUTyqF5iYszvWA">
+<link rel="preconnect" href="http://shavo007.disqus.com">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128189527-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-128189527-1');
+</script>
+<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2007283184718574",
+    enable_page_level_ads: true
+  });
+</script>
+</head>
+<body class="post-template tag-ai tag-claude tag-copilot tag-agentic tag-context tag-github tag-git tag-worktree tag-skills nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="https://blog.shanelee.name/">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="https://blog.shanelee.name/rss/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head " style="background-image: url(../../../../content/images/2026/02/git-worktrees-hero-3.png)">
+    <nav class="main-nav overlay clearfix">
+        
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post tag-ai tag-claude tag-copilot tag-agentic tag-context tag-github tag-git tag-worktree tag-skills">
+
+        <header class="post-header">
+            <h1 class="post-title">Agentic Coding: Git Worktrees and Agent Skills for Parallel Workflows</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2026-02-03">03 February 2026</time>
+                 on <a href="../../../../tag/ai/">ai</a>, <a href="../../../../tag/claude/">claude</a>, <a href="../../../../tag/copilot/">copilot</a>, <a href="../../../../tag/agentic/">agentic</a>, <a href="../../../../tag/context/">context</a>, <a href="../../../../tag/github/">github</a>, <a href="../../../../tag/git/">git</a>, <a href="../../../../tag/worktree/">worktree</a>, <a href="../../../../tag/skills/">skills</a>
+                ,
+
+                <!--<li class="post-meta-item">-->
+                    <a href="index.html#disqus_thread"></a>
+                <!--</li>-->
+                <!--<a href="#disqus_thread"/>-->
+            </section>
+        </header>
+
+        <section class="post-content">
+
+            <p><strong>From solo agent to parallel powerhouse: how Git worktrees and agent skills turn your agentic coding setup into a multi-tasking machine</strong></p>
+
+<hr>
+
+<p>When you're using agentic coding tools seriously, you've hit this wall:</p>
+
+<ul>
+<li>🤖 Agent working on Feature A in one terminal</li>
+<li>🤖 Need to start Feature B <em>right now</em></li>
+<li>💥 Can't — same working directory, same files, chaos ensues</li>
+</ul>
+
+<p>Whether you're running Claude Code in the terminal, using Cursor's Composer, or GitHub Copilot's agent mode in VS Code, the problem is identical: <strong>one working directory, one set of files, one task at a time</strong>.</p>
+
+<p>That's frustrating when you're paying for AI horsepower and want to parallelise.</p>
+
+<p>In this post, I'll show you how <strong>Git worktrees</strong> solve the isolation problem, how <strong>agent skills</strong> teach your AI to manage worktrees autonomously, and how the entire workflow — from branch creation to PR — can be streamlined across multiple parallel sessions.</p>
+
+<blockquote>
+  <p>💡 This is <strong>Part 4</strong> in my Context Engineering series. In <a href="https://blog.shanelee.name/2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/">Part 1</a>, we covered the four pillars of context engineering. In <a href="https://blog.shanelee.name/2026/01/26/context-engineering-stop-fighting-your-ai-and-start-shipping-faster-pt2/">Part 2</a>, we introduced agent skills as portable capabilities. In <a href="https://blog.shanelee.name/2026/01/30/scrum-is-dead-why-ai-powered-teams-need-lean-methodology-not-ceremonies/">Part 3</a>, we argued why AI-powered teams need lean methodology over Scrum ceremonies. Now we put skills to work.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="gitworktreestheparallelsessionssolution">🌳 Git Worktrees: The Parallel Sessions Solution</h2>
+
+<p>Git worktrees let you check out multiple branches from the same repository into <strong>separate directories</strong>. Each worktree has its own working copy with isolated files while sharing the same Git history and <code>.git</code> directory. Unlike cloning the repo multiple times, worktrees are lightweight — they share the Git object store, refs, and hooks, so there's no duplicated history or divergent state to manage.</p>
+
+<pre><code class="language-bash"># Create a new worktree with a new branch
+git worktree add ../project-feature-auth -b feature/authentication
+
+# Create a worktree from an existing branch
+git worktree add ../project-hotfix-123 hotfix/critical-bug-123
+
+# List all your worktrees
+git worktree list
+
+# Remove when done
+git worktree remove ../project-feature-auth  
+</code></pre>
+
+<p>Why this matters for agentic coding:</p>
+
+<table style="width:100%; border-collapse: collapse; margin: 1.5em 0;">  
+  <thead>
+    <tr style="background-color: #f4f4f4;">
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Single Directory</th>
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Git Worktrees</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">One agent at a time</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Multiple agents in parallel</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Context switching = stash/commit/switch</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">No context switching required</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Agents can step on each other's changes</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Complete file isolation</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px;">Wait for task completion</td>
+      <td style="padding: 12px;">Work on urgent fix while feature progresses</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Each worktree is a fresh checkout. Depending on your stack, you'll need to install dependencies — <code>pnpm install</code>, <code>uv sync</code>, <code>bundle install</code>, etc. That's a small price for having three AI agents working simultaneously without stepping on each other.</p>
+
+<p>Claude Code's own documentation <a href="https://code.claude.com/docs/en/common-workflows#run-parallel-claude-code-sessions-with-git-worktrees">recommends exactly this pattern</a> for running parallel sessions. But the docs stop at the manual <code>git worktree</code> commands — what if we could teach the agent to handle worktree management for us?</p>
+
+<hr>
+
+<h2 id="agentskillsteachingyouraigitworktrees">🛠️ Agent Skills: Teaching Your AI Git Worktrees</h2>
+
+<p>In <a href="https://blog.shanelee.name/2026/01/26/context-engineering-stop-fighting-your-ai-and-start-shipping-faster-pt2/">Part 2</a> of this series, I introduced <strong>agent skills</strong> — folders of instructions, scripts, and resources that agents can discover and use. Skills are an emerging convention adopted by Claude Code, Cursor, VS Code, GitHub, Goose, and others. The idea is simple: you drop a skill folder into your project, and the agent automatically discovers it and knows when to use it — no manual configuration required.</p>
+
+<p>Here's the thing: you could teach your agent the <code>git worktree</code> commands every session. Or you could <strong>teach it once</strong> and have it just <em>know</em> how to manage worktrees.</p>
+
+<p>That's exactly what I built: a <a href="https://github.com/shavo007/langchain-anthropic-pdf-support/tree/main/.claude/skills/git-worktree">git-worktree skill</a> that gives Claude Code (or any skill-aware agent) full worktree management capabilities.</p>
+
+<h3 id="theskillstructure">The Skill Structure</h3>
+
+<pre><code>.claude/skills/git-worktree/
+├── SKILL.md          # Instructions the agent reads
+└── scripts/
+    └── worktree.py   # The actual tooling
+</code></pre>
+
+<p>The <code>SKILL.md</code> tells the agent what the skill does and — critically — <strong>when to activate</strong>. The <code>description</code> field acts as a trigger: when you ask something that matches, the agent discovers and loads the skill automatically:</p>
+
+<pre><code class="language-yaml">---
+name: git-worktree  
+description: Git worktree management for parallel development workflows.  
+  Use when the user wants to work on multiple branches simultaneously
+  without stashing, create isolated environments for features/bugfixes,
+  or manage worktrees (create, list, remove, prune). Triggers on
+  requests like "create a worktree", "work on branch X in parallel",
+  "set up a new feature branch environment".
+---
+</code></pre>
+
+<p>The Python script handles the heavy lifting — creating worktrees, auto-detecting package managers, installing dependencies, and even opening your preferred editor:</p>
+
+<pre><code class="language-python"># Auto-detects and installs dependencies for any stack
+def install_dependencies(path: Path) -&gt; None:  
+    if (path / "package-lock.json").exists():
+        subprocess.run(["npm", "ci"], cwd=path, check=False)
+    elif (path / "pnpm-lock.yaml").exists():
+        subprocess.run(["pnpm", "install", "--frozen-lockfile"], cwd=path, check=False)
+    elif (path / "uv.lock").exists():
+        subprocess.run(["uv", "sync"], cwd=path, check=False)
+    elif (path / "go.mod").exists():
+        subprocess.run(["go", "mod", "download"], cwd=path, check=False)
+    # ... also supports yarn, bun, poetry, pipenv, bundler, cargo
+</code></pre>
+
+<h3 id="quickreference">Quick Reference</h3>
+
+<p>These are the commands the agent runs under the hood. You don't need to type them — just describe what you want in natural language and the skill handles the rest.</p>
+
+<table style="width:100%; border-collapse: collapse; margin: 1.5em 0;">  
+  <thead>
+    <tr style="background-color: #f4f4f4;">
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Task</th>
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Command</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Create worktree</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;"><code>python scripts/worktree.py create &lt;branch&gt;</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Create + install deps</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;"><code>python scripts/worktree.py create &lt;branch&gt; -i</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Create + open editor</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;"><code>python scripts/worktree.py create &lt;branch&gt; -e code</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">List worktrees</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;"><code>python scripts/worktree.py list</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Remove worktree</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;"><code>python scripts/worktree.py remove &lt;path&gt;</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 12px;">Prune stale refs</td>
+      <td style="padding: 12px;"><code>python scripts/worktree.py prune</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Supported editors: VS Code, Cursor, IntelliJ IDEA, WebStorm, PyCharm, Zed, Sublime Text, Vim, Neovim.</p>
+
+<hr>
+
+<h2 id="theskillinaction">⚡ The Skill in Action</h2>
+
+<p>Here's what a parallel agentic workflow looks like with the skill installed.</p>
+
+<h3 id="scenariofeatureworkurgenthotfix">Scenario: Feature work + urgent hotfix</h3>
+
+<p>You're halfway through a feature when a critical bug lands. Instead of stashing or committing half-finished work:</p>
+
+<pre><code class="language-bash"># Terminal 1: You're working on the feature
+claude  
+&gt; "Create a worktree for fix/critical-bug-123 from main, install deps"
+
+# The agent recognises the request, activates the git-worktree skill,
+# and runs the script:
+# ✓ Created worktree at ../project-fix/critical-bug-123
+# ✓ New branch 'fix/critical-bug-123' from 'main'
+# ✓ Running pnpm install --frozen-lockfile...
+# ✓ Worktree ready: ../project-fix/critical-bug-123
+</code></pre>
+
+<pre><code class="language-bash"># Terminal 2: Open a new Claude Code session in the hotfix worktree
+cd ../project-fix/critical-bug-123  
+claude  
+&gt; "Fix the null pointer in the payment handler"
+# Agent works in complete isolation from your feature branch
+</code></pre>
+
+<pre><code class="language-bash"># Terminal 1: Meanwhile, your feature work continues uninterrupted
+&gt; "Continue implementing the user auth flow"
+</code></pre>
+
+<h3 id="scenarioreviewingaprwithoutcontextswitching">Scenario: Reviewing a PR without context switching</h3>
+
+<pre><code class="language-bash">&gt; "Create a worktree from origin/feat/someone-elses-work for code review"
+
+# Agent:
+# ✓ Created worktree at ../project-feat/someone-elses-work
+# ✓ Using existing branch 'feat/someone-elses-work'
+# ✓ Worktree ready
+</code></pre>
+
+<p>No stashing. No committing half-finished work. No branch juggling. Each agent gets its own isolated directory, its own dependencies, its own context.</p>
+
+<hr>
+
+<h2 id="thefullloopcommitcommandsplugin">🚀 The Full Loop: Commit Commands Plugin</h2>
+
+<p>Git worktrees handle the <em>beginning</em> of the workflow — creating isolated environments. But what about the <em>end</em>? Committing, pushing, and opening a PR.</p>
+
+<p>This is where Claude Code's <a href="https://github.com/anthropics/claude-code/tree/main/plugins/commit-commands">commit-commands plugin</a> completes the loop.</p>
+
+<p>A quick distinction: <strong>skills</strong> teach the agent domain knowledge (like worktree management) and are activated automatically when relevant, while <strong>plugins</strong> are installable packages that bundle slash commands, hooks, and other extensions. You install plugins from Claude Code's marketplace:</p>
+
+<pre><code class="language-bash"># Browse available plugins
+&gt; /plugin
+
+# Or install directly from the official marketplace
+&gt; /plugin install commit-commands@claude-plugins-official
+</code></pre>
+
+<p>Plugins are namespaced, so the commit-commands plugin provides commands like <code>/commit-commands:commit</code>. For details on the plugin system, see the <a href="https://code.claude.com/docs/en/discover-plugins">Claude Code plugins documentation</a>.</p>
+
+<p>The commit-commands plugin provides three slash commands that work beautifully in tandem with the worktree skill:</p>
+
+<h3 id="commitcommandscommitcontextawarecommits"><code>/commit-commands:commit</code> — Context-Aware Commits</h3>
+
+<pre><code class="language-bash">&gt; /commit-commands:commit
+
+# Claude will:
+# - Review staged and unstaged changes
+# - Match your repo's commit message style
+# - Draft an appropriate message
+# - Stage and commit
+</code></pre>
+
+<p>The AI reads your recent commit history and generates messages that match your team's conventions. No more generic "fix stuff" commits.</p>
+
+<h3 id="commitcommandscommitpushprbranchtoprinonestep"><code>/commit-commands:commit-push-pr</code> — Branch to PR in One Step</h3>
+
+<p>This is the real power move. After finishing work in your worktree:</p>
+
+<pre><code class="language-bash">&gt; /commit-commands:commit-push-pr
+
+# Claude will:
+# - Create a feature branch (if needed)
+# - Commit with a meaningful message
+# - Push to origin with tracking
+# - Create a PR via GitHub CLI with auto-generated description
+# - Return the PR URL
+</code></pre>
+
+<p>The PR description includes a summary of <em>all</em> commits in the branch (not just the latest), a test plan checklist, and proper attribution.</p>
+
+<h3 id="commitcommandsclean_goneworktreecleanup"><code>/commit-commands:clean_gone</code> — Worktree Cleanup</h3>
+
+<p>After your PRs are merged and remote branches deleted, cleanup is one command:</p>
+
+<pre><code class="language-bash">&gt; /commit-commands:clean_gone
+
+# Claude will:
+# - Find branches marked as [gone]
+# - Remove associated worktrees
+# - Delete stale local branches
+# - Report what was cleaned up
+</code></pre>
+
+<h3 id="thecompleteworkflow">The Complete Workflow</h3>
+
+<p>Here's the full loop in practice:</p>
+
+<pre><code class="language-bash"># 1. Create isolated worktree (git-worktree skill)
+&gt; "Create a worktree for feat/user-auth, install deps, open in VS Code"
+# ✓ Worktree ready: ../project-feat/user-auth
+
+# 2. Open a new Claude Code session in the worktree
+cd ../project-feat/user-auth  
+claude  
+&gt; "Implement OAuth2 integration"
+
+# 3. Work is done — commit and create PR (commit-commands plugin)
+&gt; /commit-commands:commit-push-pr
+# ✓ Committed: Add OAuth2 provider integration
+# ✓ Pushed to origin/feat/user-auth
+# ✓ PR #142 created: https://github.com/...
+
+# 4. PR is reviewed, approved, and merged on GitHub
+# Back in your main worktree, clean up stale branches:
+&gt; /commit-commands:clean_gone
+# ✓ Removed worktree: ../project-feat/user-auth
+# ✓ Deleted branch: feat/user-auth
+</code></pre>
+
+<p>From worktree creation to PR to cleanup — streamlined across your parallel sessions.</p>
+
+<hr>
+
+<h2 id="transferabletoothertools">🔄 Transferable to Other Tools</h2>
+
+<p>I'm showcasing this with Claude Code because it's my primary agentic tool, but the concept is <strong>transferable</strong>. The worktree workflow isn't tied to any single tool — it's a pattern you can bring to any agentic coding environment.</p>
+
+<p>If you're using GitHub Copilot's agent mode, you can achieve the same worktree workflow with a <strong>reusable prompt</strong>. Create a file at <code>.github/prompts/git-worktree.prompt.md</code>:</p>
+
+<pre><code class="language-yaml">---
+description: Create and manage Git worktrees for parallel development  
+tools: ['run_in_terminal', 'get_terminal_output']  
+---
+
+# Git Worktree Management
+
+When the user asks to create a worktree, work on a branch in parallel,  
+or set up an isolated environment:
+
+1. Determine the branch name and base branch (default: main)  
+2. Create a sibling directory: `git worktree add ../repo-name-branch -b &lt;branch&gt;`  
+3. Detect and install dependencies (check for package-lock.json, pnpm-lock.yaml,  
+   uv.lock, go.mod, etc.)
+4. Report the worktree path so the user can open a new agent session there  
+</code></pre>
+
+<p>Then invoke it in Copilot's agent mode with <code>/git-worktree</code>.</p>
+
+<p>The key difference is structural: Claude Code skills can bundle executable scripts alongside the instructions (like the <code>worktree.py</code> script), while Copilot reusable prompts rely on the agent generating and running commands from the prompt's instructions alone.</p>
+
+<p>The key insight from <a href="https://blog.shanelee.name/2026/01/26/context-engineering-stop-fighting-your-ai-and-start-shipping-faster-pt2/">Part 2</a> holds: <strong>agent skills and reusable prompts are two implementations of the same idea</strong> — teaching your AI once so you never repeat yourself.</p>
+
+<table style="width:100%; border-collapse: collapse; margin: 1.5em 0;">  
+  <thead>
+    <tr style="background-color: #f4f4f4;">
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Tool</th>
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Mechanism</th>
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Location</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Claude Code</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Agent Skills + Plugins</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;"><code>.claude/skills/</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">GitHub Copilot</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Reusable Prompts</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;"><code>.github/prompts/</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 12px;">Cursor</td>
+      <td style="padding: 12px;">Rules / Skills</td>
+      <td style="padding: 12px;"><code>.cursor/rules/</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2 id="whythismattersforagenticworkflows">📊 Why This Matters for Agentic Workflows</h2>
+
+<p>The combination of Git worktrees + agent skills + commit commands creates a workflow that's more than the sum of its parts:</p>
+
+<table style="width:100%; border-collapse: collapse; margin: 1.5em 0;">  
+  <thead>
+    <tr style="background-color: #f4f4f4;">
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Traditional</th>
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Agentic + Worktrees + Skills</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Work on one task at a time</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Parallel agents on multiple tasks</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Manual branch creation and naming</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">AI-managed with dependency installation</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Write commit messages manually</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Context-aware message generation</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Copy-paste PR descriptions</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Auto-generated from actual changes</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Manual worktree cleanup</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">One-command cleanup of merged branches</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px;">Teach the AI every session</td>
+      <td style="padding: 12px;">Teach once via skills, reuse forever</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>💡 <strong>The key insight</strong>: Git worktrees solve the parallelisation problem at the file system level. Agent skills solve the repetitive teaching problem at the cognitive level. Commit commands solve the Git ceremony problem at the workflow level. Together, they let you focus on <strong>directing the AI agents</strong>, not managing the infrastructure around them.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="gettingstarted">🎬 Getting Started</h2>
+
+<p><strong>Prerequisites</strong>: <a href="https://code.claude.com/docs/en/quickstart">Claude Code</a> installed and authenticated, Python 3.10+, and <a href="https://cli.github.com/">GitHub CLI</a> (<code>gh</code>) installed and authenticated (needed for PR creation).</p>
+
+<p><strong>1. Add the git-worktree skill to your project</strong></p>
+
+<p>Copy the skill into your project's <code>.claude/skills/</code> directory. You can grab it directly from the repository:</p>
+
+<pre><code class="language-bash"># From your project root
+mkdir -p .claude/skills/git-worktree/scripts
+
+# Download the skill files
+curl -sL https://raw.githubusercontent.com/shavo007/langchain-anthropic-pdf-support/main/.claude/skills/git-worktree/SKILL.md \  
+  -o .claude/skills/git-worktree/SKILL.md
+
+curl -sL https://raw.githubusercontent.com/shavo007/langchain-anthropic-pdf-support/main/.claude/skills/git-worktree/scripts/worktree.py \  
+  -o .claude/skills/git-worktree/scripts/worktree.py
+</code></pre>
+
+<p>Claude Code automatically discovers skills in <code>.claude/skills/</code> — no configuration needed.</p>
+
+<p>The full skill source is at: <a href="https://github.com/shavo007/langchain-anthropic-pdf-support/tree/main/.claude/skills/git-worktree">github.com/shavo007/langchain-anthropic-pdf-support/.claude/skills/git-worktree</a></p>
+
+<p><strong>2. Install the commit-commands plugin</strong></p>
+
+<p>Install it from Claude Code's official marketplace:</p>
+
+<pre><code class="language-bash">&gt; /plugin install commit-commands@claude-plugins-official
+</code></pre>
+
+<p>Once installed, <code>/commit-commands:commit</code>, <code>/commit-commands:commit-push-pr</code>, and <code>/commit-commands:clean_gone</code> are available in any session. See the <a href="https://github.com/anthropics/claude-code/tree/main/plugins/commit-commands">commit-commands README</a> for full details.</p>
+
+<p><strong>3. Create your first parallel worktree</strong></p>
+
+<pre><code class="language-bash">claude  
+&gt; "Create a worktree for feat/my-first-parallel-task, install deps"
+</code></pre>
+
+<p>The agent will activate the skill, create a sibling directory, set up the branch, and install your project's dependencies. Then open a new terminal, <code>cd</code> into the worktree path the agent reports, and run <code>claude</code> to start a parallel session.</p>
+
+<p><strong>4. For Copilot users</strong></p>
+
+<p>Create <code>.github/prompts/git-worktree.prompt.md</code> in your repository using the reusable prompt example from the Copilot section above. Then invoke it in agent mode with <code>/git-worktree</code>.</p>
+
+<hr>
+
+<h2 id="keytakeaways">🎯 Key Takeaways</h2>
+
+<ol>
+<li><strong>Git worktrees</strong> provide complete file isolation for running multiple agentic sessions in parallel  </li>
+<li><strong>Agent skills</strong> teach your AI worktree management once — no more repeating instructions  </li>
+<li><strong>The concept is transferable</strong> across tools: Claude Code skills, Copilot reusable prompts, Cursor rules  </li>
+<li><strong>Plugins like commit-commands</strong> complete the loop: from worktree creation through PR and cleanup  </li>
+<li><strong>Teach once, reuse forever</strong> — the core principle of context engineering applied to your Git workflow</li>
+</ol>
+
+<hr>
+
+<h2 id="resources">🔗 Resources</h2>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">🌳 <a href="https://github.com/shavo007/langchain-anthropic-pdf-support/tree/main/.claude/skills/git-worktree"><strong>Git Worktree Skill</strong></a> — The skill showcased in this post</li>
+  <li style="padding: 8px 0;">🚀 <a href="https://github.com/anthropics/claude-code/tree/main/plugins/commit-commands"><strong>Commit Commands Plugin</strong></a> — Claude Code's commit, push, and PR commands</li>
+  <li style="padding: 8px 0;">💻 <a href="https://code.claude.com/docs/en/common-workflows#run-parallel-claude-code-sessions-with-git-worktrees"><strong>Claude Code: Parallel Sessions with Git Worktrees</strong></a> — Official Claude Code docs on worktree workflows</li>
+  <li style="padding: 8px 0;">📖 <a href="https://git-scm.com/docs/git-worktree"><strong>Git Worktree Documentation</strong></a> — Official Git docs</li>
+  <li style="padding: 8px 0;">📝 <a href="https://blog.shanelee.name/2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/"><strong>Context Engineering Part 1</strong></a> — The four pillars</li>
+  <li style="padding: 8px 0;">🛠️ <a href="https://blog.shanelee.name/2026/01/26/context-engineering-stop-fighting-your-ai-and-start-shipping-faster-pt2/"><strong>Context Engineering Part 2</strong></a> — Agent skills and the Agentic AI Foundation</li>
+  <li style="padding: 8px 0;">⚡ <a href="https://blog.shanelee.name/2026/01/30/scrum-is-dead-why-ai-powered-teams-need-lean-methodology-not-ceremonies/"><strong>Context Engineering Part 3</strong></a> — Scrum is Dead: why AI-powered teams need lean methodology</li>
+</ul>
+        </section>
+
+        <!-- disqus code snippet -->
+        <div id="disqus_thread"></div>
+        <script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+this.page.url = 'http://blog.shanelee.name/2026/02/03/agentic-coding-git-worktrees-and-agent-skills-for-parallel-workflows/'; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'ghost-35'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//shavo007.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        <script id="dsq-count-scr" src="http://shavo007.disqus.com/count.js" async></script>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../../../../author/shane/" style="background-image: url(https://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../../../../author/shane/">Shane Lee</a></h4>
+
+                    <p>Read <a href="../../../../author/shane/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    <span class="author-location icon-location">Melbourne</span>
+                    <span class="author-link icon-link"><a href="https://about.me/shane-lee">https://about.me/shane-lee</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Agentic%20Coding%3A%20Git%20Worktrees%20and%20Agent%20Skills%20for%20Parallel%20Workflows&amp;url=https://blog.shanelee.name/2026/02/03/agentic-coding-git-worktrees-and-agent-skills-for-parallel-workflows/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.shanelee.name/2026/02/03/agentic-coding-git-worktrees-and-agent-skills-for-parallel-workflows/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://blog.shanelee.name/2026/02/03/agentic-coding-git-worktrees-and-agent-skills-for-parallel-workflows/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+
+    </article>
+</main>
+
+
+
+<aside class="read-next">
+    <a class="read-next-story prev " style="background-image: url(../../../../content/images/2026/01/scrum-is-dead-hero-3.png)" href="../../../01/30/scrum-is-dead-why-ai-powered-teams-need-lean-methodology-not-ceremonies/">
+        <section class="post">
+            <h2>Scrum is Dead</h2>
+            <p>Why AI-powered teams need lean methodology, not ceremonies Let me ask you something. How many hours did you spend…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2026</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-coy.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-graphql.min.js"></script>
+<!-- Add additional languages here -->
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/prism.js"></script>
+
+
+
+</body>
+</html>
