@@ -1,4 +1,274 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog (mainly!)]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>https://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Mon, 09 Feb 2026 20:52:52 GMT</lastBuildDate><atom:link href="https://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Agentic Coding: Git Worktrees and Agent Skills for Parallel Workflows]]></title><description><![CDATA[<p><strong>From solo agent to parallel powerhouse: how Git worktrees and agent skills turn your agentic coding setup into a multi-tasking machine</strong></p>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog (mainly!)]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>https://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Wed, 25 Feb 2026 22:46:34 GMT</lastBuildDate><atom:link href="https://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Markdown Never Left — AI Just Caught Up]]></title><description><![CDATA[<p><strong>It's not even a technology. It's a convention. And that's exactly why it wins.</strong></p>
+
+<p>Markdown is a writing convention — a set of rules for formatting plain text that John Gruber wrote a spec for in 2004. No runtime. No SDK. No API. Just text with agreed-upon symbols that any human</p>]]></description><link>https://blog.shanelee.name/2026/02/24/markdown-never-left-ai-just-caught-up/</link><guid isPermaLink="false">3c8978b1-d0c2-499f-b6c3-4bc21711e365</guid><category><![CDATA[ai]]></category><category><![CDATA[llm]]></category><category><![CDATA[claude]]></category><category><![CDATA[copilot]]></category><category><![CDATA[mcp]]></category><category><![CDATA[skills]]></category><category><![CDATA[agentic]]></category><category><![CDATA[markdown]]></category><category><![CDATA[tokens]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 24 Feb 2026 20:27:07 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2026/02/langchain-migration-hero-1.png" medium="image"/><content:encoded><![CDATA[<img src="https://blog.shanelee.name/content/images/2026/02/langchain-migration-hero-1.png" alt="Markdown Never Left — AI Just Caught Up"><p><strong>It's not even a technology. It's a convention. And that's exactly why it wins.</strong></p>
+
+<p>Markdown is a writing convention — a set of rules for formatting plain text that John Gruber wrote a spec for in 2004. No runtime. No SDK. No API. Just text with agreed-upon symbols that any human or machine already understands. While the AI industry has shipped transformers, vector databases, multi-agent orchestration frameworks, and billion-parameter models, Markdown has just quietly remained what it always was: the lowest common denominator of structured information.</p>
+
+<p>And that turns out to be exactly what agentic context engineering needs.</p>
+
+<p>I've been a Docs as Code person for years. Markdown in version control, reviewed in PRs, rendered by static site generators — it's the default format for everything I write. When I started building agentic workflows, that habit turned out to be directly valuable in a way I hadn't anticipated. The contrast isn't simple technology versus complex technology. It's a convention versus the most sophisticated AI systems ever built — and the convention wins on cost, portability, and clarity every time.</p>
+
+<p>This post is about that insight — and how it played out across every stage of a real migration: upgrading five LangChain agents from 0.3 to 1.2. The migration is the example. Markdown is the point.</p>
+
+<p>In this post you'll learn:</p>
+
+<ul>
+<li>Why Markdown is the highest-signal, most token-efficient format for AI context — and the numbers that prove it</li>
+<li>How Docs as Code thinking (MkDocs, Backstage, Marp) maps directly onto agentic context engineering</li>
+<li>Three ways to get any documentation into your context window as Markdown automatically</li>
+<li>How every artefact in an agentic workflow — context files, plans, reviews, progress logs — is Markdown doing its job</li>
+<li>Why Markdown files that survive context resets are the key to multi-day agentic tasks</li>
+</ul>
+
+<blockquote>
+  <p>💡 This is <strong>Part 5</strong> in my Context Engineering series. <a href="https://blog.shanelee.name/2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/">Part 1</a> covered the four pillars. <a href="https://blog.shanelee.name/2026/01/26/context-engineering-stop-fighting-your-ai-and-start-shipping-faster-pt2/">Part 2</a> introduced agent skills. <a href="https://blog.shanelee.name/2026/01/30/scrum-is-dead-why-ai-powered-teams-need-lean-methodology-not-ceremonies/">Part 3</a> argued for lean over Scrum. <a href="https://blog.shanelee.name/2026/02/03/agentic-coding-git-worktrees-and-agent-skills-for-parallel-workflows/">Part 4</a> put skills to work with Git worktrees.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="markdownascontextwhyformatmattersforai">📖 Markdown as Context: Why Format Matters for AI</h2>
+
+<p>I've been using Markdown for years — not just as a formatting convenience, but as a philosophy. <strong>Docs as Code</strong>: documentation that lives in version control, travels with your codebase, and gets reviewed alongside your PRs. ADRs (Architectural Decision Records) capturing why a technical choice was made. RFCs proposing and debating changes before implementation. And this blog — written in Markdown, published via Ghost, specifically because Ghost keeps it simple and stays out of the way. If you've worked with <a href="https://www.mkdocs.org/">MkDocs</a> to build static documentation sites, or <a href="https://backstage.io/docs/features/techdocs/">Backstage's TechDocs</a> — which uses Markdown as the foundation for an entire developer portal — you already know the power of treating docs as first-class artefacts. Even presentations: <a href="https://marpit.marp.app/">Marp</a> turns Markdown into slides, which means I can write a deck in the same format as everything else. Markdown all the way down.</p>
+
+<p>So when I'm handing context to an AI agent, Markdown is the obvious format. It's not a new habit — it's the same discipline I've used for years, applied to a new domain. The difference is that with AI, the choice of format carries a measurable, direct cost.</p>
+
+<p>When you're migrating across major library versions, your agent needs documentation — lots of it. Release notes, migration guides, changelogs, API references. The naïve approach is to point your agent at the docs website and let it browse. The problem: documentation websites are HTML, and HTML is expensive.</p>
+
+<p>Cloudflare put some hard numbers on this recently. Their <a href="https://blog.cloudflare.com/markdown-for-agents/">Markdown for Agents</a> post measured a real documentation page: <strong>16,180 tokens as HTML, 3,150 tokens as markdown. An 80% reduction.</strong></p>
+
+<p>Their framing nails it:</p>
+
+<blockquote>
+  <p><em>"Feeding raw HTML to an AI is like paying by the word to read packaging instead of the letter inside."</em></p>
+</blockquote>
+
+<p>A simple heading like <code>## About Us</code> costs 2–3 tokens in markdown. The equivalent HTML — <code>&lt;h2 class="section-title" id="about"&gt;About Us&lt;/h2&gt;</code> — runs 12–15. Every element, every wrapper div, every ARIA attribute, every script tag is a token your agent has to process without gaining any understanding of the actual content.</p>
+
+<p>Markdown strips all of that. The same page in markdown: clean headings, code blocks, links. No wasted tokens. As Microsoft's <a href="https://github.com/microsoft/markitdown">MarkItDown</a> project puts it:</p>
+
+<blockquote>
+  <p><em>"Markdown conventions are also highly token-efficient."</em></p>
+</blockquote>
+
+<p>And LLMs don't just tolerate markdown — they're optimised for it. They were trained on vast quantities of it. Feeding your agent markdown isn't just cheaper; it's the format the model reasons about most fluently.</p>
+
+<blockquote>
+  <p><strong>Context windows are finite. Every token you waste on HTML scaffolding is a token you can't use for understanding your codebase.</strong></p>
+</blockquote>
+
+<h3 id="gettinglangchaindocsasmarkdown">Getting LangChain Docs as Markdown</h3>
+
+<p>My first step was pulling down the LangChain release notes and migration guides as markdown — and it turns out the LangChain docs site makes this remarkably easy. Every page has a built-in <strong>"View as Markdown"</strong> option that returns the page as clean plain text, purpose-built for LLMs.</p>
+
+<p><img src="https://blog.shanelee.name/content/images/2026/02/Screenshot-2026-02-24-at-20-52-05-1.png" alt="Markdown Never Left — AI Just Caught Up" view="" as="" markdown"="" and="" "copy="" mcp="" server"="" dropdown="" options"=""></p>
+
+<p>The docs site also ships with a built-in MCP server. Hit the dropdown on any page and you'll see "Copy MCP Server" — one click gives you the config to paste directly into your <code>.mcp.json</code>:</p>
+
+<pre><code class="language-json">{
+  "mcpServers": {
+    "langchain-docs": {
+      "type": "http",
+      "url": "https://docs.langchain.com/mcp"
+    }
+  }
+}
+</code></pre>
+
+<p>Add that and your agent is connected to the full LangChain docs knowledge base — searchable, queryable, without fetching a single HTML page.</p>
+
+<p>This is the ecosystem catching up to how agents actually work. More documentation sites are building markdown-first, AI-native access directly into their platforms — and when they do, use it.</p>
+
+<h3 id="thecloudflaretrickmarkdownondemandforeverythingelse">The Cloudflare Trick: Markdown on Demand for Everything Else</h3>
+
+<p>For documentation sites that <em>don't</em> have built-in markdown export, Cloudflare has shipped something genuinely useful. Their new <a href="https://blog.cloudflare.com/markdown-for-agents/">Markdown for Agents</a> feature lets any site served through Cloudflare return markdown instead of HTML — automatically, based on a single request header.</p>
+
+<p>The mechanism is simple: your agent sends <code>Accept: text/markdown</code> in the HTTP request. Cloudflare intercepts it, converts the HTML to markdown in real time, and returns it. The response even includes an <code>x-markdown-tokens</code> header so you can see exactly how many tokens you're working with.</p>
+
+<pre><code class="language-bash">curl -H "Accept: text/markdown" https://some-docs-site.com/page  
+</code></pre>
+
+<p><img src="https://blog.shanelee.name/content/images/2026/02/cloudflare-markdown-for-agents.png" alt="Markdown Never Left — AI Just Caught Up"></p>
+
+<p>No conversion tooling required on your end. No scraping, no parsing. For any documentation that isn't LangChain — release notes, third-party libraries, framework guides — this is the most frictionless path to token-efficient context.</p>
+
+<p>If you're using Claude Code, you don't need to do anything at all. I tested it: Claude Code's <code>WebFetch</code> tool sends <code>Accept: text/markdown, text/html, */*</code> as a request header automatically. Fetching the Cloudflare blog post itself returned:</p>
+
+<pre><code>content-type: text/markdown; charset=utf-8  
+x-markdown-tokens: 4023  
+content-signal: ai-train=yes, search=yes, ai-input=yes  
+</code></pre>
+
+<p>Markdown served directly, token count included, usage permissions declared. No extra configuration. If the site is on Cloudflare and has the feature enabled, you're already getting the token savings just by using the built-in fetch tool.</p>
+
+<h3 id="markitdownmcpthefallbackforeverythingelse">MarkItDown MCP: The Fallback for Everything Else</h3>
+
+<p>For anything that's neither LangChain docs nor Cloudflare-hosted — PDFs, Word documents, downloaded changelogs — <a href="https://github.com/microsoft/markitdown">MarkItDown</a> has you covered. It's Microsoft's open-source Python tool that converts virtually any file format to clean markdown: HTML, PDF, Word, Excel, PowerPoint, and more.</p>
+
+<p>Crucially, it ships with an official MCP server — <a href="https://github.com/microsoft/markitdown/tree/main/packages/markitdown-mcp"><code>markitdown-mcp</code></a> — so your agent can convert any file on demand without leaving the session.</p>
+
+<pre><code class="language-bash">pip install markitdown-mcp  
+</code></pre>
+
+<p>Wire it into your MCP configuration and it's available immediately:</p>
+
+<pre><code class="language-json">{
+  "mcpServers": {
+    "markitdown": {
+      "command": "uvx",
+      "args": ["--python", "3.13", "markitdown-mcp"]
+    }
+  }
+}
+</code></pre>
+
+<p>I used this extensively throughout the migration. Whenever I hit a document that wasn't available as clean markdown — a PDF of the old API reference, a downloaded changelog, some Word doc from an internal wiki — MarkItDown MCP converted it in-session, inline, without me having to leave the conversation or run a separate script. It became the default fallback so reliably that I stopped thinking about it as a separate tool and started treating it as part of the context pipeline.</p>
+
+<p>Between the three approaches — native markdown export (LangChain), <code>Accept: text/markdown</code> (Cloudflare), and MarkItDown MCP (everything else) — you can get any documentation into your context window in token-efficient form. The bottom line is the same in every case: your agent gets the content it needs, without the packaging it doesn't.</p>
+
+<hr>
+
+<h2 id="agenticplanmodebuildingthemigrationblueprint">🗺️ Agentic Plan Mode: Building the Migration Blueprint</h2>
+
+<p>With the documentation loaded as markdown, the next step wasn't writing code — it was planning. This is where agentic plan mode earns its keep. And it's where you start to see that Markdown isn't just for docs fetching — it's the format of every artefact the agent produces and consumes.</p>
+
+<h3 id="givingtheagentcodebasecontext">Giving the Agent Codebase Context</h3>
+
+<p>Before entering plan mode, I made sure the agent had a solid understanding of the existing architecture via an <code>agents.md</code> file I maintain in the codebase. This is Docs as Code applied directly to AI context: a Markdown file, version-controlled alongside the code, that describes each of the five agents, what they do, how they relate to each other, their shared dependencies, and any known quirks.</p>
+
+<pre><code class="language-markdown"># agents.md
+
+## Agent Overview
+
+This codebase contains five AI agents:
+
+### 1. IngestAgent
+Responsible for document ingestion and chunking...
+
+### 2. RetrievalAgent
+Handles vector search and context retrieval...
+
+[etc.]
+</code></pre>
+
+<p>This kind of structured context file is critical. Without it, your agent has to reverse-engineer the architecture from code — which it can do, but it wastes time and tokens, and the inferences can be wrong. <code>agents.md</code> gives the agent ground truth about intent, not just implementation. It's also readable by humans, diffable in git, and costs a fraction of what an equivalent HTML document would. Markdown doing exactly what Markdown does best.</p>
+
+<h3 id="theplanmodeconversation">The Plan Mode Conversation</h3>
+
+<p>With the migration guides loaded as markdown and the codebase context established, I entered plan mode and walked through the migration with the agent. This wasn't just "here's what needs to change" — it was a structured conversation:</p>
+
+<ul>
+<li>What are the breaking changes between 0.3 and 1.2 that affect each agent?</li>
+<li>What's the safest migration order given agent dependencies?</li>
+<li>Where are the highest-risk changes?</li>
+<li>What backwards compatibility concerns do we need to manage?</li>
+</ul>
+
+<p>Plan mode keeps the agent in a reasoning-and-documenting state rather than immediately writing code. The output was a <code>plan.md</code> — a structured, step-by-step migration plan covering each agent, the specific changes required, the order of operations, and the testing checkpoints.</p>
+
+<p>This is the Markdown flywheel in action: you fed the agent Markdown documentation, and it produced a Markdown plan. The format flows through the entire pipeline. And because it's plain text in a file, it's reviewable, editable, and — crucially — portable to the next step.</p>
+
+<hr>
+
+<h2 id="theprincipalengineerreview">🔬 The Principal Engineer Review</h2>
+
+<p>Here's the move that changed the quality of my migrations: before implementing anything, I spin up a sub-agent with a fresh context window to review the plan.</p>
+
+<h3 id="whyaseparatecontextwindowmatters">Why a Separate Context Window Matters</h3>
+
+<p>When you've been in a planning session for an hour, your agent has accumulated context — your assumptions, your framings, the reasoning path you took to arrive at the plan. That accumulated context can be a blind spot. The agent is unlikely to challenge the premises it helped establish.</p>
+
+<p>A sub-agent starts fresh. It has no memory of the planning conversation. When you hand it the plan as a Markdown document and ask it to critique, it reads it the way a new engineer would read it — without the benefit of your shared assumptions, but also without the baggage of them.</p>
+
+<p>This is where the portability of Markdown pays off directly. <code>plan.md</code> is a self-contained artefact. No conversation state, no special format — just a text file you paste in. The sub-agent gets everything it needs from the document itself.</p>
+
+<p>I use a "principal engineer" sub-agent persona for this: an experienced, sceptical reviewer whose job is to find problems. The prompt is straightforward:</p>
+
+<pre><code class="language-markdown">You are a principal engineer reviewing a migration plan.  
+Your job is to find problems, not validate assumptions.  
+Review the following plan and identify:
+
+1. Edge cases not accounted for  
+2. Performance implications  
+3. Backwards compatibility risks  
+4. Missing rollback steps  
+5. Anything that seems underspecified or optimistic  
+</code></pre>
+
+<p>Then I paste in <code>plan.md</code> as the sole input.</p>
+
+<h3 id="whatitcatches">What It Catches</h3>
+
+<p>It found areas to improve — which is exactly what you want. A fresh context window will always see things the planning session normalised, and because the plan lives in a Markdown file, handing it over is as simple as pasting the document in.</p>
+
+<hr>
+
+<h2 id="progresstrackingacrossdays">📋 Progress Tracking Across Days</h2>
+
+<p>Large migrations rarely happen in one sitting. I worked on this across several days in whatever time I had — and I was running it using the <a href="https://blog.shanelee.name/2026/02/03/agentic-coding-git-worktrees-and-agent-skills-for-parallel-workflows/">Git worktree agent skill</a> from Part 4, which keeps the migration isolated in its own branch while other work continues in parallel. That introduced a new problem: how does the agent pick up where it left off across sessions?</p>
+
+<h3 id="theprogressmdpattern">The progress.md Pattern</h3>
+
+<p>This is Docs as Code for agent state. Inspired by the note-taking patterns used in deep agent frameworks, I gave the agent a <code>progress.md</code> file to maintain alongside <code>plan.md</code>. The format is simple — the example below is illustrative, not the exact steps from my migration:</p>
+
+<pre><code class="language-markdown"># Migration Progress
+
+## Status: In Progress
+
+## Completed
+- [x] IngestAgent — LangChain imports updated
+- [x] IngestAgent — Chain interface migrated to new API
+- [x] IngestAgent — Tests passing
+
+## In Progress
+- [ ] RetrievalAgent — Updating retriever interface
+
+## Pending
+- [ ] RetrievalAgent — Memory migration
+- [ ] SummaryAgent
+- [ ] RouterAgent
+- [ ] OutputAgent
+
+## Notes
+- Remember: shared utility in utils/chains.py updated once in IngestAgent step — do NOT repeat
+- Existing memory objects in DB need migration script before deploying RetrievalAgent
+</code></pre>
+
+<p>At the start of each session, the agent reads <code>progress.md</code> to understand current state. As it completes steps, it updates the file. It also cross-references <code>plan.md</code> to ensure it stays on the planned path rather than improvising.</p>
+
+<p>This is low-tech but extraordinarily effective. The agent doesn't need to re-understand the entire codebase at the start of each session — it reads its own notes and picks up exactly where it left off. The context window investment at the start of each session stays small. And it's version-controlled, human-readable, and costs almost nothing in tokens to load.</p>
+
+<blockquote>
+  <p>💡 <strong>Think of <code>progress.md</code> as your agent's working memory that persists across sessions.</strong> The context window resets; the file doesn't. This is the Docs as Code principle applied to agent state: if it matters, write it down in Markdown and commit it.</p>
+</blockquote>
+
+<p><img src="https://blog.shanelee.name/content/images/2026/02/progress-md-memory.png" alt="Markdown Never Left — AI Just Caught Up"></p>
+
+<hr>
+
+<h2 id="keytakeaways">🎯 Key Takeaways</h2>
+
+<p>Agentic workflows feel complex until you notice the common thread running through every step: it's all Markdown. The documentation you load, the context files you maintain, the plans you generate, the reviews you pass between agents, the state you persist across sessions — Markdown all the way down. Here's what that looks like in practice:</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">📄 <strong>Markdown is 80% cheaper than HTML.</strong> Cloudflare measured this on a real documentation page: 16,180 tokens as HTML, 3,150 as Markdown. LangChain docs has native Markdown export and a built-in MCP server. Use <code>Accept: text/markdown</code> for Cloudflare-hosted sites. Use MarkItDown MCP for everything else. Every token you save on packaging is a token your agent can spend on your codebase.</li>
+  <li style="padding: 8px 0;">📝 <strong>Your context files are Markdown too.</strong> <code>agents.md</code> gave the agent ground truth about the codebase architecture. It's version-controlled, human-readable, and token-efficient. Docs as Code isn't just for documentation sites — it's for everything you want your agent to know.</li>
+  <li style="padding: 8px 0;">🗺️ <strong>Plans are Markdown artefacts.</strong> Agentic plan mode produces a <code>plan.md</code> you can read, edit, and hand to a sub-agent. The format flows through the entire pipeline: Markdown in, Markdown out.</li>
+  <li style="padding: 8px 0;">🔬 <strong>Markdown makes context portable across agents.</strong> The principal engineer review works because <code>plan.md</code> is a self-contained document. No conversation state, no special format — just a text file passed to a fresh context window. A fresh context window is a fundamentally different perspective; it catches what your planning session normalised.</li>
+  <li style="padding: 8px 0;">📋 <strong><code>progress.md</code> is your agent's external memory.</strong> The context window resets; the file doesn't. Markdown state files let your agent pick up exactly where it left off across sessions, across days, across whatever interruptions real work involves.</li>
+</ul>
+
+<p>The entire migration — five agents, a major version jump, breaking changes throughout — completed successfully. But the bigger insight isn't about LangChain. It's that Markdown, treated as a first-class engineering artefact, is what makes complex agentic workflows tractable. Token-efficient context in, structured context out. The format does more work than you'd expect.</p>
+
+<hr>
+
+<p><em>Enjoyed this? The full Context Engineering series:</em></p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 8px 0;">📝 <a href="https://blog.shanelee.name/2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/"><strong>Part 1</strong></a> — The four pillars of context engineering</li>
+  <li style="padding: 8px 0;">🛠️ <a href="https://blog.shanelee.name/2026/01/26/context-engineering-stop-fighting-your-ai-and-start-shipping-faster-pt2/"><strong>Part 2</strong></a> — Agent skills and the Agentic AI Foundation</li>
+  <li style="padding: 8px 0;">🏃 <a href="https://blog.shanelee.name/2026/01/30/scrum-is-dead-why-ai-powered-teams-need-lean-methodology-not-ceremonies/"><strong>Part 3</strong></a> — Why AI-powered teams need lean, not Scrum</li>
+  <li style="padding: 8px 0;">🌳 <a href="https://blog.shanelee.name/2026/02/03/agentic-coding-git-worktrees-and-agent-skills-for-parallel-workflows/"><strong>Part 4</strong></a> — Git worktrees and agent skills for parallel workflows</li>
+</ul>]]></content:encoded></item><item><title><![CDATA[Agentic Coding: Git Worktrees and Agent Skills for Parallel Workflows]]></title><description><![CDATA[<p><strong>From solo agent to parallel powerhouse: how Git worktrees and agent skills turn your agentic coding setup into a multi-tasking machine</strong></p>
 
 <hr>
 
@@ -3713,72 +3983,4 @@ skaffold fix --overwrite
 <li><p>Check out skaffold <a href="https://skaffold.dev/docs/">doc</a> to understand more</p></li>
 <li><p>There is numerous <a href="https://github.com/GoogleContainerTools/skaffold/tree/master/examples">examples</a> at the github repo</p></li>
 <li><p>My sample github <a href="https://github.com/shavo007/graphql-playground/tree/master/api">repo</a> showcasing graphql api with kubernetes</p></li>
-</ul>]]></content:encoded></item><item><title><![CDATA[How I aced the Certified Kubernetes Administrator (CKA) Exam]]></title><description><![CDATA[<p>I took the CKA exam recently and would like to share my own preparation and tips.</p>
-
-<p>The exam is intense as it requires 3 hours of concentrated effort during which you need to solve 24 problems. So timekeeping is very important.  If you are interested to take this exam and</p>]]></description><link>https://blog.shanelee.name/2018/10/17/how-i-aced-the-certified-kubernetes-administrator-cka-exam/</link><guid isPermaLink="false">ab6a2a07-ad36-4be5-ae74-d629d25a25bb</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[cka]]></category><category><![CDATA[exam]]></category><category><![CDATA[kubectl]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Wed, 17 Oct 2018 07:29:30 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2018/10/clement-h-544786-unsplash.jpg" medium="image"/><content:encoded><![CDATA[<img src="https://blog.shanelee.name/content/images/2018/10/clement-h-544786-unsplash.jpg" alt="How I aced the Certified Kubernetes Administrator (CKA) Exam"><p>I took the CKA exam recently and would like to share my own preparation and tips.</p>
-
-<p>The exam is intense as it requires 3 hours of concentrated effort during which you need to solve 24 problems. So timekeeping is very important.  If you are interested to take this exam and have second thought about it, my sincere advice is, just do it!</p>
-
-<h2 id="gettingstarted">Getting started</h2>
-
-<p>As part of black friday deal last year I bought from linux foundation the package deal. It consisted of the CKA exam and linux foundation kubernetes fundamentals <a href="https://training.linuxfoundation.org/training/kubernetes-fundamentals/">course</a>.</p>
-
-<p>In a previous contract role I had worked with kubernetes also on a daily basis. So I was familiar with the basic concepts.</p>
-
-<h2 id="preparation">Preparation</h2>
-
-<ul>
-<li><p>Understanding the kubernetes documentation is vital here as that is the only resource you are now allowed as part of the exam. Search “<strong>What resources am I allowed to access during my exam?</strong>” at <a href="https://www.cncf.io/certification/cka/faq/">faq section</a></p></li>
-<li><p>Familiarising yourself with the official <a href="https://kubernetes.io/docs/concepts/">documentation</a> is a <strong>must</strong>.</p></li>
-<li><p>Practice each topic. Since this exam is all about solving problems, you need to practice a lot. You can use katacoda <a href="https://www.katacoda.com/courses/kubernetes/playground">playground</a> or this <a href="https://labs.play-with-k8s.com/">labs</a> site by Docker. These two tools helped me a lot during preparation. Katacoda also has several scenario based topics and it is important to practice <a href="https://www.katacoda.com/courses/kubernetes">these</a>.</p></li>
-<li><p>For each topic I found this <a href="https://cka-exam.blog/">blog</a>  extremely useful to go through.
-<em>Practice, practice, practice</em>. Get used to deploying on a cluster and using all the <strong>kubectl</strong> commands. Locally on my mac, <em>docker for mac</em> now incorporates kubernetes so no need for minikube anymore.</p></li>
-<li><p>Kubernetes the hard way - Kelsey hightowers tutorial on <a href="https://github.com/kelseyhightower/kubernetes-the-hard-way">github</a> is vital to pass this exam. Managed services like AKS, EKS or kubeadm are not going to help here. You need to get right under the hood and understand how the control plane works.</p></li>
-<li><p>Familiarise yourself with tools such as: openssl, cfssl, systemctl, etcdctl (for managing etcd)</p></li>
-</ul>
-
-<h2 id="examtime">Exam Time</h2>
-
-<p>There are 24 problems and the exam duration is 3 hours. This means you can spend seven and half minutes per question. However, the difficulty range varies; nearly dozen problems are straight and super simple. So, have a strategy for the exam. My strategy was to complete 10 easy questions in the first hour, 8 medium in the second hour and leave final hour for remaining 6 (tough) questions. Once you are done with the question, just double check whether you are saving the output as described in the question and move on (don’t try to come back and check the answers again). <strong>You will not have time to go back and check!</strong></p>
-
-<h3 id="progresstracking">Progress Tracking</h3>
-
-<p>The CKA exam allows you to write notes to a notebook, which they provide in exam’s UI. Use it wisely. Once I had my exam available, I used their Notebook to keep track of my progress. It helps you to see your progress and how much left to be finished. </p>
-
-<p>The format I used:</p>
-
-<pre><code class="language-vim"># - scoring - total
-1 4 4  
-2 5 9  
-3 3 12  
-4  
-5  
-...
-24  
-</code></pre>
-
-<p>The first column is just the number of question (24 in total). The second column — scoring, is how much the problem worth and you will get that from the problem description. The third column is “total”, where you put the total scoring as you go and it will let you know what problems are already completed and how many points you already have. This little bureaucracy will help you to understand how well you are doing and come back to some problems if you decided to skip them before. </p>
-
-<h3 id="kubectlninja">Kubectl Ninja</h3>
-
-<p>Use kubectl to create resources (such as deployment, service, cronjobs etc) instead of creating them from manifest files. It saves lot of time. <br>
-I used the <a href="https://kubernetes.io/docs/reference/kubectl/cheatsheet/">cheatsheet</a> heavily during the exam. </p>
-
-<p>First thing I did was copy in the below to notepad. It allowed me to create resources quickly from <code>stdin</code>  </p>
-
-<pre><code class="language-bash">cat &lt;&lt;EOF | kubectl create -f -
-
-EOF  
-</code></pre>
-
-<blockquote>
-  <p>Take the exam in the morning. </p>
-</blockquote>
-
-<p>I took it at 11AM. I went for a quick walk beforehand to get some fresh air and then I was ready to go!</p>
-
-<p>To reiterate, familiarise yourself with the official documentation. It has multiple sections (tasks, concepts and references) for the same topic. So, you should know what/where to look for quickly in the documentation during exam.</p>
-
-<p>Best of luck! Remember you have one free retake if needed.😃🚀⚓</p>
-
-<p><img src="https://blog.shanelee.name/content/images/2018/10/CKAcertificate.png" alt="How I aced the Certified Kubernetes Administrator (CKA) Exam"></p>]]></content:encoded></item></channel></rss>
+</ul>]]></content:encoded></item></channel></rss>
