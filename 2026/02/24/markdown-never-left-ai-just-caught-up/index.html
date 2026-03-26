@@ -118,7 +118,7 @@
         
 
 
-<header class="main-header post-head " style="background-image: url(../../../../content/images/2026/02/langchain-migration-hero-1.png)">
+<header class="main-header post-head " style="background-image: url(https://blog.shanelee.name/content/images/2026/02/langchain-migration-hero-1.png)">
     <nav class="main-nav overlay clearfix">
         
             <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
@@ -204,7 +204,7 @@
 
 <p>My first step was pulling down the LangChain release notes and migration guides as markdown — and it turns out the LangChain docs site makes this remarkably easy. Every page has a built-in <strong>"View as Markdown"</strong> option that returns the page as clean plain text, purpose-built for LLMs.</p>
 
-<p><img src="../../../../content/images/2026/02/Screenshot-2026-02-24-at-20-52-05-1.png" alt="Screenshot of the LangChain docs site showing the " view as markdown and mcp server dropdown options></p>
+<p><img src="https://blog.shanelee.name/content/images/2026/02/Screenshot-2026-02-24-at-20-52-05-1.png" alt="Screenshot of the LangChain docs site showing the " view as markdown and mcp server dropdown options></p>
 
 <p>The docs site also ships with a built-in MCP server. Hit the dropdown on any page and you'll see "Copy MCP Server" — one click gives you the config to paste directly into your <code>.mcp.json</code>:</p>
 
@@ -231,7 +231,7 @@
 <pre><code class="language-bash">curl -H "Accept: text/markdown" https://some-docs-site.com/page  
 </code></pre>
 
-<p><img src="../../../../content/images/2026/02/cloudflare-markdown-for-agents.png" alt="How Cloudflare intercepts the Accept: text/markdown header and converts HTML to Markdown before returning it to the AI agent"></p>
+<p><img src="https://blog.shanelee.name/content/images/2026/02/cloudflare-markdown-for-agents.png" alt="How Cloudflare intercepts the Accept: text/markdown header and converts HTML to Markdown before returning it to the AI agent"></p>
 
 <p>No conversion tooling required on your end. No scraping, no parsing. For any documentation that isn't LangChain — release notes, third-party libraries, framework guides — this is the most frictionless path to token-efficient context.</p>
 
@@ -385,7 +385,7 @@ Review the following plan and identify:
   <p>💡 <strong>Think of <code>progress.md</code> as your agent's working memory that persists across sessions.</strong> The context window resets; the file doesn't. This is the Docs as Code principle applied to agent state: if it matters, write it down in Markdown and commit it.</p>
 </blockquote>
 
-<p><img src="../../../../content/images/2026/02/progress-md-memory.png" alt="Agentic working memory — three sessions connected by a persistent progress.md file"></p>
+<p><img src="https://blog.shanelee.name/content/images/2026/02/progress-md-memory.png" alt="Agentic working memory — three sessions connected by a persistent progress.md file"></p>
 
 <hr>
 
@@ -480,7 +480,13 @@ s.setAttribute('data-timestamp', +new Date());
 
 
 <aside class="read-next">
-    <a class="read-next-story prev " style="background-image: url(../../../../content/images/2026/02/git-worktrees-hero-3.png)" href="../../03/agentic-coding-git-worktrees-and-agent-skills-for-parallel-workflows/">
+    <a class="read-next-story " style="background-image: url(../../../../content/images/2026/03/spec-driven-dev-hero-2.png)" href="../../../03/22/spec-driven-development-is-waterfall-in-a-trench-coat-2/">
+        <section class="post">
+            <h2>Spec-Driven Development is Waterfall With a Fresh Coat of Paint</h2>
+            <p>The AI tooling ecosystem keeps rediscovering waterfall. Here's why you should resist it. When did you last finish a…</p>
+        </section>
+    </a>
+    <a class="read-next-story prev " style="background-image: url(https://blog.shanelee.name/content/images/2026/02/git-worktrees-hero-3.png)" href="../../03/agentic-coding-git-worktrees-and-agent-skills-for-parallel-workflows/">
         <section class="post">
             <h2>Agentic Coding: Git Worktrees and Agent Skills for Parallel Workflows</h2>
             <p>From solo agent to parallel powerhouse: how Git worktrees and agent skills turn your agentic coding setup into a…</p>

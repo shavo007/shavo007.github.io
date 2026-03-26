@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Spec-Driven Development is Waterfall With a Fresh Coat of Paint</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
+    <link rel="canonical" href="https://blog.shanelee.name/2026/03/22/spec-driven-development-is-waterfall-in-a-trench-coat-2/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="Tech Blog (mainly!)">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Spec-Driven Development is Waterfall With a Fresh Coat of Paint">
+    <meta property="og:description" content="The AI tooling ecosystem keeps rediscovering waterfall. Here's why you should resist it. When did you last finish a requirements document and think: yes, this is exactly what we'll build, and it'll still be accurate when we ship? If you've been in software long enough, you already know the answer.">
+    <meta property="og:url" content="http://blog.shanelee.name/2026/03/22/spec-driven-development-is-waterfall-in-a-trench-coat-2/">
+    <meta property="og:image" content="http://blog.shanelee.name/content/images/2026/03/spec-driven-dev-hero-2.png">
+    <meta property="article:published_time" content="2026-03-22T21:51:02.797Z">
+    <meta property="article:modified_time" content="2026-03-26T22:55:51.533Z">
+    <meta property="article:tag" content="ai">
+    <meta property="article:tag" content="claude">
+    <meta property="article:tag" content="copilot">
+    <meta property="article:tag" content="llm">
+    <meta property="article:tag" content="agentic">
+    <meta property="article:tag" content="markdown">
+    <meta property="article:tag" content="context">
+    <meta property="article:tag" content="spec">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Spec-Driven Development is Waterfall With a Fresh Coat of Paint">
+    <meta name="twitter:description" content="The AI tooling ecosystem keeps rediscovering waterfall. Here's why you should resist it. When did you last finish a requirements document and think: yes, this is exactly what we'll build, and it'll still be accurate when we ship? If you've been in software long enough, you already know the answer.">
+    <meta name="twitter:url" content="http://blog.shanelee.name/2026/03/22/spec-driven-development-is-waterfall-in-a-trench-coat-2/">
+    <meta name="twitter:image:src" content="http://blog.shanelee.name/content/images/2026/03/spec-driven-dev-hero-2.png">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shane Lee">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="ai, claude, copilot, llm, agentic, markdown, context, spec">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Tech Blog (mainly!)",
+        "logo": "http://blog.shanelee.name/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shane Lee",
+        "image": "http://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg",
+        "url": "http://blog.shanelee.name/author/shane/",
+        "sameAs": [
+            "https://about.me/shane-lee"
+        ]
+    },
+    "headline": "Spec-Driven Development is Waterfall With a Fresh Coat of Paint",
+    "url": "http://blog.shanelee.name/2026/03/22/spec-driven-development-is-waterfall-in-a-trench-coat-2/",
+    "datePublished": "2026-03-22T21:51:02.797Z",
+    "dateModified": "2026-03-26T22:55:51.533Z",
+    "image": "http://blog.shanelee.name/content/images/2026/03/spec-driven-dev-hero-2.png",
+    "keywords": "ai, claude, copilot, llm, agentic, markdown, context, spec",
+    "description": "The AI tooling ecosystem keeps rediscovering waterfall. Here&#x27;s why you should resist it. When did you last finish a requirements document and think: yes, this is exactly what we&#x27;ll build, and it&#x27;ll still be accurate when we ship? If you&#x27;ve been in software long enough, you already know the answer."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.8">
+    <link rel="alternate" type="application/rss+xml" title="Tech Blog (mainly!)" href="https://blog.shanelee.name/rss/">
+    <meta name="google-site-verification" content="dzkjZUDovRImqR_2oGUlteWT1zcgw-r6cqBYef9qiWw">
+<meta name="google-site-verification" content="lojSObDdEFLBM0ok1Yiqy7rqgbc8yAUTyqF5iYszvWA">
+<link rel="preconnect" href="http://shavo007.disqus.com">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128189527-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-128189527-1');
+</script>
+<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2007283184718574",
+    enable_page_level_ads: true
+  });
+</script>
+</head>
+<body class="post-template tag-ai tag-claude tag-copilot tag-llm tag-agentic tag-markdown tag-context tag-spec nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="https://blog.shanelee.name/">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="https://blog.shanelee.name/rss/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head " style="background-image: url(../../../../content/images/2026/03/spec-driven-dev-hero-2.png)">
+    <nav class="main-nav overlay clearfix">
+        
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post tag-ai tag-claude tag-copilot tag-llm tag-agentic tag-markdown tag-context tag-spec">
+
+        <header class="post-header">
+            <h1 class="post-title">Spec-Driven Development is Waterfall With a Fresh Coat of Paint</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2026-03-22">22 March 2026</time>
+                 on <a href="../../../../tag/ai/">ai</a>, <a href="../../../../tag/claude/">claude</a>, <a href="../../../../tag/copilot/">copilot</a>, <a href="../../../../tag/llm/">llm</a>, <a href="../../../../tag/agentic/">agentic</a>, <a href="../../../../tag/markdown/">markdown</a>, <a href="../../../../tag/context/">context</a>, <a href="../../../../tag/spec/">spec</a>
+                ,
+
+                <!--<li class="post-meta-item">-->
+                    <a href="index.html#disqus_thread"></a>
+                <!--</li>-->
+                <!--<a href="#disqus_thread"/>-->
+            </section>
+        </header>
+
+        <section class="post-content">
+
+            <p><strong>The AI tooling ecosystem keeps rediscovering waterfall. Here's why you should resist it.</strong></p>
+
+<p>When did you last finish a requirements document and think: <em>yes, this is exactly what we'll build, and it'll still be accurate when we ship</em>?</p>
+
+<p>If you've been in software long enough, you already know the answer. The spec is wrong the moment you stop writing it. Software is discovery — you learn what the right solution is by building it, not by describing it in advance.</p>
+
+<p>So why is the AI tooling industry trying so hard to bring specs back?</p>
+
+<p>In this post you'll learn:</p>
+
+<ul>
+<li>What spec-driven development is and which tools are pushing it</li>
+<li>Why it's structurally identical to waterfall — just with better marketing</li>
+<li>Why an AI-empowered team with agentic context engineering outships a spec-heavy team every time</li>
+</ul>
+
+<blockquote>
+  <p>💡 This is <strong>Part 6</strong> in my Context Engineering series. <a href="https://blog.shanelee.name/2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/">Part 1</a> covered the four pillars. <a href="https://blog.shanelee.name/2026/01/26/context-engineering-stop-fighting-your-ai-and-start-shipping-faster-pt2/">Part 2</a> introduced agent skills. <a href="https://blog.shanelee.name/2026/01/30/scrum-is-dead-why-ai-powered-teams-need-lean-methodology-not-ceremonies/">Part 3</a> argued for lean over Scrum. <a href="https://blog.shanelee.name/2026/02/03/agentic-coding-git-worktrees-and-agent-skills-for-parallel-workflows/">Part 4</a> put skills to work with git worktrees. <a href="https://blog.shanelee.name/2026/02/24/markdown-never-left-ai-just-caught-up/">Part 5</a> showed why Markdown is the native format of agentic context.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="whatisspecdrivendevelopment">🔍 What is Spec-Driven Development?</h2>
+
+<p>The premise sounds reasonable: before asking AI to write code, write a detailed specification. The AI reads the spec, understands the intent, and generates an implementation that matches it. No vague prompts. No hallucinated architecture. Just a clear document that drives predictable output.</p>
+
+<p>Several tools and frameworks have formalised this into a full workflow.</p>
+
+<p><strong>OpenSpec</strong> is probably the most talked-about right now. It installs via npm and works across Claude Code, Cursor, GitHub Copilot, and 30+ other tools. When you run <code>/openspec:proposal</code>, it generates a structured change proposal — requirements doc, implementation tasks, design decisions — before a single line of code is written. It markets itself as "lightweight" and "brownfield-first," and to be fair, it's more considered than a blank requirements doc. But the fundamental shape is the same: spec first, code second.</p>
+
+<hr>
+
+<h2 id="itswaterfallherestheproof">💧 It's Waterfall. Here's the Proof.</h2>
+
+<p>Let's put the two workflows side by side.</p>
+
+<p>Classic waterfall:</p>
+
+<ol>  
+<li>Requirements phase → document everything</li>  
+<li>Design phase → spec everything</li>  
+<li>Implementation phase → build to spec</li>  
+<li>Testing phase → verify against spec</li>  
+<li>Release</li>  
+</ol>
+
+<p>Spec-driven AI development:</p>
+
+<ol>  
+<li>Discovery / inception → gather requirements</li>  
+<li>Write spec (BA, PM, or AI-assisted) → document everything</li>  
+<li>AI implements to spec</li>  
+<li>Review and validate</li>  
+</ol>
+
+<p>Same shape. Different tools.</p>
+
+<p>The spec-driven workflow also sneaks back in the roles that lean teams have been actively trying to eliminate:</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 6px 0;">📋 <strong>Business Analysts</strong> to write the requirements</li>
+  <li style="padding: 6px 0;">✍️ <strong>Product Owners</strong> to sign off on the spec</li>
+  <li style="padding: 6px 0;">🏛️ <strong>Architects</strong> to validate it's implementable</li>
+  <li style="padding: 6px 0;">🔍 <strong>Dedicated QA</strong> to verify against the spec</li>
+</ul>
+
+<p>These are hand-off roles. Each one is a seam where context gets lost, where timelines stretch, and where "it wasn't in the spec" becomes the answer to every inconvenient question.</p>
+
+<p>This isn't a new failure mode. Behaviour-Driven Development made the same bet a decade ago — that BAs and product owners could write tests in Gherkin, the human-readable format behind tools like Cucumber, without deep engineering involvement. The promise was that non-technical stakeholders could define acceptance criteria directly. In practice, the Gherkin files were either written by engineers anyway, or they drifted from reality the moment the code changed. The handover assumption was the problem then, and it's the problem now.</p>
+
+<p>Modern testing has moved in the opposite direction. Shift-left testing brings quality thinking into the development loop rather than delegating it downstream. Test automation tooling — MCPs and CLIs like Playwright — lets engineers write and run tests as part of the build cycle, not as a separate gate. The assumption that non-technical people should own the test layer was always backwards. What works is engineers who think about quality from the start.</p>
+
+<p>This is about more than methodology. It's about team composition. In the AI era, the answer isn't a better handover process — it's not needing one. What you need are AI-empowered engineers with strong engineering instincts and the systems thinking to own a problem end to end.</p>
+
+<p>But there's a subtler problem beneath the process overhead: the methodology and the headcount justify each other in a loop that's very hard to break from the inside. You need BAs to write the specs. You need QAs to validate against them. You need sign-off ceremonies before work begins and acceptance cycles before it ships. <mark>Heavyweight spec processes don't just slow teams down — they create an organisational incentive where writing a good spec becomes more valued than shipping good software.</mark></p>
+
+<p>And here's the deeper problem: spec-driven development is solving the wrong bottleneck. Generating code was never the problem. Deciding <em>what</em> to build — and staying adaptable as that changes — is the hard part. A spec locks you into an answer before you've done the learning.</p>
+
+<blockquote>
+  <p>💡 The future is T-shaped engineers who can own the full problem. Not specialists producing hand-off artefacts.</p>
+</blockquote>
+
+<p>And there's another problem: spec rot. The spec is a snapshot of what you thought you needed at the moment you wrote it. The moment you start building, reality diverges. You're now maintaining two artefacts — the spec and the code — and they drift apart from day one.</p>
+
+<p>No feedback loop in the build means you don't discover what's wrong with your design until you've already built to it. That's exactly waterfall's fatal flaw — and spec-driven development inherits it wholesale.</p>
+
+<hr>
+
+<h2 id="hackernewscalleditimmediately">🚨 Hacker News Called It Immediately</h2>
+
+<p>I'm not alone in this read. When marmelab published a critique of spec-driven development on Hacker News, it hit 225 points and 191 comments — and the title said it all: <a href="https://marmelab.com/blog/2025/11/12/spec-driven-development-waterfall-strikes-back.html"><em>Spec-Driven Development: The Waterfall Strikes Back</em></a>.</p>
+
+<p>The thread reactions were sharp:</p>
+
+<blockquote>
+  <p><em>"Managers appreciate SDD for the same reasons they favored waterfall initially."</em> — constantcrying</p>
+  
+  <p><em>"The distinction between waterfall and agile is merely how much spec you write before implementing — longer feedback loops increase risk of major mistakes."</em> — pydry</p>
+  
+  <p><em>"Really, we are doing waterfall, but with AI, now?"</em> — multiple commenters</p>
+</blockquote>
+
+<p>Engineers who tried Kiro — AWS's spec-driven agentic IDE — were equally blunt:</p>
+
+<blockquote>
+  <p><em>"Kiro generated massive task lists (12+ tasks with 4+ sub-tasks each) with unpredictable code deletion — a sledgehammer to crack a nut."</em> — hatmanstack</p>
+  
+  <p><em>"Kiro, your new corporate project manager."</em> — iamsaitam (on Kiro treating a small bug fix as a full project management exercise)</p>
+</blockquote>
+
+<p>When you show experienced engineers a spec-driven workflow, the reaction is consistent regardless of platform: <em>we tried this already</em>.</p>
+
+<hr>
+
+<h2 id="therightcontextislightweightnotheavyweight">⚡ The Right Context is Lightweight, Not Heavyweight</h2>
+
+<p>Here's what I think people are actually reaching for when they advocate for spec-driven development: <strong>they want AI to have enough context to produce good output</strong>. That's a legitimate goal. The mistake is thinking a formal spec document is the right way to deliver it.</p>
+
+<p>The Agile Manifesto articulated this argument in 2001:</p>
+
+<blockquote>
+  <p><em>"Working software over comprehensive documentation."</em></p>
+</blockquote>
+
+<p>25 years later, spec-driven AI development is rediscovering the same mistake the Manifesto was written to correct.</p>
+
+<p>What does good agentic context engineering actually look like? It's three things:</p>
+
+<p><strong>1. Context files</strong> — always-on institutional knowledge that lives in the repo, versioned with your code. <code>CLAUDE.md</code> covers project conventions, architecture decisions, gotchas, and commands. <code>agents.md</code> (covered in <a href="https://blog.shanelee.name/2026/02/24/markdown-never-left-ai-just-caught-up/">Part 5</a>) gives the agent ground truth about your agent architecture — what each agent does, how they relate, known quirks. Neither of these is a spec. They describe what <em>is</em>, not what <em>should be</em>. Both are plain Markdown, readable by any agentic tool, owned entirely by your team.</p>
+
+<p><strong>2. Plan mode</strong> — an interactive dialogue with the agent to scope the work before acting. Not a document. Not a hand-off artefact. A conversation. Here's what that looks like in practice:</p>
+
+<p>You type: <em>"Add user notification preferences to the API — get and set per-user settings."</em></p>
+
+<p>Claude Code reads your codebase and responds in under a minute: <em>"I can see your Express router in <code>src/api/routes.js</code>. I'll add <code>GET /users/:id/preferences</code> and <code>PATCH /users/:id/preferences</code>, extend the User model with a JSON preferences column, and add a migration. I'll reuse your existing auth middleware. Want to proceed, or adjust anything?"</em></p>
+
+<p>You refine. You ship. The spec-driven equivalent of that exchange is a requirements document, a BA-facilitated discovery session, an architect sign-off, and a sprint of writing before anyone touches the code.</p>
+
+<p>The reason plan mode works is the same reason context engineering works — you're doing the thinking that a spec tries to capture, but you're doing it in a living, adaptive way rather than freezing it in a document that will be out of date before the first PR is merged. The plan evolves with the codebase. The context evolves with understanding. The output is software, not documentation.</p>
+
+<p>Plan mode produces a <code>plan.md</code> — a structured, readable artefact you can review, edit, and pass to a sub-agent. Before execution I run a principal engineer review: a sceptical sub-agent persona whose job is to find problems with the plan before a line of code is written. A fresh context window sees what your planning session normalised. This is the quality gate — lightweight, fast, and embedded in the loop rather than bolted on at the end as a separate role.</p>
+
+<p>OpenSpec's own FAQ raises this objection: <em>"Plan mode is great for a single chat session — but what about longer work that spans multiple sessions?"</em> Their answer is a spec. The actual answer is simpler: a <code>progress.md</code> file. The agent maintains it as work proceeds — completed steps, decisions made, what's next. At the start of the next session it reads its own notes and picks up where it left off. You don't need a platform, a structured workflow, or a vendor's artefact format. You need a text file and a habit.</p>
+
+<p><strong>3. A prototype</strong> — build something real, show it to a stakeholder, learn. The fastest way to discover what you need to build is to build it.</p>
+
+<table style="width:100%; border-collapse: collapse; margin: 1.5em 0;">  
+  <thead>
+    <tr style="background-color: #f4f4f4;">
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Spec-Driven Development</th>
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Plan Mode (Claude Code)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Written upfront, before building</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Created interactively, just before acting</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Formal document</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Conversation-first, optionally captured</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Requires dedicated roles (BA, PM, architect)</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">One T-shaped engineer</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Locked in before learning</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Revised as understanding improves</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Spec → code (one-way)</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Plan → code → refine → code (iterative)</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2 id="theteamyouactuallyneed">👥 The Team You Actually Need</h2>
+
+<p>In <a href="https://blog.shanelee.name/2026/01/30/scrum-is-dead-why-ai-powered-teams-need-lean-methodology-not-ceremonies/">Part 3</a>, I argued that Scrum's ceremony overhead doesn't survive contact with AI development speeds. Spec-driven development has the same problem, and it introduces an additional one: it justifies bloated team structures.</p>
+
+<p>If your workflow requires someone to write the spec, someone to implement it, someone to verify it, and someone to maintain it as it drifts — you've described a four-person process for work one T-shaped engineer with an AI agent could handle in an afternoon. (A T-shaped engineer is someone with deep expertise in one area and enough breadth to own the problem end to end — from requirement clarity to production — without a handoff chain.)</p>
+
+<p>Importantly, the BA and QA functions don't disappear in this model — they just stop being separate roles with separate artefacts and handoff ceremonies. A strong engineer with good AI tooling and a disciplined approach to context engineering can own requirement clarity as part of how they think about a problem, not as a separate phase before they're allowed to start. The translation between business need and technical implementation is a skill, not a job title. Engineers who develop that skill — and AI tooling makes it significantly easier — are more valuable than engineers who hand that responsibility to a BA and wait.</p>
+
+<p>The same applies to quality. Quality is not a function — it's a standard. When it's owned by a specialist role, it becomes that role's problem to manage rather than every engineer's responsibility to maintain. When quality thinking is embedded in the agentic development loop rather than delegated to a gate at the end, failure rates don't increase. In many cases they improve, because the person closest to the code is also closest to the risk.</p>
+
+<p>The Claude Code team at Anthropic is a well-documented example of this model working at scale. They built one of the most serious AI coding tools in the industry without traditional PRDs — using plan mode and rapid prototyping instead.</p>
+
+<p>That's the team composition the AI era calls for:</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 6px 0;">🔷 <strong>Flat</strong> — minimal hierarchy, no specialist silos</li>
+  <li style="padding: 6px 0;">🔷 <strong>T-shaped</strong> — deep in one area, broad enough to own the full stack</li>
+  <li style="padding: 6px 0;">🔷 <strong>Outcome-oriented</strong> — shipping working software, not producing documents</li>
+  <li style="padding: 6px 0;">🔷 <strong>AI-empowered</strong> — each engineer multiplied by an agent</li>
+</ul>
+
+<p>In <a href="https://newsletter.pragmaticengineer.com/p/building-claude-code-with-boris-cherny">an interview with The Pragmatic Engineer</a>, Boris Cherny — who led the development of Claude Code — put it plainly:</p>
+
+<blockquote>
+  <p><em>"There's just no way we could have shipped this if we started with static mocks and Figma or if we started with a PRD."</em></p>
+</blockquote>
+
+<p>If the teams building the tools aren't writing PRDs, the argument that PRDs are necessary for serious product development becomes very hard to sustain. The question isn't whether this model scales — the question is whether your organisation has the hiring standards and culture to make it work.</p>
+
+<hr>
+
+<h2 id="thebottomline">The Bottom Line</h2>
+
+<p>Every generation of tooling rediscovers the same heavyweight process and gives it a new name. Waterfall became RUP became Scrum became SAFe. Now it's spec-driven development. The values the Agile movement fought for — working software over comprehensive documentation, responding to change over following a plan — are exactly what spec-driven development trades away.</p>
+
+<p>You don't need a spec. You need good agentic context engineering principles — CLAUDE.md, plan mode, T-shaped engineers, prototypes. What you don't need:</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 6px 0;">❌ A BA writing requirements before the team has touched the problem</li>
+  <li style="padding: 6px 0;">❌ A spec document to maintain in lockstep with your code</li>
+  <li style="padding: 6px 0;">❌ An inception workshop before a single line is written</li>
+</ul>
+
+<p>Spec-driven development frameworks are solving a problem that better hiring, better tooling, and better engineering culture have already made obsolete. They're not a step forward — they're a formalisation of constraints that high-performing teams have already moved past.</p>
+
+<p>The spec was never the source of truth. The software always was.</p>
+        </section>
+
+        <!-- disqus code snippet -->
+        <div id="disqus_thread"></div>
+        <script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+this.page.url = 'http://blog.shanelee.name/2026/03/22/spec-driven-development-is-waterfall-in-a-trench-coat-2/'; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'ghost-37'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//shavo007.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        <script id="dsq-count-scr" src="http://shavo007.disqus.com/count.js" async></script>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../../../../author/shane/" style="background-image: url(https://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../../../../author/shane/">Shane Lee</a></h4>
+
+                    <p>Read <a href="../../../../author/shane/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    <span class="author-location icon-location">Melbourne</span>
+                    <span class="author-link icon-link"><a href="https://about.me/shane-lee">https://about.me/shane-lee</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Spec-Driven%20Development%20is%20Waterfall%20With%20a%20Fresh%20Coat%20of%20Paint&amp;url=https://blog.shanelee.name/2026/03/22/spec-driven-development-is-waterfall-in-a-trench-coat-2/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.shanelee.name/2026/03/22/spec-driven-development-is-waterfall-in-a-trench-coat-2/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://blog.shanelee.name/2026/03/22/spec-driven-development-is-waterfall-in-a-trench-coat-2/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+
+    </article>
+</main>
+
+
+
+<aside class="read-next">
+    <a class="read-next-story prev " style="background-image: url(https://blog.shanelee.name/content/images/2026/02/langchain-migration-hero-1.png)" href="../../../02/24/markdown-never-left-ai-just-caught-up/">
+        <section class="post">
+            <h2>Markdown Never Left — AI Just Caught Up</h2>
+            <p>It's not even a technology. It's a convention. And that's exactly why it wins. Markdown is a writing convention…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2026</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-coy.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-graphql.min.js"></script>
+<!-- Add additional languages here -->
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/prism.js"></script>
+
+
+
+</body>
+</html>

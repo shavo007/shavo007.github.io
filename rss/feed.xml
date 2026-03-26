@@ -1,4 +1,232 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog (mainly!)]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>https://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Wed, 25 Feb 2026 22:46:34 GMT</lastBuildDate><atom:link href="https://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Markdown Never Left — AI Just Caught Up]]></title><description><![CDATA[<p><strong>It's not even a technology. It's a convention. And that's exactly why it wins.</strong></p>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Tech Blog (mainly!)]]></title><description><![CDATA[Thoughts, stories and ideas.]]></description><link>https://blog.shanelee.name/</link><generator>Ghost 0.8</generator><lastBuildDate>Thu, 26 Mar 2026 23:01:35 GMT</lastBuildDate><atom:link href="https://blog.shanelee.name/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Spec-Driven Development is Waterfall With a Fresh Coat of Paint]]></title><description><![CDATA[<p><strong>The AI tooling ecosystem keeps rediscovering waterfall. Here's why you should resist it.</strong></p>
+
+<p>When did you last finish a requirements document and think: <em>yes, this is exactly what we'll build, and it'll still be accurate when we ship</em>?</p>
+
+<p>If you've been in software long enough, you already know the answer.</p>]]></description><link>https://blog.shanelee.name/2026/03/22/spec-driven-development-is-waterfall-in-a-trench-coat-2/</link><guid isPermaLink="false">74b812f0-6b4d-4fb0-9ff7-db96cac8b523</guid><category><![CDATA[ai]]></category><category><![CDATA[claude]]></category><category><![CDATA[copilot]]></category><category><![CDATA[llm]]></category><category><![CDATA[agentic]]></category><category><![CDATA[markdown]]></category><category><![CDATA[context]]></category><category><![CDATA[spec]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Sun, 22 Mar 2026 21:51:02 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2026/03/spec-driven-dev-hero-2.png" medium="image"/><content:encoded><![CDATA[<img src="https://blog.shanelee.name/content/images/2026/03/spec-driven-dev-hero-2.png" alt="Spec-Driven Development is Waterfall With a Fresh Coat of Paint"><p><strong>The AI tooling ecosystem keeps rediscovering waterfall. Here's why you should resist it.</strong></p>
+
+<p>When did you last finish a requirements document and think: <em>yes, this is exactly what we'll build, and it'll still be accurate when we ship</em>?</p>
+
+<p>If you've been in software long enough, you already know the answer. The spec is wrong the moment you stop writing it. Software is discovery — you learn what the right solution is by building it, not by describing it in advance.</p>
+
+<p>So why is the AI tooling industry trying so hard to bring specs back?</p>
+
+<p>In this post you'll learn:</p>
+
+<ul>
+<li>What spec-driven development is and which tools are pushing it</li>
+<li>Why it's structurally identical to waterfall — just with better marketing</li>
+<li>Why an AI-empowered team with agentic context engineering outships a spec-heavy team every time</li>
+</ul>
+
+<blockquote>
+  <p>💡 This is <strong>Part 6</strong> in my Context Engineering series. <a href="https://blog.shanelee.name/2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/">Part 1</a> covered the four pillars. <a href="https://blog.shanelee.name/2026/01/26/context-engineering-stop-fighting-your-ai-and-start-shipping-faster-pt2/">Part 2</a> introduced agent skills. <a href="https://blog.shanelee.name/2026/01/30/scrum-is-dead-why-ai-powered-teams-need-lean-methodology-not-ceremonies/">Part 3</a> argued for lean over Scrum. <a href="https://blog.shanelee.name/2026/02/03/agentic-coding-git-worktrees-and-agent-skills-for-parallel-workflows/">Part 4</a> put skills to work with git worktrees. <a href="https://blog.shanelee.name/2026/02/24/markdown-never-left-ai-just-caught-up/">Part 5</a> showed why Markdown is the native format of agentic context.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="whatisspecdrivendevelopment">🔍 What is Spec-Driven Development?</h2>
+
+<p>The premise sounds reasonable: before asking AI to write code, write a detailed specification. The AI reads the spec, understands the intent, and generates an implementation that matches it. No vague prompts. No hallucinated architecture. Just a clear document that drives predictable output.</p>
+
+<p>Several tools and frameworks have formalised this into a full workflow.</p>
+
+<p><strong>OpenSpec</strong> is probably the most talked-about right now. It installs via npm and works across Claude Code, Cursor, GitHub Copilot, and 30+ other tools. When you run <code>/openspec:proposal</code>, it generates a structured change proposal — requirements doc, implementation tasks, design decisions — before a single line of code is written. It markets itself as "lightweight" and "brownfield-first," and to be fair, it's more considered than a blank requirements doc. But the fundamental shape is the same: spec first, code second.</p>
+
+<hr>
+
+<h2 id="itswaterfallherestheproof">💧 It's Waterfall. Here's the Proof.</h2>
+
+<p>Let's put the two workflows side by side.</p>
+
+<p>Classic waterfall:</p>
+
+<ol>  
+<li>Requirements phase → document everything</li>  
+<li>Design phase → spec everything</li>  
+<li>Implementation phase → build to spec</li>  
+<li>Testing phase → verify against spec</li>  
+<li>Release</li>  
+</ol>
+
+<p>Spec-driven AI development:</p>
+
+<ol>  
+<li>Discovery / inception → gather requirements</li>  
+<li>Write spec (BA, PM, or AI-assisted) → document everything</li>  
+<li>AI implements to spec</li>  
+<li>Review and validate</li>  
+</ol>
+
+<p>Same shape. Different tools.</p>
+
+<p>The spec-driven workflow also sneaks back in the roles that lean teams have been actively trying to eliminate:</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 6px 0;">📋 <strong>Business Analysts</strong> to write the requirements</li>
+  <li style="padding: 6px 0;">✍️ <strong>Product Owners</strong> to sign off on the spec</li>
+  <li style="padding: 6px 0;">🏛️ <strong>Architects</strong> to validate it's implementable</li>
+  <li style="padding: 6px 0;">🔍 <strong>Dedicated QA</strong> to verify against the spec</li>
+</ul>
+
+<p>These are hand-off roles. Each one is a seam where context gets lost, where timelines stretch, and where "it wasn't in the spec" becomes the answer to every inconvenient question.</p>
+
+<p>This isn't a new failure mode. Behaviour-Driven Development made the same bet a decade ago — that BAs and product owners could write tests in Gherkin, the human-readable format behind tools like Cucumber, without deep engineering involvement. The promise was that non-technical stakeholders could define acceptance criteria directly. In practice, the Gherkin files were either written by engineers anyway, or they drifted from reality the moment the code changed. The handover assumption was the problem then, and it's the problem now.</p>
+
+<p>Modern testing has moved in the opposite direction. Shift-left testing brings quality thinking into the development loop rather than delegating it downstream. Test automation tooling — MCPs and CLIs like Playwright — lets engineers write and run tests as part of the build cycle, not as a separate gate. The assumption that non-technical people should own the test layer was always backwards. What works is engineers who think about quality from the start.</p>
+
+<p>This is about more than methodology. It's about team composition. In the AI era, the answer isn't a better handover process — it's not needing one. What you need are AI-empowered engineers with strong engineering instincts and the systems thinking to own a problem end to end.</p>
+
+<p>But there's a subtler problem beneath the process overhead: the methodology and the headcount justify each other in a loop that's very hard to break from the inside. You need BAs to write the specs. You need QAs to validate against them. You need sign-off ceremonies before work begins and acceptance cycles before it ships. <mark>Heavyweight spec processes don't just slow teams down — they create an organisational incentive where writing a good spec becomes more valued than shipping good software.</mark></p>
+
+<p>And here's the deeper problem: spec-driven development is solving the wrong bottleneck. Generating code was never the problem. Deciding <em>what</em> to build — and staying adaptable as that changes — is the hard part. A spec locks you into an answer before you've done the learning.</p>
+
+<blockquote>
+  <p>💡 The future is T-shaped engineers who can own the full problem. Not specialists producing hand-off artefacts.</p>
+</blockquote>
+
+<p>And there's another problem: spec rot. The spec is a snapshot of what you thought you needed at the moment you wrote it. The moment you start building, reality diverges. You're now maintaining two artefacts — the spec and the code — and they drift apart from day one.</p>
+
+<p>No feedback loop in the build means you don't discover what's wrong with your design until you've already built to it. That's exactly waterfall's fatal flaw — and spec-driven development inherits it wholesale.</p>
+
+<hr>
+
+<h2 id="hackernewscalleditimmediately">🚨 Hacker News Called It Immediately</h2>
+
+<p>I'm not alone in this read. When marmelab published a critique of spec-driven development on Hacker News, it hit 225 points and 191 comments — and the title said it all: <a href="https://marmelab.com/blog/2025/11/12/spec-driven-development-waterfall-strikes-back.html"><em>Spec-Driven Development: The Waterfall Strikes Back</em></a>.</p>
+
+<p>The thread reactions were sharp:</p>
+
+<blockquote>
+  <p><em>"Managers appreciate SDD for the same reasons they favored waterfall initially."</em> — constantcrying</p>
+  
+  <p><em>"The distinction between waterfall and agile is merely how much spec you write before implementing — longer feedback loops increase risk of major mistakes."</em> — pydry</p>
+  
+  <p><em>"Really, we are doing waterfall, but with AI, now?"</em> — multiple commenters</p>
+</blockquote>
+
+<p>Engineers who tried Kiro — AWS's spec-driven agentic IDE — were equally blunt:</p>
+
+<blockquote>
+  <p><em>"Kiro generated massive task lists (12+ tasks with 4+ sub-tasks each) with unpredictable code deletion — a sledgehammer to crack a nut."</em> — hatmanstack</p>
+  
+  <p><em>"Kiro, your new corporate project manager."</em> — iamsaitam (on Kiro treating a small bug fix as a full project management exercise)</p>
+</blockquote>
+
+<p>When you show experienced engineers a spec-driven workflow, the reaction is consistent regardless of platform: <em>we tried this already</em>.</p>
+
+<hr>
+
+<h2 id="therightcontextislightweightnotheavyweight">⚡ The Right Context is Lightweight, Not Heavyweight</h2>
+
+<p>Here's what I think people are actually reaching for when they advocate for spec-driven development: <strong>they want AI to have enough context to produce good output</strong>. That's a legitimate goal. The mistake is thinking a formal spec document is the right way to deliver it.</p>
+
+<p>The Agile Manifesto articulated this argument in 2001:</p>
+
+<blockquote>
+  <p><em>"Working software over comprehensive documentation."</em></p>
+</blockquote>
+
+<p>25 years later, spec-driven AI development is rediscovering the same mistake the Manifesto was written to correct.</p>
+
+<p>What does good agentic context engineering actually look like? It's three things:</p>
+
+<p><strong>1. Context files</strong> — always-on institutional knowledge that lives in the repo, versioned with your code. <code>CLAUDE.md</code> covers project conventions, architecture decisions, gotchas, and commands. <code>agents.md</code> (covered in <a href="https://blog.shanelee.name/2026/02/24/markdown-never-left-ai-just-caught-up/">Part 5</a>) gives the agent ground truth about your agent architecture — what each agent does, how they relate, known quirks. Neither of these is a spec. They describe what <em>is</em>, not what <em>should be</em>. Both are plain Markdown, readable by any agentic tool, owned entirely by your team.</p>
+
+<p><strong>2. Plan mode</strong> — an interactive dialogue with the agent to scope the work before acting. Not a document. Not a hand-off artefact. A conversation. Here's what that looks like in practice:</p>
+
+<p>You type: <em>"Add user notification preferences to the API — get and set per-user settings."</em></p>
+
+<p>Claude Code reads your codebase and responds in under a minute: <em>"I can see your Express router in <code>src/api/routes.js</code>. I'll add <code>GET /users/:id/preferences</code> and <code>PATCH /users/:id/preferences</code>, extend the User model with a JSON preferences column, and add a migration. I'll reuse your existing auth middleware. Want to proceed, or adjust anything?"</em></p>
+
+<p>You refine. You ship. The spec-driven equivalent of that exchange is a requirements document, a BA-facilitated discovery session, an architect sign-off, and a sprint of writing before anyone touches the code.</p>
+
+<p>The reason plan mode works is the same reason context engineering works — you're doing the thinking that a spec tries to capture, but you're doing it in a living, adaptive way rather than freezing it in a document that will be out of date before the first PR is merged. The plan evolves with the codebase. The context evolves with understanding. The output is software, not documentation.</p>
+
+<p>Plan mode produces a <code>plan.md</code> — a structured, readable artefact you can review, edit, and pass to a sub-agent. Before execution I run a principal engineer review: a sceptical sub-agent persona whose job is to find problems with the plan before a line of code is written. A fresh context window sees what your planning session normalised. This is the quality gate — lightweight, fast, and embedded in the loop rather than bolted on at the end as a separate role.</p>
+
+<p>OpenSpec's own FAQ raises this objection: <em>"Plan mode is great for a single chat session — but what about longer work that spans multiple sessions?"</em> Their answer is a spec. The actual answer is simpler: a <code>progress.md</code> file. The agent maintains it as work proceeds — completed steps, decisions made, what's next. At the start of the next session it reads its own notes and picks up where it left off. You don't need a platform, a structured workflow, or a vendor's artefact format. You need a text file and a habit.</p>
+
+<p><strong>3. A prototype</strong> — build something real, show it to a stakeholder, learn. The fastest way to discover what you need to build is to build it.</p>
+
+<table style="width:100%; border-collapse: collapse; margin: 1.5em 0;">  
+  <thead>
+    <tr style="background-color: #f4f4f4;">
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Spec-Driven Development</th>
+      <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Plan Mode (Claude Code)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Written upfront, before building</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Created interactively, just before acting</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Formal document</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Conversation-first, optionally captured</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Requires dedicated roles (BA, PM, architect)</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">One T-shaped engineer</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Locked in before learning</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Revised as understanding improves</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Spec → code (one-way)</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">Plan → code → refine → code (iterative)</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2 id="theteamyouactuallyneed">👥 The Team You Actually Need</h2>
+
+<p>In <a href="https://blog.shanelee.name/2026/01/30/scrum-is-dead-why-ai-powered-teams-need-lean-methodology-not-ceremonies/">Part 3</a>, I argued that Scrum's ceremony overhead doesn't survive contact with AI development speeds. Spec-driven development has the same problem, and it introduces an additional one: it justifies bloated team structures.</p>
+
+<p>If your workflow requires someone to write the spec, someone to implement it, someone to verify it, and someone to maintain it as it drifts — you've described a four-person process for work one T-shaped engineer with an AI agent could handle in an afternoon. (A T-shaped engineer is someone with deep expertise in one area and enough breadth to own the problem end to end — from requirement clarity to production — without a handoff chain.)</p>
+
+<p>Importantly, the BA and QA functions don't disappear in this model — they just stop being separate roles with separate artefacts and handoff ceremonies. A strong engineer with good AI tooling and a disciplined approach to context engineering can own requirement clarity as part of how they think about a problem, not as a separate phase before they're allowed to start. The translation between business need and technical implementation is a skill, not a job title. Engineers who develop that skill — and AI tooling makes it significantly easier — are more valuable than engineers who hand that responsibility to a BA and wait.</p>
+
+<p>The same applies to quality. Quality is not a function — it's a standard. When it's owned by a specialist role, it becomes that role's problem to manage rather than every engineer's responsibility to maintain. When quality thinking is embedded in the agentic development loop rather than delegated to a gate at the end, failure rates don't increase. In many cases they improve, because the person closest to the code is also closest to the risk.</p>
+
+<p>The Claude Code team at Anthropic is a well-documented example of this model working at scale. They built one of the most serious AI coding tools in the industry without traditional PRDs — using plan mode and rapid prototyping instead.</p>
+
+<p>That's the team composition the AI era calls for:</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 6px 0;">🔷 <strong>Flat</strong> — minimal hierarchy, no specialist silos</li>
+  <li style="padding: 6px 0;">🔷 <strong>T-shaped</strong> — deep in one area, broad enough to own the full stack</li>
+  <li style="padding: 6px 0;">🔷 <strong>Outcome-oriented</strong> — shipping working software, not producing documents</li>
+  <li style="padding: 6px 0;">🔷 <strong>AI-empowered</strong> — each engineer multiplied by an agent</li>
+</ul>
+
+<p>In <a href="https://newsletter.pragmaticengineer.com/p/building-claude-code-with-boris-cherny">an interview with The Pragmatic Engineer</a>, Boris Cherny — who led the development of Claude Code — put it plainly:</p>
+
+<blockquote>
+  <p><em>"There's just no way we could have shipped this if we started with static mocks and Figma or if we started with a PRD."</em></p>
+</blockquote>
+
+<p>If the teams building the tools aren't writing PRDs, the argument that PRDs are necessary for serious product development becomes very hard to sustain. The question isn't whether this model scales — the question is whether your organisation has the hiring standards and culture to make it work.</p>
+
+<hr>
+
+<h2 id="thebottomline">The Bottom Line</h2>
+
+<p>Every generation of tooling rediscovers the same heavyweight process and gives it a new name. Waterfall became RUP became Scrum became SAFe. Now it's spec-driven development. The values the Agile movement fought for — working software over comprehensive documentation, responding to change over following a plan — are exactly what spec-driven development trades away.</p>
+
+<p>You don't need a spec. You need good agentic context engineering principles — CLAUDE.md, plan mode, T-shaped engineers, prototypes. What you don't need:</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 6px 0;">❌ A BA writing requirements before the team has touched the problem</li>
+  <li style="padding: 6px 0;">❌ A spec document to maintain in lockstep with your code</li>
+  <li style="padding: 6px 0;">❌ An inception workshop before a single line is written</li>
+</ul>
+
+<p>Spec-driven development frameworks are solving a problem that better hiring, better tooling, and better engineering culture have already made obsolete. They're not a step forward — they're a formalisation of constraints that high-performing teams have already moved past.</p>
+
+<p>The spec was never the source of truth. The software always was.</p>]]></content:encoded></item><item><title><![CDATA[Markdown Never Left — AI Just Caught Up]]></title><description><![CDATA[<p><strong>It's not even a technology. It's a convention. And that's exactly why it wins.</strong></p>
 
 <p>Markdown is a writing convention — a set of rules for formatting plain text that John Gruber wrote a spec for in 2004. No runtime. No SDK. No API. Just text with agreed-upon symbols that any human</p>]]></description><link>https://blog.shanelee.name/2026/02/24/markdown-never-left-ai-just-caught-up/</link><guid isPermaLink="false">3c8978b1-d0c2-499f-b6c3-4bc21711e365</guid><category><![CDATA[ai]]></category><category><![CDATA[llm]]></category><category><![CDATA[claude]]></category><category><![CDATA[copilot]]></category><category><![CDATA[mcp]]></category><category><![CDATA[skills]]></category><category><![CDATA[agentic]]></category><category><![CDATA[markdown]]></category><category><![CDATA[tokens]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Tue, 24 Feb 2026 20:27:07 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2026/02/langchain-migration-hero-1.png" medium="image"/><content:encoded><![CDATA[<img src="https://blog.shanelee.name/content/images/2026/02/langchain-migration-hero-1.png" alt="Markdown Never Left — AI Just Caught Up"><p><strong>It's not even a technology. It's a convention. And that's exactly why it wins.</strong></p>
 
@@ -3827,160 +4055,4 @@ gcloud beta run deploy --image gcr.io/[PROJECT-ID]/graphql --add-cloudsql-instan
 
 <p>Easiest way is to delete the test <a href="https://console.cloud.google.com/iam-admin/projects">project</a></p>
 
-<p>Any questions feel free to comment below. </p>]]></content:encoded></item><item><title><![CDATA[Skaffold for local kubernetes development]]></title><description><![CDATA[skaffold for local kubernetes development]]></description><link>https://blog.shanelee.name/2019/02/20/skaffold-for-local-kubernetes-development/</link><guid isPermaLink="false">939f9b10-3288-4a62-83c4-8de5aa50b6f6</guid><category><![CDATA[kubernetes]]></category><category><![CDATA[docker]]></category><category><![CDATA[node]]></category><category><![CDATA[skaffold]]></category><category><![CDATA[graphql]]></category><dc:creator><![CDATA[Shane Lee]]></dc:creator><pubDate>Wed, 20 Feb 2019 06:37:09 GMT</pubDate><media:content url="https://blog.shanelee.name/content/images/2019/02/jacek-dylag-680347-unsplash-1.jpg" medium="image"/><content:encoded><![CDATA[<blockquote>
-  <img src="https://blog.shanelee.name/content/images/2019/02/jacek-dylag-680347-unsplash-1.jpg" alt="Skaffold for local kubernetes development"><p>Easy and Repeatable Kubernetes Development</p>
-</blockquote>
-
-<p><strong>TLDR</strong> Below, I will showcase how to install and use skaffold for local development with kubernetes.</p>
-
-<p>Currently <strong>(20/02/2019)</strong>, skaffold has nearly <mark>6000</mark> ⭐ on github.</p>
-
-<p>I have been using Skaffold for all my new projects that involve cloud native microservices, and it works like a charm on top of <code>Docker Desktop for Mac</code>/Minikube.</p>
-
-<p><strong>Skaffold</strong> is fantastic for local development with kubernetes. I can test locally my changes without having to deploy remotely. This helps speed up my local development and gives me confidence in my changes.</p>
-
-<h2 id="overview">Overview</h2>
-
-<p>Skaffold is a tool to develop containerized applications locally or remotely while deploying them on Kubernetes. It automatically builds and deploys your apps as you change your source code.</p>
-
-<p>Skaffold primarily simplifies the <mark>build → deploy → refactor → repeat</mark> cycle.</p>
-
-<h3 id="skaffoldmodes">Skaffold modes</h3>
-
-<p><img src="https://blog.shanelee.name/content/images/2019/02/skaffold-cmds.jpg" alt="Skaffold for local kubernetes development"></p>
-
-<p>In a single command, Skaffold can:</p>
-
-<ul>
-<li>Collects and watches your source code for changes</li>
-<li>Syncs files directly to pods if user marks them as syncable</li>
-<li>Builds artifacts from the source code</li>
-<li>Tests the built artifacts using container-structure-tests</li>
-<li>Tags the artifacts</li>
-<li>Pushes the artifacts</li>
-<li>Deploys the artifacts</li>
-<li>Monitors the deployed artifacts</li>
-<li>Cleans up deployed artifacts on exit (Ctrl+C)</li>
-</ul>
-
-<h2 id="skaffoldfeatures">Skaffold features</h2>
-
-<ul>
-<li><p><strong>Remote development:</strong> Skaffold doesn’t require you to run a local Kubernetes cluster (minikube or docker-for-desktop). It can build/push images locally with docker, and run them on the remote clusters (such as GKE). This is a laptop battery saver!</p></li>
-<li><p><strong>More remote development:</strong> You actually don’t need to run a local docker either. Skaffold can do remote builds using services like Google Container Builder. Although it’ll be slow.</p></li>
-<li><p><strong>Tag management:</strong> In your Kubernetes manifests, you leave the image tags out in the “image:” field, and Skaffold automatically changes the manifests with the new tags as it rebuilds the images.</p></li>
-<li><p><strong>Rebuild only what’s changed:</strong> If your microservices are on separate directories, changing source code for one will not cause rebuild for all images. Skaffold understands which images have been impacted by the change.</p></li>
-<li><p><strong>Cleanup on exit:</strong> Terminating “skaffold dev” runs a routine that cleans up the deployed k8s resources. If this fails, you can run “skaffold delete” to clean up deployed artifacts.</p></li>
-</ul>
-
-<h2 id="letsgetstarted">Lets get started!</h2>
-
-<p>On mac, you can install skaffold using brew</p>
-
-<pre><code class="language-bash">brew install skaffold  
-</code></pre>
-
-<h3 id="localdevelopment">Local development</h3>
-
-<p>Run <code>skaffold init</code> to bootstrap Skaffold config.</p>
-
-<p>Once that is complete, define in the yaml file the location of where your kubernetes manifests are defined.</p>
-
-<p>Sample skaffold yaml file</p>
-
-<pre><code class="language-yaml">apiVersion: skaffold/v1beta5  
-kind: Config  
-build:  
-  artifacts:
-  - image: shanelee007/graphql
-deploy:  
-  kubectl:
-    manifests:
-    - kubernetes/config.yaml
-    - kubernetes/deployment.yaml
-    - kubernetes/secret.yaml
-profiles:  
-- name: dev
-  build:
-    artifacts:
-    - image: shanelee007/graphql
-      sync:
-        '**/*.js': .
-      docker:
-        dockerfile: Dockerfile.dev
-</code></pre>
-
-<p>Here you can see where I defined my manifest files. Also for local development I have used a <code>profile</code> to define a development dockerfile and utilised the sync feature. </p>
-
-<blockquote>
-  <p>profiles feature grants you the freedom to switch tools as you see fit depending on the context.</p>
-</blockquote>
-
-<h3 id="localdevelopmentworkflow">Local development workflow</h3>
-
-<p><img src="https://blog.shanelee.name/content/images/2019/02/skaffold_workflow_local.png" alt="Skaffold for local kubernetes development"></p>
-
-<h5 id="syncfilestoyourpodswithskaffold">Sync files to your pods with Skaffold</h5>
-
-<p>With even one change to a file, Skaffold rebuilds the images that depend on that file, pushes them to a registry, and then redeploys the relevant parts of your Kubernetes application. </p>
-
-<p>The Skaffold file sync feature solves this problem. For each image, you can specify which files can be synced directly into a running container. Then, when you modify these files, Skaffold copies them directly into the running container rather than kicking off a full rebuild and redeploy. With Skaffold’s file sync feature, you can enjoy even faster development!</p>
-
-<p><a href="https://skaffold.dev/docs/how-tos/filesync/">Sync</a> is quite a new feature. Think of it as similar to <code>nodemon</code></p>
-
-<p>I have created my own demo <strong>github</strong> project <a href="https://github.com/shavo007/graphql-playground/tree/master/api#skaffold">here</a> if you want to follow along.</p>
-
-<p>There was an issue with publishing docker image for local development every time I ran skaffold. To prevent this from happening there is global config to disable this.</p>
-
-<pre><code class="language-bash">skaffold config set --global local-cluster true #do not push images after building  
-</code></pre>
-
-<h4 id="noteondockerfile">Note on Dockerfile</h4>
-
-<p>In my github project, you can see I use multi-stage approach with my docker <a href="https://github.com/shavo007/graphql-playground/blob/master/api/Dockerfile">files</a></p>
-
-<p>Think of it as a build pipeline as code.</p>
-
-<p>It allows you to selectively copy artifacts from one stage to another, leaving behind everything you don’t want in the final image. </p>
-
-<p>To analyse your final production image I found a useful tool called <a href="https://github.com/wagoodman/dive">dive</a></p>
-
-<p>It allows you to explore and optimise your docker image size.</p>
-
-<p><img src="https://blog.shanelee.name/content/images/2019/02/Screen-Shot-2019-02-20-at-7-23-39-pm.png" alt="Skaffold for local kubernetes development"></p>
-
-<p>Now we can run skaffold!</p>
-
-<pre><code class="language-bash">skaffold dev -p dev -v=info #run locally/watching changes dev mode  
-</code></pre>
-
-<p>If you want to try out the new experimental gui run instead </p>
-
-<pre><code class="language-bash">skaffold dev -p dev -v=info --experimental-gui  
-</code></pre>
-
-<p>Console output will look like so:</p>
-
-<p><a href="https://asciinema.org/a/220028" target="_blank"><img src="https://asciinema.org/a/220028.svg" alt="Skaffold for local kubernetes development"></a></p>
-
-<p>Every time you make a src code change, skaffold will watch for these changes and update the pod on the fly. Pretty neat!!</p>
-
-<p><img src="https://media.giphy.com/media/vEgtLzJo8n7qg/giphy.gif" alt="Skaffold for local kubernetes development"></p>
-
-<h4 id="upgrade">Upgrade</h4>
-
-<p>As of <strong>20/02/2019</strong> the latest version is <code>v1beta5</code>. To upgrade just run </p>
-
-<pre><code class="language-bash">brew upgrade skaffold  
-skaffold fix --overwrite  
-</code></pre>
-
-<p>Thats all for now. In my next post, I will discuss deploying remotely using skaffold.😃</p>
-
-<h2 id="learnmore">Learn more</h2>
-
-<ul>
-<li><p>Check out skaffold <a href="https://skaffold.dev/docs/">doc</a> to understand more</p></li>
-<li><p>There is numerous <a href="https://github.com/GoogleContainerTools/skaffold/tree/master/examples">examples</a> at the github repo</p></li>
-<li><p>My sample github <a href="https://github.com/shavo007/graphql-playground/tree/master/api">repo</a> showcasing graphql api with kubernetes</p></li>
-</ul>]]></content:encoded></item></channel></rss>
+<p>Any questions feel free to comment below. </p>]]></content:encoded></item></channel></rss>
