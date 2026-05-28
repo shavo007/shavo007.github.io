@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Agentic Reflexion: Teach Your AI to Doubt Its Own Plan</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/prism.css">
+    <link rel="canonical" href="https://blog.shanelee.name/2026/05/12/agentic-reflexion-teach-your-ai-to-doubt-its-own-plan/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="Tech Blog (mainly!)">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Agentic Reflexion: Teach Your AI to Doubt Its Own Plan">
+    <meta property="og:description" content="Your AI wrote a great plan. It's probably wrong. Here's how to catch that before you build.         ┌──────────────────────────────────────────────┐         │                                              │    You  │                                         refine     │   │                                              │     ▼   ▼                                              │ ┌─────────────────────┐                               │ │      Plan Mode      │  ← Model A (e.g., Sonnet)     │ │  (Read · Reason ·   │                               │ │    Propose)         │                               │ └─────────────────────┘                               │            │                                          │            │  Draft Plan                              │            ▼                                          │ ┌─────────────────────┐                               │ │    Plan Reviewer    │  ← Model B (e.g., Opus)       │ │  (Critique · Flag · │    Fresh context              │ │    Rank by Risk)    │    Adversarial prompt         │ └─────────────────────┘                               │            │                                          │     ┌──────┴──────┐                                   │     │  Blockers?  │ ──── yes ─────────────────────────┘     └──────┬──────┘            │ no">
+    <meta property="og:url" content="http://blog.shanelee.name/2026/05/12/agentic-reflexion-teach-your-ai-to-doubt-its-own-plan/">
+    <meta property="og:image" content="http://blog.shanelee.name/content/images/2026/05/agentic-reflexion-hero-2.png">
+    <meta property="article:published_time" content="2026-05-12T21:10:27.025Z">
+    <meta property="article:modified_time" content="2026-05-28T15:41:29.772Z">
+    <meta property="article:tag" content="ai">
+    <meta property="article:tag" content="agentic">
+    <meta property="article:tag" content="claude">
+    <meta property="article:tag" content="copilot">
+    <meta property="article:tag" content="context">
+    <meta property="article:tag" content="plan">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Agentic Reflexion: Teach Your AI to Doubt Its Own Plan">
+    <meta name="twitter:description" content="Your AI wrote a great plan. It's probably wrong. Here's how to catch that before you build.         ┌──────────────────────────────────────────────┐         │                                              │    You  │                                         refine     │   │                                              │     ▼   ▼                                              │ ┌─────────────────────┐                               │ │      Plan Mode      │  ← Model A (e.g., Sonnet)     │ │  (Read · Reason ·   │                               │ │    Propose)         │                               │ └─────────────────────┘                               │            │                                          │            │  Draft Plan                              │            ▼                                          │ ┌─────────────────────┐                               │ │    Plan Reviewer    │  ← Model B (e.g., Opus)       │ │  (Critique · Flag · │    Fresh context              │ │    Rank by Risk)    │    Adversarial prompt         │ └─────────────────────┘                               │            │                                          │     ┌──────┴──────┐                                   │     │  Blockers?  │ ──── yes ─────────────────────────┘     └──────┬──────┘            │ no">
+    <meta name="twitter:url" content="http://blog.shanelee.name/2026/05/12/agentic-reflexion-teach-your-ai-to-doubt-its-own-plan/">
+    <meta name="twitter:image:src" content="http://blog.shanelee.name/content/images/2026/05/agentic-reflexion-hero-2.png">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shane Lee">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="ai, agentic, claude, copilot, context, plan">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Tech Blog (mainly!)",
+        "logo": "http://blog.shanelee.name/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shane Lee",
+        "image": "http://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg",
+        "url": "http://blog.shanelee.name/author/shane/",
+        "sameAs": [
+            "https://about.me/shane-lee"
+        ]
+    },
+    "headline": "Agentic Reflexion: Teach Your AI to Doubt Its Own Plan",
+    "url": "http://blog.shanelee.name/2026/05/12/agentic-reflexion-teach-your-ai-to-doubt-its-own-plan/",
+    "datePublished": "2026-05-12T21:10:27.025Z",
+    "dateModified": "2026-05-28T15:41:29.772Z",
+    "image": "http://blog.shanelee.name/content/images/2026/05/agentic-reflexion-hero-2.png",
+    "keywords": "ai, agentic, claude, copilot, context, plan",
+    "description": "Your AI wrote a great plan. It&#x27;s probably wrong. Here&#x27;s how to catch that before you build.         ┌──────────────────────────────────────────────┐         │                                              │    You  │                                         refine     │   │                                              │     ▼   ▼                                              │ ┌─────────────────────┐                               │ │      Plan Mode      │  ← Model A (e.g., Sonnet)     │ │  (Read · Reason ·   │                               │ │    Propose)         │                               │ └─────────────────────┘                               │            │                                          │            │  Draft Plan                              │            ▼                                          │ ┌─────────────────────┐                               │ │    Plan Reviewer    │  ← Model B (e.g., Opus)       │ │  (Critique · Flag · │    Fresh context              │ │    Rank by Risk)    │    Adversarial prompt         │ └─────────────────────┘                               │            │                                          │     ┌──────┴──────┐                                   │     │  Blockers?  │ ──── yes ─────────────────────────┘     └──────┬──────┘            │ no"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.8">
+    <link rel="alternate" type="application/rss+xml" title="Tech Blog (mainly!)" href="https://blog.shanelee.name/rss/">
+    <meta name="google-site-verification" content="dzkjZUDovRImqR_2oGUlteWT1zcgw-r6cqBYef9qiWw">
+<meta name="google-site-verification" content="lojSObDdEFLBM0ok1Yiqy7rqgbc8yAUTyqF5iYszvWA">
+<link rel="preconnect" href="http://shavo007.disqus.com">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128189527-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-128189527-1');
+</script>
+<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2007283184718574",
+    enable_page_level_ads: true
+  });
+</script>
+</head>
+<body class="post-template tag-ai tag-agentic tag-claude tag-copilot tag-context tag-plan nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="https://blog.shanelee.name/">Home</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="https://blog.shanelee.name/rss/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head " style="background-image: url(../../../../content/images/2026/05/agentic-reflexion-hero-2.png)">
+    <nav class="main-nav overlay clearfix">
+        
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post tag-ai tag-agentic tag-claude tag-copilot tag-context tag-plan">
+
+        <header class="post-header">
+            <h1 class="post-title">Agentic Reflexion: Teach Your AI to Doubt Its Own Plan</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2026-05-12">12 May 2026</time>
+                 on <a href="../../../../tag/ai/">ai</a>, <a href="../../../../tag/agentic/">agentic</a>, <a href="../../../../tag/claude/">claude</a>, <a href="../../../../tag/copilot/">copilot</a>, <a href="../../../../tag/context/">context</a>, <a href="../../../../tag/plan/">plan</a>
+                ,
+
+                <!--<li class="post-meta-item">-->
+                    <a href="index.html#disqus_thread"></a>
+                <!--</li>-->
+                <!--<a href="#disqus_thread"/>-->
+            </section>
+        </header>
+
+        <section class="post-content">
+
+            <p><strong>Your AI wrote a great plan. It's probably wrong. Here's how to catch that before you build.</strong></p>
+
+<pre><code>        ┌──────────────────────────────────────────────┐
+        │                                              │
+   You  │                                         refine
+    │   │                                              │
+    ▼   ▼                                              │
+┌─────────────────────┐                               │
+│      Plan Mode      │  ← Model A (e.g., Sonnet)     │
+│  (Read · Reason ·   │                               │
+│    Propose)         │                               │
+└─────────────────────┘                               │
+           │                                          │
+           │  Draft Plan                              │
+           ▼                                          │
+┌─────────────────────┐                               │
+│    Plan Reviewer    │  ← Model B (e.g., Opus)       │
+│  (Critique · Flag · │    Fresh context              │
+│    Rank by Risk)    │    Adversarial prompt         │
+└─────────────────────┘                               │
+           │                                          │
+    ┌──────┴──────┐                                   │
+    │  Blockers?  │ ──── yes ─────────────────────────┘
+    └──────┬──────┘
+           │ no
+           ▼
+┌─────────────────────┐
+│      Implement      │
+└─────────────────────┘
+</code></pre>
+
+<p>There's a failure mode buried inside plan mode that nobody talks about.</p>
+
+<p>The model that wrote the plan is also the most likely to think the plan is good. It built the reasoning. It owns the assumptions. When you ask the same model to review its own output — same context, same priors — it's not reviewing. It's confirming.</p>
+
+<p>This is a well-known problem in AI research. The paper that formalised it — <a href="https://arxiv.org/abs/2303.11366"><em>Reflexion</em></a> (Shinn et al., 2023) — showed that giving agents a verbal feedback loop dramatically improved task performance. The core insight: critique before committing to an action is structurally better than acting and recovering. The catch: the critique has to be genuine. A self-reinforcing loop is worse than no critique at all, because it gives you false confidence.</p>
+
+<p>The fix is surprisingly simple. You use a second agent — different model, fresh context, adversarial instructions — whose only job is to find what's wrong with the plan before you build it.</p>
+
+<p>In this post you'll learn:</p>
+
+<ul>
+<li>What the Reflexion pattern is and why it matters for agentic coding</li>
+<li>How plan mode fits into the loop — and where it falls short on its own</li>
+<li>How to build a plan reviewer sub-agent that actually finds problems</li>
+<li>Why the model family you pick for the reviewer changes what it catches</li>
+<li>How GitHub Copilot CLI validated this exact pattern with their Rubber Duck feature — and the numbers behind it</li>
+</ul>
+
+<blockquote>
+  <p>💡 This is <strong>Part 7</strong> in my Context Engineering series. <a href="https://blog.shanelee.name/2026/01/25/context-engineering-stop-fighting-your-ai-and-start-shipping-faster/">Part 1</a> covered the four pillars. <a href="https://blog.shanelee.name/2026/01/26/context-engineering-stop-fighting-your-ai-and-start-shipping-faster-pt2/">Part 2</a> introduced agent skills. <a href="https://blog.shanelee.name/2026/01/30/scrum-is-dead-why-ai-powered-teams-need-lean-methodology-not-ceremonies/">Part 3</a> argued for lean over Scrum. <a href="https://blog.shanelee.name/2026/02/03/agentic-coding-git-worktrees-and-agent-skills-for-parallel-workflows/">Part 4</a> put skills to work with git worktrees. <a href="https://blog.shanelee.name/2026/02/24/markdown-never-left-ai-just-caught-up/">Part 5</a> showed why Markdown is the native format of agentic context. <a href="https://blog.shanelee.name/2026/03/22/spec-driven-development-is-waterfall-in-a-trench-coat-2/">Part 6</a> explained why spec-driven development is waterfall in a trench coat.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="thereflexionpattern">🧠 The Reflexion Pattern</h2>
+
+<p>The original Reflexion paper introduced a deceptively simple idea: rather than asking an agent to act directly on a task, give it a loop.</p>
+
+<ol>  
+<li><strong>Generate</strong> — the agent produces an output (a plan, a solution, an action)</li>  
+<li><strong>Evaluate</strong> — a critic assesses that output against some standard</li>  
+<li><strong>Refine</strong> — the agent incorporates the critique and produces a better output</li>  
+</ol>
+
+<p>Repeat until good enough or resource limits are hit.</p>
+
+<p>What made the results striking wasn't the loop itself — iteration is obvious. It was the quality of the critic. When the evaluator had a fresh context and adversarial instructions, agents caught mistakes they repeatedly missed on direct attempts. The same model could find what it wouldn't have generated.</p>
+
+<p>The lesson for agentic coding isn't that you need a research paper's setup — it's that a second perspective, properly framed, is structurally different from self-review. The critique has to come from somewhere the original reasoning didn't.</p>
+
+<hr>
+
+<h2 id="planmodethegeneratorhalf">📋 Plan Mode: The Generator Half</h2>
+
+<p>If you've used Claude Code's plan mode, you've seen the first half of the Reflexion loop already.</p>
+
+<p>You describe the task. Claude Code reads your codebase — your CLAUDE.md, the relevant files, the existing patterns — and produces a structured plan before touching anything. It identifies which files change, what functions are affected, what the implementation sequence looks like, and flags anything it's uncertain about.</p>
+
+<p>This is genuinely valuable. It surfaces the reasoning before you're committed to it. You can redirect, push back, or add constraints before a single line of code is written. That's the right gate.</p>
+
+<p>But plan mode has a blind spot. The model that wrote the plan has been <em>primed</em> to think it's correct. It read your codebase through the lens of solving your task. Its context window is full of reasoning that supports the approach it just proposed. Asking that same context to critique the plan is like asking someone to proofread their own essay five minutes after writing it — the eye slides over what the brain already decided was fine.</p>
+
+<p>What you need is a second reader who wasn't in the room when the plan was written.</p>
+
+<hr>
+
+<h2 id="entertheskeptictheplanreviewersubagent">🔴 Enter the Skeptic: The Plan Reviewer Sub-Agent</h2>
+
+<p>The plan reviewer is a sub-agent whose only job is to find problems.</p>
+
+<p>Not to validate the approach. Not to suggest alternatives. Not to summarise what the plan does well. To find what will break it.</p>
+
+<p>Here's what the output looks like in practice:</p>
+
+<pre><code>## Plan Review
+
+### Blockers
+- Step 3 calls `migrate_schema()` but this function does not exist in the codebase.
+  Grep confirms no match. Plan assumes it was already implemented in a prior ticket.
+
+### Significant Risks  
+- The migration has no rollback step. If the schema change fails mid-run on the
+  50M-row table, there is no documented recovery path.
+
+### Minor Concerns
+- Step 7 says "update accordingly" — underspecified. Which callers are affected
+  and in what order?
+</code></pre>
+
+<p>That's the output you want <em>before</em> implementation, not after. The blocker in that example — calling a function that doesn't exist — would have caused an immediate runtime failure. The plan reviewer caught it in thirty seconds by grepping the codebase. The planning model didn't, because it assumed the function was there.</p>
+
+<p>In practice, a single review pass catches the high-severity issues. If the plan changes substantially after refinement, run the reviewer again — a revised plan can introduce new assumptions just as easily as the original.</p>
+
+<hr>
+
+<h2 id="whythemodelfamilymatters">🎯 Why the Model Family Matters</h2>
+
+<p>The single most important decision in setting up a plan reviewer is <em>which model it uses</em>.</p>
+
+<p>This isn't about one model being "better" than another in some general sense. It's about cognitive diversity. Different model families have different training, different blind spots, different tendencies toward optimism or caution. A plan generated by Claude Sonnet reviewed by Claude Sonnet in the same session is likely to surface the same risk profile the plan itself assumed.</p>
+
+<p>A plan generated by Sonnet, then passed to Opus in a fresh context window with adversarial instructions, is different. Opus has different priors about what constitutes a risk. It hasn't been warmed up by the same planning conversation. It's reading the plan cold, the same way a senior engineer would if you dropped it in their inbox.</p>
+
+<p>The principle generalises beyond Claude. If your planning agent uses GPT-4o, review with Claude. If it uses Claude Sonnet, review with Opus. The point isn't that one is smarter — it's that the review is structurally independent. You're not asking the same chain of reasoning to audit itself.</p>
+
+<blockquote>
+  <p>💡 <strong>Model diversity in the review step is the difference between a rubber stamp and a genuine gate.</strong></p>
+</blockquote>
+
+<hr>
+
+<h2 id="theindustryagreescopilotsrubberduck">🦆 The Industry Agrees: Copilot's Rubber Duck</h2>
+
+<p>This isn't a niche pattern. GitHub just shipped exactly this in <a href="https://github.blog/ai-and-ml/github-copilot/github-copilot-cli-combines-model-families-for-a-second-opinion/">GitHub Copilot CLI</a> under the name <strong>Rubber Duck</strong> — and the numbers make the case better than theory does.</p>
+
+<p>When you select Claude as the orchestrator in Copilot CLI, Rubber Duck automatically brings in GPT-5.4 as the reviewer. Cross-model by design. The system fires at three checkpoints:</p>
+
+<ol>  
+<li><strong>After planning</strong> — catches suboptimal early decisions before they compound</li>  
+<li><strong>After complex implementation</strong> — identifies edge cases in intricate code</li>  
+<li><strong>After test writing</strong> — flags coverage gaps before execution</li>  
+</ol>
+
+<p>The performance result is striking. Testing on SWE-Bench Pro found that <strong>Claude Sonnet 4.6 paired with Rubber Duck running GPT-5.4 closed 74.7% of the performance gap between Sonnet and Opus</strong> — approaching Opus-level resolution rates at Sonnet cost. On the hardest multi-file problems, the pairing scored 4.8% higher than the baseline.</p>
+
+<p>The bugs Rubber Duck caught in real-world testing are instructive too: a scheduler that immediately exited due to an architectural flaw, silent data loss from overwritten dictionary keys, cross-file conflicts breaking Redis references. These aren't hypothetical risks — they're the exact category of problem that compiles, passes linting, and only breaks in production.</p>
+
+<blockquote>
+  <p>💡 You don't get near-Opus performance by using a better model. You get it by adding a cross-model reviewer to your loop.</p>
+</blockquote>
+
+<p>The name is a deliberate nod to the classic <a href="https://en.wikipedia.org/wiki/Rubber_duck_debugging">rubber duck debugging</a> technique — explaining your code to an inanimate object to surface problems you couldn't see while writing. The insight is the same: a second perspective that wasn't involved in producing the output finds what you normalised away.</p>
+
+<p>GitHub built it into the tool. You can build it into your workflow today with a single agent definition.</p>
+
+<hr>
+
+<h2 id="buildingtheplanreviewer">⚙️ Building the Plan Reviewer</h2>
+
+<p>You don't need a complex setup to implement this. In Claude Code, a plan reviewer is a standard agent definition — a markdown file in your <code>.agents/agents/</code> directory with a system prompt and a model assignment.</p>
+
+<p>The key elements:</p>
+
+<p><strong>1. Make it adversarial by default.</strong> The reviewer's job is to find problems, not to acknowledge what the plan does right. Any praise is wasted context.</p>
+
+<p><strong>2. Give it verification tools.</strong> The most common plan failure is an assumption about the codebase that turns out to be false. The reviewer needs <code>Read</code>, <code>Grep</code>, and <code>Glob</code> access to check those assumptions against actual code — not just against what the plan claims.</p>
+
+<p><strong>3. Order findings by severity.</strong> A list of concerns is useful. A list ordered by blast radius is actionable. Blockers (will cause failure) first, then significant risks (likely to cause production issues), then minor concerns (underspecified steps, optimistic assumptions).</p>
+
+<p><strong>4. Make it trigger proactively.</strong> The description field determines when Claude Code invokes it automatically. Phrase it to trigger after any plan is produced, not just when explicitly asked — because the cases where you forget to ask are exactly the cases that go wrong.</p>
+
+<p><strong>5. Set <code>color: red</code>.</strong> It's a small touch, but it visually marks the reviewer as the adversarial voice in your agent list — a useful reminder that its job is to find fault, not to help.</p>
+
+<p>Here's the full definition from my <a href="https://github.com/shavo007/langchain-anthropic-pdf-support"><code>langchain-anthropic-pdf-support</code></a> project:</p>
+
+<pre><code class="language-markdown">---
+name: plan-reviewer  
+description: |  
+  Use this agent when a plan has been written and needs critical review before
+  implementation begins. Trigger proactively after producing an implementation plan,
+  migration plan, refactor proposal, or architectural design. Also trigger when
+  the user asks to "review the plan", "critique this approach", or "find problems
+  with this".
+model: opus  
+color: red  
+tools: ["Read", "Grep", "Glob"]  
+---
+
+You are a principal engineer reviewing a plan. Your job is to find problems,  
+not validate assumptions.
+
+Systematically identify:  
+1. Edge cases not accounted for  
+2. Performance implications (N+1, blocking, scale issues)  
+3. Backwards compatibility risks  
+4. Missing rollback steps  
+5. Anything underspecified or optimistic
+
+Verify plan assumptions against actual code using Read/Grep/Glob.  
+Order findings by severity: blockers first, then significant risks,  
+then minor concerns.  
+Do not praise or summarise what the plan does well.  
+</code></pre>
+
+<blockquote>
+  <p><strong>Note on <code>model: opus</code>:</strong> The repo uses <code>model: inherit</code> by default, which picks up whatever model the parent session is running. For the reviewer to provide genuine cognitive diversity, set it explicitly — <code>opus</code> if you're running Sonnet day-to-day, or swap model families entirely if you're on a non-Claude tool.</p>
+</blockquote>
+
+<p><strong>If you're not on Claude Code</strong>, the same principle applies. In Cursor, add a rule in <code>.cursorrules</code> that instructs a second agent pass to critique the plan before acting. In GitHub Copilot CLI, Rubber Duck does this automatically. The pattern is tool-agnostic — what matters is the structural separation: a different model, a fresh context, and an adversarial framing.</p>
+
+<hr>
+
+<h2 id="thebottomline">The Bottom Line</h2>
+
+<p>Plan mode is valuable. But a plan reviewed only by the model that wrote it is a plan that's checked its own homework.</p>
+
+<p>The Reflexion pattern gives you a genuine quality gate: a second model, fresh context, explicitly tasked with finding what the plan got wrong before you build it. The reviewer reads cold. It verifies assumptions against real code. It ranks what it finds by severity so you know what to fix before you act.</p>
+
+<ul style="list-style: none; padding-left: 0; margin: 1em 0;">  
+  <li style="padding: 6px 0;">✅ <strong>Use plan mode</strong> to generate a structured plan before any implementation</li>
+  <li style="padding: 6px 0;">✅ <strong>Spawn a plan reviewer agent</strong> with a different model family and adversarial instructions</li>
+  <li style="padding: 6px 0;">✅ <strong>Give the reviewer code access</strong> so it can verify assumptions, not just critique the document</li>
+  <li style="padding: 6px 0;">✅ <strong>Trigger it proactively</strong> — the cases where you forget to ask are exactly the cases that go wrong</li>
+  <li style="padding: 6px 0;">✅ <strong>Re-run after significant refinement</strong> — a revised plan can introduce new assumptions just as easily as the original</li>
+  <li style="padding: 6px 0;">❌ <strong>Don't use the same model and context</strong> for both planning and review — you're not getting a second opinion, you're getting a confirmation</li>
+</ul>
+
+<p>The plan reviewer doesn't replace judgment. You still decide which findings to act on. But it gives you something plan mode can't: a perspective that wasn't in the room when the plan was written.</p>
+
+<p>That's the difference between a plan you reviewed and a plan that's been stress-tested.</p>
+        </section>
+
+        <!-- disqus code snippet -->
+        <div id="disqus_thread"></div>
+        <script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+this.page.url = 'http://blog.shanelee.name/2026/05/12/agentic-reflexion-teach-your-ai-to-doubt-its-own-plan/'; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'ghost-38'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//shavo007.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        <script id="dsq-count-scr" src="http://shavo007.disqus.com/count.js" async></script>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../../../../author/shane/" style="background-image: url(https://blog.shanelee.name/content/images/2016/06/shaneProfile-1.jpg)"><span class="hidden">Shane Lee's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../../../../author/shane/">Shane Lee</a></h4>
+
+                    <p>Read <a href="../../../../author/shane/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    <span class="author-location icon-location">Melbourne</span>
+                    <span class="author-link icon-link"><a href="https://about.me/shane-lee">https://about.me/shane-lee</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Agentic%20Reflexion%3A%20Teach%20Your%20AI%20to%20Doubt%20Its%20Own%20Plan&amp;url=https://blog.shanelee.name/2026/05/12/agentic-reflexion-teach-your-ai-to-doubt-its-own-plan/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.shanelee.name/2026/05/12/agentic-reflexion-teach-your-ai-to-doubt-its-own-plan/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://blog.shanelee.name/2026/05/12/agentic-reflexion-teach-your-ai-to-doubt-its-own-plan/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+
+    </article>
+</main>
+
+
+
+<aside class="read-next">
+    <a class="read-next-story prev " style="background-image: url(../../../../content/images/2026/03/spec-driven-dev-hero-2.png)" href="../../../03/22/spec-driven-development-is-waterfall-in-a-trench-coat-2/">
+        <section class="post">
+            <h2>Spec-Driven Development is Waterfall With a Fresh Coat of Paint</h2>
+            <p>The AI tooling ecosystem keeps rediscovering waterfall. Here's why you should resist it. When did you last finish a…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="https://blog.shanelee.name">Tech Blog (mainly!)</a> © 2026</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/line-numbers/prism-line-numbers.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-coy.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-graphql.min.js"></script>
+<!-- Add additional languages here -->
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js"></script>
+    <script type="text/javascript" src="../../../../assets/js/prism.js"></script>
+
+
+
+</body>
+</html>
